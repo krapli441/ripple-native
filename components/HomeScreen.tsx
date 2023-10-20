@@ -1,3 +1,4 @@
+// React & React Native
 import React from 'react';
 import {
   SafeAreaView,
@@ -9,6 +10,9 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+
+// Others
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function HomeScreen(): JSX.Element {
   return (
