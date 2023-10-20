@@ -20,20 +20,36 @@ function MapScreen() {
     y: coords.latitude,
   });
 
-
   useEffect(() => {
+    Geolocation.getCurrentPosition(
+      positionData => {
+        const {latitude, longitude} = positionData.coords;
+        setRegion({
+          latitude,
+          longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        });
+        console.log(
+          `Tracking user - Region: latitude=${latitude}, longitude=${longitude}`,
+        );
+        positionAnim.setValue({x: latitude, y: longitude});
+      },
+      error => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+      },
+    );
+
     const watchId = Geolocation.watchPosition(
       positionData => {
         const {latitude, longitude} = positionData.coords;
         console.log(
-          `Tracking user: latitude=${latitude}, longitude=${longitude}`,
+          `Tracking user - Marker: latitude=${latitude}, longitude=${longitude}`,
         );
         setCoords({latitude, longitude});
-        setRegion(prevRegion => ({
-          ...prevRegion,
-          latitude,
-          longitude,
-        }));
         Animated.timing(positionAnim, {
           toValue: {x: latitude, y: longitude},
           duration: 500,
