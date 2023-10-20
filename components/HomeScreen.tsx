@@ -29,13 +29,13 @@ function HomeScreen(): JSX.Element {
           </Text>
           <TouchableOpacity style={[styles.button, styles.googleButton]}>
             <View style={styles.buttonContent}>
-              <Icon name="google" size={20} color="white" />
+              <Icon name="google" size={20} color="black" />
               <Text style={styles.buttonText}>Google을 이용하여 로그인</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.spotifyButton]}>
             <View style={styles.buttonContent}>
-              <Icon name="spotify" size={20} color="white" />
+              <Icon name="spotify" size={20} color="black" />
               <Text style={styles.buttonText}>Spotify를 이용하여 로그인</Text>
             </View>
           </TouchableOpacity>
@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   googleButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: '#FFFFFF',
   },
   spotifyButton: {
     backgroundColor: '#1DB954',
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontWeight: '700',
     marginLeft: 10,
   },
