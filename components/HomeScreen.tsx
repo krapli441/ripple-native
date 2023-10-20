@@ -28,10 +28,16 @@ function HomeScreen(): JSX.Element {
             Hello Ripple. Let's make some shit.
           </Text>
           <TouchableOpacity style={[styles.button, styles.googleButton]}>
-            <Text style={styles.buttonText}>Google을 이용하여 로그인</Text>
+            <View style={styles.buttonContent}>
+              <Icon name="google" size={20} color="white" />
+              <Text style={styles.buttonText}>Google을 이용하여 로그인</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.spotifyButton]}>
-            <Text style={styles.buttonText}>Spotify를 이용하여 로그인</Text>
+            <View style={styles.buttonContent}>
+              <Icon name="spotify" size={20} color="white" />
+              <Text style={styles.buttonText}>Spotify를 이용하여 로그인</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -58,8 +64,8 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 15,
-    borderRadius: 5,
-    width: 200,
+    borderRadius: 30,
+    width: 250,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -73,11 +79,16 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '700',
+    marginLeft: 10,
   },
   logo: {
     width: 250,
     height: 250,
     marginBottom: 20,
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
