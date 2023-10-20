@@ -9,14 +9,22 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  useColorScheme,
 } from 'react-native';
 
 // Others
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function HomeScreen(): JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const containerStyle = {
+    ...styles.container,
+    backgroundColor: isDarkMode ? 'black' : 'white',
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={containerStyle}>
       <StatusBar barStyle="dark-content" />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.centerContent}>
@@ -24,9 +32,6 @@ function HomeScreen(): JSX.Element {
             source={require('../assets/img/ripplelogo.png')}
             style={styles.logo}
           />
-          <Text style={styles.sectionTitle}>
-            Hello Ripple. Let's make some shit.
-          </Text>
           <TouchableOpacity style={[styles.button, styles.googleButton]}>
             <View style={styles.buttonContent}>
               <Icon name="google" size={20} color="black" />

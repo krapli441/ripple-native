@@ -1,14 +1,15 @@
+// React & React Native
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import {
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
+// Libraries
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+// Components
 import HomeScreen from './components/HomeScreen';
 
 type SectionProps = PropsWithChildren<{
@@ -41,6 +42,8 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
+const Stack = createStackNavigator();
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -48,7 +51,18 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  return <HomeScreen />;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+        {/* <Stack.Screen name="Map" component={MapScreen} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
