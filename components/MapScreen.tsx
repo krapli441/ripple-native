@@ -47,12 +47,7 @@ function MapScreen(): JSX.Element {
         provider={PROVIDER_GOOGLE}
         customMapStyle={mapStyle}
         style={styles.map}
-        region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}></MapView>
+        region={region}></MapView>
     </View>
   );
 }
