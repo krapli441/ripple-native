@@ -14,20 +14,8 @@ import {
 
 // Others
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {StackNavigationProp} from '@react-navigation/stack';
 
-type RootStackParamList = {
-  Home: undefined;
-  Map: undefined;
-};
-
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
-type HomeScreenProps = {
-  navigation: HomeScreenNavigationProp;
-};
-
-function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
+function MapScreen(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const containerStyle = {
@@ -56,9 +44,7 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
               <Text style={styles.buttonText}>Spotify를 이용하여 로그인</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, styles.mapButton]}
-            onPress={() => navigation.navigate('Map')}>
+          <TouchableOpacity style={[styles.button, styles.mapButton]}>
             <View style={styles.buttonContent}>
               <Icon name="map" size={20} color="black" />
               <Text style={styles.buttonText}>테스트 - 지도로 이동</Text>
@@ -120,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default MapScreen;

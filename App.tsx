@@ -11,6 +11,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 // Components
 import HomeScreen from './components/HomeScreen';
+import MapScreen from './components/MapScreen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -59,7 +60,7 @@ function App(): JSX.Element {
           component={HomeScreen}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen name="Map" component={MapScreen} /> */}
+        <Stack.Screen name="Map" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
