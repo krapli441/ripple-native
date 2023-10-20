@@ -28,6 +28,7 @@ function MapScreen(): JSX.Element {
           latitude,
           longitude,
         });
+        console.log('Region updated: ', region);
       },
       error => console.log(error),
       {
