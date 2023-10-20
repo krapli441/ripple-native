@@ -1,34 +1,44 @@
-// React & React Native
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, useColorScheme} from 'react-native';
-// Others
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import mapStyle from '../maps/customMapStyle.json';
+import React, {useEffect, useState} from 'react';
+import {View, Animated, StyleSheet} from 'react-native';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
 
-function MapScreen(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const containerStyle = {
-    ...styles.container,
-    backgroundColor: isDarkMode ? 'black' : 'wshite',
-  };
-
+function MapScreen() {
+  const [coords, setCoords] = useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+  });
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   });
+  const positionAnim = new Animated.ValueXY({
+    x: coords.longitude,
+    y: coords.latitude,
+  });
+
+
   useEffect(() => {
     const watchId = Geolocation.watchPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        setRegion({
-          ...region,
+      positionData => {
+        const {latitude, longitude} = positionData.coords;
+        console.log(
+          `Tracking user: latitude=${latitude}, longitude=${longitude}`,
+        );
+        setCoords({latitude, longitude});
+        setRegion(prevRegion => ({
+          ...prevRegion,
           latitude,
           longitude,
-        });
-        console.log('Region updated: ', region);
+        }));
+        Animated.timing(positionAnim, {
+          toValue: {x: latitude, y: longitude},
+          duration: 500,
+          useNativeDriver: false,
+        }).start();
       },
       error => console.log(error),
       {
@@ -46,9 +56,11 @@ function MapScreen(): JSX.Element {
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
-        customMapStyle={mapStyle}
+        customMapStyle={MapStyle}
         style={styles.map}
-        region={region}></MapView>
+        region={region}>
+        <Marker.Animated coordinate={coords} title="My Location" />
+      </MapView>
     </View>
   );
 }
@@ -56,8 +68,6 @@ function MapScreen(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 'auto',
-    width: 'auto',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
