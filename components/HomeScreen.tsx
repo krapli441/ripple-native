@@ -39,6 +39,12 @@ function HomeScreen(): JSX.Element {
               <Text style={styles.buttonText}>Spotify를 이용하여 로그인</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, styles.mapButton]}>
+            <View style={styles.buttonContent}>
+              <Icon name="map" size={20} color="black" />
+              <Text style={styles.buttonText}>테스트 - 지도로 이동</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -75,6 +81,9 @@ const styles = StyleSheet.create({
   },
   spotifyButton: {
     backgroundColor: '#1DB954',
+  },
+  mapButton: {
+    backgroundColor: '#FFFFFF',
   },
   buttonText: {
     color: 'black',
