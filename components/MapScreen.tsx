@@ -74,7 +74,8 @@ function MapScreen() {
         provider={PROVIDER_GOOGLE}
         customMapStyle={MapStyle}
         style={styles.map}
-        region={region}>
+        region={region}
+        mapPadding={{bottom: 50, top: 0, right: 0, left: 0}}>
         <Marker.Animated coordinate={coords} title="My Location" />
       </MapView>
     </View>

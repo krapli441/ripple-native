@@ -60,7 +60,11 @@ function App(): JSX.Element {
           component={HomeScreen}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Ripple" component={MapScreen} />
+        <Stack.Screen
+          name="Ripple"
+          component={MapScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
