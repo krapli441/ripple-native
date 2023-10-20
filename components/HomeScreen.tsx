@@ -18,7 +18,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 type RootStackParamList = {
   Home: undefined;
-  Map: undefined;
+  Ripple: undefined;
 };
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
@@ -58,7 +58,7 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.mapButton]}
-            onPress={() => navigation.navigate('Map')}>
+            onPress={() => navigation.navigate('Ripple')}>
             <View style={styles.buttonContent}>
               <Icon name="map" size={20} color="black" />
               <Text style={styles.buttonText}>테스트 - 지도로 이동</Text>
