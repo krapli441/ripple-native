@@ -32,13 +32,15 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
 
   const containerStyle = {
     ...styles.container,
-    backgroundColor: isDarkMode ? 'black' : 'white',
+    backgroundColor: isDarkMode ? '#191414' : 'white',
   };
 
   return (
     <SafeAreaView style={containerStyle}>
-      <StatusBar barStyle="dark-content" />
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContent}
+        scrollEnabled={false}>
         <View style={styles.centerContent}>
           <Image
             source={require('../assets/img/ripplelogo.png')}
@@ -96,13 +98,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   googleButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#EDEDE9',
   },
   spotifyButton: {
     backgroundColor: '#1DB954',
   },
   mapButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#EDEDE9',
   },
   buttonText: {
     color: 'black',

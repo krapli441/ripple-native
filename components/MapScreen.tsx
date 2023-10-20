@@ -1,10 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {View, Animated, StyleSheet} from 'react-native';
+import {
+  View,
+  Animated,
+  StyleSheet,
+  StatusBar,
+  useColorScheme,
+} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
 
 function MapScreen() {
+  const isDarkMode = useColorScheme() === 'dark';
+
   const [coords, setCoords] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -70,6 +78,7 @@ function MapScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <MapView
         provider={PROVIDER_GOOGLE}
         customMapStyle={MapStyle}
