@@ -84,11 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 20,
-  },
   button: {
     padding: 20,
     borderRadius: 30,
@@ -114,7 +109,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 250,
     height: 250,
-    marginBottom: 20,
+    marginBottom: 80,
   },
   buttonContent: {
     flexDirection: 'row',
