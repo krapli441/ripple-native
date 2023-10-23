@@ -10,14 +10,46 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
 
+type Coords = {
+  latitude: number;
+  longitude: number;
+};
+
+type Region = Coords & {
+  latitudeDelta: number;
+  longitudeDelta: number;
+};
+
+const fetchCurrentLocation = (
+  onSuccess: (positionData: any) => void,
+  onError: (error: any) => void,
+) => {
+  Geolocation.getCurrentPosition(onSuccess, onError, {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 1000,
+  });
+};
+
+const watchLocation = (
+  onUpdate: (positionData: any) => void,
+  onError: (error: any) => void,
+) => {
+  return Geolocation.watchPosition(onUpdate, onError, {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 1000,
+    distanceFilter: 10,
+  });
+};
+
 function MapScreen() {
   const isDarkMode = useColorScheme() === 'dark';
-
-  const [coords, setCoords] = useState({
+  const [coords, setCoords] = useState<Coords>({
     latitude: 37.78825,
     longitude: -122.4324,
   });
-  const [region, setRegion] = useState({
+  const [region, setRegion] = useState<Region>({
     latitude: 37.78825,
     longitude: -122.4324,
     latitudeDelta: 0.015,
@@ -29,7 +61,7 @@ function MapScreen() {
   });
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(
+    fetchCurrentLocation(
       positionData => {
         const {latitude, longitude} = positionData.coords;
         setRegion({
@@ -38,25 +70,17 @@ function MapScreen() {
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         });
-        console.log(
-          `Tracking user - Region: latitude=${latitude}, longitude=${longitude}`,
-        );
         positionAnim.setValue({x: latitude, y: longitude});
       },
-      error => console.log(error),
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1000,
+      error => {
+        // Handle error, maybe notify the user
+        console.log(error);
       },
     );
 
-    const watchId = Geolocation.watchPosition(
+    const watchId = watchLocation(
       positionData => {
         const {latitude, longitude} = positionData.coords;
-        console.log(
-          `Tracking user - Marker: latitude=${latitude}, longitude=${longitude}`,
-        );
         setCoords({latitude, longitude});
         Animated.timing(positionAnim, {
           toValue: {x: latitude, y: longitude},
@@ -64,12 +88,9 @@ function MapScreen() {
           useNativeDriver: false,
         }).start();
       },
-      error => console.log(error),
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1000,
-        distanceFilter: 10,
+      error => {
+        // Handle error, maybe notify the user
+        console.log(error);
       },
     );
 
