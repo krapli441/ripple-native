@@ -21,20 +21,20 @@ const CustomTabBar = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Home')}>
-        <Icon name="home" size={20} />
-        <Text>홈</Text>
+        <Icon name="home" size={30} />
+        <Text style={styles.textStyle}>홈</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Ripple')}>
-        <Icon name="map" size={20} />
-        <Text>지도</Text>
+        <Icon name="map" size={30} />
+        <Text style={styles.textStyle}>지도</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Profile')}>
-        <Icon name="user" size={20} />
-        <Text>내 정보</Text>
+        <Icon name="user" size={30} />
+        <Text style={styles.textStyle}>내 정보</Text>
       </TouchableOpacity>
     </View>
   );
@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+  },
+  textStyle: {
+    marginTop: 10,
   },
 });
 
