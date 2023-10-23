@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StatusBar,
   useColorScheme,
+  AppState,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
@@ -89,13 +90,38 @@ function MapScreen() {
         }).start();
       },
       error => {
-        // Handle error, maybe notify the user
         console.log(error);
       },
     );
 
-    return () => Geolocation.clearWatch(watchId);
+    const appStateSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      Geolocation.clearWatch(watchId);
+      appStateSubscription.remove();
+    };
   }, []);
+
+  const handleAppStateChange = (nextAppState: any) => {
+    if (nextAppState === 'active') {
+      // Fetch location and update marker when the app returns to the foreground
+      fetchCurrentLocation(
+        positionData => {
+          const {latitude, longitude} = positionData.coords;
+          setCoords({latitude, longitude});
+          Animated.timing(positionAnim, {
+            toValue: {x: latitude, y: longitude},
+            duration: 500,
+            useNativeDriver: false,
+          }).start();
+        },
+        error => console.log(error),
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
