@@ -14,18 +14,24 @@ import {
 
 // Others
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {StackNavigationProp} from '@react-navigation/stack';
-
-type RootStackParamList = {
-  Home: undefined;
-  Ripple: undefined;
-};
-
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+import {HomeScreenNavigationProp} from '../types/navigationTypes';
 
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
 };
+
+const LoginButton: React.FC<{
+  iconName: string;
+  text: string;
+  buttonStyle: any;
+}> = ({iconName, text, buttonStyle}) => (
+  <TouchableOpacity style={[styles.button, buttonStyle]}>
+    <View style={styles.buttonContent}>
+      <Icon name={iconName} size={20} color="black" />
+      <Text style={styles.buttonText}>{text}</Text>
+    </View>
+  </TouchableOpacity>
+);
 
 function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -46,18 +52,16 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             source={require('../assets/img/ripplelogo.png')}
             style={styles.logo}
           />
-          <TouchableOpacity style={[styles.button, styles.googleButton]}>
-            <View style={styles.buttonContent}>
-              <Icon name="google" size={20} color="black" />
-              <Text style={styles.buttonText}>Google을 이용하여 로그인</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.spotifyButton]}>
-            <View style={styles.buttonContent}>
-              <Icon name="spotify" size={20} color="black" />
-              <Text style={styles.buttonText}>Spotify를 이용하여 로그인</Text>
-            </View>
-          </TouchableOpacity>
+          <LoginButton
+            iconName="google"
+            text="Google을 이용하여 로그인"
+            buttonStyle={styles.googleButton}
+          />
+          <LoginButton
+            iconName="spotify"
+            text="Spotify를 이용하여 로그인"
+            buttonStyle={styles.spotifyButton}
+          />
           <TouchableOpacity
             style={[styles.button, styles.mapButton]}
             onPress={() => navigation.navigate('Ripple')}>
@@ -71,7 +75,6 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
