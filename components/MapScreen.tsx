@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   Animated,
@@ -45,6 +45,8 @@ const watchLocation = (
 };
 
 function MapScreen() {
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords>({
     latitude: 37.78825,
@@ -90,38 +92,32 @@ function MapScreen() {
         }).start();
       },
       error => {
+        // Handle error, maybe notify the user
         console.log(error);
       },
     );
 
-    const appStateSubscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange,
-    );
-
-    return () => {
-      Geolocation.clearWatch(watchId);
-      appStateSubscription.remove();
-    };
+    return () => Geolocation.clearWatch(watchId);
   }, []);
 
-  const handleAppStateChange = (nextAppState: any) => {
-    if (nextAppState === 'active') {
-      // Fetch location and update marker when the app returns to the foreground
-      fetchCurrentLocation(
-        positionData => {
-          const {latitude, longitude} = positionData.coords;
-          setCoords({latitude, longitude});
-          Animated.timing(positionAnim, {
-            toValue: {x: latitude, y: longitude},
-            duration: 500,
-            useNativeDriver: false,
-          }).start();
-        },
-        error => console.log(error),
-      );
-    }
-  };
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
