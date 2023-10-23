@@ -76,7 +76,6 @@ function MapScreen() {
         positionAnim.setValue({x: latitude, y: longitude});
       },
       error => {
-        // Handle error, maybe notify the user
         console.log(error);
       },
     );
@@ -92,7 +91,6 @@ function MapScreen() {
         }).start();
       },
       error => {
-        // Handle error, maybe notify the user
         console.log(error);
       },
     );
@@ -140,7 +138,12 @@ function MapScreen() {
         customMapStyle={MapStyle}
         style={styles.map}
         region={region}
-        mapPadding={{bottom: 50, top: 0, right: 0, left: 0}}>
+        mapPadding={{bottom: 50, top: 0, right: 0, left: 0}}
+        scrollEnabled={false}
+        zoomEnabled={true}
+        rotateEnabled={true}
+        minZoomLevel={15}
+        maxZoomLevel={20}>
         <Marker.Animated coordinate={coords} title="My Location" />
       </MapView>
     </View>
