@@ -1,3 +1,4 @@
+// React & React Native
 import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
@@ -7,9 +8,13 @@ import {
   useColorScheme,
   AppState,
 } from 'react-native';
+// Libraries
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
+
+// Components
+import CustomTabBar from './Navigation';
 
 type Coords = {
   latitude: number;
@@ -146,17 +151,20 @@ function MapScreen() {
         maxZoomLevel={20}>
         <Marker.Animated coordinate={coords} title="My Location" />
       </MapView>
+      <CustomTabBar />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   map: {
+    flex: 1,
     ...StyleSheet.absoluteFillObject,
   },
 });

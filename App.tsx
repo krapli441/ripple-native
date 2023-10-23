@@ -1,6 +1,5 @@
 // React & React Native
 import React from 'react';
-import {View} from 'react-native';
 
 // Libraries
 import {NavigationContainer} from '@react-navigation/native';
