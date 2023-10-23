@@ -107,6 +107,19 @@ function MapScreen() {
         nextAppState === 'active'
       ) {
         console.log('App has come to the foreground!');
+        fetchCurrentLocation(
+          positionData => {
+            const {latitude, longitude} = positionData.coords;
+            setCoords({latitude, longitude});
+            Animated.timing(positionAnim, {
+              toValue: {x: latitude, y: longitude},
+              duration: 500,
+              useNativeDriver: false,
+            }).start();
+            console.log('geolocation has been updated', coords);
+          },
+          error => console.log(error),
+        );
       }
 
       appState.current = nextAppState;
