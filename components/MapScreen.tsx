@@ -43,9 +43,9 @@ const watchLocation = (
 ) => {
   return Geolocation.watchPosition(onUpdate, onError, {
     enableHighAccuracy: true,
-    timeout: 20000,
+    timeout: 3000,
     maximumAge: 1000,
-    distanceFilter: 10,
+    distanceFilter: 5,
   });
 };
 
@@ -89,6 +89,14 @@ function MapScreen() {
       positionData => {
         const {latitude, longitude} = positionData.coords;
         setCoords({latitude, longitude});
+
+        setRegion(prevRegion => ({
+          latitude,
+          longitude,
+          latitudeDelta: prevRegion.latitudeDelta,
+          longitudeDelta: prevRegion.longitudeDelta,
+        }));
+
         Animated.timing(positionAnim, {
           toValue: {x: latitude, y: longitude},
           duration: 500,
@@ -143,13 +151,19 @@ function MapScreen() {
         customMapStyle={MapStyle}
         style={styles.map}
         region={region}
-        mapPadding={{bottom: 50, top: 0, right: 0, left: 0}}
+        mapPadding={{bottom: 90, top: 0, right: 0, left: 0}}
         scrollEnabled={false}
         zoomEnabled={true}
         rotateEnabled={true}
         minZoomLevel={15}
-        maxZoomLevel={20}>
-        <Marker.Animated coordinate={coords} title="My Location" />
+        maxZoomLevel={20}
+        // showsUserLocation={true}
+        // userLocationAnnotationTitle="Your Position"
+        // followsUserLocation={true}
+        showsScale={false}
+        cacheEnabled={true}
+        loadingEnabled={true}>
+        <Marker.Animated coordinate={coords} title="Your Position" />
       </MapView>
       <CustomTabBar />
     </View>
