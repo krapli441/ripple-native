@@ -86,12 +86,12 @@ function MapScreen() {
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords>({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 37.5666612,
+    longitude: 126.9783785,
   });
   const [region, setRegion] = useState<Region>({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 37.5666612,
+    longitude: 126.978378,
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   });
