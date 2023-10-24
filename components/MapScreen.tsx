@@ -94,8 +94,6 @@ function MapScreen(): React.ReactElement {
         zoomEnabled={true}
         rotateEnabled={true}
         minZoomLevel={15}
-        showsUserLocation={true}
-        followsUserLocation={true}
         maxZoomLevel={20}
         showsScale={false}
         pitchEnabled={false}
