@@ -51,6 +51,33 @@ function MapScreen(): React.ReactElement {
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
+    // 사용자 위치 추적 시작
+    const watchId = Geolocation.watchPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setCoords({latitude, longitude});
+        setRegion(prevRegion => ({
+          latitude,
+          longitude,
+          latitudeDelta: prevRegion ? prevRegion.latitudeDelta : 0.015,
+          longitudeDelta: prevRegion ? prevRegion.longitudeDelta : 0.0121,
+        }));
+      },
+      error => {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+        distanceFilter: 1, // 10미터 이동할 때마다 갱신
+      },
+    );
+
+    // 컴포넌트 unmount 시 watchPosition 정리
+    return () => {
+      Geolocation.clearWatch(watchId);
+    };
   }, []);
 
   return (
