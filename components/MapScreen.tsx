@@ -33,7 +33,7 @@ type PositionData = {
 type SetRegion = React.Dispatch<React.SetStateAction<Region>>;
 
 const fetchCurrentLocation = (
-  onSuccess: (positionData: any) => void,
+  onSuccess: (positionData: PositionData) => void,
   onError: (error: any) => void,
 ) => {
   Geolocation.getCurrentPosition(onSuccess, onError, {
@@ -44,7 +44,7 @@ const fetchCurrentLocation = (
 };
 
 const watchLocation = (
-  onUpdate: (positionData: any) => void,
+  onUpdate: (positionData: PositionData) => void,
   onError: (error: any) => void,
 ) => {
   return Geolocation.watchPosition(onUpdate, onError, {
