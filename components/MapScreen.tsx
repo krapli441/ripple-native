@@ -2,7 +2,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
-  Animated,
   StyleSheet,
   StatusBar,
   useColorScheme,
@@ -29,20 +28,8 @@ type Region = Coords & {
 function MapScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [region, setRegion] = useState<Region | null>(null);
-
-  const handleRegionChangeComplete = (newRegion: Region) => {
-    setRegion(prevRegion => {
-      if (prevRegion) {
-        return {
-          latitude: prevRegion.latitude,
-          longitude: prevRegion.longitude,
-          latitudeDelta: newRegion.latitudeDelta,
-          longitudeDelta: newRegion.longitudeDelta,
-        };
-      }
-      return newRegion;
-    });
-  };
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   useEffect(() => {
     const fetchCurrentLocation = () => {
@@ -91,6 +78,41 @@ function MapScreen(): React.ReactElement {
     };
   }, []);
 
+  const handleRegionChangeComplete = (newRegion: Region) => {
+    setRegion(prevRegion => {
+      if (prevRegion) {
+        return {
+          latitude: prevRegion.latitude,
+          longitude: prevRegion.longitude,
+          latitudeDelta: newRegion.latitudeDelta,
+          longitudeDelta: newRegion.longitudeDelta,
+        };
+      }
+      return newRegion;
+    });
+    console.log('경로 변경됨 : ', newRegion);
+  };
+
+  // ! 백그라운드 & 포그라운드 추적
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -108,7 +130,6 @@ function MapScreen(): React.ReactElement {
         showsScale={false}
         cacheEnabled={true}
         pitchEnabled={false}
-        // showsUserLocation={true}
         loadingEnabled={true}
         onRegionChangeComplete={handleRegionChangeComplete}>
         {region && <Marker coordinate={region} title="Your Position" />}
