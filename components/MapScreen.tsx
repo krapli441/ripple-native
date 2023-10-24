@@ -26,22 +26,19 @@ type Region = Coords & {
   longitudeDelta: number;
 };
 
-type PositionData = {
-  coords: Coords;
-};
-
 function MapScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
 
+  // ? 최초, getCurrentPosition으로 위치 불러온 뒤 region 업데이트함
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
 
-        // region도 업데이트
+        // region 업데이트
         setRegion({
           latitude,
           longitude,
