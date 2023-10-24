@@ -56,12 +56,13 @@ function MapScreen(): React.ReactElement {
       position => {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
-        setRegion(prevRegion => ({
-          latitude,
-          longitude,
-          latitudeDelta: prevRegion ? prevRegion.latitudeDelta : 0.015,
-          longitudeDelta: prevRegion ? prevRegion.longitudeDelta : 0.0121,
-        }));
+        // setRegion(prevRegion => ({
+        //   latitude,
+        //   longitude,
+        //   latitudeDelta: prevRegion ? prevRegion.latitudeDelta : 0.015,
+        //   longitudeDelta: prevRegion ? prevRegion.longitudeDelta : 0.0121,
+        // }));
+        console.log('watchPosition으로 위치 갱신함 : ', region);
       },
       error => {
         console.log(error);
@@ -93,6 +94,8 @@ function MapScreen(): React.ReactElement {
         zoomEnabled={true}
         rotateEnabled={true}
         minZoomLevel={15}
+        showsUserLocation={true}
+        followsUserLocation={true}
         maxZoomLevel={20}
         showsScale={false}
         pitchEnabled={false}
