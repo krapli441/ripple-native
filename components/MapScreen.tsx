@@ -26,6 +26,12 @@ type Region = Coords & {
   longitudeDelta: number;
 };
 
+type PositionData = {
+  coords: Coords;
+};
+
+type SetRegion = React.Dispatch<React.SetStateAction<Region>>;
+
 const fetchCurrentLocation = (
   onSuccess: (positionData: any) => void,
   onError: (error: any) => void,
@@ -49,6 +55,32 @@ const watchLocation = (
   });
 };
 
+const initialRegion = {
+  latitude: 37.78825,
+  longitude: -122.4324,
+  latitudeDelta: 0.015,
+  longitudeDelta: 0.0121,
+};
+
+function updateLocation(
+  positionData: PositionData,
+  setRegion: SetRegion,
+  positionAnim: Animated.ValueXY,
+) {
+  const {latitude, longitude} = positionData.coords;
+  setRegion({
+    latitude,
+    longitude,
+    latitudeDelta: initialRegion.latitudeDelta,
+    longitudeDelta: initialRegion.longitudeDelta,
+  });
+  Animated.timing(positionAnim, {
+    toValue: {x: latitude, y: longitude},
+    duration: 500,
+    useNativeDriver: false,
+  }).start();
+}
+
 function MapScreen() {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
@@ -63,50 +95,28 @@ function MapScreen() {
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   });
-  const positionAnim = new Animated.ValueXY({
-    x: coords.longitude,
-    y: coords.latitude,
-  });
+  const positionAnim = useRef(
+    new Animated.ValueXY({
+      x: coords.longitude,
+      y: coords.latitude,
+    }),
+  ).current;
 
   useEffect(() => {
-    fetchCurrentLocation(
-      positionData => {
-        const {latitude, longitude} = positionData.coords;
-        setRegion({
-          latitude,
-          longitude,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        });
-        positionAnim.setValue({x: latitude, y: longitude});
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    const onSuccess = (positionData: PositionData) => {
+      updateLocation(positionData, setRegion, positionAnim);
+    };
+    const onError = (error: any) => {
+      console.log(error);
+    };
 
-    const watchId = watchLocation(
-      positionData => {
-        const {latitude, longitude} = positionData.coords;
-        setCoords({latitude, longitude});
+    fetchCurrentLocation(onSuccess, onError);
 
-        setRegion(prevRegion => ({
-          latitude,
-          longitude,
-          latitudeDelta: prevRegion.latitudeDelta,
-          longitudeDelta: prevRegion.longitudeDelta,
-        }));
-
-        Animated.timing(positionAnim, {
-          toValue: {x: latitude, y: longitude},
-          duration: 500,
-          useNativeDriver: false,
-        }).start();
-      },
-      error => {
-        console.log(error);
-      },
-    );
+    const watchId = watchLocation((positionData: PositionData) => {
+      const {latitude, longitude} = positionData.coords;
+      setCoords({latitude, longitude});
+      updateLocation(positionData, setRegion, positionAnim);
+    }, onError);
 
     return () => Geolocation.clearWatch(watchId);
   }, []);
@@ -117,25 +127,14 @@ function MapScreen() {
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active'
       ) {
-        console.log('App has come to the foreground!');
         fetchCurrentLocation(
-          positionData => {
-            const {latitude, longitude} = positionData.coords;
-            setCoords({latitude, longitude});
-            Animated.timing(positionAnim, {
-              toValue: {x: latitude, y: longitude},
-              duration: 500,
-              useNativeDriver: false,
-            }).start();
-            console.log('geolocation has been updated', coords);
-          },
+          positionData => updateLocation(positionData, setRegion, positionAnim),
           error => console.log(error),
         );
       }
 
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      console.log('AppState', appState.current);
     });
 
     return () => {
@@ -157,9 +156,6 @@ function MapScreen() {
         rotateEnabled={true}
         minZoomLevel={15}
         maxZoomLevel={20}
-        // showsUserLocation={true}
-        // userLocationAnnotationTitle="Your Position"
-        // followsUserLocation={true}
         showsScale={false}
         cacheEnabled={true}
         loadingEnabled={true}>
