@@ -147,7 +147,7 @@ function MapScreen(): React.ReactElement {
         style={styles.map}
         mapPadding={{bottom: 90, top: 0, right: 0, left: 0}}
         zoomEnabled={true}
-        rotateEnabled={false}
+        rotateEnabled={true}
         scrollEnabled={false}
         minZoomLevel={15}
         maxZoomLevel={20}
