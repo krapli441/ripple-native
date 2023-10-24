@@ -26,121 +26,68 @@ type Region = Coords & {
   longitudeDelta: number;
 };
 
-type PositionData = {
-  coords: Coords;
-};
-
-type SetRegion = React.Dispatch<React.SetStateAction<Region>>;
-
-function MapScreen() {
-  const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+function MapScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-  const [coords, setCoords] = useState<Coords>({
-    latitude: 37.5666612,
-    longitude: 126.9783785,
-  });
-  const [region, setRegion] = useState<Region>({
-    latitude: 37.5666612,
-    longitude: 126.978378,
-    latitudeDelta: 0.015,
-    longitudeDelta: 0.0121,
-  });
-  const positionAnim = useRef(
-    new Animated.ValueXY({
-      x: coords.longitude,
-      y: coords.latitude,
-    }),
-  ).current;
+  const [region, setRegion] = useState<Region | null>(null);
 
-  const fetchCurrentLocation = (
-    onSuccess: (positionData: PositionData) => void,
-    onError: (error: any) => void,
-  ) => {
-    Geolocation.getCurrentPosition(onSuccess, onError, {
-      enableHighAccuracy: true,
-      timeout: 20000,
-      maximumAge: 1000,
-    });
-  };
-
-  const watchLocation = (
-    onUpdate: (positionData: PositionData) => void,
-    onError: (error: any) => void,
-  ) => {
-    return Geolocation.watchPosition(onUpdate, onError, {
-      enableHighAccuracy: true,
-      timeout: 3000,
-      maximumAge: 1000,
-      distanceFilter: 1,
-    });
-  };
-
-  function updateLocation(
-    positionData: PositionData,
-    setRegion: SetRegion,
-    positionAnim: Animated.ValueXY,
-  ) {
-    const {latitude, longitude} = positionData.coords;
-    setRegion({
-      latitude,
-      longitude,
-      latitudeDelta: region.latitudeDelta,
-      longitudeDelta: region.longitudeDelta,
-    });
-    Animated.timing(positionAnim, {
-      toValue: {x: latitude, y: longitude},
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-  }
-
-  const handleRegionChange = (newRegion: Region) => {
-    setRegion(prevRegion => ({
-      ...prevRegion,
-      latitudeDelta: newRegion.latitudeDelta,
-      longitudeDelta: newRegion.longitudeDelta,
-    }));
-    console.log('region changed:', region);
-  };
-
-  useEffect(() => {
-    const onSuccess = (positionData: PositionData) => {
-      updateLocation(positionData, setRegion, positionAnim);
-    };
-    const onError = (error: any) => {
-      console.log(error);
-    };
-
-    fetchCurrentLocation(onSuccess, onError);
-
-    const watchId = watchLocation((positionData: PositionData) => {
-      const {latitude, longitude} = positionData.coords;
-      setCoords({latitude, longitude});
-      updateLocation(positionData, setRegion, positionAnim);
-    }, onError);
-
-    return () => Geolocation.clearWatch(watchId);
-  }, []);
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        fetchCurrentLocation(
-          positionData => updateLocation(positionData, setRegion, positionAnim),
-          error => console.log(error),
-        );
+  const handleRegionChangeComplete = (newRegion: Region) => {
+    setRegion(prevRegion => {
+      if (prevRegion) {
+        return {
+          latitude: prevRegion.latitude,
+          longitude: prevRegion.longitude,
+          latitudeDelta: newRegion.latitudeDelta,
+          longitudeDelta: newRegion.longitudeDelta,
+        };
       }
-
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
+      return newRegion;
     });
+  };
+
+  useEffect(() => {
+    const fetchCurrentLocation = () => {
+      Geolocation.getCurrentPosition(
+        position => {
+          const {latitude, longitude} = position.coords;
+          setRegion({
+            latitude,
+            longitude,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          });
+        },
+        error => {
+          console.log(error);
+        },
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+      );
+    };
+
+    fetchCurrentLocation();
+
+    const watchId = Geolocation.watchPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setRegion(prevRegion => ({
+          latitude,
+          longitude,
+          latitudeDelta: prevRegion ? prevRegion.latitudeDelta : 0.015,
+          longitudeDelta: prevRegion ? prevRegion.longitudeDelta : 0.0121,
+        }));
+      },
+      error => {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 3000,
+        maximumAge: 1000,
+        distanceFilter: 1,
+      },
+    );
 
     return () => {
-      subscription.remove();
+      Geolocation.clearWatch(watchId);
     };
   }, []);
 
@@ -151,7 +98,7 @@ function MapScreen() {
         provider={PROVIDER_GOOGLE}
         customMapStyle={MapStyle}
         style={styles.map}
-        region={region}
+        region={region || undefined}
         mapPadding={{bottom: 90, top: 0, right: 0, left: 0}}
         scrollEnabled={false}
         zoomEnabled={true}
@@ -159,11 +106,12 @@ function MapScreen() {
         minZoomLevel={15}
         maxZoomLevel={20}
         showsScale={false}
-        followsUserLocation={true}
         cacheEnabled={true}
-        onRegionChangeComplete={handleRegionChange}
-        loadingEnabled={true}>
-        <Marker.Animated coordinate={coords} title="Your Position" />
+        pitchEnabled={false}
+        // showsUserLocation={true}
+        loadingEnabled={true}
+        onRegionChangeComplete={handleRegionChangeComplete}>
+        {region && <Marker coordinate={region} title="Your Position" />}
       </MapView>
       <CustomTabBar />
     </View>
