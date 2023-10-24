@@ -93,6 +93,34 @@ function MapScreen(): React.ReactElement {
     console.log('경로 변경됨 : ', newRegion);
   };
 
+  const handleForegroundRegionFetch = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setRegion(prevRegion => {
+          if (prevRegion) {
+            return {
+              ...prevRegion,
+              latitude,
+              longitude,
+            };
+          } else {
+            return {
+              latitude,
+              longitude,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            };
+          }
+        });
+      },
+      error => {
+        console.log(error);
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  };
+
   // ! 백그라운드 & 포그라운드 추적
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
@@ -100,9 +128,11 @@ function MapScreen(): React.ReactElement {
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active'
       ) {
-        console.log('App has come to the foreground!');
+        handleForegroundRegionFetch();
+        console.log('포어그라운드로 변경됨');
       }
 
+      console.log('갱신된 값 : ', region);
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
       console.log('AppState', appState.current);
@@ -111,7 +141,7 @@ function MapScreen(): React.ReactElement {
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [region]);
 
   return (
     <View style={styles.container}>
