@@ -43,15 +43,13 @@ function MapScreen(): React.ReactElement {
         setCoords({latitude, longitude});
 
         if (mapRef.current && lastRegion) {
-          mapRef.current.animateToRegion(
-            {
-              latitude,
-              longitude,
-              latitudeDelta: lastRegion.latitudeDelta,
-              longitudeDelta: lastRegion.longitudeDelta,
-            },
-            1000,
-          );
+          const newRegion = {
+            latitude,
+            longitude,
+            latitudeDelta: lastRegion.latitudeDelta,
+            longitudeDelta: lastRegion.longitudeDelta,
+          };
+          mapRef.current.animateToRegion(newRegion, 1000); // 애니메이션 지속 시간
         }
       },
       error => {
