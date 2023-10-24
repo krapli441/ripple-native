@@ -38,7 +38,6 @@ function MapScreen(): React.ReactElement {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
 
-        // region 업데이트
         setRegion({
           latitude,
           longitude,
@@ -51,6 +50,20 @@ function MapScreen(): React.ReactElement {
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
+  }, []);
+
+  useEffect(() => {
+    const watchId = Geolocation.watchPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setCoords({latitude, longitude});
+        console.log('watchPosition', position.coords);
+      },
+      error => console.log(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+
+    return () => Geolocation.clearWatch(watchId);
   }, []);
 
   return (
