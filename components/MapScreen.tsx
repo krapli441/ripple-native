@@ -9,7 +9,11 @@ import {
   AppState,
 } from 'react-native';
 // Libraries
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  AnimatedRegion,
+} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -27,6 +31,7 @@ type Region = Coords & {
 };
 
 function MapScreen(): React.ReactElement {
+  const mapRef = useRef<MapView>(null);
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
@@ -52,21 +57,22 @@ function MapScreen(): React.ReactElement {
       {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000},
     );
   }, []);
-
-  // 지속적으로 사용자 위치 추적 및 마커 업데이트
   useEffect(() => {
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
 
-        // // region 업데이트
-        // setRegion({
-        //   latitude,
-        //   longitude,
-        //   latitudeDelta: 0.015,
-        //   longitudeDelta: 0.0121,
-        // });
+        const newRegion = {
+          latitude,
+          longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        };
+
+        if (mapRef.current) {
+          mapRef.current.animateToRegion(newRegion, 500); // 500ms 동안 애니메이션
+        }
       },
       error => {
         console.log(error);
@@ -87,6 +93,7 @@ function MapScreen(): React.ReactElement {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <MapView
         provider={PROVIDER_GOOGLE}
+        ref={mapRef}
         customMapStyle={MapStyle}
         style={styles.map}
         region={region || undefined}
