@@ -32,55 +32,6 @@ type PositionData = {
 
 type SetRegion = React.Dispatch<React.SetStateAction<Region>>;
 
-const fetchCurrentLocation = (
-  onSuccess: (positionData: PositionData) => void,
-  onError: (error: any) => void,
-) => {
-  Geolocation.getCurrentPosition(onSuccess, onError, {
-    enableHighAccuracy: true,
-    timeout: 20000,
-    maximumAge: 1000,
-  });
-};
-
-const watchLocation = (
-  onUpdate: (positionData: PositionData) => void,
-  onError: (error: any) => void,
-) => {
-  return Geolocation.watchPosition(onUpdate, onError, {
-    enableHighAccuracy: true,
-    timeout: 3000,
-    maximumAge: 1000,
-    distanceFilter: 5,
-  });
-};
-
-const initialRegion = {
-  latitude: 37.78825,
-  longitude: -122.4324,
-  latitudeDelta: 0.015,
-  longitudeDelta: 0.0121,
-};
-
-function updateLocation(
-  positionData: PositionData,
-  setRegion: SetRegion,
-  positionAnim: Animated.ValueXY,
-) {
-  const {latitude, longitude} = positionData.coords;
-  setRegion({
-    latitude,
-    longitude,
-    latitudeDelta: initialRegion.latitudeDelta,
-    longitudeDelta: initialRegion.longitudeDelta,
-  });
-  Animated.timing(positionAnim, {
-    toValue: {x: latitude, y: longitude},
-    duration: 500,
-    useNativeDriver: false,
-  }).start();
-}
-
 function MapScreen() {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
@@ -101,6 +52,57 @@ function MapScreen() {
       y: coords.latitude,
     }),
   ).current;
+
+  const fetchCurrentLocation = (
+    onSuccess: (positionData: PositionData) => void,
+    onError: (error: any) => void,
+  ) => {
+    Geolocation.getCurrentPosition(onSuccess, onError, {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 1000,
+    });
+  };
+
+  const watchLocation = (
+    onUpdate: (positionData: PositionData) => void,
+    onError: (error: any) => void,
+  ) => {
+    return Geolocation.watchPosition(onUpdate, onError, {
+      enableHighAccuracy: true,
+      timeout: 3000,
+      maximumAge: 1000,
+      distanceFilter: 1,
+    });
+  };
+
+  function updateLocation(
+    positionData: PositionData,
+    setRegion: SetRegion,
+    positionAnim: Animated.ValueXY,
+  ) {
+    const {latitude, longitude} = positionData.coords;
+    setRegion({
+      latitude,
+      longitude,
+      latitudeDelta: region.latitudeDelta,
+      longitudeDelta: region.longitudeDelta,
+    });
+    Animated.timing(positionAnim, {
+      toValue: {x: latitude, y: longitude},
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  }
+
+  const handleRegionChange = (newRegion: Region) => {
+    setRegion(prevRegion => ({
+      ...prevRegion,
+      latitudeDelta: newRegion.latitudeDelta,
+      longitudeDelta: newRegion.longitudeDelta,
+    }));
+    console.log('region changed:', region);
+  };
 
   useEffect(() => {
     const onSuccess = (positionData: PositionData) => {
@@ -157,7 +159,9 @@ function MapScreen() {
         minZoomLevel={15}
         maxZoomLevel={20}
         showsScale={false}
+        followsUserLocation={true}
         cacheEnabled={true}
+        onRegionChangeComplete={handleRegionChange}
         loadingEnabled={true}>
         <Marker.Animated coordinate={coords} title="Your Position" />
       </MapView>
