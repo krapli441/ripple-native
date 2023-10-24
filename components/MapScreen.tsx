@@ -53,6 +53,30 @@ function MapScreen(): React.ReactElement {
     );
   }, []);
 
+  // 지속적으로 사용자 위치 추적 및 마커 업데이트
+  useEffect(() => {
+    const watchId = Geolocation.watchPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setCoords({latitude, longitude});
+
+        // region 업데이트
+        setRegion({
+          latitude,
+          longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        });
+      },
+      error => {
+        console.log(error);
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+
+    return () => Geolocation.clearWatch(watchId);
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
