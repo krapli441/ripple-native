@@ -1,19 +1,8 @@
-// React & React Native
 import React, {useEffect, useState, useRef} from 'react';
-import {
-  View,
-  Animated,
-  StyleSheet,
-  StatusBar,
-  useColorScheme,
-  AppState,
-} from 'react-native';
-// Libraries
+import {View, StyleSheet, StatusBar, useColorScheme} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
-
-// Components
+import MapStyle from '../maps/customMapStyle.json';
 import CustomTabBar from './Navigation';
 
 type Coords = {
@@ -29,40 +18,41 @@ type Region = Coords & {
 function MapScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords | null>(null);
-  const [region, setRegion] = useState<Region | null>(null);
+  const [lastRegion, setLastRegion] = useState<Region | null>(null);
+  const mapRef = useRef<MapView>(null);
 
-  // ? 최초, getCurrentPosition으로 위치 불러온 뒤 region 업데이트함
+  const handleRegionChangeComplete = (newRegion: Region) => {
+    setLastRegion(newRegion);
+  };
+
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
-
-        // region 업데이트
-        setRegion({
-          latitude,
-          longitude,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        });
       },
       error => {
         console.log(error);
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
-    // 사용자 위치 추적 시작
+
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
-        // setRegion(prevRegion => ({
-        //   latitude,
-        //   longitude,
-        //   latitudeDelta: prevRegion ? prevRegion.latitudeDelta : 0.015,
-        //   longitudeDelta: prevRegion ? prevRegion.longitudeDelta : 0.0121,
-        // }));
-        console.log('watchPosition으로 위치 갱신함 : ', region);
+
+        if (mapRef.current && lastRegion) {
+          mapRef.current.animateToRegion(
+            {
+              latitude,
+              longitude,
+              latitudeDelta: lastRegion.latitudeDelta,
+              longitudeDelta: lastRegion.longitudeDelta,
+            },
+            1000,
+          );
+        }
       },
       error => {
         console.log(error);
@@ -71,34 +61,34 @@ function MapScreen(): React.ReactElement {
         enableHighAccuracy: true,
         timeout: 20000,
         maximumAge: 1000,
-        distanceFilter: 1, // 10미터 이동할 때마다 갱신
+        distanceFilter: 1,
       },
     );
 
-    // 컴포넌트 unmount 시 watchPosition 정리
     return () => {
       Geolocation.clearWatch(watchId);
     };
-  }, []);
+  }, [lastRegion]);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <MapView
+        ref={mapRef}
         provider={PROVIDER_GOOGLE}
         customMapStyle={MapStyle}
         style={styles.map}
-        region={region || undefined}
         mapPadding={{bottom: 90, top: 0, right: 0, left: 0}}
-        scrollEnabled={false}
         zoomEnabled={true}
         rotateEnabled={true}
+        scrollEnabled={false}
         minZoomLevel={15}
         maxZoomLevel={20}
         showsScale={false}
         pitchEnabled={false}
         cacheEnabled={true}
-        loadingEnabled={true}>
+        loadingEnabled={true}
+        onRegionChangeComplete={handleRegionChangeComplete}>
         {coords && <Marker coordinate={coords} title="Your Position" />}
       </MapView>
       <CustomTabBar />
