@@ -49,7 +49,7 @@ function MapScreen(): React.ReactElement {
       error => {
         console.log(error);
       },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+      {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000},
     );
   }, []);
 
@@ -60,18 +60,23 @@ function MapScreen(): React.ReactElement {
         const {latitude, longitude} = position.coords;
         setCoords({latitude, longitude});
 
-        // region 업데이트
-        setRegion({
-          latitude,
-          longitude,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        });
+        // // region 업데이트
+        // setRegion({
+        //   latitude,
+        //   longitude,
+        //   latitudeDelta: 0.015,
+        //   longitudeDelta: 0.0121,
+        // });
       },
       error => {
         console.log(error);
       },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+      {
+        enableHighAccuracy: true,
+        timeout: 2000,
+        maximumAge: 1000,
+        distanceFilter: 1,
+      },
     );
 
     return () => Geolocation.clearWatch(watchId);
