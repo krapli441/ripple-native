@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
+import styles from '../styles/NavigationStyles';
+
 // Define your screen names and their respective params
 type RootStackParamList = {
   Home: undefined;
@@ -13,7 +15,7 @@ type RootStackParamList = {
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
-const CustomTabBar = () => {
+const NavigationTabBar = () => {
   const navigation = useNavigation<NavigationProp>();
 
   return (
@@ -40,29 +42,4 @@ const CustomTabBar = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  tabContainer: {
-    flexDirection: 'row',
-    height: 120,
-    borderTopEndRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopWidth: 1,
-    borderColor: '#ccc',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    zIndex: 1,
-    position: 'absolute', // <-- Add this line
-    bottom: 0, // <-- Add this line
-    left: 0, // <-- Add this line
-    right: 0, // <-- Add this line
-    backgroundColor: 'white',
-  },
-  button: {
-    alignItems: 'center',
-  },
-  textStyle: {
-    marginTop: 10,
-  },
-});
-
-export default CustomTabBar;
+export default NavigationTabBar;
