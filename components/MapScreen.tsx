@@ -32,13 +32,6 @@ function MapScreen(): React.ReactElement {
   const [coords, setCoords] = useState<Coords | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
 
-  const getCameraPosition = async () => {
-    if (mapRef.current) {
-      const camera = await mapRef.current.getCamera();
-      console.log(camera); // 현재 카메라 상태를 출력
-    }
-  };
-
   // 사용자의 위치가 업데이트될 때 호출되는 함수
   const updateUserLocation = async (newCoords: Coords) => {
     if (mapRef.current) {
@@ -118,7 +111,6 @@ function MapScreen(): React.ReactElement {
         showsScale={false}
         pitchEnabled={false}
         cacheEnabled={true}
-        onRegionChange={getCameraPosition}
         loadingEnabled={true}>
         {coords && <Marker coordinate={coords} title="Your Position" />}
       </MapView>
