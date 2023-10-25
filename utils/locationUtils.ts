@@ -66,7 +66,7 @@ export const watchUserLocation = (
       const newCoords = {latitude, longitude};
       setLocationState((prevState: LocationState) => ({
         ...prevState,
-        gpsError: true,
+        gpsError: false,
       }));
 
       updateUserLocation(newCoords);
