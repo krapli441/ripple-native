@@ -58,10 +58,11 @@ function MapScreen(): React.ReactElement {
     }).start();
   };
 
-  // geolocaion 옵션
-  const geolocationCommonOptions = {
+  const GEOLOCATION_OPTIONS = {
     enableHighAccuracy: true,
     maximumAge: 1000,
+    timeout: 2000,
+    distanceFilter: 3,
   };
 
   // ? 사용자의 위치가 업데이트될 때 호출되는 함수
@@ -105,7 +106,7 @@ function MapScreen(): React.ReactElement {
         animateError(true);
       },
       {
-        ...geolocationCommonOptions,
+        ...GEOLOCATION_OPTIONS,
         timeout: 2000,
         distanceFilter: 3,
       },
@@ -127,7 +128,7 @@ function MapScreen(): React.ReactElement {
         animateError(true);
       },
       {
-        ...geolocationCommonOptions,
+        ...GEOLOCATION_OPTIONS,
         timeout: 2000,
         distanceFilter: 3,
       },
