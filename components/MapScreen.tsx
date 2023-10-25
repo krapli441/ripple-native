@@ -3,7 +3,6 @@ import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   Animated,
-  StyleSheet,
   StatusBar,
   useColorScheme,
   AppState,
@@ -60,6 +59,8 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
@@ -95,6 +96,25 @@ function MapScreen(): React.ReactElement {
       animateError,
     );
     return () => clearWatch();
+  }, []);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   return (
