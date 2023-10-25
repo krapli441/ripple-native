@@ -18,6 +18,9 @@ import Geolocation from '@react-native-community/geolocation';
 // Components
 import CustomTabBar from './Navigation';
 
+// Utils
+import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
+
 type Coords = {
   latitude: number;
   longitude: number;
@@ -65,61 +68,9 @@ function MapScreen(): React.ReactElement {
     distanceFilter: 3,
   };
 
-  const fetchInitialLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        const newCoords = {latitude, longitude};
-        const newRegion = {
-          latitude,
-          longitude,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        };
-        setLocationState({
-          coords: newCoords,
-          region: newRegion,
-          gpsError: false,
-        });
-      },
-      error => {
-        console.log(error);
-        setLocationState(prevState => ({...prevState, gpsError: true}));
-        animateError(true);
-      },
-      {
-        ...GEOLOCATION_OPTIONS,
-        timeout: 2000,
-        distanceFilter: 3,
-      },
-    );
-  };
-
-  const watchUserLocation = () => {
-    const watchId = Geolocation.watchPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        const newCoords = {latitude, longitude};
-        setLocationState(prevState => ({...prevState, coords: newCoords}));
-        updateUserLocation(newCoords);
-      },
-      error => {
-        console.log(error);
-        setLocationState(prevState => ({...prevState, gpsError: true}));
-        animateError(true);
-      },
-      {
-        ...GEOLOCATION_OPTIONS,
-        timeout: 2000,
-        distanceFilter: 3,
-      },
-    );
-
-    return () => Geolocation.clearWatch(watchId);
-  };
-
   // ? 사용자의 위치가 업데이트될 때 호출되는 함수
   const updateUserLocation = async (newCoords: Coords) => {
+    setLocationState(prevState => ({...prevState, coords: newCoords}));
     if (mapRef.current) {
       // ? 현재 카메라 상태 가져오기
       const currentCamera = await mapRef.current.getCamera();
@@ -135,11 +86,16 @@ function MapScreen(): React.ReactElement {
     }
   };
   useEffect(() => {
-    fetchInitialLocation();
+    fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
   }, []);
 
   useEffect(() => {
-    const clearWatch = watchUserLocation();
+    const clearWatch = watchUserLocation(
+      setLocationState,
+      updateUserLocation,
+      GEOLOCATION_OPTIONS,
+      animateError,
+    );
     return () => clearWatch();
   }, []);
 
