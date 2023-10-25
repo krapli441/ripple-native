@@ -77,7 +77,6 @@ export const watchUserLocation = (
         ...prevState,
         gpsError: true,
       }));
-
       animateError(true);
     },
     {
