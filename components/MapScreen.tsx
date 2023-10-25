@@ -65,25 +65,7 @@ function MapScreen(): React.ReactElement {
     distanceFilter: 3,
   };
 
-  // ? 사용자의 위치가 업데이트될 때 호출되는 함수
-  const updateUserLocation = async (newCoords: Coords) => {
-    if (mapRef.current) {
-      // ? 현재 카메라 상태 가져오기
-      const currentCamera = await mapRef.current.getCamera();
-
-      // ? 새로운 카메라 상태 설정
-      const newCamera = {
-        ...currentCamera,
-        center: newCoords,
-      };
-
-      // 카메라 상태 업데이트 (애니메이션 적용)
-      mapRef.current.animateCamera(newCamera, {duration: 500});
-    }
-  };
-
-  // ? 최초, getCurrentPosition으로 위치 불러온 뒤 region 업데이트함
-  useEffect(() => {
+  const fetchInitialLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
@@ -111,10 +93,9 @@ function MapScreen(): React.ReactElement {
         distanceFilter: 3,
       },
     );
-  }, []);
+  };
 
-  // ? 지속적으로 사용자 위치 추적 및 마커 업데이트
-  useEffect(() => {
+  const watchUserLocation = () => {
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
@@ -135,6 +116,31 @@ function MapScreen(): React.ReactElement {
     );
 
     return () => Geolocation.clearWatch(watchId);
+  };
+
+  // ? 사용자의 위치가 업데이트될 때 호출되는 함수
+  const updateUserLocation = async (newCoords: Coords) => {
+    if (mapRef.current) {
+      // ? 현재 카메라 상태 가져오기
+      const currentCamera = await mapRef.current.getCamera();
+
+      // ? 새로운 카메라 상태 설정
+      const newCamera = {
+        ...currentCamera,
+        center: newCoords,
+      };
+
+      // 카메라 상태 업데이트 (애니메이션 적용)
+      mapRef.current.animateCamera(newCamera, {duration: 500});
+    }
+  };
+  useEffect(() => {
+    fetchInitialLocation();
+  }, []);
+
+  useEffect(() => {
+    const clearWatch = watchUserLocation();
+    return () => clearWatch();
   }, []);
 
   return (
