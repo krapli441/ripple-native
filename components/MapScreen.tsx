@@ -98,6 +98,16 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
+  const startLocationTracking = () => {
+    fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
+    return watchUserLocation(
+      setLocationState,
+      updateUserLocation,
+      GEOLOCATION_OPTIONS,
+      animateError,
+    );
+  };
+
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (
@@ -105,6 +115,7 @@ function MapScreen(): React.ReactElement {
         nextAppState === 'active'
       ) {
         console.log('App has come to the foreground!');
+        startLocationTracking();
       }
 
       appState.current = nextAppState;
