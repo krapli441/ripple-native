@@ -48,7 +48,6 @@ export const fetchInitialLocation = (
     },
     {
       ...GEOLOCATION_OPTIONS,
-      timeout: 2000,
       distanceFilter: 3,
     },
   );
@@ -81,7 +80,6 @@ export const watchUserLocation = (
     },
     {
       ...GEOLOCATION_OPTIONS,
-      timeout: 2000,
       distanceFilter: 3,
     },
   );

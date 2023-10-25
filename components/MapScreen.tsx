@@ -8,6 +8,7 @@ import {
   AppState,
   Easing,
   Text,
+  Image,
 } from 'react-native';
 // Libraries
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
@@ -34,7 +35,7 @@ const initialLocationState: LocationState = {
 const GEOLOCATION_OPTIONS = {
   enableHighAccuracy: true,
   maximumAge: 1000,
-  timeout: 2000,
+  timeout: 3000,
   distanceFilter: 3,
 };
 
@@ -137,12 +138,19 @@ function MapScreen(): React.ReactElement {
         style={styles.map}
         region={region || undefined}
         provider={PROVIDER_GOOGLE}>
-        {coords && <Marker coordinate={coords} title="Your Position" />}
+        {coords && (
+          <Marker coordinate={coords} title="Your Position">
+            <Image
+              source={require('../assets/img/ripple_sonar.png')}
+              style={{width: 30, height: 30}}
+            />
+          </Marker>
+        )}
       </MapView>
       {gpsError && (
         <Animated.View
           style={[styles.errorOverlay, {transform: [{translateY: errorAnim}]}]}>
-          <Text style={styles.errorMessage}>GPS 신호를 찾을 수 없습니다.</Text>
+          <Text style={styles.errorMessage}>GPS 신호를 찾는 중입니다...</Text>
         </Animated.View>
       )}
       <NavigationTabBar />
