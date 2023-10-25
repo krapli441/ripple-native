@@ -35,6 +35,11 @@ function MapScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
+  const [currentRegion, setCurrentRegion] = useState<Region | null>(null);
+
+  const onRegionChange = (newRegion: Region) => {
+    setCurrentRegion(newRegion);
+  };
 
   // ? 최초, getCurrentPosition으로 위치 불러온 뒤 region 업데이트함
   useEffect(() => {
@@ -63,22 +68,24 @@ function MapScreen(): React.ReactElement {
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        setCoords({latitude, longitude});
 
-        // // region 업데이트
-        // setRegion({
-        //   latitude,
-        //   longitude,
-        //   latitudeDelta: 0.015,
-        //   longitudeDelta: 0.0121,
-        // });
+        setCoords({latitude, longitude});
+        if (currentRegion) {
+          setRegion({
+            latitude,
+            longitude,
+            latitudeDelta: currentRegion.latitudeDelta,
+            longitudeDelta: currentRegion.longitudeDelta,
+            // 회전 레벨도 여기에 설정할 수 있습니다.
+          });
+        }
       },
       error => {
         console.log(error);
       },
       {
         enableHighAccuracy: true,
-        timeout: 2000,
+        timeout: 3000,
         maximumAge: 1000,
         distanceFilter: 1,
       },
