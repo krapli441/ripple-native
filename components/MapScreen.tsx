@@ -9,11 +9,7 @@ import {
   AppState,
 } from 'react-native';
 // Libraries
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  AnimatedRegion,
-} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -35,10 +31,29 @@ function MapScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [coords, setCoords] = useState<Coords | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
-  const [currentRegion, setCurrentRegion] = useState<Region | null>(null);
 
-  const onRegionChange = (newRegion: Region) => {
-    setCurrentRegion(newRegion);
+  const getCameraPosition = async () => {
+    if (mapRef.current) {
+      const camera = await mapRef.current.getCamera();
+      console.log(camera); // 현재 카메라 상태를 출력
+    }
+  };
+
+  // 사용자의 위치가 업데이트될 때 호출되는 함수
+  const updateUserLocation = async (newCoords: Coords) => {
+    if (mapRef.current) {
+      // 현재 카메라 상태 가져오기
+      const currentCamera = await mapRef.current.getCamera();
+
+      // 새로운 카메라 상태 설정
+      const newCamera = {
+        ...currentCamera,
+        center: newCoords,
+      };
+
+      // 카메라 상태 업데이트 (애니메이션 적용)
+      mapRef.current.animateCamera(newCamera, {duration: 500});
+    }
   };
 
   // ? 최초, getCurrentPosition으로 위치 불러온 뒤 region 업데이트함
@@ -68,17 +83,8 @@ function MapScreen(): React.ReactElement {
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
-
         setCoords({latitude, longitude});
-        if (currentRegion) {
-          setRegion({
-            latitude,
-            longitude,
-            latitudeDelta: currentRegion.latitudeDelta,
-            longitudeDelta: currentRegion.longitudeDelta,
-            // 회전 레벨도 여기에 설정할 수 있습니다.
-          });
-        }
+        updateUserLocation({latitude, longitude});
       },
       error => {
         console.log(error);
@@ -99,6 +105,7 @@ function MapScreen(): React.ReactElement {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <MapView
         provider={PROVIDER_GOOGLE}
+        ref={mapRef}
         customMapStyle={MapStyle}
         style={styles.map}
         region={region || undefined}
@@ -111,6 +118,7 @@ function MapScreen(): React.ReactElement {
         showsScale={false}
         pitchEnabled={false}
         cacheEnabled={true}
+        onRegionChange={getCameraPosition}
         loadingEnabled={true}>
         {coords && <Marker coordinate={coords} title="Your Position" />}
       </MapView>
