@@ -32,13 +32,13 @@ function MapScreen(): React.ReactElement {
   const [coords, setCoords] = useState<Coords | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
 
-  // 사용자의 위치가 업데이트될 때 호출되는 함수
+  // ? 사용자의 위치가 업데이트될 때 호출되는 함수
   const updateUserLocation = async (newCoords: Coords) => {
     if (mapRef.current) {
-      // 현재 카메라 상태 가져오기
+      // ? 현재 카메라 상태 가져오기
       const currentCamera = await mapRef.current.getCamera();
 
-      // 새로운 카메라 상태 설정
+      // ? 새로운 카메라 상태 설정
       const newCamera = {
         ...currentCamera,
         center: newCoords,
@@ -67,11 +67,16 @@ function MapScreen(): React.ReactElement {
       error => {
         console.log(error);
       },
-      {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000},
+      {
+        enableHighAccuracy: true,
+        timeout: 2000,
+        maximumAge: 1000,
+        distanceFilter: 3,
+      },
     );
   }, []);
 
-  // 지속적으로 사용자 위치 추적 및 마커 업데이트
+  // ? 지속적으로 사용자 위치 추적 및 마커 업데이트
   useEffect(() => {
     const watchId = Geolocation.watchPosition(
       position => {
