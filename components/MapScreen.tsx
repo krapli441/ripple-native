@@ -39,6 +39,20 @@ const GEOLOCATION_OPTIONS = {
   distanceFilter: 3,
 };
 
+const mapViewProps = {
+  customMapStyle: MapStyle,
+  mapPadding: {bottom: 90, top: 0, right: 0, left: 0},
+  scrollEnabled: false,
+  zoomEnabled: true,
+  rotateEnabled: true,
+  minZoomLevel: 15,
+  maxZoomLevel: 20,
+  showsScale: false,
+  pitchEnabled: false,
+  cacheEnabled: true,
+  loadingEnabled: true,
+};
+
 function MapScreen(): React.ReactElement {
   const mapRef = useRef<MapView>(null);
   const isDarkMode = useColorScheme() === 'dark';
@@ -87,21 +101,11 @@ function MapScreen(): React.ReactElement {
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <MapView
-        provider={PROVIDER_GOOGLE}
+        {...mapViewProps}
         ref={mapRef}
-        customMapStyle={MapStyle}
         style={styles.map}
         region={region || undefined}
-        mapPadding={{bottom: 90, top: 0, right: 0, left: 0}}
-        scrollEnabled={false}
-        zoomEnabled={true}
-        rotateEnabled={true}
-        minZoomLevel={15}
-        maxZoomLevel={20}
-        showsScale={false}
-        pitchEnabled={false}
-        cacheEnabled={true}
-        loadingEnabled={true}>
+        provider={PROVIDER_GOOGLE}>
         {coords && <Marker coordinate={coords} title="Your Position" />}
       </MapView>
       {gpsError && (
