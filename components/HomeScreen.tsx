@@ -16,6 +16,9 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {HomeScreenNavigationProp} from '../types/navigationTypes';
 
+// Components
+import handleSpotifyLogin from './oauth';
+
 // Style
 import styles from '../styles/HomeScreenStyles';
 
@@ -27,6 +30,7 @@ const LoginButton: React.FC<{
   iconName: string;
   text: string;
   buttonStyle: any;
+  onPress: () => void;
 }> = ({iconName, text, buttonStyle}) => (
   <TouchableOpacity style={[styles.button, buttonStyle]}>
     <View style={styles.buttonContent}>
@@ -56,14 +60,10 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             style={styles.logo}
           />
           <LoginButton
-            iconName="google"
-            text="Google을 이용하여 로그인"
-            buttonStyle={styles.googleButton}
-          />
-          <LoginButton
             iconName="spotify"
             text="Spotify를 이용하여 로그인"
             buttonStyle={styles.spotifyButton}
+            onPress={handleSpotifyLogin}
           />
           <TouchableOpacity
             style={[styles.button, styles.mapButton]}
