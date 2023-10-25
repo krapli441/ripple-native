@@ -7,6 +7,8 @@ import {
   StatusBar,
   useColorScheme,
   AppState,
+  Easing,
+  Text,
 } from 'react-native';
 // Libraries
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
@@ -26,11 +28,41 @@ type Region = Coords & {
   longitudeDelta: number;
 };
 
+type LocationState = {
+  coords: Coords | null;
+  region: Region | null;
+  gpsError: boolean;
+};
+
+const initialLocationState: LocationState = {
+  coords: null,
+  region: null,
+  gpsError: false,
+};
+
 function MapScreen(): React.ReactElement {
   const mapRef = useRef<MapView>(null);
   const isDarkMode = useColorScheme() === 'dark';
-  const [coords, setCoords] = useState<Coords | null>(null);
-  const [region, setRegion] = useState<Region | null>(null);
+  const [locationState, setLocationState] =
+    useState<LocationState>(initialLocationState);
+  const {coords, region, gpsError} = locationState;
+  const errorAnim = useRef(new Animated.Value(-100)).current; // 에러 메시지 위치 애니메이션
+
+  // 에러 창 메세지 애니메이션
+  const animateError = (show: boolean) => {
+    Animated.timing(errorAnim, {
+      toValue: show ? 0 : -100,
+      duration: 500,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+  };
+
+  // geolocaion 옵션
+  const geolocationCommonOptions = {
+    enableHighAccuracy: true,
+    maximumAge: 1000,
+  };
 
   // ? 사용자의 위치가 업데이트될 때 호출되는 함수
   const updateUserLocation = async (newCoords: Coords) => {
@@ -54,23 +86,27 @@ function MapScreen(): React.ReactElement {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        setCoords({latitude, longitude});
-
-        // region 업데이트
-        setRegion({
+        const newCoords = {latitude, longitude};
+        const newRegion = {
           latitude,
           longitude,
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
+        };
+        setLocationState({
+          coords: newCoords,
+          region: newRegion,
+          gpsError: false,
         });
       },
       error => {
         console.log(error);
+        setLocationState(prevState => ({...prevState, gpsError: true}));
+        animateError(true);
       },
       {
-        enableHighAccuracy: true,
+        ...geolocationCommonOptions,
         timeout: 2000,
-        maximumAge: 1000,
         distanceFilter: 3,
       },
     );
@@ -81,17 +117,19 @@ function MapScreen(): React.ReactElement {
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        setCoords({latitude, longitude});
-        updateUserLocation({latitude, longitude});
+        const newCoords = {latitude, longitude};
+        setLocationState(prevState => ({...prevState, coords: newCoords}));
+        updateUserLocation(newCoords);
       },
       error => {
         console.log(error);
+        setLocationState(prevState => ({...prevState, gpsError: true}));
+        animateError(true);
       },
       {
-        enableHighAccuracy: true,
-        timeout: 3000,
-        maximumAge: 1000,
-        distanceFilter: 1,
+        ...geolocationCommonOptions,
+        timeout: 2000,
+        distanceFilter: 3,
       },
     );
 
@@ -119,6 +157,12 @@ function MapScreen(): React.ReactElement {
         loadingEnabled={true}>
         {coords && <Marker coordinate={coords} title="Your Position" />}
       </MapView>
+      {gpsError && (
+        <Animated.View
+          style={[styles.errorOverlay, {transform: [{translateY: errorAnim}]}]}>
+          <Text style={styles.errorMessage}>GPS 신호를 찾을 수 없습니다.</Text>
+        </Animated.View>
+      )}
       <CustomTabBar />
     </View>
   );
@@ -134,6 +178,21 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     ...StyleSheet.absoluteFillObject,
+  },
+  errorOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(255, 0, 0, 0.6)',
+    padding: 15,
+    zIndex: 1,
+  },
+  errorMessage: {
+    fontSize: 18,
+    marginTop: 30,
+    color: 'white',
+    textAlign: 'center',
   },
 });
 
