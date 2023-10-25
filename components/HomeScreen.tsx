@@ -31,8 +31,8 @@ const LoginButton: React.FC<{
   text: string;
   buttonStyle: any;
   onPress: () => void;
-}> = ({iconName, text, buttonStyle}) => (
-  <TouchableOpacity style={[styles.button, buttonStyle]}>
+}> = ({iconName, text, buttonStyle, onPress}) => (
+  <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
     <View style={styles.buttonContent}>
       <Icon name={iconName} size={20} color="black" />
       <Text style={styles.buttonText}>{text}</Text>
@@ -63,7 +63,7 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             iconName="spotify"
             text="Spotify를 이용하여 로그인"
             buttonStyle={styles.spotifyButton}
-            onPress={handleSpotifyLogin}
+            onPress={() => handleSpotifyLogin(navigation)}
           />
           <TouchableOpacity
             style={[styles.button, styles.mapButton]}

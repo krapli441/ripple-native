@@ -11,11 +11,13 @@ const config = {
   },
 };
 
-const handleSpotifyLogin = async () => {
-  console.log('handleSpotifyLogin is called'); // 이 로그가 출력되는지 확인
+const handleSpotifyLogin = async (navigation: any) => {
   try {
     const result = await authorize(config);
     console.log(result);
+
+    // 로그인이 성공하면 MapScreen으로 이동
+    navigation.navigate('Ripple');
   } catch (error) {
     console.log(error);
   }
