@@ -3,6 +3,14 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+
+  app.listen(3000, () => {
+    console.log(
+      'Database connected and server running on http://localhost:3000',
+    );
+  });
 }
-bootstrap();
+
+bootstrap().catch((err) => {
+  console.error('Error:', err);
+});
