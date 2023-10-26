@@ -35,8 +35,8 @@ const initialLocationState: LocationState = {
 const GEOLOCATION_OPTIONS = {
   enableHighAccuracy: true,
   maximumAge: 1000,
-  timeout: 3000,
-  distanceFilter: 3,
+  timeout: 5000,
+  distanceFilter: 5,
 };
 
 const mapViewProps = {
@@ -82,7 +82,7 @@ function MapScreen(): React.ReactElement {
         center: newCoords,
       };
 
-      mapRef.current.animateCamera(newCamera, {duration: 1000});
+      mapRef.current.animateCamera(newCamera, {duration: 0});
     }
   };
   useEffect(() => {
