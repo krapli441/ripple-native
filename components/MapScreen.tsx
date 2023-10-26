@@ -141,7 +141,7 @@ function MapScreen(): React.ReactElement {
         {coords && (
           <Marker coordinate={coords} title="Your Position">
             <Image
-              source={require('../assets/img/ripple_sonar.png')}
+              source={require('../assets/img/ripple_sonar.gif')}
               style={{width: 30, height: 30}}
             />
           </Marker>
