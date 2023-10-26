@@ -82,7 +82,7 @@ function MapScreen(): React.ReactElement {
         center: newCoords,
       };
 
-      mapRef.current.animateCamera(newCamera, {duration: 0});
+      mapRef.current.animateCamera(newCamera, {duration: 150});
     }
   };
   useEffect(() => {
