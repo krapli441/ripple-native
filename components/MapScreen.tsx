@@ -100,7 +100,7 @@ function MapScreen(): React.ReactElement {
   }, []);
 
   const startLocationTracking = () => {
-    fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
+    // fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
     return watchUserLocation(
       setLocationState,
       updateUserLocation,
