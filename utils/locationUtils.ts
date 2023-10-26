@@ -1,4 +1,5 @@
 import Geolocation from '@react-native-community/geolocation';
+import {debounce} from 'lodash';
 
 type Coords = {
   latitude: number;
@@ -15,6 +16,8 @@ type LocationState = {
   region: Region | null;
   gpsError: boolean;
 };
+
+type SetLocationStateFunc = (state: LocationState) => void;
 
 export const fetchInitialLocation = (
   setLocationState: Function,
@@ -55,10 +58,11 @@ export const fetchInitialLocation = (
 
 export const watchUserLocation = (
   setLocationState: Function,
-  updateUserLocation: Function,
+  updateUserLocation: (coords: Coords) => void,
   GEOLOCATION_OPTIONS: Object,
   animateError: Function,
 ) => {
+  const debouncedUpdate = debounce(updateUserLocation, 500);
   const watchId = Geolocation.watchPosition(
     position => {
       const {latitude, longitude} = position.coords;
@@ -67,7 +71,7 @@ export const watchUserLocation = (
         ...prevState,
         gpsError: false,
       }));
-
+      debouncedUpdate(newCoords);
       updateUserLocation(newCoords);
     },
     error => {
