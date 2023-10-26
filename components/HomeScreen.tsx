@@ -15,6 +15,7 @@ import {
 // Libraries
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {HomeScreenNavigationProp} from '../types/navigationTypes';
+import Config from 'react-native-config';
 
 // Components
 import handleSpotifyLogin from './oauth';
@@ -47,6 +48,7 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
     ...styles.container,
     backgroundColor: isDarkMode ? '#191414' : 'white',
   };
+
 
   return (
     <SafeAreaView style={containerStyle}>
