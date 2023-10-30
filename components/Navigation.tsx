@@ -6,7 +6,6 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import styles from '../styles/NavigationStyles';
 
-// Define your screen names and their respective params
 type RootStackParamList = {
   Home: undefined;
   Ripple: undefined;
