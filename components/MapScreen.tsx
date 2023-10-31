@@ -62,6 +62,7 @@ function MapScreen(): React.ReactElement {
   const errorAnim = useRef(new Animated.Value(-100)).current;
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const clearWatch = useRef<(() => void) | null>(null);
 
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
@@ -100,8 +101,11 @@ function MapScreen(): React.ReactElement {
   }, []);
 
   const startLocationTracking = () => {
-    // fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
-    return watchUserLocation(
+    if (clearWatch.current) {
+      clearWatch.current();
+    }
+
+    clearWatch.current = watchUserLocation(
       setLocationState,
       updateUserLocation,
       GEOLOCATION_OPTIONS,
@@ -126,6 +130,10 @@ function MapScreen(): React.ReactElement {
 
     return () => {
       subscription.remove();
+      // 컴포넌트가 언마운트될 때 watchPosition을 정지
+      if (clearWatch.current) {
+        clearWatch.current();
+      }
     };
   }, []);
 
