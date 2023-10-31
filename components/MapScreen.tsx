@@ -100,18 +100,18 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
-  const startLocationTracking = () => {
-    if (clearWatch.current) {
-      clearWatch.current();
-    }
+  // const startLocationTracking = () => {
+  //   if (clearWatch.current) {
+  //     clearWatch.current();
+  //   }
 
-    clearWatch.current = watchUserLocation(
-      setLocationState,
-      updateUserLocation,
-      GEOLOCATION_OPTIONS,
-      animateError,
-    );
-  };
+  //   clearWatch.current = watchUserLocation(
+  //     setLocationState,
+  //     updateUserLocation,
+  //     GEOLOCATION_OPTIONS,
+  //     animateError,
+  //   );
+  // };
 
   // useEffect(() => {
   //   const subscription = AppState.addEventListener('change', nextAppState => {
