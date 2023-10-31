@@ -113,29 +113,29 @@ function MapScreen(): React.ReactElement {
     );
   };
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        console.log('App has come to the foreground!');
-        startLocationTracking();
-      }
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextAppState => {
+  //     if (
+  //       appState.current.match(/inactive|background/) &&
+  //       nextAppState === 'active'
+  //     ) {
+  //       console.log('App has come to the foreground!');
+  //       startLocationTracking();
+  //     }
 
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
-      console.log('AppState', appState.current);
-    });
+  //     appState.current = nextAppState;
+  //     setAppStateVisible(appState.current);
+  //     console.log('AppState', appState.current);
+  //   });
 
-    return () => {
-      subscription.remove();
-      // 컴포넌트가 언마운트될 때 watchPosition을 정지
-      if (clearWatch.current) {
-        clearWatch.current();
-      }
-    };
-  }, []);
+  //   return () => {
+  //     subscription.remove();
+  //     // 컴포넌트가 언마운트될 때 watchPosition을 정지
+  //     if (clearWatch.current) {
+  //       clearWatch.current();
+  //     }
+  //   };
+  // }, []);
 
   return (
     <View style={styles.container}>
