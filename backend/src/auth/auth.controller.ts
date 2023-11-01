@@ -21,7 +21,8 @@ export class AuthController {
   @Get('spotify-url')
   getSpotifyAuthUrl(@Res() res: Response) {
     const clientId = process.env.SPOTIFY_CLIENT_ID;
-    const redirectUri = 'http://localhost:3000/auth/spotify/callback';
+    const redirectUri = 'http://192.168.0.215:3000/auth/spotify/callback';
+    console.log(redirectUri);
     const scopes = 'user-read-private user-read-email';
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(
       redirectUri,
