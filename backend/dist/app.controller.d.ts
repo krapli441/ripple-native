@@ -4,7 +4,3 @@ export declare class AppController {
     constructor(appService: AppService);
     getHello(): string;
 }
-export declare class ItemsController {
-    private readonly logger;
-    findAll(): string;
-}

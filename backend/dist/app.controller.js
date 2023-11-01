@@ -8,9 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var ItemsController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ItemsController = exports.AppController = void 0;
+exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 let AppController = class AppController {
@@ -32,23 +31,4 @@ exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
-let ItemsController = ItemsController_1 = class ItemsController {
-    constructor() {
-        this.logger = new common_1.Logger(ItemsController_1.name);
-    }
-    findAll() {
-        this.logger.log('findAll method is called');
-        return 'This action returns all items';
-    }
-};
-exports.ItemsController = ItemsController;
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ItemsController.prototype, "findAll", null);
-exports.ItemsController = ItemsController = ItemsController_1 = __decorate([
-    (0, common_1.Controller)('items')
-], ItemsController);
 //# sourceMappingURL=app.controller.js.map
