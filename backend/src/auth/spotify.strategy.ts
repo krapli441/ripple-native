@@ -20,8 +20,9 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
     profile: any,
     done: Function,
   ) {
-    // 여기서 사용자 정보와 토큰을 데이터베이스에 저장하거나 검증할 수 있습니다.
-    // 이 예제에서는 간단하게 프로필 정보만 반환합니다.
+    console.log('Access Token:', accessToken);
+    console.log('Refresh Token:', refreshToken);
+    console.log('Profile:', profile);
     return profile;
   }
 }

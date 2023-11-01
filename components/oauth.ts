@@ -1,3 +1,4 @@
+// 클라이언트 코드
 const handleSpotifyLogin = async () => {
   try {
     // NestJS 서버의 '/auth/spotify' 엔드포인트로 요청을 보냄
