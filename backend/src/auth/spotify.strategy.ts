@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-spotify';
 
 @Injectable()
-export class SpotifyStrategy extends PassportStrategy(Strategy) {
+export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
   constructor() {
     super({
       clientID: process.env.SPOTIFY_CLIENT_ID,
