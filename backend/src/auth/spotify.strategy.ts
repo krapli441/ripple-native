@@ -1,5 +1,3 @@
-// src/auth/spotify.strategy.ts
-
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-spotify';
