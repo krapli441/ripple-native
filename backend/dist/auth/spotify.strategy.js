@@ -13,14 +13,16 @@ exports.SpotifyStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_spotify_1 = require("passport-spotify");
+const config_1 = require("@nestjs/config");
 let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrategy)(passport_spotify_1.Strategy, 'spotify') {
-    constructor() {
+    constructor(configService) {
         super({
-            clientID: process.env.SPOTIFY_CLIENT_ID,
-            clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+            clientID: configService.get('SPOTIFY_CLIENT_ID'),
+            clientSecret: configService.get('SPOTIFY_CLIENT_SECRET'),
             callbackURL: 'http://localhost:3000/auth/spotify/callback',
             scope: ['user-read-email', 'user-read-private'],
         });
+        this.configService = configService;
     }
     async validate(accessToken, refreshToken, profile) {
         return profile;
@@ -29,6 +31,6 @@ let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrat
 exports.SpotifyStrategy = SpotifyStrategy;
 exports.SpotifyStrategy = SpotifyStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [config_1.ConfigService])
 ], SpotifyStrategy);
 //# sourceMappingURL=spotify.strategy.js.map
