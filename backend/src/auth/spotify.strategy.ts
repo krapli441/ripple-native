@@ -10,7 +10,7 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
     super({
       clientID: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      callbackURL: 'http://192.168.0.215:3000/auth/spotify/callback',
+      callbackURL: 'http://localhost:3000/auth/spotify/callback',
       scope: ['user-read-email', 'user-read-private'],
     });
   }
