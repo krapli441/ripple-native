@@ -15,10 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
+const config_1 = require("@nestjs/config");
 let AuthController = class AuthController {
+    constructor(configService) {
+        this.configService = configService;
+    }
     async spotifyAuth() { }
     async spotifyAuthCallback(req) {
         return req.user;
+    }
+    getSpotifyAuthUrl(res) {
+        const spotifyAuthUrl = 'https://accounts.spotify.com/authorize' +
+            '?response_type=code' +
+            '&client_id=' +
+            this.configService.get('SPOTIFY_CLIENT_ID') +
+            '&scope=user-read-email%20playlist-modify-public%20user-read-private' +
+            '&redirect_uri=' +
+            encodeURIComponent('http://localhost:3000/auth/spotify/callback');
+        return res.json({ authUrl: spotifyAuthUrl });
     }
 };
 exports.AuthController = AuthController;
@@ -37,7 +51,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "spotifyAuthCallback", null);
+__decorate([
+    (0, common_1.Get)('spotify-url'),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "getSpotifyAuthUrl", null);
 exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('auth')
+    (0, common_1.Controller)('auth'),
+    __metadata("design:paramtypes", [config_1.ConfigService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map
