@@ -2,12 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as passport from 'passport';
 import * as session from 'express-session';
+import { AllExceptionsFilter } from './filters/exeption-filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Passport 초기화
   app.use(passport.initialize());
+
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   // express-session 설정
   app.use(
