@@ -26,9 +26,8 @@
     "@nestjs/jwt": "^10.1.1",
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "^10.0.0",
-    "@types/passport-spotify": "^2.0.3",
     "passport": "^0.6.0",
-    "passport-spotify": "^2.0.0",
+    "passport-oauth2": "^1.7.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
