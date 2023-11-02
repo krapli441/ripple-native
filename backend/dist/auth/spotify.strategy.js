@@ -8,13 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var SpotifyStrategy_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpotifyStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_spotify_1 = require("passport-spotify");
 const config_1 = require("@nestjs/config");
-let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrategy)(passport_spotify_1.Strategy, 'spotify') {
+let SpotifyStrategy = SpotifyStrategy_1 = class SpotifyStrategy extends (0, passport_1.PassportStrategy)(passport_spotify_1.Strategy, 'spotify') {
     constructor(configService) {
         super({
             clientID: configService.get('SPOTIFY_CLIENT_ID'),
@@ -23,16 +24,16 @@ let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrat
             scope: ['user-read-email', 'user-read-private'],
         });
         this.configService = configService;
+        this.logger = new common_1.Logger(SpotifyStrategy_1.name);
+        this.logger.log('SpotifyStrategy initialized');
     }
     async validate(accessToken, refreshToken, profile) {
-        console.log('액세스 토큰 : ', accessToken),
-            console.log('리프레시 토큰: ', refreshToken),
-            console.log('프로필 : ', profile);
+        console.log('SpotifyStrategy validate', profile);
         return profile;
     }
 };
 exports.SpotifyStrategy = SpotifyStrategy;
-exports.SpotifyStrategy = SpotifyStrategy = __decorate([
+exports.SpotifyStrategy = SpotifyStrategy = SpotifyStrategy_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [config_1.ConfigService])
 ], SpotifyStrategy);
