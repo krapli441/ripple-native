@@ -15,6 +15,7 @@ var AuthController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const axios_1 = require("axios");
 const passport_1 = require("@nestjs/passport");
 const config_1 = require("@nestjs/config");
 const auth_service_1 = require("./auth.service");
@@ -25,9 +26,32 @@ let AuthController = AuthController_1 = class AuthController {
         this.logger = new common_1.Logger(AuthController_1.name);
     }
     async spotifyAuth() { }
-    async spotifyAuthCallback(req) {
-        this.logger.log('Spotify callback endpoint hit');
-        return req.user;
+    async spotifyCallback(req, res) {
+        const code = req.query.code;
+        const authOptions = {
+            method: 'post',
+            url: 'https://accounts.spotify.com/api/token',
+            data: {
+                code: code,
+                redirect_uri: 'http://192.168.0.215:3000/auth/spotify/callback',
+                grant_type: 'authorization_code',
+            },
+            headers: {
+                Authorization: 'Basic ' +
+                    Buffer.from(this.configService.get('SPOTIFY_CLIENT_ID') +
+                        ':' +
+                        this.configService.get('SPOTIFY_CLIENT_SECRET')).toString('base64'),
+            },
+        };
+        try {
+            const response = await (0, axios_1.default)(authOptions);
+            const accessToken = response.data.access_token;
+            res.redirect('/some-endpoint');
+        }
+        catch (error) {
+            console.error('Error fetching access token:', error.response.data);
+            res.redirect('/error-endpoint');
+        }
     }
     getSpotifyAuthUrl(res) {
         const spotifyAuthUrl = 'https://accounts.spotify.com/authorize' +
@@ -72,11 +96,12 @@ __decorate([
 __decorate([
     (0, common_1.Get)('spotify/callback'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify-oauth2')),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "spotifyAuthCallback", null);
+], AuthController.prototype, "spotifyCallback", null);
 __decorate([
     (0, common_1.Get)('spotify-url'),
     __param(0, (0, common_1.Res)()),

@@ -2,12 +2,13 @@ import {
   Controller,
   Get,
   UseGuards,
-  Request,
+  Req,
   Res,
   Post,
   Body,
   Logger,
 } from '@nestjs/common';
+import axios from 'axios';
 import { AuthGuard } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
@@ -26,10 +27,39 @@ export class AuthController {
 
   @Get('spotify/callback')
   @UseGuards(AuthGuard('spotify-oauth2'))
-  async spotifyAuthCallback(@Request() req) {
-    this.logger.log('Spotify callback endpoint hit'); // 로그 메시지
-    // 로그인에 성공한 후 원하는 경로로 리다이렉트하거나 정보를 반환.
-    return req.user;
+  async spotifyCallback(@Req() req, @Res() res) {
+    const code = req.query.code;
+
+    const authOptions = {
+      method: 'post',
+      url: 'https://accounts.spotify.com/api/token',
+      data: {
+        code: code,
+        redirect_uri: 'http://192.168.0.215:3000/auth/spotify/callback',
+        grant_type: 'authorization_code',
+      },
+      headers: {
+        Authorization:
+          'Basic ' +
+          Buffer.from(
+            this.configService.get<string>('SPOTIFY_CLIENT_ID') +
+              ':' +
+              this.configService.get<string>('SPOTIFY_CLIENT_SECRET'),
+          ).toString('base64'),
+      },
+    };
+
+    try {
+      const response = await axios(authOptions);
+      const accessToken = response.data.access_token;
+      // 이제 액세스 토큰을 사용하여 필요한 작업을 수행할 수 있습니다.
+      // 예: 사용자 정보 가져오기, 토큰 저장하기 등
+
+      res.redirect('/some-endpoint'); // 성공적으로 토큰을 받은 후 리디렉션할 엔드포인트
+    } catch (error) {
+      console.error('Error fetching access token:', error.response.data);
+      res.redirect('/error-endpoint'); // 에러 시 리디렉션할 엔드포인트
+    }
   }
 
   @Get('spotify-url')
