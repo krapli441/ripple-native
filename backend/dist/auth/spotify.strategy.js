@@ -32,7 +32,11 @@ let SpotifyStrategy = SpotifyStrategy_1 = class SpotifyStrategy extends (0, pass
         this.logger.log('SpotifyStrategy initialized');
     }
     async validate(accessToken, refreshToken, profile) {
+        this.logger.log('Entering SpotifyStrategy validate');
         console.log('SpotifyStrategy validate', profile);
+        this.logger.log(`Access Token: ${accessToken}`);
+        this.logger.log(`Refresh Token: ${refreshToken}`);
+        this.logger.log('Profile returned:', profile);
         return profile;
     }
 };

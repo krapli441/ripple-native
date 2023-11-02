@@ -1,18 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as passport from 'passport';
-
+import * as session from 'express-session';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  // 로그 메시지 추가 (Passport 초기화 전)
-  console.log('Before Passport initialization');
 
   // Passport 초기화
   app.use(passport.initialize());
 
-  // 로그 메시지 추가 (Passport 초기화 후)
-  console.log('After Passport initialization');
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET_KEY,
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
 
   await app.listen(3000);
 }

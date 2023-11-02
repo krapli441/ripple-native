@@ -24,7 +24,11 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: any) {
+    this.logger.log('Entering SpotifyStrategy validate');
     console.log('SpotifyStrategy validate', profile);
+    this.logger.log(`Access Token: ${accessToken}`);
+    this.logger.log(`Refresh Token: ${refreshToken}`);
+    this.logger.log('Profile returned:', profile);
     return profile;
   }
 }
