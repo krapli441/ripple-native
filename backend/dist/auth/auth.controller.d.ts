@@ -5,4 +5,5 @@ export declare class AuthController {
     spotifyAuth(): Promise<void>;
     spotifyAuthCallback(req: any): Promise<any>;
     getSpotifyAuthUrl(res: any): any;
+    validateToken(body: any, res: any): Promise<any>;
 }

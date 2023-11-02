@@ -34,6 +34,25 @@ let AuthController = class AuthController {
             encodeURIComponent('http://192.168.0.215:3000/auth/spotify/callback');
         return res.json({ authUrl: spotifyAuthUrl });
     }
+    async validateToken(body, res) {
+        try {
+            const { accessToken } = body;
+            const isValid = await this.authService.validateSpotifyToken(accessToken);
+            if (isValid) {
+                const jwt = this.authService.createJwt();
+                return res.json({ success: true, jwt });
+            }
+            else {
+                return res.json({ success: false, error: 'Invalid token' });
+            }
+        }
+        catch (error) {
+            console.error(error);
+            return res
+                .status(500)
+                .json({ success: false, error: 'Internal Server Error' });
+        }
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -58,6 +77,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "getSpotifyAuthUrl", null);
+__decorate([
+    (0, common_1.Post)('validate-token'),
+    __param(0, Body()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "validateToken", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [config_1.ConfigService])
