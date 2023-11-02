@@ -26,7 +26,7 @@ export class AuthController {
       this.configService.get<string>('SPOTIFY_CLIENT_ID') +
       '&scope=user-read-email%20playlist-modify-public%20user-read-private' +
       '&redirect_uri=' +
-      encodeURIComponent('http://localhost:3000/auth/spotify/callback');
+      encodeURIComponent('http://192.168.0.215:3000/auth/spotify/callback');
 
     return res.json({ authUrl: spotifyAuthUrl });
   }
