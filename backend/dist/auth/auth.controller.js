@@ -16,9 +16,11 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const config_1 = require("@nestjs/config");
+const auth_service_1 = require("./auth.service");
 let AuthController = class AuthController {
-    constructor(configService) {
+    constructor(configService, authService) {
         this.configService = configService;
+        this.authService = authService;
     }
     async spotifyAuth() { }
     async spotifyAuthCallback(req) {
@@ -37,9 +39,9 @@ let AuthController = class AuthController {
     async validateToken(body, res) {
         try {
             const { accessToken } = body;
-            const isValid = await this.authService.validateSpotifyToken(accessToken);
-            if (isValid) {
-                const jwt = this.authService.createJwt();
+            const spotifyUser = await this.authService.validateSpotifyToken(accessToken);
+            if (spotifyUser) {
+                const jwt = this.authService.createJwt(spotifyUser);
                 return res.json({ success: true, jwt });
             }
             else {
@@ -79,7 +81,7 @@ __decorate([
 ], AuthController.prototype, "getSpotifyAuthUrl", null);
 __decorate([
     (0, common_1.Post)('validate-token'),
-    __param(0, Body()),
+    __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
@@ -87,6 +89,7 @@ __decorate([
 ], AuthController.prototype, "validateToken", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [config_1.ConfigService])
+    __metadata("design:paramtypes", [config_1.ConfigService,
+        auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

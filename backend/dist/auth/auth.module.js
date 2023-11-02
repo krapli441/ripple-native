@@ -11,13 +11,26 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const spotify_strategy_1 = require("./spotify.strategy");
 const auth_controller_1 = require("./auth.controller");
+const auth_service_1 = require("./auth.service");
+const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        imports: [passport_1.PassportModule],
-        providers: [spotify_strategy_1.SpotifyStrategy],
+        imports: [
+            passport_1.PassportModule,
+            jwt_1.JwtModule.registerAsync({
+                imports: [config_1.ConfigModule],
+                useFactory: (configService) => ({
+                    secret: configService.get('JWT_SECRET_KEY'),
+                    signOptions: { expiresIn: '1h' },
+                }),
+                inject: [config_1.ConfigService],
+            }),
+        ],
+        providers: [spotify_strategy_1.SpotifyStrategy, auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);
