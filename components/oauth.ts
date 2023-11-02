@@ -16,7 +16,7 @@ const handleSpotifyLogin = async (navigation: any) => {
         authorizationEndpoint: authUrl,
         tokenEndpoint: 'https://accounts.spotify.com/api/token',
       },
-      redirectUrl: 'com.ripple:/oauth',
+      redirectUrl: 'http://192.168.0.215:3000/auth/spotify/callback',
       scopes: [
         'user-read-email',
         'playlist-modify-public',
