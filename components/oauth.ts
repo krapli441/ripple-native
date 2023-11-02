@@ -8,7 +8,9 @@ const handleSpotifyLogin = async (navigation: any) => {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
+    console.log("요청 응답 값 :", data);
     const authUrl = data.authUrl;
+    console.log("로그인 주소 :",authUrl);
 
     const result = await authorize({
       clientId: Config.SPOTIFY_CLIENT_ID!,
