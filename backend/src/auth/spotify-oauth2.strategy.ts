@@ -15,7 +15,7 @@ export class SpotifyOAuth2Strategy extends PassportStrategy(
       clientID: configService.get<string>('SPOTIFY_CLIENT_ID'),
       clientSecret: configService.get<string>('SPOTIFY_CLIENT_SECRET'),
       callbackURL: 'http://192.168.0.215:3000/auth/spotify/callback',
-      scope: ['user-read-email', 'user-read-private'],
+      scope: ['user-read-email', 'playlist-modify-public', 'user-read-private'],
       passReqToCallback: true,
       state: true,
     });
