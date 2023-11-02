@@ -1,4 +1,4 @@
-import {authorize, AuthConfiguration} from 'react-native-app-auth';
+import {authorize} from 'react-native-app-auth';
 import Config from 'react-native-config';
 
 const handleSpotifyLogin = async (navigation: any) => {
