@@ -13,15 +13,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpotifyStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
-const passport_spotify_1 = require("passport-spotify");
+const passport_oauth2_1 = require("passport-oauth2");
 const config_1 = require("@nestjs/config");
-let SpotifyStrategy = SpotifyStrategy_1 = class SpotifyStrategy extends (0, passport_1.PassportStrategy)(passport_spotify_1.Strategy, 'spotify') {
+let SpotifyStrategy = SpotifyStrategy_1 = class SpotifyStrategy extends (0, passport_1.PassportStrategy)(passport_oauth2_1.Strategy, 'spotify') {
     constructor(configService) {
         super({
+            authorizationURL: 'https://accounts.spotify.com/authorize',
+            tokenURL: 'https://accounts.spotify.com/api/token',
             clientID: configService.get('SPOTIFY_CLIENT_ID'),
             clientSecret: configService.get('SPOTIFY_CLIENT_SECRET'),
             callbackURL: 'http://192.168.0.215:3000/auth/spotify/callback',
             scope: ['user-read-email', 'user-read-private'],
+            state: true,
+            pkce: true,
         });
         this.configService = configService;
         this.logger = new common_1.Logger(SpotifyStrategy_1.name);
