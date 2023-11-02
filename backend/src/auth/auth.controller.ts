@@ -21,11 +21,11 @@ export class AuthController {
   ) {}
 
   @Get('spotify')
-  @UseGuards(AuthGuard('spotify'))
+  @UseGuards(AuthGuard('spotify-oauth2'))
   async spotifyAuth() {}
 
   @Get('spotify/callback')
-  @UseGuards(AuthGuard('spotify'))
+  @UseGuards(AuthGuard('spotify-oauth2'))
   async spotifyAuthCallback(@Request() req) {
     this.logger.log('Spotify callback endpoint hit'); // 로그 메시지
     // 로그인에 성공한 후 원하는 경로로 리다이렉트하거나 정보를 반환.

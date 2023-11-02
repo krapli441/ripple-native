@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
-const spotify_strategy_1 = require("./spotify.strategy");
+const spotify_oauth2_strategy_1 = require("./spotify-oauth2.strategy");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const jwt_1 = require("@nestjs/jwt");
@@ -30,7 +30,7 @@ exports.AuthModule = AuthModule = __decorate([
                 inject: [config_1.ConfigService],
             }),
         ],
-        providers: [spotify_strategy_1.SpotifyStrategy, auth_service_1.AuthService],
+        providers: [auth_service_1.AuthService, spotify_oauth2_strategy_1.SpotifyOAuth2Strategy],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);

@@ -63,14 +63,14 @@ let AuthController = AuthController_1 = class AuthController {
 exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Get)('spotify'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify-oauth2')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "spotifyAuth", null);
 __decorate([
     (0, common_1.Get)('spotify/callback'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify-oauth2')),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
