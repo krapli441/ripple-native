@@ -28,6 +28,7 @@ export class AuthController {
   @UseGuards(AuthGuard('spotify'))
   async spotifyAuthCallback(@Request() req) {
     this.logger.log('Spotify callback endpoint hit'); // 로그 메시지
+    this.logger.log(`Request state: ${req.query.state}`);
     // 로그인에 성공한 후 원하는 경로로 리다이렉트하거나 정보를 반환.
     return req.user;
   }

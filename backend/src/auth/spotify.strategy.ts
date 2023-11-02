@@ -17,18 +17,23 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
       scope: ['user-read-email', 'user-read-private'],
       // PKCE 옵션 추가
       state: true,
-      pkce: true,
+      pkce: false,
     });
 
     this.logger.log('SpotifyStrategy initialized');
   }
 
   async validate(accessToken: string, refreshToken: string, profile: any) {
-    this.logger.log('Entering SpotifyStrategy validate');
-    console.log('SpotifyStrategy validate', profile);
-    this.logger.log(`Access Token: ${accessToken}`);
-    this.logger.log(`Refresh Token: ${refreshToken}`);
-    this.logger.log('Profile returned:', profile);
-    return profile;
+    try {
+      this.logger.log('Entering SpotifyStrategy validate');
+      console.log('SpotifyStrategy validate', profile);
+      this.logger.log(`Access Token: ${accessToken}`);
+      this.logger.log(`Refresh Token: ${refreshToken}`);
+      this.logger.log('Profile returned:', profile);
+      return profile;
+    } catch (error) {
+      this.logger.error('Error in SpotifyStrategy validate:', error);
+      throw error; // 예외를 다시 던져 NestJS의 기본 예외 처리기에게 예외를 처리하도록 합니다.
+    }
   }
 }

@@ -25,19 +25,25 @@ let SpotifyStrategy = SpotifyStrategy_1 = class SpotifyStrategy extends (0, pass
             callbackURL: 'http://192.168.0.215:3000/auth/spotify/callback',
             scope: ['user-read-email', 'user-read-private'],
             state: true,
-            pkce: true,
+            pkce: false,
         });
         this.configService = configService;
         this.logger = new common_1.Logger(SpotifyStrategy_1.name);
         this.logger.log('SpotifyStrategy initialized');
     }
     async validate(accessToken, refreshToken, profile) {
-        this.logger.log('Entering SpotifyStrategy validate');
-        console.log('SpotifyStrategy validate', profile);
-        this.logger.log(`Access Token: ${accessToken}`);
-        this.logger.log(`Refresh Token: ${refreshToken}`);
-        this.logger.log('Profile returned:', profile);
-        return profile;
+        try {
+            this.logger.log('Entering SpotifyStrategy validate');
+            console.log('SpotifyStrategy validate', profile);
+            this.logger.log(`Access Token: ${accessToken}`);
+            this.logger.log(`Refresh Token: ${refreshToken}`);
+            this.logger.log('Profile returned:', profile);
+            return profile;
+        }
+        catch (error) {
+            this.logger.error('Error in SpotifyStrategy validate:', error);
+            throw error;
+        }
     }
 };
 exports.SpotifyStrategy = SpotifyStrategy;

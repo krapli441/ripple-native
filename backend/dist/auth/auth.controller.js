@@ -27,6 +27,7 @@ let AuthController = AuthController_1 = class AuthController {
     async spotifyAuth() { }
     async spotifyAuthCallback(req) {
         this.logger.log('Spotify callback endpoint hit');
+        this.logger.log(`Request state: ${req.query.state}`);
         return req.user;
     }
     getSpotifyAuthUrl(res) {
