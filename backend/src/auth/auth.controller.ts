@@ -48,6 +48,7 @@ export class AuthController {
 
   @Post('validate-token')
   async validateToken(@Body() body, @Res() res) {
+    console.log('Received AccessToken:', body.accessToken);
     try {
       const { accessToken } = body;
 

@@ -27,6 +27,9 @@ export class SpotifyOAuth2Strategy extends PassportStrategy(
     profile: any,
     req: any,
   ) {
+    console.log('AccessToken:', accessToken);
+    console.log('RefreshToken:', refreshToken);
+    console.log('Profile:', profile);
     // 여기서 사용자 정보를 처리하고 반환한다.
     return profile;
   }

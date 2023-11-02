@@ -40,6 +40,7 @@ let AuthController = AuthController_1 = class AuthController {
         return res.json({ authUrl: spotifyAuthUrl });
     }
     async validateToken(body, res) {
+        console.log('Received AccessToken:', body.accessToken);
         try {
             const { accessToken } = body;
             const spotifyUser = await this.authService.validateSpotifyToken(accessToken);

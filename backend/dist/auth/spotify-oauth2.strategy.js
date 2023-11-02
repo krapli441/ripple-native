@@ -29,6 +29,9 @@ let SpotifyOAuth2Strategy = class SpotifyOAuth2Strategy extends (0, passport_1.P
         this.configService = configService;
     }
     async validate(accessToken, refreshToken, profile, req) {
+        console.log('AccessToken:', accessToken);
+        console.log('RefreshToken:', refreshToken);
+        console.log('Profile:', profile);
         return profile;
     }
 };
