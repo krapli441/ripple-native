@@ -8,9 +8,7 @@ const handleSpotifyLogin = async (navigation: any) => {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log('요청 응답 값 :', data);
     const authUrl = data.authUrl;
-    console.log('로그인 주소 :', authUrl);
 
     const result = await authorize({
       clientId: Config.SPOTIFY_CLIENT_ID!,
@@ -26,7 +24,7 @@ const handleSpotifyLogin = async (navigation: any) => {
       ],
     });
 
-    console.log(result);
+    console.log('OAuth 로그인 결과 : ', result);
 
     // Access Token을 NestJS 서버에 전송
     const tokenResponse = await fetch(
@@ -44,7 +42,7 @@ const handleSpotifyLogin = async (navigation: any) => {
 
     const tokenData = await tokenResponse.json();
     if (tokenData.success) {
-      console.log('Token validation successful.');
+      console.log('Access Token 검증 확인');
       // 로그인이 성공하면 MapScreen으로 이동
       navigation.navigate('Ripple');
     } else {
