@@ -25,6 +25,7 @@ let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrat
         this.configService = configService;
     }
     async validate(accessToken, refreshToken, profile) {
+        console.log(accessToken), console.log(refreshToken), console.log(profile);
         return profile;
     }
 };
