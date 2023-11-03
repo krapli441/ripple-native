@@ -21,7 +21,7 @@ export class SpotifyAuthController {
     params.append('code_verifier', body.codeVerifier);
 
     try {
-      const response = await axios.post(
+      const tokenResponse = await axios.post(
         'https://accounts.spotify.com/api/token',
         params.toString(),
         {
@@ -30,9 +30,29 @@ export class SpotifyAuthController {
           },
         },
       );
-      console.log('getToken called with:', body);
-      console.log('응답 값 : ', response.data);
-      return response.data;
+      const accessToken = tokenResponse.data.access_token;
+
+      // 액세스 토큰을 사용하여 사용자의 프로필 정보를 가져옴.
+      const userProfileResponse = await axios.get(
+        'https://api.spotify.com/v1/me',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      const userProfile = userProfileResponse.data;
+
+      console.log('getUserProfile:', userProfile);
+
+      // 여기에서 userProfile을 사용하여 MongoDB에 사용자 정보를 저장할 수 있다.
+      // 예: const newUser = await userService.create(userProfile);
+
+      return {
+        tokenData: tokenResponse.data,
+        userProfile: userProfile,
+      };
     } catch (error) {
       console.error(error.response?.data);
       throw error;

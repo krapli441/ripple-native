@@ -5,5 +5,8 @@ export declare class SpotifyAuthController {
     getToken(body: {
         code: string;
         codeVerifier: string;
-    }): Promise<any>;
+    }): Promise<{
+        tokenData: any;
+        userProfile: any;
+    }>;
 }

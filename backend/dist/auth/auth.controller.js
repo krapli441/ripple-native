@@ -32,14 +32,23 @@ let SpotifyAuthController = class SpotifyAuthController {
         params.append('client_secret', clientSecret);
         params.append('code_verifier', body.codeVerifier);
         try {
-            const response = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
+            const tokenResponse = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
-            console.log('getToken called with:', body);
-            console.log('응답 값 : ', response.data);
-            return response.data;
+            const accessToken = tokenResponse.data.access_token;
+            const userProfileResponse = await axios_1.default.get('https://api.spotify.com/v1/me', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const userProfile = userProfileResponse.data;
+            console.log('getUserProfile:', userProfile);
+            return {
+                tokenData: tokenResponse.data,
+                userProfile: userProfile,
+            };
         }
         catch (error) {
             console.error(error.response?.data);
