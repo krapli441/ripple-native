@@ -16,7 +16,7 @@ const handleSpotifyLogin = async (navigation: any) => {
         authorizationEndpoint: authUrl,
         tokenEndpoint: 'https://accounts.spotify.com/api/token',
       },
-      redirectUrl: 'http://192.168.0.215:3000/auth/spotify/callback',
+      redirectUrl: 'com.ripple:/oauth',
       scopes: [
         'user-read-email',
         'playlist-modify-public',
@@ -43,6 +43,7 @@ const handleSpotifyLogin = async (navigation: any) => {
     const tokenData = await tokenResponse.json();
     if (tokenData.success) {
       console.log('Access Token 검증 확인');
+      console.log(tokenData);
       // 로그인이 성공하면 MapScreen으로 이동
       navigation.navigate('Ripple');
     } else {
