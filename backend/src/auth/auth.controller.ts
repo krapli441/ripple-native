@@ -31,6 +31,7 @@ export class SpotifyAuthController {
         },
       );
       console.log('getToken called with:', body);
+      console.log('응답 값 : ', response.data);
       return response.data;
     } catch (error) {
       console.error(error.response?.data);

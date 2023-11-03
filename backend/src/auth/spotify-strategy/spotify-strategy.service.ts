@@ -9,20 +9,23 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
     super({
       clientID: configService.get('SPOTIFY_CLIENT_ID'),
       clientSecret: configService.get('SPOTIFY_CLIENT_SECRET'),
-      callbackURL: 'http://192.168.0.215:3000/auth/spotify/callback',
+      callbackURL: 'com.ripple:/oauth',
       scope: ['user-read-email', 'playlist-modify-public', 'user-read-private'],
     });
   }
 
   async validate(accessToken: string, refreshToken: string, profile: any) {
     // 여기에서 사용자 정보를 DB와 비교하거나 JWT를 생성할 수 있음.
+    console.log(accessToken);
+    console.log(refreshToken);
+    console.log(profile);
     return profile;
   }
 
   getAuthorizeUrl(): string {
     const baseUrl = 'https://accounts.spotify.com/authorize';
     const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
-    const redirectUri = 'http://192.168.0.215:3000/auth/spotify/callback';
+    const redirectUri = 'com.ripple:/oauth';
     const scopes = [
       'user-read-email',
       'playlist-modify-public',
