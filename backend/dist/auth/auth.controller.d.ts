@@ -13,4 +13,6 @@ export declare class SpotifyAuthController {
         user: import("../user/user.schema").User;
         jwtToken: string;
     }>;
+    private getSpotifyAccessToken;
+    private getSpotifyUserProfile;
 }

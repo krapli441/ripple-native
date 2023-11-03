@@ -25,36 +25,24 @@ let SpotifyAuthController = class SpotifyAuthController {
         this.jwtService = jwtService;
     }
     async getToken(body) {
-        const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
-        const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
-        const redirectUri = 'com.ripple:/oauth';
-        const params = new URLSearchParams();
-        params.append('grant_type', 'authorization_code');
-        params.append('code', body.code);
-        params.append('redirect_uri', redirectUri);
-        params.append('client_id', clientId);
-        params.append('client_secret', clientSecret);
-        params.append('code_verifier', body.codeVerifier);
         try {
-            const tokenResponse = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            });
-            const accessToken = tokenResponse.data.access_token;
-            const userProfileResponse = await axios_1.default.get('https://api.spotify.com/v1/me', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            const userProfile = userProfileResponse.data;
-            console.log('getUserProfile:', userProfile);
-            const user = await this.userService.create({
-                username: userProfile.display_name,
-                email: userProfile.email,
-                accessToken: tokenResponse.data.access_token,
-                refreshToken: tokenResponse.data.refresh_token,
-            });
+            const accessToken = await this.getSpotifyAccessToken(body);
+            const userProfile = await this.getSpotifyUserProfile(accessToken);
+            let user = await this.userService.findByEmail(userProfile.email);
+            if (user) {
+                user = await this.userService.update(user._id, {
+                    accessToken: accessToken,
+                    refreshToken: userProfile.refreshToken,
+                });
+            }
+            else {
+                user = await this.userService.create({
+                    username: userProfile.display_name,
+                    email: userProfile.email,
+                    accessToken: accessToken,
+                    refreshToken: userProfile.refreshToken,
+                });
+            }
             const jwtPayload = { email: user.email, userId: user._id };
             const jwtToken = this.jwtService.sign(jwtPayload);
             return {
@@ -66,6 +54,32 @@ let SpotifyAuthController = class SpotifyAuthController {
             console.error(error.response?.data);
             throw error;
         }
+    }
+    async getSpotifyAccessToken(body) {
+        const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+        const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
+        const redirectUri = 'com.ripple:/oauth';
+        const params = new URLSearchParams();
+        params.append('grant_type', 'authorization_code');
+        params.append('code', body.code);
+        params.append('redirect_uri', redirectUri);
+        params.append('client_id', clientId);
+        params.append('client_secret', clientSecret);
+        params.append('code_verifier', body.codeVerifier);
+        const tokenResponse = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+        return tokenResponse.data.access_token;
+    }
+    async getSpotifyUserProfile(accessToken) {
+        const userProfileResponse = await axios_1.default.get('https://api.spotify.com/v1/me', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return userProfileResponse.data;
     }
 };
 exports.SpotifyAuthController = SpotifyAuthController;
