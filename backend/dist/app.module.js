@@ -13,6 +13,8 @@ const app_service_1 = require("./app.service");
 const passport_1 = require("@nestjs/passport");
 const auth_controller_1 = require("./auth/auth.controller");
 const config_1 = require("@nestjs/config");
+const mongoose_1 = require("@nestjs/mongoose");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,6 +26,8 @@ exports.AppModule = AppModule = __decorate([
                 envFilePath: '.env',
             }),
             passport_1.PassportModule.register({ defaultStrategy: 'spotify' }),
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/ripple'),
+            user_module_1.UserModule,
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController],
         providers: [app_service_1.AppService],
