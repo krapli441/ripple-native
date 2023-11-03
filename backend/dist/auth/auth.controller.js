@@ -14,9 +14,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const spotify_strategy_service_1 = require("./spotify-strategy/spotify-strategy.service");
 const passport_1 = require("@nestjs/passport");
 let AuthController = class AuthController {
+    constructor(spotifyStrategy) {
+        this.spotifyStrategy = spotifyStrategy;
+    }
     spotifyLogin() {
+        return {
+            authorizeUrl: this.spotifyStrategy.getAuthorizeUrl(),
+        };
     }
     spotifyLoginCallback(req) {
         return req.user;
@@ -25,7 +32,6 @@ let AuthController = class AuthController {
 exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Get)('spotify'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
@@ -39,6 +45,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "spotifyLoginCallback", null);
 exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('auth')
+    (0, common_1.Controller)('auth'),
+    __metadata("design:paramtypes", [spotify_strategy_service_1.SpotifyStrategy])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

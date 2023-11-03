@@ -1,12 +1,15 @@
 import { Controller, Get, UseGuards, Req } from '@nestjs/common';
+import { SpotifyStrategy } from './spotify-strategy/spotify-strategy.service';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly spotifyStrategy: SpotifyStrategy) {}
   @Get('spotify')
-  @UseGuards(AuthGuard('spotify'))
   spotifyLogin() {
-    // 리다이렉트되기 전에 실행될 핸들러
+    return {
+      authorizeUrl: this.spotifyStrategy.getAuthorizeUrl(),
+    };
   }
 
   @Get('spotify/callback')

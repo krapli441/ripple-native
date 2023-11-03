@@ -27,6 +27,17 @@ let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrat
     async validate(accessToken, refreshToken, profile) {
         return profile;
     }
+    getAuthorizeUrl() {
+        const baseUrl = 'https://accounts.spotify.com/authorize';
+        const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+        const redirectUri = 'http://localhost:3000/auth/spotify/callback';
+        const scopes = [
+            'user-read-email',
+            'playlist-modify-public',
+            'user-read-private',
+        ].join('%20');
+        return `${baseUrl}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes}`;
+    }
 };
 exports.SpotifyStrategy = SpotifyStrategy;
 exports.SpotifyStrategy = SpotifyStrategy = __decorate([
