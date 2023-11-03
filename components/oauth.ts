@@ -35,6 +35,7 @@ const handleSpotifyLogin = async () => {
     );
 
     const data = await response.json();
+    console.log('응답 값 :', data);
   } catch (error) {
     console.error('Error during login:', error);
   }

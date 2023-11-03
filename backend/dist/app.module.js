@@ -12,9 +12,10 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const passport_1 = require("@nestjs/passport");
 const auth_controller_1 = require("./auth/auth.controller");
-const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_module_1 = require("./user/user.module");
+const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,6 +29,16 @@ exports.AppModule = AppModule = __decorate([
             passport_1.PassportModule.register({ defaultStrategy: 'spotify' }),
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/ripple'),
             user_module_1.UserModule,
+            jwt_1.JwtModule.registerAsync({
+                imports: [config_1.ConfigModule],
+                useFactory: (configService) => ({
+                    secret: configService.get('JWT_SECRET_KEY'),
+                    signOptions: {
+                        expiresIn: configService.get('JWT_EXPIRATION') || '1h',
+                    },
+                }),
+                inject: [config_1.ConfigService],
+            }),
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController],
         providers: [app_service_1.AppService],

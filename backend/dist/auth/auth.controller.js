@@ -17,10 +17,12 @@ const common_1 = require("@nestjs/common");
 const axios_1 = require("axios");
 const config_1 = require("@nestjs/config");
 const user_service_1 = require("../user/user.service");
+const jwt_1 = require("@nestjs/jwt");
 let SpotifyAuthController = class SpotifyAuthController {
-    constructor(configService, userService) {
+    constructor(configService, userService, jwtService) {
         this.configService = configService;
         this.userService = userService;
+        this.jwtService = jwtService;
     }
     async getToken(body) {
         const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
@@ -53,7 +55,12 @@ let SpotifyAuthController = class SpotifyAuthController {
                 accessToken: tokenResponse.data.access_token,
                 refreshToken: tokenResponse.data.refresh_token,
             });
-            return user;
+            const jwtPayload = { email: user.email, userId: user._id };
+            const jwtToken = this.jwtService.sign(jwtPayload);
+            return {
+                user,
+                jwtToken,
+            };
         }
         catch (error) {
             console.error(error.response?.data);
@@ -72,6 +79,7 @@ __decorate([
 exports.SpotifyAuthController = SpotifyAuthController = __decorate([
     (0, common_1.Controller)('auth/spotify'),
     __metadata("design:paramtypes", [config_1.ConfigService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        jwt_1.JwtService])
 ], SpotifyAuthController);
 //# sourceMappingURL=auth.controller.js.map
