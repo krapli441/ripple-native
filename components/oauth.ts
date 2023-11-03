@@ -1,6 +1,6 @@
 import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
-import {Linking} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const config: AuthConfiguration = {
   clientId: Config.SPOTIFY_CLIENT_ID!,
@@ -14,6 +14,8 @@ const config: AuthConfiguration = {
 };
 
 const handleSpotifyLogin = async () => {
+  const navigation = useNavigation();
+
   try {
     console.log('handleSpotifyLogin called');
     const result = await authorize(config);
@@ -36,6 +38,11 @@ const handleSpotifyLogin = async () => {
 
     const data = await response.json();
     console.log('응답 값 :', data);
+
+    // JWT 토큰이 제대로 응답되었는지 확인
+    if (data.jwtToken) {
+      navigation.navigate('MapScreen');
+    }
   } catch (error) {
     console.error('Error during login:', error);
   }
