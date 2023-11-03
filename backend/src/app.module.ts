@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PassportModule } from '@nestjs/passport';
-import { SpotifyStrategy } from './auth/spotify-strategy/spotify-strategy.service';
 import { SpotifyAuthController } from './auth/auth.controller';
 import { ConfigModule } from '@nestjs/config';
 
@@ -15,6 +14,6 @@ import { ConfigModule } from '@nestjs/config';
     PassportModule.register({ defaultStrategy: 'spotify' }),
   ],
   controllers: [AppController, SpotifyAuthController],
-  providers: [AppService, SpotifyStrategy],
+  providers: [AppService],
 })
 export class AppModule {}

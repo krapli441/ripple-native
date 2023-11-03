@@ -11,7 +11,6 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const passport_1 = require("@nestjs/passport");
-const spotify_strategy_service_1 = require("./auth/spotify-strategy/spotify-strategy.service");
 const auth_controller_1 = require("./auth/auth.controller");
 const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
@@ -27,7 +26,7 @@ exports.AppModule = AppModule = __decorate([
             passport_1.PassportModule.register({ defaultStrategy: 'spotify' }),
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController],
-        providers: [app_service_1.AppService, spotify_strategy_service_1.SpotifyStrategy],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
