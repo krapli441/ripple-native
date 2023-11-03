@@ -2,12 +2,14 @@ import { Controller, Post, Body } from '@nestjs/common';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user/user.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth/spotify')
 export class SpotifyAuthController {
   constructor(
     private configService: ConfigService,
     private userService: UserService,
+    private jwtService: JwtService,
   ) {}
 
   @Post('token')
@@ -57,7 +59,14 @@ export class SpotifyAuthController {
         refreshToken: tokenResponse.data.refresh_token,
       });
 
-      return user;
+      // 사용자 정보를 바탕으로 JWT 토큰 생성
+      const jwtPayload = { email: user.email, userId: user._id };
+      const jwtToken = this.jwtService.sign(jwtPayload);
+
+      return {
+        user,
+        jwtToken,
+      };
     } catch (error) {
       console.error(error.response?.data);
       throw error;
