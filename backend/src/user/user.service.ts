@@ -10,12 +10,6 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(userData: CreateUserDto): Promise<User> {
-    const existingUser = await this.userModel.findOne({
-      email: userData.email,
-    });
-    if (existingUser) {
-      throw new ConflictException('유저 이메일이 이미 존재합니다.');
-    }
     const user = new this.userModel(userData);
     return user.save();
   }
