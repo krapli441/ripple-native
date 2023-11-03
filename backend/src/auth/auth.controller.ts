@@ -11,6 +11,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
+import { CodeVerifier } from './code-verifier.schema';
 
 @Controller('auth')
 export class AuthController {

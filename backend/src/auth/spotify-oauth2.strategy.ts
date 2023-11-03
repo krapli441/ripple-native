@@ -2,13 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy as OAuth2Strategy } from 'passport-oauth2';
 import { ConfigService } from '@nestjs/config';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { CodeVerifier } from './code-verifier.schema';
 
 @Injectable()
 export class SpotifyOAuth2Strategy extends PassportStrategy(
   OAuth2Strategy,
   'spotify-oauth2',
 ) {
-  constructor(private configService: ConfigService) {
+  constructor(
+    private configService: ConfigService,
+    @InjectModel('CodeVerifier')
+    private codeVerifierModel: Model<CodeVerifier>,
+  ) {
     super({
       authorizationURL: 'https://accounts.spotify.com/authorize',
       tokenURL: 'https://accounts.spotify.com/api/token',
