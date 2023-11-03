@@ -20,7 +20,7 @@ let SpotifyAuthController = class SpotifyAuthController {
     constructor(configService) {
         this.configService = configService;
     }
-    async getToken(code) {
+    async getToken(body) {
         const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
         const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
         const redirectUri = 'com.ripple:/oauth';
@@ -28,15 +28,17 @@ let SpotifyAuthController = class SpotifyAuthController {
             const response = await axios_1.default.post('https://accounts.spotify.com/api/token', null, {
                 params: {
                     grant_type: 'authorization_code',
-                    code: code,
+                    code: body.code,
                     redirect_uri: redirectUri,
                     client_id: clientId,
                     client_secret: clientSecret,
+                    code_verifier: body.codeVerifier,
                 },
             });
             return response.data;
         }
         catch (error) {
+            console.error(error.response?.data);
             throw error;
         }
     }
@@ -44,9 +46,9 @@ let SpotifyAuthController = class SpotifyAuthController {
 exports.SpotifyAuthController = SpotifyAuthController;
 __decorate([
     (0, common_1.Post)('token'),
-    __param(0, (0, common_1.Body)('code')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SpotifyAuthController.prototype, "getToken", null);
 exports.SpotifyAuthController = SpotifyAuthController = __decorate([

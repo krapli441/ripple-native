@@ -7,7 +7,7 @@ export class SpotifyAuthController {
   constructor(private configService: ConfigService) {}
 
   @Post('token')
-  async getToken(@Body('code') code: string) {
+  async getToken(@Body() body: { code: string; codeVerifier: string }) {
     const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
     const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
     const redirectUri = 'com.ripple:/oauth';
@@ -19,16 +19,18 @@ export class SpotifyAuthController {
         {
           params: {
             grant_type: 'authorization_code',
-            code: code,
+            code: body.code,
             redirect_uri: redirectUri,
             client_id: clientId,
             client_secret: clientSecret,
+            code_verifier: body.codeVerifier,
           },
         },
       );
 
       return response.data;
     } catch (error) {
+      console.error(error.response?.data);
       throw error;
     }
   }

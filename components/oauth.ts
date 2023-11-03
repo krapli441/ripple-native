@@ -15,8 +15,23 @@ const config: AuthConfiguration = {
 const handleSpotifyLogin = async () => {
   try {
     const result = await authorize(config);
-    // 여기에서 result에는 인증 코드 정보가 포함되어 있다.
-    // 이 정보를 서버에 전달하여 액세스 토큰을 받아와야 한다.
+
+    // 서버에 인증 코드와 codeVerifier를 전달
+    const response = await fetch(
+      'http://192.168.0.215:3000/auth/spotify/token',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          code: result.authorizationCode,
+          codeVerifier: result.codeVerifier,
+        }),
+      },
+    );
+
+    const data = await response.json();
   } catch (error) {
     console.error('Error during login:', error);
   }
