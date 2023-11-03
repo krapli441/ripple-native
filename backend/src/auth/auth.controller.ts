@@ -50,14 +50,25 @@ export class SpotifyAuthController {
 
       const userProfile = userProfileResponse.data;
 
-      console.log('getUserProfile:', userProfile);
+      // 데이터베이스에서 사용자 조회
+      let user = await this.userService.findByEmail(userProfile.email);
 
-      const user = await this.userService.create({
-        username: userProfile.display_name,
-        email: userProfile.email,
-        accessToken: tokenResponse.data.access_token,
-        refreshToken: tokenResponse.data.refresh_token,
-      });
+      if (user) {
+        // 사용자가 이미 존재하는 경우: 정보 업데이트
+        user = await this.userService.update(user._id, {
+          accessToken: tokenResponse.data.access_token,
+          refreshToken: tokenResponse.data.refresh_token,
+          // 필요한 경우 다른 필드도 업데이트
+        });
+      } else {
+        // 새로운 사용자 생성
+        user = await this.userService.create({
+          username: userProfile.display_name,
+          email: userProfile.email,
+          accessToken: tokenResponse.data.access_token,
+          refreshToken: tokenResponse.data.refresh_token,
+        });
+      }
 
       // 사용자 정보를 바탕으로 JWT 토큰 생성
       const jwtPayload = { email: user.email, userId: user._id };

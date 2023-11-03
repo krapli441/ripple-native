@@ -31,6 +31,14 @@ let UserService = class UserService {
         const user = new this.userModel(userData);
         return user.save();
     }
+    async findByEmail(email) {
+        return this.userModel.findOne({ email: email }).exec();
+    }
+    async update(id, updateData) {
+        return this.userModel
+            .findByIdAndUpdate(id, updateData, { new: true })
+            .exec();
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

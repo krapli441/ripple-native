@@ -20,5 +20,15 @@ export class UserService {
     return user.save();
   }
 
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ email: email }).exec();
+  }
+
+  async update(id: string, updateData: Partial<CreateUserDto>): Promise<User> {
+    return this.userModel
+      .findByIdAndUpdate(id, updateData, { new: true })
+      .exec();
+  }
+
   // 다른 CRUD 메서드
 }
