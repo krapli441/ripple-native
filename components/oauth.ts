@@ -1,26 +1,17 @@
-import { authorize, AuthConfiguration } from 'react-native-app-auth';
+import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
 
-const handleSpotifyLogin = async (navigation: any) => {
+const handleSpotifyLogin = async () => {
   try {
-    const authConfig: AuthConfiguration = {
-      issuer: 'https://accounts.spotify.com',
-      clientId: Config.SPOTIFY_CLIENT_ID!,
-      clientSecret: Config.SPOTIFY_CLIENT_SECRET!,
-      redirectUrl: 'com.ripple:/oauth',
-      scopes: ['user-read-email', 'playlist-modify-public', 'user-read-private'],
-      serviceConfiguration: {
-        authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-        tokenEndpoint: 'https://accounts.spotify.com/api/token',
-      },
-    };
-    const result = await authorize(authConfig);
-    console.log(result);
+    // NestJS 서버로 로그인 요청을 보냄
+    const response = await fetch('http://192.168.0.215:3000/auth/spotify');
+    const data = await response.json();
 
-    // 로그인이 성공하면 MapScreen으로 이동
-    navigation.navigate('Ripple');
+    // 필요한 경우, 응답으로 받은 데이터를 처리
+
+    // 로그인이 성공하면 메인 페이지로 이동하거나 다른 로직을 실행
   } catch (error) {
-    console.log(error);
+    console.error('Error during login:', error);
   }
 };
 
