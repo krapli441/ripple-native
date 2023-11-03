@@ -1,5 +1,6 @@
 import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
+import {Linking} from 'react-native';
 
 const handleSpotifyLogin = async () => {
   try {
@@ -7,9 +8,10 @@ const handleSpotifyLogin = async () => {
     const response = await fetch('http://192.168.0.215:3000/auth/spotify');
     const data = await response.json();
 
-    // 필요한 경우, 응답으로 받은 데이터를 처리
-
-    // 로그인이 성공하면 메인 페이지로 이동하거나 다른 로직을 실행
+    // 인증 URL로 사용자를 리다이렉트
+    if (data.authorizeUrl) {
+      Linking.openURL(data.authorizeUrl);
+    }
   } catch (error) {
     console.error('Error during login:', error);
   }

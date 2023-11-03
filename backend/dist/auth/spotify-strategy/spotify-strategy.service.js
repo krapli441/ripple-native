@@ -30,7 +30,7 @@ let SpotifyStrategy = class SpotifyStrategy extends (0, passport_1.PassportStrat
     getAuthorizeUrl() {
         const baseUrl = 'https://accounts.spotify.com/authorize';
         const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
-        const redirectUri = 'http://localhost:3000/auth/spotify/callback';
+        const redirectUri = 'http://192.168.0.215:3000/auth/spotify/callback';
         const scopes = [
             'user-read-email',
             'playlist-modify-public',
