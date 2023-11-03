@@ -12,40 +12,45 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthController = void 0;
+exports.SpotifyAuthController = void 0;
 const common_1 = require("@nestjs/common");
-const spotify_strategy_service_1 = require("./spotify-strategy/spotify-strategy.service");
-const passport_1 = require("@nestjs/passport");
-let AuthController = class AuthController {
-    constructor(spotifyStrategy) {
-        this.spotifyStrategy = spotifyStrategy;
+const axios_1 = require("axios");
+const config_1 = require("@nestjs/config");
+let SpotifyAuthController = class SpotifyAuthController {
+    constructor(configService) {
+        this.configService = configService;
     }
-    spotifyLogin() {
-        return {
-            authorizeUrl: this.spotifyStrategy.getAuthorizeUrl(),
-        };
-    }
-    spotifyLoginCallback(req) {
-        return req.user;
+    async getToken(code) {
+        const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+        const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
+        const redirectUri = 'com.ripple:/oauth';
+        try {
+            const response = await axios_1.default.post('https://accounts.spotify.com/api/token', null, {
+                params: {
+                    grant_type: 'authorization_code',
+                    code: code,
+                    redirect_uri: redirectUri,
+                    client_id: clientId,
+                    client_secret: clientSecret,
+                },
+            });
+            return response.data;
+        }
+        catch (error) {
+            throw error;
+        }
     }
 };
-exports.AuthController = AuthController;
+exports.SpotifyAuthController = SpotifyAuthController;
 __decorate([
-    (0, common_1.Get)('spotify'),
+    (0, common_1.Post)('token'),
+    __param(0, (0, common_1.Body)('code')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "spotifyLogin", null);
-__decorate([
-    (0, common_1.Get)('spotify/callback'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('spotify')),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "spotifyLoginCallback", null);
-exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [spotify_strategy_service_1.SpotifyStrategy])
-], AuthController);
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SpotifyAuthController.prototype, "getToken", null);
+exports.SpotifyAuthController = SpotifyAuthController = __decorate([
+    (0, common_1.Controller)('auth/spotify'),
+    __metadata("design:paramtypes", [config_1.ConfigService])
+], SpotifyAuthController);
 //# sourceMappingURL=auth.controller.js.map

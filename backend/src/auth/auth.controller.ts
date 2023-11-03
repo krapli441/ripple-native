@@ -1,21 +1,35 @@
-import { Controller, Get, UseGuards, Req } from '@nestjs/common';
-import { SpotifyStrategy } from './spotify-strategy/spotify-strategy.service';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Post, Body } from '@nestjs/common';
+import axios from 'axios';
+import { ConfigService } from '@nestjs/config';
 
-@Controller('auth')
-export class AuthController {
-  constructor(private readonly spotifyStrategy: SpotifyStrategy) {}
-  @Get('spotify')
-  spotifyLogin() {
-    return {
-      authorizeUrl: this.spotifyStrategy.getAuthorizeUrl(),
-    };
-  }
+@Controller('auth/spotify')
+export class SpotifyAuthController {
+  constructor(private configService: ConfigService) {}
 
-  @Get('spotify/callback')
-  @UseGuards(AuthGuard('spotify'))
-  spotifyLoginCallback(@Req() req) {
-    // 스포티파이 인증 후 리다이렉트되는 핸들러
-    return req.user;
+  @Post('token')
+  async getToken(@Body('code') code: string) {
+    const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+    const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
+    const redirectUri = 'com.ripple:/oauth';
+
+    try {
+      const response = await axios.post(
+        'https://accounts.spotify.com/api/token',
+        null,
+        {
+          params: {
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: redirectUri,
+            client_id: clientId,
+            client_secret: clientSecret,
+          },
+        },
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 }

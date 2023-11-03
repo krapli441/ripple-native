@@ -26,7 +26,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             passport_1.PassportModule.register({ defaultStrategy: 'spotify' }),
         ],
-        controllers: [app_controller_1.AppController, auth_controller_1.AuthController],
+        controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController],
         providers: [app_service_1.AppService, spotify_strategy_service_1.SpotifyStrategy],
     })
 ], AppModule);

@@ -4,7 +4,7 @@ import {Linking} from 'react-native';
 
 const config: AuthConfiguration = {
   clientId: Config.SPOTIFY_CLIENT_ID!,
-  redirectUrl: 'http://192.168.0.215:3000/auth/spotify/',
+  redirectUrl: 'com.ripple:/oauth',
   scopes: ['user-read-email', 'playlist-modify-public', 'user-read-private'],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',

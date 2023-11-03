@@ -1,9 +1,6 @@
-import { SpotifyStrategy } from './spotify-strategy/spotify-strategy.service';
-export declare class AuthController {
-    private readonly spotifyStrategy;
-    constructor(spotifyStrategy: SpotifyStrategy);
-    spotifyLogin(): {
-        authorizeUrl: string;
-    };
-    spotifyLoginCallback(req: any): any;
+import { ConfigService } from '@nestjs/config';
+export declare class SpotifyAuthController {
+    private configService;
+    constructor(configService: ConfigService);
+    getToken(code: string): Promise<any>;
 }
