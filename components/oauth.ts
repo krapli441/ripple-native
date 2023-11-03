@@ -15,7 +15,9 @@ const config: AuthConfiguration = {
 
 const handleSpotifyLogin = async () => {
   try {
+    console.log('handleSpotifyLogin called');
     const result = await authorize(config);
+    console.log('authorize result:', result);
 
     // 서버에 인증 코드와 codeVerifier를 전달
     const response = await fetch(

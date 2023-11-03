@@ -30,7 +30,7 @@ export class SpotifyAuthController {
           },
         },
       );
-
+      console.log('getToken called with:', body);
       return response.data;
     } catch (error) {
       console.error(error.response?.data);

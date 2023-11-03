@@ -37,6 +37,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
+            console.log('getToken called with:', body);
             return response.data;
         }
         catch (error) {
