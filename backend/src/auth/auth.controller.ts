@@ -27,7 +27,7 @@ export class SpotifyAuthController {
           },
         },
       );
-
+      console.log('Received codeVerifier:', body.codeVerifier);
       return response.data;
     } catch (error) {
       console.error(error.response?.data);

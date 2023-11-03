@@ -35,6 +35,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                     code_verifier: body.codeVerifier,
                 },
             });
+            console.log('Received codeVerifier:', body.codeVerifier);
             return response.data;
         }
         catch (error) {

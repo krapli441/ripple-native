@@ -10,6 +10,8 @@ const config: AuthConfiguration = {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
     tokenEndpoint: 'http://192.168.0.215:3000/auth/spotify/token', // 여기를 NestJS 서버로 지정합니다.
   },
+  usePKCE: true,
+  skipCodeExchange: true,
 };
 
 const handleSpotifyLogin = async () => {
@@ -30,7 +32,7 @@ const handleSpotifyLogin = async () => {
         }),
       },
     );
-
+    console.log('Returned codeVerifier:', result.codeVerifier);
     const data = await response.json();
   } catch (error) {
     console.error('Error during login:', error);
