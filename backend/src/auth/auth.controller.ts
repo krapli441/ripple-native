@@ -12,22 +12,25 @@ export class SpotifyAuthController {
     const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
     const redirectUri = 'com.ripple:/oauth';
 
+    const params = new URLSearchParams();
+    params.append('grant_type', 'authorization_code');
+    params.append('code', body.code);
+    params.append('redirect_uri', redirectUri);
+    params.append('client_id', clientId);
+    params.append('client_secret', clientSecret);
+    params.append('code_verifier', body.codeVerifier);
+
     try {
       const response = await axios.post(
         'https://accounts.spotify.com/api/token',
-        null,
+        params.toString(),
         {
-          params: {
-            grant_type: 'authorization_code',
-            code: body.code,
-            redirect_uri: redirectUri,
-            client_id: clientId,
-            client_secret: clientSecret,
-            code_verifier: body.codeVerifier,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
         },
       );
-      console.log('Received codeVerifier:', body.codeVerifier);
+
       return response.data;
     } catch (error) {
       console.error(error.response?.data);
