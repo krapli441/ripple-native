@@ -1,6 +1,5 @@
 import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
-import {useNavigation} from '@react-navigation/native';
 
 const config: AuthConfiguration = {
   clientId: Config.SPOTIFY_CLIENT_ID!,
@@ -13,9 +12,7 @@ const config: AuthConfiguration = {
   skipCodeExchange: true,
 };
 
-const handleSpotifyLogin = async () => {
-  const navigation = useNavigation();
-
+const handleSpotifyLogin = async (navigation: any) => {
   try {
     console.log('handleSpotifyLogin called');
     const result = await authorize(config);
@@ -41,7 +38,7 @@ const handleSpotifyLogin = async () => {
 
     // JWT 토큰이 제대로 응답되었는지 확인
     if (data.jwtToken) {
-      navigation.navigate('MapScreen');
+      navigation.navigate('Ripple');
     }
   } catch (error) {
     console.error('Error during login:', error);

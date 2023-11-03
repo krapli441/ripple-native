@@ -64,7 +64,7 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             iconName="spotify"
             text="Spotify를 이용하여 로그인"
             buttonStyle={styles.spotifyButton}
-            onPress={() => handleSpotifyLogin()}
+            onPress={() => handleSpotifyLogin(navigation)}
           />
           <TouchableOpacity
             style={[styles.button, styles.mapButton]}
