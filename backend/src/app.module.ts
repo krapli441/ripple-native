@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [],
+  imports: [PassportModule.register({ defaultStrategy: 'spotify' })],
   controllers: [AppController],
   providers: [AppService],
 })
