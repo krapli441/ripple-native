@@ -1,12 +1,11 @@
 import { ConfigService } from '@nestjs/config';
+import { UserService } from '../user/user.service';
 export declare class SpotifyAuthController {
     private configService;
-    constructor(configService: ConfigService);
+    private userService;
+    constructor(configService: ConfigService, userService: UserService);
     getToken(body: {
         code: string;
         codeVerifier: string;
-    }): Promise<{
-        tokenData: any;
-        userProfile: any;
-    }>;
+    }): Promise<import("../user/user.schema").User>;
 }

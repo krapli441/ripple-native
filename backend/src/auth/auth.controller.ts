@@ -1,10 +1,14 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
+import { UserService } from '../user/user.service';
 
 @Controller('auth/spotify')
 export class SpotifyAuthController {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    private userService: UserService,
+  ) {}
 
   @Post('token')
   async getToken(@Body() body: { code: string; codeVerifier: string }) {
@@ -46,13 +50,14 @@ export class SpotifyAuthController {
 
       console.log('getUserProfile:', userProfile);
 
-      // 여기에서 userProfile을 사용하여 MongoDB에 사용자 정보를 저장할 수 있다.
-      // 예: const newUser = await userService.create(userProfile);
+      const user = await this.userService.create({
+        username: userProfile.display_name,
+        email: userProfile.email,
+        accessToken: tokenResponse.data.access_token,
+        refreshToken: tokenResponse.data.refresh_token,
+      });
 
-      return {
-        tokenData: tokenResponse.data,
-        userProfile: userProfile,
-      };
+      return user;
     } catch (error) {
       console.error(error.response?.data);
       throw error;
