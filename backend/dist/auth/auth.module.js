@@ -14,6 +14,8 @@ const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
+const mongoose_1 = require("@nestjs/mongoose");
+const code_verifier_schema_1 = require("./code-verifier.schema");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -29,6 +31,9 @@ exports.AuthModule = AuthModule = __decorate([
                 }),
                 inject: [config_1.ConfigService],
             }),
+            mongoose_1.MongooseModule.forFeature([
+                { name: 'CodeVerifier', schema: code_verifier_schema_1.CodeVerifierSchema },
+            ]),
         ],
         providers: [auth_service_1.AuthService, spotify_oauth2_strategy_1.SpotifyOAuth2Strategy],
         controllers: [auth_controller_1.AuthController],

@@ -11,7 +11,6 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
-import { CodeVerifier } from './code-verifier.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -28,8 +27,7 @@ export class AuthController {
   @Get('spotify/callback')
   @UseGuards(AuthGuard('spotify-oauth2'))
   async spotifyAuthCallback(@Request() req) {
-    this.logger.log('Spotify callback endpoint hit'); // 로그 메시지
-    // 로그인에 성공한 후 원하는 경로로 리다이렉트하거나 정보를 반환.
+    this.logger.log('Spotify callback endpoint hit');
     return req.user;
   }
 
@@ -58,7 +56,7 @@ export class AuthController {
       );
 
       if (spotifyUser) {
-        const jwt = this.authService.createJwt(spotifyUser); // JWT 생성 로직
+        const jwt = this.authService.createJwt(spotifyUser);
         console.log('JWT 발급 : ', jwt);
         return res.json({ success: true, jwt });
       } else {
