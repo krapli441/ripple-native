@@ -4,9 +4,16 @@ import { AppService } from './app.service';
 import { PassportModule } from '@nestjs/passport';
 import { SpotifyStrategy } from './auth/spotify-strategy/spotify-strategy.service';
 import { AuthController } from './auth/auth.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PassportModule.register({ defaultStrategy: 'spotify' })],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    PassportModule.register({ defaultStrategy: 'spotify' }),
+  ],
   controllers: [AppController, AuthController],
   providers: [AppService, SpotifyStrategy],
 })
