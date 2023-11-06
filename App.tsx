@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 // Libraries
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+import {CardStyleInterpolators} from '@react-navigation/stack';
 
 // Components
 import HomeScreen from './components/HomeScreen';
@@ -39,14 +40,6 @@ function MainTabNavigator() {
         component={MapScreen}
         options={{headerShown: false}}
       />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null, // 탭 버튼을 숨깁니다.
-        }}
-      />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>
   );
@@ -71,7 +64,10 @@ function App(): JSX.Element {
         <Stack.Screen
           name="SearchScreen"
           component={SearchScreen}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, // 아래에서 위로 슬라이드하는 애니메이션
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -128,7 +128,7 @@ function MapScreen(): React.ReactElement {
         </Animated.View>
       )}
       <TouchableOpacity
-        onPress={() => navigation.navigate('Search')}
+        onPress={() => navigation.navigate('SearchScreen')}
         style={styles.addButton}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
