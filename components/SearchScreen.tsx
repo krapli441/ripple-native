@@ -27,7 +27,7 @@ const searchForMusic = async (searchQuery: string) => {
     }
 
     // 백엔드 엔드포인트로 검색 요청을 보낸다.
-    const response = await fetch('http://YOUR_BACKEND_URL/api/search', {
+    const response = await fetch('http://172.30.1.27:3000/search', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,6 +54,9 @@ function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태를 추가
 
+  const hadleSearchMusic = () => {
+    searchForMusic(searchTerm);
+  };
   const handleSearchTermChange = (text: string) => {
     setSearchTerm(text);
   };
@@ -84,7 +87,7 @@ function SearchScreen(): React.ReactElement {
           value={searchTerm}
           placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
         />
-        <Button title="검색" onPress={() => null} />
+        <Button title="검색" onPress={hadleSearchMusic} />
       </View>
     </TouchableWithoutFeedback>
   );
