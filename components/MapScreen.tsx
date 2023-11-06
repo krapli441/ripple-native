@@ -7,6 +7,7 @@ import {
   useColorScheme,
   AppState,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Easing,
   Text,
   Image,
@@ -124,6 +125,9 @@ function MapScreen(): React.ReactElement {
         </Animated.View>
       )}
       <NavigationTabBar />
+      <TouchableOpacity style={styles.addButton}>
+        <Text style={styles.addButtonText}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }

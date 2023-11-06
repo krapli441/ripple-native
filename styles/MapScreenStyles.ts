@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +25,26 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: 'white',
     textAlign: 'center',
+  },
+  addButton: {
+    position: 'absolute',
+    right: 40,
+    bottom: 150,
+    backgroundColor: 'white',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+    shadowOffset: {width: 1, height: 1},
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+  addButtonText: {
+    fontSize: 30,
+    color: '#000',
   },
 });
 
