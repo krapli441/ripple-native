@@ -27,7 +27,7 @@ const searchForMusic = async (searchQuery: string) => {
     }
 
     // 백엔드 엔드포인트로 검색 요청을 보냅니다.
-    const response = await fetch('http://YOUR_BACKEND_URL/api/search', {
+    const response = await fetch('http://172.30.1.27:3000/search', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
