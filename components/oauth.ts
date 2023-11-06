@@ -35,7 +35,7 @@ const handleSpotifyLogin = async (navigation: any) => {
 
     // JWT 토큰이 제대로 응답되었는지 확인
     if (data.jwtToken) {
-      navigation.navigate('홈');
+      navigation.navigate('Ripple');
     }
   } catch (error) {
     console.error('Error during login:', error);
