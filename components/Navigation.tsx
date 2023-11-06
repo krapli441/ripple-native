@@ -8,7 +8,7 @@ import styles from '../styles/NavigationStyles';
 // 인덱스 서명을 추가
 const ICONS: {[key: string]: string} = {
   Library: 'book',
-  Home: 'home',
+  홈: 'home',
   Profile: 'user',
 };
 
@@ -21,9 +21,17 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
     <View style={styles.tabContainer}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
-        const label = options.tabBarLabel || options.title || route.name;
 
         const isFocused = state.index === index;
+        const label =
+          typeof options.tabBarLabel === 'function'
+            ? options.tabBarLabel({
+                focused: isFocused,
+                color: isFocused ? 'tomato' : 'gray',
+                position: 'below-icon', // 여기에 기본값을 제공.
+                children: route.name, // children에 대해서도 기본값을 제공.
+              })
+            : options.tabBarLabel || options.title || route.name;
 
         const onPress = () => {
           const event = navigation.emit({
@@ -47,9 +55,15 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
             <Icon
               name={iconName}
               size={20}
-              color={isFocused ? 'tomato' : 'gray'}
+              color={isFocused ? 'black' : 'gray'}
             />
-            <Text style={styles.tabLabel}>{label}</Text>
+            {typeof label === 'string' ? (
+              // label이 문자열일 경우 Text 컴포넌트를 사용.
+              <Text style={styles.tabLabel}>{label}</Text>
+            ) : (
+              // label이 함수로부터 반환된 React 요소일 경우 그대로 렌더링.
+              label
+            )}
           </TouchableOpacity>
         );
       })}

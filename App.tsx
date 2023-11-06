@@ -10,6 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './components/HomeScreen';
 import NavigationTabBar from './components/Navigation';
 import MapScreen from './components/MapScreen';
+import SearchScreen from './components/SearchScreen';
 // import LibraryScreen from './components/LibraryScreen';
 // import ProfileScreen from './components/ProfileScreen';
 
@@ -22,8 +23,13 @@ function MainTabNavigator() {
     <Tab.Navigator tabBar={props => <NavigationTabBar {...props} />}>
       {/* <Tab.Screen name="Library" component={LibraryScreen} /> */}
       <Tab.Screen
-        name="Home"
+        name="홈"
         component={MapScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Library"
+        component={SearchScreen}
         options={{headerShown: false}}
       />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
