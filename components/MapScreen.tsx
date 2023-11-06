@@ -6,6 +6,7 @@ import {
   StatusBar,
   useColorScheme,
   AppState,
+  TouchableOpacity,
   Easing,
   Text,
   Image,
@@ -61,8 +62,6 @@ function MapScreen(): React.ReactElement {
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
   const appState = useRef(AppState.currentState);
-  // const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  // const clearWatch = useRef<(() => void) | null>(null);
 
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
@@ -99,7 +98,6 @@ function MapScreen(): React.ReactElement {
     );
     return () => clearWatch();
   }, []);
-
 
   return (
     <View style={styles.container}>
