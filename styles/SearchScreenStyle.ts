@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   albumCover: {
     width: 60, // 이미지의 너비를 설정합니다.
     height: 60, // 이미지의 높이를 설정합니다.
-    borderRadius: 30, // 이미지를 원형으로 만듭니다.
+    borderRadius: 5, // 이미지를 원형으로 만듭니다.
     marginRight: 20, // 오른쪽 여백을 줍니다.
   },
   infoContainer: {
