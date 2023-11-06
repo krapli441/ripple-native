@@ -15,4 +15,5 @@ export declare class SpotifyAuthController {
     }>;
     private getSpotifyAccessToken;
     private getSpotifyUserProfile;
+    private refreshAccessToken;
 }

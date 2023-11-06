@@ -1,6 +1,6 @@
 import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const config: AuthConfiguration = {
   clientId: Config.SPOTIFY_CLIENT_ID!,
@@ -36,6 +36,7 @@ const handleSpotifyLogin = async (navigation: any) => {
 
     // JWT 토큰이 제대로 응답되었는지 확인
     if (data.jwtToken) {
+      await AsyncStorage.setItem('userToken', data.jwtToken);
       navigation.navigate('Ripple');
     }
   } catch (error) {

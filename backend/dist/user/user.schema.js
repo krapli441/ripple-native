@@ -31,6 +31,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "refreshToken", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Date)
+], User.prototype, "tokenExpiry", void 0);
 exports.User = User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

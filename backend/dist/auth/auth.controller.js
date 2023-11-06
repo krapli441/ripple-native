@@ -26,13 +26,15 @@ let SpotifyAuthController = class SpotifyAuthController {
     }
     async getToken(body) {
         try {
-            const accessToken = await this.getSpotifyAccessToken(body);
+            const { accessToken, expiresIn } = await this.getSpotifyAccessToken(body);
+            const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
             const userProfile = await this.getSpotifyUserProfile(accessToken);
             let user = await this.userService.findByEmail(userProfile.email);
             if (user) {
                 user = await this.userService.update(user._id, {
                     accessToken: accessToken,
                     refreshToken: userProfile.refreshToken,
+                    tokenExpiry: expiryDate,
                 });
             }
             else {
@@ -41,6 +43,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                     email: userProfile.email,
                     accessToken: accessToken,
                     refreshToken: userProfile.refreshToken,
+                    tokenExpiry: expiryDate,
                 });
             }
             const jwtPayload = { email: user.email, userId: user._id };
@@ -71,7 +74,10 @@ let SpotifyAuthController = class SpotifyAuthController {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
-        return tokenResponse.data.access_token;
+        return {
+            accessToken: tokenResponse.data.access_token,
+            expiresIn: tokenResponse.data.expires_in,
+        };
     }
     async getSpotifyUserProfile(accessToken) {
         const userProfileResponse = await axios_1.default.get('https://api.spotify.com/v1/me', {
@@ -80,6 +86,21 @@ let SpotifyAuthController = class SpotifyAuthController {
             },
         });
         return userProfileResponse.data;
+    }
+    async refreshAccessToken(refreshToken) {
+        const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+        const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
+        const params = new URLSearchParams();
+        params.append('grant_type', 'refresh_token');
+        params.append('refresh_token', refreshToken);
+        params.append('client_id', clientId);
+        params.append('client_secret', clientSecret);
+        const tokenResponse = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+        return tokenResponse.data.access_token;
     }
 };
 exports.SpotifyAuthController = SpotifyAuthController;
