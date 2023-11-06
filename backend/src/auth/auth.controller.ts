@@ -15,7 +15,8 @@ export class SpotifyAuthController {
   @Post('token')
   async getToken(@Body() body: { code: string; codeVerifier: string }) {
     try {
-      const accessToken = await this.getSpotifyAccessToken(body);
+      const { accessToken, expiresIn } = await this.getSpotifyAccessToken(body);
+      const expiryDate = new Date(new Date().getTime() + expiresIn * 1000); // 토큰 만료시간
       const userProfile = await this.getSpotifyUserProfile(accessToken);
 
       let user = await this.userService.findByEmail(userProfile.email);
@@ -23,6 +24,7 @@ export class SpotifyAuthController {
         user = await this.userService.update(user._id, {
           accessToken: accessToken,
           refreshToken: userProfile.refreshToken,
+          tokenExpiry: expiryDate,
         });
       } else {
         user = await this.userService.create({
@@ -30,6 +32,7 @@ export class SpotifyAuthController {
           email: userProfile.email,
           accessToken: accessToken,
           refreshToken: userProfile.refreshToken,
+          tokenExpiry: expiryDate,
         });
       }
 
@@ -49,7 +52,7 @@ export class SpotifyAuthController {
   private async getSpotifyAccessToken(body: {
     code: string;
     codeVerifier: string;
-  }): Promise<string> {
+  }): Promise<{ accessToken: string; expiresIn: number }> {
     const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
     const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
     const redirectUri = 'com.ripple:/oauth';
@@ -71,7 +74,10 @@ export class SpotifyAuthController {
         },
       },
     );
-    return tokenResponse.data.access_token;
+    return {
+      accessToken: tokenResponse.data.access_token,
+      expiresIn: tokenResponse.data.expires_in,
+    };
   }
 
   private async getSpotifyUserProfile(accessToken: string): Promise<any> {
