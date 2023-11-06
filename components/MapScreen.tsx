@@ -127,7 +127,6 @@ function MapScreen(): React.ReactElement {
           <Text style={styles.errorMessage}>GPS 신호를 찾는 중입니다...</Text>
         </Animated.View>
       )}
-      <NavigationTabBar />
       <TouchableOpacity
         onPress={() => navigation.navigate('SearchScreen')}
         style={styles.addButton}>

@@ -9,9 +9,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 // Components
 import HomeScreen from './components/HomeScreen';
 import MapScreen from './components/MapScreen';
-import SearchScreen from './components/SerachScreen';
+import SearchScreen from './components/SearchScreen';
+import NavigationTabBar from './components/Navigation';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function App(): JSX.Element {
   return (
