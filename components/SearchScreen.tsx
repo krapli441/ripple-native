@@ -35,8 +35,7 @@ function SearchScreen(): React.ReactElement {
       <TextInput
         style={styles.inputStyle}
         placeholder="음악을 검색해주세요"
-        placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'} // Placeholder text color depending on the theme
-        // Add more props for additional functionality
+        placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
       />
     </View>
   );

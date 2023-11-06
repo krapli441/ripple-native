@@ -15,11 +15,12 @@ const styles = StyleSheet.create({
   },
 
   inputStyle: {
-    height: 40, // Set the height of the input
-    margin: 12, // Add some margin around the input
-    borderWidth: 1, // Add a border to the input
-    padding: 10, // Add some padding inside the input
-    borderRadius: 20, // Round the corners of the input
+    height: 66,
+    margin: 28,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20,
+    fontSize: 18,
   },
 });
 
