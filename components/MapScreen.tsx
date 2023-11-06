@@ -6,22 +6,25 @@ import {
   StatusBar,
   useColorScheme,
   AppState,
+  TouchableOpacity,
   Easing,
   Text,
   Image,
 } from 'react-native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import type {NavigationProp} from '@react-navigation/native';
+import {RootStackParamList} from '../types/navigationTypes';
 // Libraries
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 
 // Components
-import NavigationTabBar from './Navigation';
 
 // Utils
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 
 // Types
-import {Coords, Region, LocationState} from '../types/locationTypes';
+import {Coords, LocationState} from '../types/locationTypes';
 
 // Style
 import styles from '../styles/MapScreenStyles';
@@ -54,6 +57,7 @@ const mapViewProps = {
 };
 
 function MapScreen(): React.ReactElement {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const mapRef = useRef<MapView>(null);
   const isDarkMode = useColorScheme() === 'dark';
   const [locationState, setLocationState] =
@@ -61,8 +65,15 @@ function MapScreen(): React.ReactElement {
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
   const appState = useRef(AppState.currentState);
-  // const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  // const clearWatch = useRef<(() => void) | null>(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
+      return () => {
+        // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
+      };
+    }, [isDarkMode]),
+  );
 
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
@@ -73,7 +84,6 @@ function MapScreen(): React.ReactElement {
       useNativeDriver: true,
     }).start();
   };
-
   const updateUserLocation = async (newCoords: Coords) => {
     setLocationState(prevState => ({...prevState, coords: newCoords}));
     if (mapRef.current) {
@@ -100,46 +110,9 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
-  // const startLocationTracking = () => {
-  //   if (clearWatch.current) {
-  //     clearWatch.current();
-  //   }
-
-  //   clearWatch.current = watchUserLocation(
-  //     setLocationState,
-  //     updateUserLocation,
-  //     GEOLOCATION_OPTIONS,
-  //     animateError,
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const subscription = AppState.addEventListener('change', nextAppState => {
-  //     if (
-  //       appState.current.match(/inactive|background/) &&
-  //       nextAppState === 'active'
-  //     ) {
-  //       console.log('App has come to the foreground!');
-  //       startLocationTracking();
-  //     }
-
-  //     appState.current = nextAppState;
-  //     setAppStateVisible(appState.current);
-  //     console.log('AppState', appState.current);
-  //   });
-
-  //   return () => {
-  //     subscription.remove();
-  //     // 컴포넌트가 언마운트될 때 watchPosition을 정지
-  //     if (clearWatch.current) {
-  //       clearWatch.current();
-  //     }
-  //   };
-  // }, []);
-
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
       <MapView
         {...mapViewProps}
         ref={mapRef}
@@ -161,7 +134,11 @@ function MapScreen(): React.ReactElement {
           <Text style={styles.errorMessage}>GPS 신호를 찾는 중입니다...</Text>
         </Animated.View>
       )}
-      <NavigationTabBar />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('SearchModal')}
+        style={styles.addButton}>
+        <Text style={styles.addButtonText}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }
