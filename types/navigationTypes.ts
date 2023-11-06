@@ -5,7 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 export type RootStackParamList = {
   Home: undefined;
   Ripple: undefined;
-  SearchScreen: undefined;
+  Search: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<

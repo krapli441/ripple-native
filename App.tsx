@@ -32,6 +32,11 @@ function MainTabNavigator() {
         component={SearchScreen}
         options={{headerShown: false}}
       />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{headerShown: false}}
+      />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>
   );
