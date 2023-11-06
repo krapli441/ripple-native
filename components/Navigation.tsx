@@ -5,8 +5,8 @@ import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 
 import styles from '../styles/NavigationStyles';
 
-// 아이콘 이름은 예시입니다. 실제 아이콘 이름과 일치해야 합니다.
-const ICONS = {
+// 인덱스 서명을 추가
+const ICONS: {[key: string]: string} = {
   Library: 'book',
   Home: 'home',
   Profile: 'user',
@@ -21,12 +21,7 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
     <View style={styles.tabContainer}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
+        const label = options.tabBarLabel || options.title || route.name;
 
         const isFocused = state.index === index;
 
@@ -42,15 +37,18 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
           }
         };
 
-        const iconName = ICONS[route.name];
+        const iconName = ICONS[route.name] || 'question'; // 기본 아이콘을 추가해 'undefined' 문제를 방지
 
         return (
           <TouchableOpacity
             key={route.key}
             onPress={onPress}
-            style={styles.tabItem}
-          >
-            <Icon name={iconName} size={20} color={isFocused ? 'tomato' : 'gray'} />
+            style={styles.tabItem}>
+            <Icon
+              name={iconName}
+              size={20}
+              color={isFocused ? 'tomato' : 'gray'}
+            />
             <Text style={styles.tabLabel}>{label}</Text>
           </TouchableOpacity>
         );

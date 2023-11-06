@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -11,10 +11,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     zIndex: 1,
-    position: 'absolute', // <-- Add this line
-    bottom: 0, // <-- Add this line
-    left: 0, // <-- Add this line
-    right: 0, // <-- Add this line
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'white',
   },
   button: {
@@ -22,6 +22,14 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     marginTop: 10,
+  },
+  tabItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabLabel: {
+    fontSize: 12,
+    marginTop: 3,
   },
 });
 
