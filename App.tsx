@@ -35,7 +35,10 @@ function MainTabNavigator() {
       <Tab.Screen
         name="Search"
         component={SearchScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null, // 탭 버튼을 숨깁니다.
+        }}
       />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>

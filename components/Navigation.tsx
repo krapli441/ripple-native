@@ -24,9 +24,11 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
   descriptors,
   navigation,
 }) => {
+  const filteredRoutes = state.routes.filter(route => route.name !== 'Search');
+
   return (
     <View style={styles.tabContainer}>
-      {state.routes.map((route, index) => {
+      {filteredRoutes.map((route, index) => {
         const {options} = descriptors[route.key];
 
         const isFocused = state.index === index;
