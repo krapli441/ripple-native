@@ -75,20 +75,11 @@ function App(): JSX.Element {
           component={HomeScreen}
           options={{headerShown: false}}
         />
-        {/* 로그인 이후에 메인 탭으로 이동 */}
         <Stack.Screen
           name="Ripple"
           component={MainTabNavigator}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
-          name="SearchScreen"
-          component={SearchScreen}
-          options={{
-            headerShown: false,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, // 아래에서 위로 슬라이드하는 애니메이션
-          }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
