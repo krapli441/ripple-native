@@ -1,6 +1,7 @@
 import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
 
+
 const config: AuthConfiguration = {
   clientId: Config.SPOTIFY_CLIENT_ID!,
   redirectUrl: 'com.ripple:/oauth',
