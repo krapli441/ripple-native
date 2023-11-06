@@ -14,24 +14,23 @@ import {
 } from 'react-native';
 // Libraries
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import MapStyle from '../maps/customMapStyle.json';
 
 // Components
-import NavigationTabBar from './Navigation';
 
 // Util
 
 // Types
 
 // Style
-import styles from '../styles/MapScreenStyles';
+import styles from '../styles/SearchScreenStyle';
 
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <View style={styles.container}>
+    <View>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <Text style={styles.header}>음악 남기기</Text>
     </View>
   );
 }
