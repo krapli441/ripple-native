@@ -20,7 +20,9 @@ const Tab = createBottomTabNavigator();
 // 로그인 후 보여질 하단 탭 네비게이터
 function MainTabNavigator() {
   return (
-    <Tab.Navigator tabBar={props => <NavigationTabBar {...props} />}>
+    <Tab.Navigator
+      tabBar={props => <NavigationTabBar {...props} />}
+      initialRouteName="홈">
       {/* <Tab.Screen name="Library" component={LibraryScreen} /> */}
       <Tab.Screen
         name="라이브러리"
