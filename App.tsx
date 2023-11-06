@@ -23,13 +23,18 @@ function MainTabNavigator() {
     <Tab.Navigator tabBar={props => <NavigationTabBar {...props} />}>
       {/* <Tab.Screen name="Library" component={LibraryScreen} /> */}
       <Tab.Screen
+        name="라이브러리"
+        component={SearchScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
         name="홈"
         component={MapScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="Library"
-        component={SearchScreen}
+        name="내 정보"
+        component={MapScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen

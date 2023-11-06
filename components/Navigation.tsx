@@ -7,8 +7,8 @@ import styles from '../styles/NavigationStyles';
 
 const ROUTES = {
   HOME: '홈',
-  LIBRARY: 'Library',
-  PROFILE: 'Profile',
+  LIBRARY: '라이브러리',
+  PROFILE: '내 정보',
   // ... 다른 라우트 이름들
 };
 
