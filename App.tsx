@@ -17,6 +17,23 @@ import SearchScreen from './components/SearchScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const SearchStack = createStackNavigator();
+
+function SearchStackScreen() {
+  return (
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        }}
+      />
+      {/* 필요하다면 SearchScreen과 관련된 추가 스크린들을 여기에 배치할 수 있습니다. */}
+    </SearchStack.Navigator>
+  );
+}
 
 // 로그인 후 보여질 하단 탭 네비게이터
 function MainTabNavigator() {
@@ -39,6 +56,14 @@ function MainTabNavigator() {
         name="내 정보"
         component={MapScreen}
         options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="SearchModal"
+        component={SearchStackScreen} // SearchStackScreen을 탭에 연결.
+        options={{
+          headerShown: false,
+          tabBarButton: () => null, // 탭 버튼을 숨김.
+        }}
       />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>

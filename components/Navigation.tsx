@@ -24,7 +24,9 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
   descriptors,
   navigation,
 }) => {
-  const filteredRoutes = state.routes.filter(route => route.name !== 'Search');
+  const filteredRoutes = state.routes.filter(
+    route => route.name !== 'SearchModal',
+  );
 
   return (
     <View style={styles.tabContainer}>
