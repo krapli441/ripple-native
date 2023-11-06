@@ -11,7 +11,7 @@ import {
   Text,
   Image,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 // Libraries
@@ -19,7 +19,6 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 
 // Components
-import NavigationTabBar from './Navigation';
 
 // Utils
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
@@ -67,6 +66,15 @@ function MapScreen(): React.ReactElement {
   const errorAnim = useRef(new Animated.Value(-100)).current;
   const appState = useRef(AppState.currentState);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
+      return () => {
+        // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
+      };
+    }, [isDarkMode]),
+  );
+
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
     Animated.timing(errorAnim, {
@@ -76,7 +84,6 @@ function MapScreen(): React.ReactElement {
       useNativeDriver: true,
     }).start();
   };
-
   const updateUserLocation = async (newCoords: Coords) => {
     setLocationState(prevState => ({...prevState, coords: newCoords}));
     if (mapRef.current) {
@@ -105,7 +112,7 @@ function MapScreen(): React.ReactElement {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
       <MapView
         {...mapViewProps}
         ref={mapRef}
