@@ -9,14 +9,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchModule = void 0;
 const common_1 = require("@nestjs/common");
 const search_service_1 = require("./search.service");
+const user_module_1 = require("../user/user.module");
+const axios_1 = require("@nestjs/axios");
 const search_controller_1 = require("./search.controller");
 let SearchModule = class SearchModule {
 };
 exports.SearchModule = SearchModule;
 exports.SearchModule = SearchModule = __decorate([
     (0, common_1.Module)({
+        imports: [user_module_1.UserModule, axios_1.HttpModule],
         providers: [search_service_1.SearchService],
-        controllers: [search_controller_1.SearchController]
+        controllers: [search_controller_1.SearchController],
     })
 ], SearchModule);
 //# sourceMappingURL=search.module.js.map
