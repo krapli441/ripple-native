@@ -19,117 +19,20 @@ import MapStyle from '../maps/customMapStyle.json';
 // Components
 import NavigationTabBar from './Navigation';
 
-// Utils
-import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
+// Util
 
 // Types
-import {Coords, Region, LocationState} from '../types/locationTypes';
 
 // Style
 import styles from '../styles/MapScreenStyles';
 
-const initialLocationState: LocationState = {
-  coords: null,
-  region: null,
-  gpsError: false,
-};
-
-const GEOLOCATION_OPTIONS = {
-  enableHighAccuracy: true,
-  maximumAge: 1000,
-  timeout: 5000,
-  distanceFilter: 5,
-};
-
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 90, top: 0, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: true,
-  rotateEnabled: true,
-  minZoomLevel: 15,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
-};
-
 function SearchScreen(): React.ReactElement {
-  const mapRef = useRef<MapView>(null);
   const isDarkMode = useColorScheme() === 'dark';
-  const [locationState, setLocationState] =
-    useState<LocationState>(initialLocationState);
-  const {coords, region, gpsError} = locationState;
-  const errorAnim = useRef(new Animated.Value(-100)).current;
-  const appState = useRef(AppState.currentState);
-
-  // 에러 창 메세지 애니메이션
-  const animateError = (show: boolean) => {
-    Animated.timing(errorAnim, {
-      toValue: show ? 0 : -100,
-      duration: 500,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const updateUserLocation = async (newCoords: Coords) => {
-    setLocationState(prevState => ({...prevState, coords: newCoords}));
-    if (mapRef.current) {
-      const currentCamera = await mapRef.current.getCamera();
-      const newCamera = {
-        ...currentCamera,
-        center: newCoords,
-      };
-
-      mapRef.current.animateCamera(newCamera, {duration: 150});
-    }
-  };
-  useEffect(() => {
-    fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
-  }, []);
-
-  useEffect(() => {
-    const clearWatch = watchUserLocation(
-      setLocationState,
-      updateUserLocation,
-      GEOLOCATION_OPTIONS,
-      animateError,
-    );
-    return () => clearWatch();
-  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <MapView
-        {...mapViewProps}
-        ref={mapRef}
-        style={styles.map}
-        region={region || undefined}
-        provider={PROVIDER_GOOGLE}>
-        {coords && (
-          <Marker coordinate={coords} title="Your Position">
-            <Image
-              source={require('../assets/img/ripple_sonar.gif')}
-              style={{width: 30, height: 30}}
-            />
-          </Marker>
-        )}
-      </MapView>
-      {gpsError && (
-        <Animated.View
-          style={[styles.errorOverlay, {transform: [{translateY: errorAnim}]}]}>
-          <Text style={styles.errorMessage}>GPS 신호를 찾는 중입니다...</Text>
-        </Animated.View>
-      )}
       <NavigationTabBar />
-      <TouchableOpacity
-        onPress={() => navigation.navigate('SearchScreen')}
-        style={styles.addButton}>
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
     </View>
   );
 }
