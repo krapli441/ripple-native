@@ -58,6 +58,10 @@ function SearchScreen(): React.ReactElement {
     setSearchTerm(text);
   };
 
+  const handleSearchPress = () => {
+    searchForMusic(searchTerm);
+  };
+
   // 키보드를 숨기는 함수
   const dismissKeyboard = () => {
     Keyboard.dismiss();
@@ -84,7 +88,7 @@ function SearchScreen(): React.ReactElement {
           value={searchTerm}
           placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
         />
-        <Button title="검색" onPress={() => null} />
+        <Button title="검색" onPress={handleSearchPress} />
       </View>
     </TouchableWithoutFeedback>
   );
