@@ -53,6 +53,11 @@ function App(): JSX.Element {
           component={MainTabNavigator}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
