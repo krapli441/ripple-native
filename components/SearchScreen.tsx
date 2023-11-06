@@ -19,19 +19,19 @@ import styles from '../styles/SearchScreenStyle';
 
 const searchForMusic = async (searchQuery: string) => {
   try {
-    // AsyncStorage에서 JWT 토큰을 가져옵니다.
+    // AsyncStorage에서 JWT 토큰을 가져옴
     const jwtToken = await AsyncStorage.getItem('userToken');
 
     if (!jwtToken) {
       throw new Error('사용자 인증 토큰이 없습니다.');
     }
 
-    // 백엔드 엔드포인트로 검색 요청을 보냅니다.
+    // 백엔드 엔드포인트로 검색 요청을 보낸다.
     const response = await fetch('http://YOUR_BACKEND_URL/api/search', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwtToken}`, // JWT 토큰을 Authorization 헤더에 포함시킵니다.
+        Authorization: `Bearer ${jwtToken}`, // JWT 토큰을 Authorization 헤더에 포함
       },
       body: JSON.stringify({query: searchQuery}),
     });
@@ -39,7 +39,7 @@ const searchForMusic = async (searchQuery: string) => {
     const data = await response.json();
 
     if (response.ok) {
-      // 검색 결과를 처리합니다.
+      // 검색 결과를 처리
       console.log('검색 결과:', data);
     } else {
       // 서버에서 에러 메시지를 받은 경우
@@ -67,7 +67,7 @@ function SearchScreen(): React.ReactElement {
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
       return () => {
-        // 여기도 마찬가지로 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
+        // 여기도 마찬가지로 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있다.
       };
     }, []),
   );
