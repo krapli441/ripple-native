@@ -21,9 +21,10 @@ let SearchController = class SearchController {
         this.searchService = searchService;
     }
     async searchMusic(query, req) {
-        const { userId } = req.user;
-        console.log('userId', userId);
-        return this.searchService.searchMusicForUser(userId, query);
+        const { _id } = req.user;
+        console.log('req.user 값', req.user);
+        console.log('userId 값 : ', _id);
+        return this.searchService.searchMusicForUser(_id, query);
     }
 };
 exports.SearchController = SearchController;

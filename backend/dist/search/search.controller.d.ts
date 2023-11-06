@@ -2,7 +2,7 @@ import { SearchService } from './search.service';
 import { Request } from 'express';
 interface RequestWithUser extends Request {
     user: {
-        userId: string;
+        _id: string;
     };
 }
 export declare class SearchController {

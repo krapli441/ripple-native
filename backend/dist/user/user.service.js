@@ -33,8 +33,8 @@ let UserService = class UserService {
             .findByIdAndUpdate(id, updateData, { new: true })
             .exec();
     }
-    async findById(id) {
-        return this.userModel.findById(id).exec();
+    async findById(userId) {
+        return this.userModel.findById(userId).exec();
     }
 };
 exports.UserService = UserService;

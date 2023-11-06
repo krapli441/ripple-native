@@ -1,9 +1,9 @@
-// jwt.strategy.ts
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
-import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user/user.service';
+import { User } from '../user/user.schema';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,12 +17,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-    // payload.sub는 토큰에 저장된 사용자의 _id입니다.
-    const user = await this.userService.findById(payload.sub);
+  async validate(payload: any): Promise<User> {
+    console.log('Payload received in JWT validate:', payload);
+    const user = await this.userService.findById(payload.userId);
     if (!user) {
+      console.error(`User with ID ${payload.userId} not found`);
       throw new Error('User not found');
     }
-    return user; // 이 객체가 req.user에 포함됩니다.
+    return user;
   }
 }

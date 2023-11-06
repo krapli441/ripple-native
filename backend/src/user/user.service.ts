@@ -24,8 +24,8 @@ export class UserService {
       .exec();
   }
 
-  async findById(id: string): Promise<User | null> {
-    return this.userModel.findById(id).exec();
+  async findById(userId: string): Promise<User | null> {
+    return this.userModel.findById(userId).exec();
   }
 
   // 다른 CRUD 메서드

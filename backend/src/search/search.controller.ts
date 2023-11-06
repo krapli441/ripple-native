@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 interface RequestWithUser extends Request {
   user: {
-    userId: string;
+    _id: string;
   };
 }
 
@@ -19,8 +19,9 @@ export class SearchController {
     @Query('query') query: string,
     @Req() req: RequestWithUser,
   ) {
-    const { userId } = req.user;
-    console.log('userId', userId);
-    return this.searchService.searchMusicForUser(userId, query);
+    const { _id } = req.user;
+    console.log('req.user 값', req.user);
+    console.log('userId 값 : ', _id);
+    return this.searchService.searchMusicForUser(_id, query);
   }
 }

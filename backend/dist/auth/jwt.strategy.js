@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtStrategy = void 0;
+const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
-const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const user_service_1 = require("../user/user.service");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
@@ -25,8 +25,10 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         this.userService = userService;
     }
     async validate(payload) {
-        const user = await this.userService.findById(payload.sub);
+        console.log('Payload received in JWT validate:', payload);
+        const user = await this.userService.findById(payload.userId);
         if (!user) {
+            console.error(`User with ID ${payload.userId} not found`);
             throw new Error('User not found');
         }
         return user;
