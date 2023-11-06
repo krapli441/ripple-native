@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { SearchController } from './search/search.controller';
+import { SearchService } from './search/search.service';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     AuthModule,
   ],
-  controllers: [AppController, SpotifyAuthController],
-  providers: [AppService],
+  controllers: [AppController, SpotifyAuthController, SearchController],
+  providers: [AppService, SearchService],
 })
 export class AppModule {}

@@ -17,6 +17,8 @@ const user_module_1 = require("./user/user.module");
 const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
+const search_controller_1 = require("./search/search.controller");
+const search_service_1 = require("./search/search.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -42,8 +44,8 @@ exports.AppModule = AppModule = __decorate([
             }),
             auth_module_1.AuthModule,
         ],
-        controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController],
-        providers: [app_service_1.AppService],
+        controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController, search_controller_1.SearchController],
+        providers: [app_service_1.AppService, search_service_1.SearchService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
