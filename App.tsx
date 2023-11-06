@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 // Components
 import HomeScreen from './components/HomeScreen';
 import MapScreen from './components/MapScreen';
+import SearchScreen from './components/SerachScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,11 @@ function App(): JSX.Element {
         <Stack.Screen
           name="Ripple"
           component={MapScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

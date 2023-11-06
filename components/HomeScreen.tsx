@@ -15,7 +15,6 @@ import {
 // Libraries
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {HomeScreenNavigationProp} from '../types/navigationTypes';
-import Config from 'react-native-config';
 
 // Components
 import handleSpotifyLogin from './oauth';

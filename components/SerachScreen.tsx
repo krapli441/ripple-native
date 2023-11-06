@@ -7,13 +7,11 @@ import {
   useColorScheme,
   AppState,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Easing,
   Text,
   Image,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import type {NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../types/navigationTypes'; // 타입을 가져옵니다.
 // Libraries
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
@@ -25,7 +23,7 @@ import NavigationTabBar from './Navigation';
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 
 // Types
-import {Coords, LocationState} from '../types/locationTypes';
+import {Coords, Region, LocationState} from '../types/locationTypes';
 
 // Style
 import styles from '../styles/MapScreenStyles';
@@ -57,8 +55,7 @@ const mapViewProps = {
   loadingEnabled: true,
 };
 
-function MapScreen(): React.ReactElement {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+function SearchScreen(): React.ReactElement {
   const mapRef = useRef<MapView>(null);
   const isDarkMode = useColorScheme() === 'dark';
   const [locationState, setLocationState] =
@@ -137,4 +134,4 @@ function MapScreen(): React.ReactElement {
   );
 }
 
-export default MapScreen;
+export default SearchScreen;
