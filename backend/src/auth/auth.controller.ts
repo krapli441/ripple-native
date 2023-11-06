@@ -85,4 +85,26 @@ export class SpotifyAuthController {
     );
     return userProfileResponse.data;
   }
+
+  private async refreshAccessToken(refreshToken: string): Promise<string> {
+    const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+    const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
+
+    const params = new URLSearchParams();
+    params.append('grant_type', 'refresh_token');
+    params.append('refresh_token', refreshToken);
+    params.append('client_id', clientId);
+    params.append('client_secret', clientSecret);
+
+    const tokenResponse = await axios.post(
+      'https://accounts.spotify.com/api/token',
+      params.toString(),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+    return tokenResponse.data.access_token;
+  }
 }
