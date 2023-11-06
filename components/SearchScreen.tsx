@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Easing,
   Text,
+  TextInput,
   Image,
 } from 'react-native';
 // Libraries
@@ -28,9 +29,15 @@ function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <View>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <View style={styles.searchContainer}>
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'dark-content'} />
       <Text style={styles.header}>음악 남기기</Text>
+      <TextInput
+        style={styles.inputStyle}
+        placeholder="음악을 검색해주세요"
+        placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'} // Placeholder text color depending on the theme
+        // Add more props for additional functionality
+      />
     </View>
   );
 }
