@@ -22,13 +22,14 @@ let SearchController = class SearchController {
     }
     async searchMusic(query, req) {
         const { userId } = req.user;
+        console.log('userId', userId);
         return this.searchService.searchMusicForUser(userId, query);
     }
 };
 exports.SearchController = SearchController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Get)(),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Query)('query')),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),

@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Query, Req } from '@nestjs/common';
+import { Controller, UseGuards, Get, Query, Req, Post } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SearchService } from './search.service';
 import { Request } from 'express';
@@ -14,12 +14,13 @@ export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Post()
   async searchMusic(
     @Query('query') query: string,
     @Req() req: RequestWithUser,
   ) {
     const { userId } = req.user;
+    console.log('userId', userId);
     return this.searchService.searchMusicForUser(userId, query);
   }
 }

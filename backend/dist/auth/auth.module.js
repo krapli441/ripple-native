@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const jwt_strategy_1 = require("./jwt.strategy");
+const user_module_1 = require("../user/user.module");
 const config_1 = require("@nestjs/config");
 let AuthModule = class AuthModule {
 };
@@ -27,6 +28,7 @@ exports.AuthModule = AuthModule = __decorate([
                 }),
                 inject: [config_1.ConfigService],
             }),
+            user_module_1.UserModule,
         ],
         providers: [jwt_strategy_1.JwtStrategy],
         exports: [passport_1.PassportModule, jwt_1.JwtModule],

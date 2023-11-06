@@ -1,21 +1,28 @@
-import { Injectable } from '@nestjs/common';
+// jwt.strategy.ts
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Strategy, ExtractJwt } from 'passport-jwt';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private configService: ConfigService) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly userService: UserService,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
       secretOrKey: configService.get('JWT_SECRET_KEY'),
     });
   }
 
   async validate(payload: any) {
-    // Payload에서 유저 정보를 추출하고 필요한 로직을 추가한다.
-    // 예: 데이터베이스에서 유저 정보를 조회할 수 있음.
-    return { userId: payload.sub, username: payload.username };
+    // payload.sub는 토큰에 저장된 사용자의 _id입니다.
+    const user = await this.userService.findById(payload.sub);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user; // 이 객체가 req.user에 포함됩니다.
   }
 }
