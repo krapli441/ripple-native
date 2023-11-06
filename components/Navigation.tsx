@@ -5,11 +5,18 @@ import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 
 import styles from '../styles/NavigationStyles';
 
-// 인덱스 서명을 추가
-const ICONS: {[key: string]: string} = {
-  Library: 'book',
-  홈: 'home',
-  Profile: 'user',
+const ROUTES = {
+  HOME: '홈',
+  LIBRARY: 'Library',
+  PROFILE: 'Profile',
+  // ... 다른 라우트 이름들
+};
+
+const ICONS = {
+  [ROUTES.LIBRARY]: 'book',
+  [ROUTES.HOME]: 'home',
+  [ROUTES.PROFILE]: 'user',
+  // ... 다른 아이콘 이름들
 };
 
 const NavigationTabBar: React.FC<BottomTabBarProps> = ({
