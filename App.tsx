@@ -21,16 +21,12 @@ const SearchStack = createStackNavigator();
 
 function SearchStackScreen() {
   return (
-    <SearchStack.Navigator>
-      <SearchStack.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-        }}
-      />
-      {/* 필요하다면 SearchScreen과 관련된 추가 스크린들을 여기에 배치할 수 있습니다. */}
+    <SearchStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+      }}>
+      <SearchStack.Screen name="Search" component={SearchScreen} />
     </SearchStack.Navigator>
   );
 }
@@ -85,14 +81,14 @@ function App(): JSX.Element {
           component={MainTabNavigator}
           options={{headerShown: false}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="SearchScreen"
           component={SearchScreen}
           options={{
             headerShown: false,
             cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, // 아래에서 위로 슬라이드하는 애니메이션
           }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

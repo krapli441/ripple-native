@@ -14,7 +14,6 @@ import styles from '../styles/SearchScreenStyle';
 
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-
   // 키보드를 숨기는 함수
   const dismissKeyboard = () => {
     Keyboard.dismiss();
