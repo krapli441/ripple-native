@@ -22,8 +22,6 @@ let SearchController = class SearchController {
     }
     async searchMusic(query, req) {
         const { _id } = req.user;
-        console.log('req.user 값', req.user);
-        console.log('userId 값 : ', _id);
         return this.searchService.searchMusicForUser(_id, query);
     }
 };
@@ -31,7 +29,7 @@ exports.SearchController = SearchController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Query)('query')),
+    __param(0, (0, common_1.Body)('query')),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
