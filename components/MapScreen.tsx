@@ -100,42 +100,6 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
-  // const startLocationTracking = () => {
-  //   if (clearWatch.current) {
-  //     clearWatch.current();
-  //   }
-
-  //   clearWatch.current = watchUserLocation(
-  //     setLocationState,
-  //     updateUserLocation,
-  //     GEOLOCATION_OPTIONS,
-  //     animateError,
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const subscription = AppState.addEventListener('change', nextAppState => {
-  //     if (
-  //       appState.current.match(/inactive|background/) &&
-  //       nextAppState === 'active'
-  //     ) {
-  //       console.log('App has come to the foreground!');
-  //       startLocationTracking();
-  //     }
-
-  //     appState.current = nextAppState;
-  //     setAppStateVisible(appState.current);
-  //     console.log('AppState', appState.current);
-  //   });
-
-  //   return () => {
-  //     subscription.remove();
-  //     // 컴포넌트가 언마운트될 때 watchPosition을 정지
-  //     if (clearWatch.current) {
-  //       clearWatch.current();
-  //     }
-  //   };
-  // }, []);
 
   return (
     <View style={styles.container}>
