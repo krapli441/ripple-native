@@ -13,15 +13,20 @@ exports.SearchService = void 0;
 const common_1 = require("@nestjs/common");
 const axios_1 = require("@nestjs/axios");
 const user_service_1 = require("../user/user.service");
+const config_1 = require("@nestjs/config");
 let SearchService = class SearchService {
-    constructor(userService, httpService) {
+    constructor(userService, httpService, configService) {
         this.userService = userService;
         this.httpService = httpService;
+        this.configService = configService;
     }
     async searchMusicForUser(userId, query) {
-        const user = await this.userService.findById(userId);
+        let user = await this.userService.findById(userId);
         if (!user) {
             throw new Error('User not found');
+        }
+        if (new Date() > new Date(user.tokenExpiry)) {
+            user = await this.refreshAccessToken(user);
         }
         try {
             const response = await this.httpService
@@ -37,11 +42,43 @@ let SearchService = class SearchService {
             throw new Error('Error searching Spotify');
         }
     }
+    async refreshAccessToken(user) {
+        const refreshToken = user.refreshToken;
+        const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
+        const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
+        const params = new URLSearchParams();
+        params.append('grant_type', 'refresh_token');
+        params.append('refresh_token', refreshToken);
+        params.append('client_id', clientId);
+        params.append('client_secret', clientSecret);
+        try {
+            const response = await this.httpService
+                .post('https://accounts.spotify.com/api/token', params, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+                .toPromise();
+            const data = response.data;
+            const expiryDate = new Date(new Date().getTime() + data.expires_in * 1000);
+            await this.userService.update(user._id, {
+                accessToken: data.access_token,
+                refreshToken: data.refresh_token || refreshToken,
+                tokenExpiry: expiryDate,
+            });
+            return this.userService.findById(user._id);
+        }
+        catch (error) {
+            console.error('Error refreshing Spotify access token:', error);
+            throw new Error('Could not refresh access token');
+        }
+    }
 };
 exports.SearchService = SearchService;
 exports.SearchService = SearchService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_service_1.UserService,
-        axios_1.HttpService])
+        axios_1.HttpService,
+        config_1.ConfigService])
 ], SearchService);
 //# sourceMappingURL=search.service.js.map
