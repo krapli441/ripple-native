@@ -3,5 +3,5 @@ export class CreateUserDto {
   email: string;
   accessToken: string;
   refreshToken: string;
-  // 필요할 시 다른 필드 추가
+  tokenExpiry: Date;
 }

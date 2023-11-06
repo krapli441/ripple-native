@@ -15,7 +15,8 @@ export class User extends Document {
   @Prop()
   refreshToken: string;
 
-  // 다른 필드들을 추가할 수 있음
+  @Prop()
+  tokenExpiry: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
