@@ -99,7 +99,7 @@ function SearchScreen(): React.ReactElement {
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <View style={styles.searchContainer}>
         <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-        <Text style={styles.header}>음악 검색</Text>
+        <Text style={styles.header}>음악 남기기</Text>
         <TextInput
           style={styles.inputStyle}
           placeholder="음악을 검색해주세요"
