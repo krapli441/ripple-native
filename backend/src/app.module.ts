@@ -10,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SearchController } from './search/search.controller';
 import { SearchService } from './search/search.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { SearchService } from './search/search.service';
       inject: [ConfigService],
     }),
     AuthModule,
+    HttpModule,
   ],
   controllers: [AppController, SpotifyAuthController, SearchController],
   providers: [AppService, SearchService],

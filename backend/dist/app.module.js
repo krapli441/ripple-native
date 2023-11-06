@@ -19,6 +19,7 @@ const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
 const search_controller_1 = require("./search/search.controller");
 const search_service_1 = require("./search/search.service");
+const axios_1 = require("@nestjs/axios");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -43,6 +44,7 @@ exports.AppModule = AppModule = __decorate([
                 inject: [config_1.ConfigService],
             }),
             auth_module_1.AuthModule,
+            axios_1.HttpModule,
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController, search_controller_1.SearchController],
         providers: [app_service_1.AppService, search_service_1.SearchService],
