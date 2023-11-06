@@ -49,7 +49,6 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* 로그인 스크린을 여기에 배치 */}
         <Stack.Screen
           name="Home"
           component={HomeScreen}
