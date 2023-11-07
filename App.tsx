@@ -30,6 +30,15 @@ function SearchStackScreen() {
       <SearchStack.Screen
         name="MakeRippleScreen"
         component={MakerippleScreen}
+        options={{
+          // 페이드 인-아웃 애니메이션을 정의합니다.
+          cardStyleInterpolator: ({current}) => ({
+            cardStyle: {
+              opacity: current.progress,
+            },
+          }),
+          gestureEnabled: false,
+        }}
       />
     </SearchStack.Navigator>
   );
