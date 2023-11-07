@@ -7,7 +7,20 @@ export interface Location {
   longitude: number;
 }
 
-@Schema()
+export interface IRipple extends Document {
+  userId: string;
+  title: string;
+  artist: string;
+  albumCoverUrl?: string;
+  spotifyExternalUrl?: string;
+  location: Location;
+  tag?: string[];
+  likes: number;
+  createdAt: Date; // 이 줄을 추가
+  expiresAt?: Date;
+}
+
+@Schema({ timestamps: true })
 export class Ripple extends Document {
   @Prop({ required: true })
   userId: string;
@@ -40,15 +53,12 @@ export class Ripple extends Document {
   likes: number; // 기본값으로 0을 설정
 
   @Prop()
-  createdAt: Date;
-
-  @Prop()
   expiresAt: Date;
 }
 
 export const RippleSchema = SchemaFactory.createForClass(Ripple);
 
-RippleSchema.pre('save', function (next) {
+RippleSchema.pre<IRipple>('save', function (next) {
   if (this.isNew) {
     this.expiresAt = new Date(this.createdAt.getTime() + 24 * 60 * 60 * 1000); // 24시간 뒤의 시간을 계산
   }

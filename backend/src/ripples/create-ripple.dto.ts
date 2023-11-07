@@ -12,6 +12,5 @@ export class CreateRippleDto {
   readonly location: LocationDto;
   readonly tag: string[];
   readonly likes: number;
-  readonly createdAt: Date;
   readonly expiresAt: Date;
 }
