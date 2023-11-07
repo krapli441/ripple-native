@@ -37,21 +37,20 @@ function MakeRippleScreen(): React.ReactElement {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.flexContainer}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.searchContainer}>
-          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-          <Text style={styles.header}>음악 남기기</Text>
-          {track && (
-            <View>
-              <Image source={{uri: track.imageUrl}} style={styles.albumCover} />
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.searchContainer}>
+        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+        <Text style={styles.header}>음악 남기기</Text>
+        {track && (
+          <View style={styles.resultItem}>
+            <Image source={{uri: track.imageUrl}} style={styles.albumCover} />
+            <View style={styles.textContainer}>
               <Text style={styles.title}>{track.title}</Text>
               <Text style={styles.artist}>{track.artist}</Text>
             </View>
-          )}
-        </View>
-      </TouchableWithoutFeedback>
+          </View>
+        )}
+      </View>
     </KeyboardAvoidingView>
   );
 }
