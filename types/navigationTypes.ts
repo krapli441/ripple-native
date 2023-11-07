@@ -2,7 +2,7 @@
 
 import {StackNavigationProp} from '@react-navigation/stack';
 
-type TrackDetails = {
+export type TrackDetails = {
   title: string;
   artist: string;
   externalUrl: string;

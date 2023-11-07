@@ -1,3 +1,4 @@
+// react & react-native
 import React, {useState, useLayoutEffect} from 'react';
 import {
   View,
@@ -15,17 +16,18 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../types/navigationTypes';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import {useFocusEffect} from '@react-navigation/native';
+
+// types
+import {RootStackParamList} from '../types/navigationTypes';
+import {TrackDetails} from '../types/navigationTypes';
+
+// asyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
 import styles from '../styles/SearchScreenStyle';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-
 
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -105,10 +107,9 @@ function SearchScreen(): React.ReactElement {
     }, []),
   );
 
-  const handleSelectTrack = (track: any) => {
+  const handleSelectTrack = (track: TrackDetails) => {
     navigation.navigate('MakeRippleScreen', {track});
   };
-
   const renderItem = ({item}: any) => (
     <TouchableOpacity onPress={() => handleSelectTrack(item)}>
       <View style={styles.resultItem}>
@@ -117,9 +118,6 @@ function SearchScreen(): React.ReactElement {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.artist}>{item.artist}</Text>
         </View>
-        {/* <TouchableOpacity onPress={() => Linking.openURL(item.externalUrl)}>
-        <Text style={styles.link}>Play</Text>
-      </TouchableOpacity> */}
       </View>
     </TouchableOpacity>
   );
