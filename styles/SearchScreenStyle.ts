@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginLeft: 30,
   },
+  flexContainer: {
+    flex: 1, // 이 스타일을 KeyboardAvoidingView에 적용
+  },
 
   inputStyle: {
     height: 66,
@@ -27,6 +30,10 @@ const styles = StyleSheet.create({
     marginVertical: 10, // 상하 여백을 줍니다.
     alignItems: 'center', // 아이템을 중앙에 배치합니다.
     marginLeft: 20, // 왼쪽 여백을 줍니다.
+  },
+  flatListStyle: {
+    flex: 1,
+    marginBottom:130,
   },
   albumCover: {
     width: 60, // 이미지의 너비를 설정합니다.
@@ -47,9 +54,9 @@ const styles = StyleSheet.create({
     color: 'gray', // 글자 색을 회색으로 합니다.
   },
   link: {
-    fontSize: 14, // 링크의 글자 크기를 설정합니다.
-    color: 'blue', // 글자 색을 파란색으로 합니다.
-    marginRight: 20, // 오른쪽 여백을 줍니다.
+    fontSize: 14,
+    color: 'black',
+    marginRight: 20,
   },
 });
 

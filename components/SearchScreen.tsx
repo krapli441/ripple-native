@@ -5,8 +5,10 @@ import {
   Text,
   TextInput,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
   Keyboard,
   useColorScheme,
+  Platform,
   Button,
   FlatList,
   Image,
@@ -96,25 +98,30 @@ function SearchScreen(): React.ReactElement {
   );
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View style={styles.searchContainer}>
-        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-        <Text style={styles.header}>음악 남기기</Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="음악을 검색해주세요"
-          onChangeText={handleSearchTermChange}
-          value={searchTerm}
-          placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
-        />
-        <Button title="검색" onPress={handleSearchMusic} />
-        <FlatList
-          data={searchResults}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => `result-${index}`}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.flexContainer}>
+      {/* <TouchableWithoutFeedback onPress={dismissKeyboard}> */}
+        <View style={styles.searchContainer}>
+          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+          <Text style={styles.header}>음악 남기기</Text>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder="음악을 검색해주세요"
+            onChangeText={handleSearchTermChange}
+            value={searchTerm}
+            placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
+          />
+          <Button title="검색" onPress={handleSearchMusic} />
+          <FlatList
+            style={styles.flatListStyle}
+            data={searchResults}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => `result-${index}`}
+          />
+        </View>
+      {/* </TouchableWithoutFeedback> */}
+    </KeyboardAvoidingView>
   );
 }
 
