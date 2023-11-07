@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Home: undefined;
   Ripple: undefined;
   SearchModal: undefined;
+  MakeRippleScreen: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<

@@ -13,17 +13,20 @@ import {
   Image,
   Alert,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useFocusEffect} from '@react-navigation/native';
 
 // Style
 import styles from '../styles/SearchScreenStyle';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const navigation = useNavigation();
 
   // 화면 포커스 시 실행될 이펙트
   useFocusEffect(
@@ -97,17 +100,23 @@ function SearchScreen(): React.ReactElement {
     }, []),
   );
 
+  const handleSelectTrack = (track: any) => {
+    navigation.navigate('MakeRippleScreen', {track});
+  };
+
   const renderItem = ({item}: any) => (
-    <View style={styles.resultItem}>
-      <Image source={{uri: item.imageUrl}} style={styles.albumCover} />
-      <View style={styles.infoContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.artist}>{item.artist}</Text>
-      </View>
-      {/* <TouchableOpacity onPress={() => Linking.openURL(item.externalUrl)}>
+    <TouchableOpacity onPress={() => handleSelectTrack(item)}>
+      <View style={styles.resultItem}>
+        <Image source={{uri: item.imageUrl}} style={styles.albumCover} />
+        <View style={styles.infoContainer}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.artist}>{item.artist}</Text>
+        </View>
+        {/* <TouchableOpacity onPress={() => Linking.openURL(item.externalUrl)}>
         <Text style={styles.link}>Play</Text>
       </TouchableOpacity> */}
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 
   return (

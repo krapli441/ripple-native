@@ -12,6 +12,7 @@ import HomeScreen from './components/HomeScreen';
 import NavigationTabBar from './components/Navigation';
 import MapScreen from './components/MapScreen';
 import SearchScreen from './components/SearchScreen';
+import MakerippleScreen from './components/MakeRippleScreen';
 // import LibraryScreen from './components/LibraryScreen';
 // import ProfileScreen from './components/ProfileScreen';
 
@@ -26,6 +27,10 @@ function SearchStackScreen() {
         headerShown: false,
       }}>
       <SearchStack.Screen name="Search" component={SearchScreen} />
+      <SearchStack.Screen
+        name="MakeRippleScreen"
+        component={MakerippleScreen}
+      />
     </SearchStack.Navigator>
   );
 }
