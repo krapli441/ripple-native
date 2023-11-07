@@ -1,82 +1,49 @@
-// React & React Native
-import React from 'react';
+// react & react-native
+import React, {useState, useLayoutEffect} from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
   View,
+  StatusBar,
   Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
   useColorScheme,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  Image,
+  Alert,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import type {NavigationProp} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
-// Libraries
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {HomeScreenNavigationProp} from '../types/navigationTypes';
+// types
+import {RootStackParamList} from '../types/navigationTypes';
+import {TrackDetails} from '../types/navigationTypes';
 
-// Components
-import handleSpotifyLogin from './oauth';
+// asyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
-import styles from '../styles/HomeScreenStyles';
+import styles from '../styles/SearchScreenStyle';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-type HomeScreenProps = {
-  navigation: HomeScreenNavigationProp;
-};
-
-const LoginButton: React.FC<{
-  iconName: string;
-  text: string;
-  buttonStyle: any;
-  onPress: () => void;
-}> = ({iconName, text, buttonStyle, onPress}) => (
-  <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
-    <View style={styles.buttonContent}>
-      <Icon name={iconName} size={20} color="black" />
-      <Text style={styles.buttonText}>{text}</Text>
-    </View>
-  </TouchableOpacity>
-);
-
-function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
+function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const containerStyle = {
-    ...styles.container,
-    backgroundColor: isDarkMode ? '#191414' : 'white',
-  };
-
   return (
-    <SafeAreaView style={containerStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentContainerStyle={styles.scrollViewContent}
-        scrollEnabled={false}>
-        <View style={styles.centerContent}>
-          <Image
-            source={require('../assets/img/ripplelogo.png')}
-            style={styles.logo}
-          />
-          <LoginButton
-            iconName="spotify"
-            text="Spotify를 이용하여 로그인"
-            buttonStyle={styles.spotifyButton}
-            onPress={() => handleSpotifyLogin(navigation)}
-          />
-          <TouchableOpacity
-            style={[styles.button, styles.mapButton]}
-            onPress={() => navigation.navigate('Ripple')}>
-            <View style={styles.buttonContent}>
-              <Icon name="map" size={20} color="black" />
-              <Text style={styles.buttonText}>테스트 - 지도로 이동</Text>
-            </View>
-          </TouchableOpacity>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.flexContainer}>
+      <TouchableWithoutFeedback>
+        <View style={styles.searchContainer}>
+          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+          <Text style={styles.header}>음악 남기기</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
-export default HomeScreen;
+export default MakeRippleScreen;
