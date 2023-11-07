@@ -110,9 +110,10 @@ function SearchScreen(): React.ReactElement {
             placeholder="음악을 검색해주세요"
             onChangeText={handleSearchTermChange}
             value={searchTerm}
+            returnKeyType="search"
+            onSubmitEditing={handleSearchMusic}
             placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
           />
-          <Button title="검색" onPress={handleSearchMusic} />
         </View>
       </TouchableWithoutFeedback>
       <FlatList

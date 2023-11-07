@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // 아이템을 수평으로 배치합니다.
     marginVertical: 10, // 상하 여백을 줍니다.
     alignItems: 'center', // 아이템을 중앙에 배치합니다.
-    marginLeft: 20, // 왼쪽 여백을 줍니다.
+    marginLeft: 30, // 왼쪽 여백을 줍니다.
+    marginRight: 20, // 오른쪽 여백을 줍니다.
   },
   flatListStyle: {
     flex: 1,
