@@ -96,9 +96,9 @@ function SearchScreen(): React.ReactElement {
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.artist}>{item.artist}</Text>
       </View>
-      <TouchableOpacity onPress={() => Linking.openURL(item.externalUrl)}>
+      {/* <TouchableOpacity onPress={() => Linking.openURL(item.externalUrl)}>
         <Text style={styles.link}>Play</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 
