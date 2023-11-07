@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StatusBar,
@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   useColorScheme,
-  Button,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -28,14 +27,6 @@ function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const navigation = useNavigation();
-
-  React.useLayoutEffect(() => {
-    // 컴포넌트가 마운트되거나 navigation 객체가 변경될 때 실행됩니다.
-    navigation.setOptions({
-      gestureEnabled: false, // 스와이프 제스처를 비활성화합니다.
-    });
-  }, [navigation]);
 
   const searchForMusic = async (searchQuery: string) => {
     try {
