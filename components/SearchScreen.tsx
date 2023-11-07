@@ -14,6 +14,7 @@ import {
   Image,
   Linking,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
@@ -74,7 +75,12 @@ function SearchScreen(): React.ReactElement {
   };
 
   const handleSearchMusic = () => {
-    searchForMusic(searchTerm);
+    if (searchTerm.trim()) {
+      searchForMusic(searchTerm);
+    } else {
+      // 사용자에게 알림을 보여줍니다.
+      Alert.alert('검색 오류', '검색어를 입력해주세요.');
+    }
   };
 
   const handleSearchTermChange = (text: string) => {
