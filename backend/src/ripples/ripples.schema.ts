@@ -19,8 +19,13 @@ export class Ripple extends Document {
   @Prop()
   spotifyExternalUrl: string;
 
-  @Prop()
-  location: string; // 마커 생성 좌표를 타입에 맞게 수정해야 함
+  @Prop({
+    type: {
+      latitude: { type: Number, required: true },
+      longitude: { type: Number, required: true },
+    },
+  })
+  location: Location;
 
   @Prop()
   tag: string[];
