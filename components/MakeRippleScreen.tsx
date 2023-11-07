@@ -13,7 +13,8 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -38,10 +39,17 @@ function MakeRippleScreen(): React.ReactElement {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.flexContainer}>
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.searchContainer}>
-          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'dark-content'} />
+          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
           <Text style={styles.header}>음악 남기기</Text>
+          {track && (
+            <View>
+              <Image source={{uri: track.imageUrl}} style={styles.albumCover} />
+              <Text style={styles.title}>{track.title}</Text>
+              <Text style={styles.artist}>{track.artist}</Text>
+            </View>
+          )}
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
