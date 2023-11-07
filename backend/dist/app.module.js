@@ -20,6 +20,7 @@ const auth_module_1 = require("./auth/auth.module");
 const search_controller_1 = require("./search/search.controller");
 const search_service_1 = require("./search/search.service");
 const axios_1 = require("@nestjs/axios");
+const ripples_module_1 = require("./ripples/ripples.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -45,6 +46,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             auth_module_1.AuthModule,
             axios_1.HttpModule,
+            ripples_module_1.RipplesModule,
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController, search_controller_1.SearchController],
         providers: [app_service_1.AppService, search_service_1.SearchService],
