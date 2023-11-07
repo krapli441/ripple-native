@@ -20,7 +20,7 @@ const handleSpotifyLogin = async (navigation: any) => {
     console.log('authorize result:', result);
 
     // 서버에 인증 코드와 codeVerifier를 전달
-    const response = await fetch('http://172.30.1.27:3000/auth/spotify/token', {
+    const response = await fetch('http://192.168.0.215:3000/auth/spotify/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

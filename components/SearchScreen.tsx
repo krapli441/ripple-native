@@ -35,7 +35,7 @@ function SearchScreen(): React.ReactElement {
       }
 
       // 백엔드 엔드포인트로 검색 요청을 보낸다.
-      const response = await fetch('http://172.30.1.27:3000/search', {
+      const response = await fetch('http://192.168.0.215:3000/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
