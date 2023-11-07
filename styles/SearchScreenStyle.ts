@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'flex-start',
   },
 
   header: {
@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 70,
     marginLeft: 30,
+  },
+  flexContainer: {
+    flex: 1, // 이 스타일을 KeyboardAvoidingView에 적용
   },
 
   inputStyle: {
@@ -26,7 +29,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // 아이템을 수평으로 배치합니다.
     marginVertical: 10, // 상하 여백을 줍니다.
     alignItems: 'center', // 아이템을 중앙에 배치합니다.
-    marginLeft: 20, // 왼쪽 여백을 줍니다.
+    marginLeft: 30, // 왼쪽 여백을 줍니다.
+    marginRight: 20, // 오른쪽 여백을 줍니다.
+  },
+  flatListStyle: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  flatListContent: {
+    paddingBottom: 120, // 하단 내비게이션 바의 높이에 맞춰 조절하세요.
   },
   albumCover: {
     width: 60, // 이미지의 너비를 설정합니다.
@@ -47,9 +58,9 @@ const styles = StyleSheet.create({
     color: 'gray', // 글자 색을 회색으로 합니다.
   },
   link: {
-    fontSize: 14, // 링크의 글자 크기를 설정합니다.
-    color: 'blue', // 글자 색을 파란색으로 합니다.
-    marginRight: 20, // 오른쪽 여백을 줍니다.
+    fontSize: 14,
+    color: 'black',
+    marginRight: 20,
   },
 });
 

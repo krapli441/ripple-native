@@ -24,7 +24,6 @@ function SearchStackScreen() {
     <SearchStack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
       }}>
       <SearchStack.Screen name="Search" component={SearchScreen} />
     </SearchStack.Navigator>
@@ -57,8 +56,7 @@ function MainTabNavigator() {
         name="SearchModal"
         component={SearchStackScreen} // SearchStackScreen을 탭에 연결.
         options={{
-          headerShown: false,
-          tabBarButton: () => null, // 탭 버튼을 숨김.
+          headerShown: false, // 탭 버튼을 숨김.
         }}
       />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
@@ -78,6 +76,11 @@ function App(): JSX.Element {
         <Stack.Screen
           name="Ripple"
           component={MainTabNavigator}
+          options={{headerShown: false, gestureEnabled: false}}
+        />
+        <Stack.Screen
+          name="SearchModal"
+          component={SearchStackScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
