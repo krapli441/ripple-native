@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {
   View,
   StatusBar,
@@ -11,8 +11,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
-  Linking,
-  TouchableOpacity,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,6 +24,16 @@ function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+
+  // 화면 포커스 시 실행될 이펙트
+  useFocusEffect(
+    React.useCallback(() => {
+      // 검색 상태 초기화
+      setSearchTerm('');
+      setSearchResults([]);
+      // ...
+    }, []),
+  );
 
   const searchForMusic = async (searchQuery: string) => {
     try {
