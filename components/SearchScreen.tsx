@@ -14,6 +14,9 @@ import {
   Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import type {NavigationProp} from '@react-navigation/native';
+import {RootStackParamList} from '../types/navigationTypes';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useFocusEffect} from '@react-navigation/native';
@@ -22,11 +25,13 @@ import {useFocusEffect} from '@react-navigation/native';
 import styles from '../styles/SearchScreenStyle';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
+
+
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   // 화면 포커스 시 실행될 이펙트
   useFocusEffect(
