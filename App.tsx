@@ -26,7 +26,17 @@ function SearchStackScreen() {
       screenOptions={{
         headerShown: false,
       }}>
-      <SearchStack.Screen name="Search" component={SearchScreen} />
+      <SearchStack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          cardStyleInterpolator: ({current}) => ({
+            cardStyle: {
+              opacity: current.progress,
+            },
+          }),
+        }}
+      />
       <SearchStack.Screen
         name="MakeRippleScreen"
         component={MakerippleScreen}

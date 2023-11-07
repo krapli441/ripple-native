@@ -4,7 +4,6 @@ import {
   View,
   StatusBar,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   useColorScheme,
@@ -31,6 +30,9 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList, 'MakeRippleScreen'>>();
+  const track = route.params?.track;
 
   return (
     <KeyboardAvoidingView
