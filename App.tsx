@@ -24,7 +24,6 @@ function SearchStackScreen() {
     <SearchStack.Navigator
       screenOptions={{
         headerShown: false,
-        gestureEnabled: false,
       }}>
       <SearchStack.Screen name="Search" component={SearchScreen} />
     </SearchStack.Navigator>
