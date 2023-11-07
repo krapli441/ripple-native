@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { SearchController } from './search/search.controller';
 import { SearchService } from './search/search.service';
 import { HttpModule } from '@nestjs/axios';
+import { RipplesModule } from './ripples/ripples.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { HttpModule } from '@nestjs/axios';
     }),
     AuthModule,
     HttpModule,
+    RipplesModule,
   ],
   controllers: [AppController, SpotifyAuthController, SearchController],
   providers: [AppService, SearchService],
