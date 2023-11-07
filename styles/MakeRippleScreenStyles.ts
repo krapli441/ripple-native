@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   artist: {
-    fontSize: 12,
+    fontSize: 14,
     color: 'gray',
   },
 });
