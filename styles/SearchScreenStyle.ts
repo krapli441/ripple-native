@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'flex-start',
   },
 
   header: {
@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
   },
   flatListStyle: {
     flex: 1,
-    marginBottom:130,
+    backgroundColor: 'white',
+  },
+  flatListContent: {
+    paddingBottom: 120, // 하단 내비게이션 바의 높이에 맞춰 조절하세요.
   },
   albumCover: {
     width: 60, // 이미지의 너비를 설정합니다.

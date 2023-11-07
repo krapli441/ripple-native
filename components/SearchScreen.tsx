@@ -5,12 +5,12 @@ import {
   Text,
   TextInput,
   TouchableWithoutFeedback,
-  KeyboardAvoidingView,
   Keyboard,
   useColorScheme,
-  Platform,
   Button,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   Image,
   Linking,
   TouchableOpacity,
@@ -101,7 +101,7 @@ function SearchScreen(): React.ReactElement {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.flexContainer}>
-      {/* <TouchableWithoutFeedback onPress={dismissKeyboard}> */}
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.searchContainer}>
           <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
           <Text style={styles.header}>음악 남기기</Text>
@@ -113,14 +113,15 @@ function SearchScreen(): React.ReactElement {
             placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
           />
           <Button title="검색" onPress={handleSearchMusic} />
-          <FlatList
-            style={styles.flatListStyle}
-            data={searchResults}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => `result-${index}`}
-          />
         </View>
-      {/* </TouchableWithoutFeedback> */}
+      </TouchableWithoutFeedback>
+      <FlatList
+        style={styles.flatListStyle}
+        contentContainerStyle={styles.flatListContent}
+        data={searchResults}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `result-${index}`}
+      />
     </KeyboardAvoidingView>
   );
 }
