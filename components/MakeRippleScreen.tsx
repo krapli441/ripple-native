@@ -26,7 +26,7 @@ import {TrackDetails} from '../types/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
-import styles from '../styles/SearchScreenStyle';
+import styles from '../styles/MakeRippleScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function MakeRippleScreen(): React.ReactElement {
