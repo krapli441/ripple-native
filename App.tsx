@@ -31,7 +31,6 @@ function SearchStackScreen() {
         name="MakeRippleScreen"
         component={MakerippleScreen}
         options={{
-          // 페이드 인-아웃 애니메이션을 정의합니다.
           cardStyleInterpolator: ({current}) => ({
             cardStyle: {
               opacity: current.progress,
@@ -70,7 +69,8 @@ function MainTabNavigator() {
         name="SearchModal"
         component={SearchStackScreen} // SearchStackScreen을 탭에 연결.
         options={{
-          headerShown: false, // 탭 버튼을 숨김.
+          headerShown: false,
+          unmountOnBlur: true,
         }}
       />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}

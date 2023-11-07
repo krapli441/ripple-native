@@ -38,7 +38,7 @@ function MakeRippleScreen(): React.ReactElement {
       style={styles.flexContainer}>
       <TouchableWithoutFeedback>
         <View style={styles.searchContainer}>
-          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'dark-content'} />
           <Text style={styles.header}>음악 남기기</Text>
         </View>
       </TouchableWithoutFeedback>
