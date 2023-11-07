@@ -65,7 +65,7 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
             style={styles.tabItem}>
             <Icon
               name={iconName}
-              size={20}
+              size={32}
               color={isFocused ? 'black' : 'gray'}
             />
             {typeof label === 'string' ? (
