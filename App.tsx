@@ -26,7 +26,7 @@ function SearchStackScreen() {
         headerShown: false,
         gestureEnabled: false,
       }}>
-      <SearchStack.Screen name="SearchModal" component={SearchScreen} />
+      <SearchStack.Screen name="Search" component={SearchScreen} />
     </SearchStack.Navigator>
   );
 }
@@ -53,13 +53,13 @@ function MainTabNavigator() {
         component={MapScreen}
         options={{headerShown: false}}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="SearchModal"
         component={SearchStackScreen} // SearchStackScreen을 탭에 연결.
         options={{
           headerShown: false, // 탭 버튼을 숨김.
         }}
-      /> */}
+      />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>
   );
@@ -77,12 +77,12 @@ function App(): JSX.Element {
         <Stack.Screen
           name="Ripple"
           component={MainTabNavigator}
-          options={{headerShown: false}}
+          options={{headerShown: false, gestureEnabled: false}}
         />
         <Stack.Screen
           name="SearchModal"
           component={SearchStackScreen}
-          options={{headerShown: false, gestureEnabled: false}}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
