@@ -5,6 +5,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'flex-start',
   },
+  keyboardAvoidingView: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   header: {
     fontSize: 32,
     fontWeight: 'bold',

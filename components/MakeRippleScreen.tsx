@@ -37,7 +37,8 @@ function MakeRippleScreen(): React.ReactElement {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.keyboardAvoidingView}>
       <View style={styles.searchContainer}>
         <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
         <Text style={styles.header}>음악 남기기</Text>
