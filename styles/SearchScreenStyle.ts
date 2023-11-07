@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   searchContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
   },
 
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   flatListStyle: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#f8f9fa',
   },
   flatListContent: {
     paddingBottom: 120, // 하단 내비게이션 바의 높이에 맞춰 조절하세요.

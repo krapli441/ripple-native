@@ -2,12 +2,12 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   searchContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
   },
   keyboardAvoidingView: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#f8f9fa',
   },
   header: {
     fontSize: 32,
