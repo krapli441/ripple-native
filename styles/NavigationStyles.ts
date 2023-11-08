@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     height: 120,
     borderTopEndRadius: 20,
     borderTopLeftRadius: 20,
-    borderTopWidth: 1,
     borderColor: '#ccc',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -20,16 +19,13 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
   },
-  textStyle: {
-    marginTop: 10,
-  },
   tabItem: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   tabLabel: {
     fontSize: 12,
-    marginTop: 3,
+    marginTop: 10,
   },
 });
 
