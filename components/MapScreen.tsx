@@ -84,6 +84,12 @@ function MapScreen(): React.ReactElement {
       useNativeDriver: true,
     }).start();
   };
+
+  useEffect(() => {
+    // 컴포넌트가 언마운트될 때 애니메이션 중단
+    return () => errorAnim.stopAnimation();
+  }, []);
+
   const updateUserLocation = async (newCoords: Coords) => {
     setLocationState(prevState => ({...prevState, coords: newCoords}));
     if (mapRef.current) {
