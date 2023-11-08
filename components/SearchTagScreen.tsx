@@ -133,16 +133,18 @@ function SearchTagScreen(): React.ReactElement {
         </View>
       </TouchableWithoutFeedback>
       <ScrollView
-      style={styles.tagsContainer}
+        style={styles.tagsContainer}
         contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap'}}>
-        {tags.map(tag => (
-          <TouchableOpacity onPress={() => toggleTag(tag.name)} key={tag.name}>
+        {filteredTags.map(tag => (
+          <TouchableWithoutFeedback
+            onPress={() => toggleTag(tag.name)}
+            key={tag.name}>
             <View style={[styles.tag, getTagStyle(tag.name)]}>
               <Text style={[styles.tagText, getTagTextStyle(tag.name)]}>
                 {tag.name}
               </Text>
             </View>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         ))}
       </ScrollView>
     </KeyboardAvoidingView>
