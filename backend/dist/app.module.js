@@ -21,6 +21,9 @@ const search_controller_1 = require("./search/search.controller");
 const search_service_1 = require("./search/search.service");
 const axios_1 = require("@nestjs/axios");
 const ripples_module_1 = require("./ripples/ripples.module");
+const music_tag_service_1 = require("./music-tag/music-tag.service");
+const music_tag_controller_1 = require("./music-tag/music-tag.controller");
+const music_tag_module_1 = require("./music-tag/music-tag.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -47,9 +50,10 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             axios_1.HttpModule,
             ripples_module_1.RipplesModule,
+            music_tag_module_1.MusicTagModule,
         ],
-        controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController, search_controller_1.SearchController],
-        providers: [app_service_1.AppService, search_service_1.SearchService],
+        controllers: [app_controller_1.AppController, auth_controller_1.SpotifyAuthController, search_controller_1.SearchController, music_tag_controller_1.MusicTagController],
+        providers: [app_service_1.AppService, search_service_1.SearchService, music_tag_service_1.MusicTagService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
