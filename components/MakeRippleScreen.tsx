@@ -51,6 +51,7 @@ function MakeRippleScreen(): React.ReactElement {
             </View>
           </View>
         )}
+        <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
       </View>
     </KeyboardAvoidingView>
   );

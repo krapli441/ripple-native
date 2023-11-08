@@ -16,12 +16,19 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginLeft: 30,
   },
+  tagHeader: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    marginTop: 30,
+    marginLeft: 30,
+  },
   resultItem: {
     flexDirection: 'row',
     marginVertical: 10,
     marginLeft: 30,
     marginRight: 20,
-    marginTop: 20,
+    marginTop: 30,
   },
   textContainer: {
     flex: 1,
