@@ -13,8 +13,9 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
+import type {RouteProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 
 // types
@@ -36,6 +37,9 @@ function SearchTagScreen(): React.ReactElement {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const route = useRoute<RouteProp<RootStackParamList, 'SearchTagScreen'>>();
+  const currentTrack = route.params?.currentTrack; // 넘겨받은 트랙 정보를 상태로 저장
+  const [selectedTrack, setSelectedTrack] = useState(currentTrack);
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -95,7 +99,7 @@ function SearchTagScreen(): React.ReactElement {
 
   const handleComplete = () => {
     navigation.navigate('MakeRippleScreen', {
-      track: currentTrack,
+      track: selectedTrack,
       selectedTags,
     });
   };

@@ -83,7 +83,7 @@ function MakeRippleScreen(): React.ReactElement {
   };
 
   const goToSearchTagScreen = () => {
-    navigation.navigate('SearchTagScreen');
+    navigation.navigate('SearchTagScreen', { currentTrack: track });
   };
 
   return (

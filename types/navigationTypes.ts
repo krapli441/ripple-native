@@ -17,7 +17,9 @@ export type RootStackParamList = {
     track?: TrackDetails;
     selectedTags?: string[];
   };
-  SearchTagScreen: undefined;
+  SearchTagScreen: {
+    currentTrack?: TrackDetails;
+  };
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<
