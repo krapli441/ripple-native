@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     padding: 25,
     paddingTop: 0,
-    marginBottom: 0,
+    marginBottom: 15,
   },
 
   header: {
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   },
   flexContainer: {
     flex: 1,
+    backgroundColor: '#f8f9fa',
   },
   tagText: {
     textAlign: 'center',
