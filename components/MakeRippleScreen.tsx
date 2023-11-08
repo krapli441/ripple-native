@@ -60,6 +60,9 @@ function MakeRippleScreen(): React.ReactElement {
           </View>
         )}
         <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
+        {tags.map((tag: {name: string}, index: number) => (
+          <Text key={index}>{tag.name}</Text>
+        ))}
       </View>
     </KeyboardAvoidingView>
   );

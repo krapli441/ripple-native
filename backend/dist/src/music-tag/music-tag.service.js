@@ -21,7 +21,7 @@ let TagService = class TagService {
         this.tagModel = tagModel;
     }
     async getRandomTags() {
-        return this.tagModel.aggregate([{ $sample: { size: 10 } }]).exec();
+        return this.tagModel.aggregate([{ $sample: { size: 8 } }]).exec();
     }
     async seedTags(tags) {
         await this.tagModel.insertMany(tags);

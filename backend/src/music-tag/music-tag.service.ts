@@ -8,7 +8,7 @@ export class TagService {
   constructor(@InjectModel('Tag') private tagModel: Model<Tag>) {}
   async getRandomTags(): Promise<Tag[]> {
     // MongoDB의 $sample 연산자를 사용하여 무작위로 태그를 선택
-    return this.tagModel.aggregate([{ $sample: { size: 10 } }]).exec();
+    return this.tagModel.aggregate([{ $sample: { size: 8 } }]).exec();
   }
 
   async seedTags(tags: any[]): Promise<void> {
