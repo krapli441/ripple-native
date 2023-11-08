@@ -39,7 +39,7 @@ function MakeRippleScreen(): React.ReactElement {
         if (!response.ok) {
           throw new Error('Server error');
         }
-        const data = await response.json();
+        const data: Tag[] = await response.json();
         setTags(data); // 응답으로 받은 데이터를 상태에 저장
         console.log(data);
       } catch (error) {
@@ -95,7 +95,9 @@ function MakeRippleScreen(): React.ReactElement {
         <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
         <View style={styles.tagsContainer}>
           {tags.map((tag, index) => (
-            <TouchableWithoutFeedback onPress={() => toggleTag(tag.name)}>
+            <TouchableWithoutFeedback
+              key={tag.name}
+              onPress={() => toggleTag(tag.name)}>
               <View style={[styles.tag, getTagStyle(tag.name)]}>
                 <Text style={[styles.tagText, getTagTextStyle(tag.name)]}>
                   {tag.name}
