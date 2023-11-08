@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
+    width: 'auto',
     height: 120,
     borderTopEndRadius: 20,
     borderTopLeftRadius: 20,
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabItem: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
