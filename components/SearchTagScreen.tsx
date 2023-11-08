@@ -39,7 +39,7 @@ function SearchTagScreen(): React.ReactElement {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch('http://192.168.0.215:3000/tags/random');
+        const response = await fetch('http://192.168.0.215:3000/tags/all');
         if (!response.ok) {
           throw new Error('Server error');
         }

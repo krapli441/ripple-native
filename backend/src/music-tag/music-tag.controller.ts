@@ -9,4 +9,9 @@ export class TagController {
   async getRandomTags() {
     return this.tagService.getRandomTags();
   }
+
+  @Get('all')
+  getAllTags() {
+    return this.tagService.getAllTags();
+  }
 }

@@ -11,6 +11,10 @@ export class TagService {
     return this.tagModel.aggregate([{ $sample: { size: 8 } }]).exec();
   }
 
+  async getAllTags(): Promise<Tag[]> {
+    return this.tagModel.find().exec();
+  }
+
   async seedTags(tags: any[]): Promise<void> {
     await this.tagModel.insertMany(tags);
   }

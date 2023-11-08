@@ -4,5 +4,6 @@ export declare class TagService {
     private tagModel;
     constructor(tagModel: Model<Tag>);
     getRandomTags(): Promise<Tag[]>;
+    getAllTags(): Promise<Tag[]>;
     seedTags(tags: any[]): Promise<void>;
 }

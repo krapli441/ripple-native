@@ -19,6 +19,9 @@ let TagController = class TagController {
     async getRandomTags() {
         return this.tagService.getRandomTags();
     }
+    getAllTags() {
+        return this.tagService.getAllTags();
+    }
 };
 exports.TagController = TagController;
 __decorate([
@@ -27,6 +30,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], TagController.prototype, "getRandomTags", null);
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], TagController.prototype, "getAllTags", null);
 exports.TagController = TagController = __decorate([
     (0, common_1.Controller)('tags'),
     __metadata("design:paramtypes", [music_tag_service_1.TagService])
