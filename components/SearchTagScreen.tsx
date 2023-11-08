@@ -115,10 +115,7 @@ function SearchTagScreen(): React.ReactElement {
   );
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.flexContainer}
-      keyboardVerticalOffset={10}>
+    <View style={styles.flexContainer}>
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.searchContainer}>
           <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
@@ -156,7 +153,7 @@ function SearchTagScreen(): React.ReactElement {
           <Text style={styles.completeButtonText}>완료</Text>
         </TouchableOpacity>
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
