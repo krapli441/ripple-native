@@ -8,19 +8,30 @@ const styles = StyleSheet.create({
   tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     padding: 25,
+    paddingBottom: 5,
   },
   tag: {
+    height: 40,
+    justifyContent: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
-    margin: 4,
+    margin: 5,
+    marginHorizontal: 4, // 좌우 마진
+    marginBottom: 4,
   },
   tagText: {
     textAlign: 'center',
+    fontSize: 16,
   },
   moreButton: {
+    width: 100,
+    height: 40,
+    marginLeft: 30,
+    justifyContent: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
@@ -30,6 +41,7 @@ const styles = StyleSheet.create({
   moreButtonText: {
     textAlign: 'center',
     color: 'black',
+    fontSize: 16,
   },
   keyboardAvoidingView: {
     flex: 1,

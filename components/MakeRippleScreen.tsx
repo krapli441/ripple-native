@@ -94,7 +94,7 @@ function MakeRippleScreen(): React.ReactElement {
         )}
         <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
         <View style={styles.tagsContainer}>
-          {tags.map((tag, index) => (
+          {tags.slice(0, 8).map((tag, index) => (
             <TouchableWithoutFeedback
               key={tag.name}
               onPress={() => toggleTag(tag.name)}>
@@ -106,14 +106,14 @@ function MakeRippleScreen(): React.ReactElement {
             </TouchableWithoutFeedback>
           ))}
           {/* '더 보기' 버튼 */}
-          <TouchableOpacity
-            style={styles.moreButton}
-            onPress={() => {
-              // '더 보기' 버튼 로직 추가 필요
-            }}>
-            <Text style={styles.moreButtonText}>더 보기</Text>
-          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.moreButton}
+          onPress={() => {
+            // '더 보기' 버튼 로직 추가 필요
+          }}>
+          <Text style={styles.moreButtonText}>더 보기</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
