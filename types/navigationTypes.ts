@@ -13,7 +13,10 @@ export type RootStackParamList = {
   Home: undefined;
   Ripple: undefined;
   SearchModal: undefined;
-  MakeRippleScreen: {track: TrackDetails} | undefined;
+  MakeRippleScreen: {
+    track?: TrackDetails;
+    selectedTags?: string[];
+  };
   SearchTagScreen: undefined;
 };
 

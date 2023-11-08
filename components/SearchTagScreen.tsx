@@ -94,8 +94,10 @@ function SearchTagScreen(): React.ReactElement {
   };
 
   const handleComplete = () => {
-    // 선택된 태그들을 MakeRippleScreen으로 넘김
-    navigation.navigate('MakeRippleScreen', {selectedTags});
+    navigation.navigate('MakeRippleScreen', {
+      track: currentTrack,
+      selectedTags,
+    });
   };
 
   const handleSearchTermChange = (text: string) => {
@@ -145,8 +147,7 @@ function SearchTagScreen(): React.ReactElement {
           </TouchableWithoutFeedback>
         ))}
       </ScrollView>
-      <SafeAreaView style={{paddingBottom: 120, backgroundColor: '#f8f9fa'}}>
-        {/* paddingBottom을 추가하여 내비게이션 바와 겹치지 않도록 함 */}
+      <SafeAreaView>
         <TouchableOpacity
           onPress={handleComplete}
           style={styles.completeButton}>

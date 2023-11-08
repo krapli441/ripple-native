@@ -29,9 +29,16 @@ function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const route = useRoute<RouteProp<RootStackParamList, 'MakeRippleScreen'>>();
   const track = route.params?.track;
+  const incomingSelectedTags = route.params?.selectedTags;
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  useEffect(() => {
+    if (incomingSelectedTags) {
+      setSelectedTags(incomingSelectedTags);
+    }
+  }, [incomingSelectedTags]);
 
   useEffect(() => {
     const fetchTags = async () => {
