@@ -14,6 +14,7 @@ export type RootStackParamList = {
   Ripple: undefined;
   SearchModal: undefined;
   MakeRippleScreen: {track: TrackDetails} | undefined;
+  SearchTagScreen: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<

@@ -13,6 +13,7 @@ import NavigationTabBar from './components/Navigation';
 import MapScreen from './components/MapScreen';
 import SearchScreen from './components/SearchScreen';
 import MakerippleScreen from './components/MakeRippleScreen';
+import SearchTagScreen from './components/SearchTagScreen';
 // import LibraryScreen from './components/LibraryScreen';
 // import ProfileScreen from './components/ProfileScreen';
 
@@ -47,6 +48,13 @@ function SearchStackScreen() {
             },
           }),
           gestureEnabled: false,
+        }}
+      />
+      <SearchStack.Screen
+        name="SearchTagScreen"
+        component={SearchTagScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, // iOS 스타일의 수평 전환 효과를 사용
         }}
       />
     </SearchStack.Navigator>

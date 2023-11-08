@@ -31,6 +31,7 @@ function MakeRippleScreen(): React.ReactElement {
   const track = route.params?.track;
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -74,6 +75,10 @@ function MakeRippleScreen(): React.ReactElement {
     };
   };
 
+  const goToSearchTagScreen = () => {
+    navigation.navigate('SearchTagScreen');
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -106,9 +111,7 @@ function MakeRippleScreen(): React.ReactElement {
         </View>
         <TouchableOpacity
           style={styles.moreButton}
-          onPress={() => {
-            // '더 보기' 버튼 로직 추가 필요
-          }}>
+          onPress={goToSearchTagScreen}>
           <Text style={styles.moreButtonText}>더 보기</Text>
         </TouchableOpacity>
       </View>
