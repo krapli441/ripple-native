@@ -10,6 +10,7 @@ import {
   useColorScheme,
   KeyboardAvoidingView,
   Platform,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -52,16 +53,6 @@ function SearchTagScreen(): React.ReactElement {
     fetchTags();
   }, []);
 
-  const toggleTag = (tagName: any) => {
-    setSelectedTags(prevSelectedTags => {
-      if (prevSelectedTags.includes(tagName)) {
-        return prevSelectedTags.filter(tag => tag !== tagName); // 태그 해제
-      } else {
-        return [...prevSelectedTags, tagName]; // 태그 선택
-      }
-    });
-  };
-
   const getTagStyle = (tagName: any) => {
     const isSelected = selectedTags.includes(tagName);
     return {
@@ -86,6 +77,25 @@ function SearchTagScreen(): React.ReactElement {
       // ...
     }, []),
   );
+
+  const filteredTags = searchTerm
+    ? tags.filter(tag => tag.name.includes(searchTerm))
+    : tags;
+
+  const toggleTag = (tagName: string) => {
+    setSelectedTags(prevSelectedTags => {
+      if (prevSelectedTags.includes(tagName)) {
+        return prevSelectedTags.filter(tag => tag !== tagName);
+      } else {
+        return [...prevSelectedTags, tagName];
+      }
+    });
+  };
+
+  // const handleComplete = () => {
+  //   // 선택된 태그들을 MakeRippleScreen으로 넘김
+  //   navigation.navigate('MakeRippleScreen', {selectedTags});
+  // };
 
   const handleSearchTermChange = (text: string) => {
     setSearchTerm(text);
@@ -117,8 +127,21 @@ function SearchTagScreen(): React.ReactElement {
             onChangeText={handleSearchTermChange}
             value={searchTerm}
             returnKeyType="search"
-            // onSubmitEditing={}
             placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
+          />
+          <FlatList
+            data={filteredTags}
+            renderItem={({item}) => (
+              <TouchableWithoutFeedback onPress={() => toggleTag(item.name)}>
+                <View style={[styles.tag, getTagStyle(item.name)]}>
+                  <Text style={[styles.tagText, getTagTextStyle(item.name)]}>
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            )}
+            keyExtractor={item => item.name}
+            contentContainerStyle={styles.tagsContainer}
           />
         </View>
       </TouchableWithoutFeedback>
