@@ -1,39 +1,47 @@
 // react & react-native
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StatusBar,
   Text,
-  TouchableWithoutFeedback,
-  Keyboard,
   useColorScheme,
-  FlatList,
   KeyboardAvoidingView,
   Platform,
   Image,
-  Alert,
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
-import {useFocusEffect} from '@react-navigation/native';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
-import {TrackDetails} from '../types/navigationTypes';
-
-// asyncStorage
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
 import styles from '../styles/MakeRippleScreenStyles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'MakeRippleScreen'>>();
   const track = route.params?.track;
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    // API 엔드포인트를 호출
+    const fetchTags = async () => {
+      try {
+        const response = await fetch('http://192.168.0.215:3000/tags/random');
+        if (!response.ok) {
+          throw new Error('Server error');
+        }
+        const data = await response.json();
+        setTags(data); // 응답으로 받은 데이터를 상태에 저장
+        console.log(data);
+      } catch (error) {
+        console.error(error); // 에러 출력
+      }
+    };
+    fetchTags(); // 함수를 호출합니다.
+  }, []); // 빈 의존성 배열은 컴포넌트가 마운트될 때만 함수를 호출하도록 합니다.
 
   return (
     <KeyboardAvoidingView
