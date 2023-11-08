@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
+    paddingBottom:360,
   },
 
   tagsContainer: {
