@@ -8,6 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
@@ -24,9 +26,9 @@ function MakeRippleScreen(): React.ReactElement {
   const route = useRoute<RouteProp<RootStackParamList, 'MakeRippleScreen'>>();
   const track = route.params?.track;
   const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
-    // API 엔드포인트를 호출
     const fetchTags = async () => {
       try {
         const response = await fetch('http://192.168.0.215:3000/tags/random');
@@ -37,11 +39,38 @@ function MakeRippleScreen(): React.ReactElement {
         setTags(data); // 응답으로 받은 데이터를 상태에 저장
         console.log(data);
       } catch (error) {
-        console.error(error); // 에러 출력
+        console.error(error);
       }
     };
-    fetchTags(); // 함수를 호출합니다.
-  }, []); // 빈 의존성 배열은 컴포넌트가 마운트될 때만 함수를 호출하도록 합니다.
+    fetchTags();
+  }, []);
+
+  const toggleTag = (tagName: any) => {
+    setSelectedTags(prevSelectedTags => {
+      if (prevSelectedTags.includes(tagName)) {
+        return prevSelectedTags.filter(tag => tag !== tagName); // 태그 해제
+      } else {
+        return [...prevSelectedTags, tagName]; // 태그 선택
+      }
+    });
+  };
+
+  const getTagStyle = (tagName: any) => {
+    const isSelected = selectedTags.includes(tagName);
+    return {
+      backgroundColor: isSelected ? 'black' : 'grey',
+      color: isSelected ? 'white' : 'black',
+      // ... 기타 스타일 속성
+    };
+  };
+
+  const getTagTextStyle = (tagName: string) => {
+    const isSelected = selectedTags.includes(tagName);
+    return {
+      color: isSelected ? 'white' : 'black',
+      // 여기에 다른 텍스트 스타일 속성을 추가할 수 있습니다.
+    };
+  };
 
   return (
     <KeyboardAvoidingView
@@ -60,9 +89,25 @@ function MakeRippleScreen(): React.ReactElement {
           </View>
         )}
         <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
-        {tags.map((tag: {name: string}, index: number) => (
-          <Text key={index}>{tag.name}</Text>
-        ))}
+        <View style={styles.tagsContainer}>
+          {tags.map((tag, index) => (
+            <TouchableWithoutFeedback onPress={() => toggleTag(tag.name)}>
+              <View style={[styles.tag, getTagStyle(tag.name)]}>
+                <Text style={[styles.tagText, getTagTextStyle(tag.name)]}>
+                  {tag.name}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+          ))}
+          {/* '더 보기' 버튼 */}
+          <TouchableOpacity
+            style={styles.moreButton}
+            onPress={() => {
+              // '더 보기' 버튼 로직 추가 필요
+            }}>
+            <Text style={styles.moreButtonText}>더 보기</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
