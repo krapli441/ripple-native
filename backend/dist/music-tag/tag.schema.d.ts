@@ -1,13 +1,14 @@
 import * as mongoose from 'mongoose';
+import { Document } from 'mongoose';
 export interface Tag extends Document {
     name: string;
 }
 export declare const TagSchema: mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    name?: string;
+    name: string;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
-    name?: string;
+    name: string;
 }>> & mongoose.FlatRecord<{
-    name?: string;
+    name: string;
 }> & {
     _id: mongoose.Types.ObjectId;
 }>;

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { TagSchema } from './tag.schema';
 import { Tag } from './tag.schema';
 
 @Injectable()

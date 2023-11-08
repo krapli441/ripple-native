@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { Document } from 'mongoose';
 
 export interface Tag extends Document {
   name: string;
@@ -6,5 +7,5 @@ export interface Tag extends Document {
 }
 
 export const TagSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true },
 });

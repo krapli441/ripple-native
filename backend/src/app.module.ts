@@ -12,9 +12,9 @@ import { SearchController } from './search/search.controller';
 import { SearchService } from './search/search.service';
 import { HttpModule } from '@nestjs/axios';
 import { RipplesModule } from './ripples/ripples.module';
-import { MusicTagService } from './music-tag/music-tag.service';
-import { MusicTagController } from './music-tag/music-tag.controller';
-import { MusicTagModule } from './music-tag/music-tag.module';
+import { TagService } from './music-tag/music-tag.service';
+import { TagController } from './music-tag/music-tag.controller';
+import { TagModule } from './music-tag/music-tag.module';
 
 @Module({
   imports: [
@@ -38,9 +38,14 @@ import { MusicTagModule } from './music-tag/music-tag.module';
     AuthModule,
     HttpModule,
     RipplesModule,
-    MusicTagModule,
+    TagModule,
   ],
-  controllers: [AppController, SpotifyAuthController, SearchController, MusicTagController],
-  providers: [AppService, SearchService, MusicTagService],
+  controllers: [
+    AppController,
+    SpotifyAuthController,
+    SearchController,
+    TagController,
+  ],
+  providers: [AppService, SearchService],
 })
 export class AppModule {}

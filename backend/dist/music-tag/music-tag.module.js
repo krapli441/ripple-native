@@ -20,6 +20,7 @@ exports.TagModule = TagModule = __decorate([
         imports: [mongoose_1.MongooseModule.forFeature([{ name: 'Tag', schema: tag_schema_1.TagSchema }])],
         controllers: [music_tag_controller_1.TagController],
         providers: [music_tag_service_1.TagService],
+        exports: [music_tag_service_1.TagService],
     })
 ], TagModule);
 //# sourceMappingURL=music-tag.module.js.map
