@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginTop: 30,
+    marginTop: 20,
     marginLeft: 30,
   },
   resultItem: {

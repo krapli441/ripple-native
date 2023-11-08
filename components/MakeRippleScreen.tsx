@@ -21,12 +21,16 @@ import {RootStackParamList} from '../types/navigationTypes';
 // Style
 import styles from '../styles/MakeRippleScreenStyles';
 
+interface Tag {
+  name: string;
+}
+
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const route = useRoute<RouteProp<RootStackParamList, 'MakeRippleScreen'>>();
   const track = route.params?.track;
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchTags = async () => {
