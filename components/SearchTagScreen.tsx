@@ -10,7 +10,7 @@ import {
   useColorScheme,
   KeyboardAvoidingView,
   Platform,
-  FlatList,
+  SafeAreaView,
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -93,10 +93,10 @@ function SearchTagScreen(): React.ReactElement {
     });
   };
 
-  // const handleComplete = () => {
-  //   // 선택된 태그들을 MakeRippleScreen으로 넘김
-  //   navigation.navigate('MakeRippleScreen', {selectedTags});
-  // };
+  const handleComplete = () => {
+    // 선택된 태그들을 MakeRippleScreen으로 넘김
+    navigation.navigate('MakeRippleScreen', {selectedTags});
+  };
 
   const handleSearchTermChange = (text: string) => {
     setSearchTerm(text);
@@ -117,7 +117,8 @@ function SearchTagScreen(): React.ReactElement {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.flexContainer}>
+      style={styles.flexContainer}
+      keyboardVerticalOffset={10}>
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.searchContainer}>
           <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
@@ -147,6 +148,14 @@ function SearchTagScreen(): React.ReactElement {
           </TouchableWithoutFeedback>
         ))}
       </ScrollView>
+      <SafeAreaView style={{paddingBottom: 120, backgroundColor: '#f8f9fa'}}>
+        {/* paddingBottom을 추가하여 내비게이션 바와 겹치지 않도록 함 */}
+        <TouchableOpacity
+          onPress={handleComplete}
+          style={styles.completeButton}>
+          <Text style={styles.completeButtonText}>완료</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     padding: 25,
     paddingTop: 0,
-    marginBottom: 120,
+    marginBottom: 0,
   },
 
   header: {
@@ -40,6 +40,21 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
 
+  completeButton: {
+    width: '90%',
+    height: 50,
+    justifyContent: 'center',
+    marginBottom: 100,
+    borderRadius: 20,
+    alignSelf: 'center',
+    backgroundColor: '#191414',
+  },
+
+  completeButtonText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'white',
+  },
   inputStyle: {
     height: 66,
     margin: 28,
@@ -54,19 +69,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'center',
     marginLeft: 30,
-    marginRight: 20,
-  },
-  flatListStyle: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  flatListContent: {
-    paddingBottom: 120,
-  },
-  albumCover: {
-    width: 60,
-    height: 60,
-    borderRadius: 5,
     marginRight: 20,
   },
   infoContainer: {
