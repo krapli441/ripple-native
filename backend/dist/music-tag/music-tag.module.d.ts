@@ -1,2 +1,2 @@
-export declare class MusicTagModule {
+export declare class TagModule {
 }

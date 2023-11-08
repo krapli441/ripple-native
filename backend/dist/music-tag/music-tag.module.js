@@ -6,12 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MusicTagModule = void 0;
+exports.TagModule = void 0;
 const common_1 = require("@nestjs/common");
-let MusicTagModule = class MusicTagModule {
+const mongoose_1 = require("@nestjs/mongoose");
+const music_tag_controller_1 = require("./music-tag.controller");
+const music_tag_service_1 = require("./music-tag.service");
+const tag_schema_1 = require("./tag.schema");
+let TagModule = class TagModule {
 };
-exports.MusicTagModule = MusicTagModule;
-exports.MusicTagModule = MusicTagModule = __decorate([
-    (0, common_1.Module)({})
-], MusicTagModule);
+exports.TagModule = TagModule;
+exports.TagModule = TagModule = __decorate([
+    (0, common_1.Module)({
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'Tag', schema: tag_schema_1.TagSchema }])],
+        controllers: [music_tag_controller_1.TagController],
+        providers: [music_tag_service_1.TagService],
+    })
+], TagModule);
 //# sourceMappingURL=music-tag.module.js.map

@@ -1,4 +1,12 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { TagController } from './music-tag.controller';
+import { TagService } from './music-tag.service';
+import { TagSchema } from './tag.schema';
 
-@Module({})
-export class MusicTagModule {}
+@Module({
+  imports: [MongooseModule.forFeature([{ name: 'Tag', schema: TagSchema }])],
+  controllers: [TagController],
+  providers: [TagService],
+})
+export class TagModule {}

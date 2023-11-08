@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { TagService } from './music-tag.service';
 
-@Controller('music-tag')
-export class MusicTagController {}
+@Controller('tags')
+export class TagController {
+  constructor(private readonly tagService: TagService) {}
+
+  @Get('/random')
+  async getRandomTags() {
+    return this.tagService.getRandomTags();
+  }
+}
