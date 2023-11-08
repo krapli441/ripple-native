@@ -4,17 +4,15 @@ const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
-    paddingBottom:360,
   },
 
   tagsContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    backgroundColor: '#f8f9fa',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
     padding: 25,
-    paddingTop: 10,
-    paddingBottom: 5,
+    paddingTop: 0,
+    marginBottom: 120,
   },
 
   header: {
@@ -45,6 +43,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     height: 66,
     margin: 28,
+    marginBottom: 15,
     borderWidth: 1,
     padding: 10,
     borderRadius: 20,
@@ -81,11 +80,6 @@ const styles = StyleSheet.create({
   artist: {
     fontSize: 14,
     color: 'gray',
-  },
-  link: {
-    fontSize: 14,
-    color: 'black',
-    marginRight: 20,
   },
 });
 

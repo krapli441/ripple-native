@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -129,22 +130,21 @@ function SearchTagScreen(): React.ReactElement {
             returnKeyType="search"
             placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
           />
-          <FlatList
-            data={filteredTags}
-            renderItem={({item}) => (
-              <TouchableWithoutFeedback onPress={() => toggleTag(item.name)}>
-                <View style={[styles.tag, getTagStyle(item.name)]}>
-                  <Text style={[styles.tagText, getTagTextStyle(item.name)]}>
-                    {item.name}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-            )}
-            keyExtractor={item => item.name}
-            contentContainerStyle={styles.tagsContainer}
-          />
         </View>
       </TouchableWithoutFeedback>
+      <ScrollView
+      style={styles.tagsContainer}
+        contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        {tags.map(tag => (
+          <TouchableOpacity onPress={() => toggleTag(tag.name)} key={tag.name}>
+            <View style={[styles.tag, getTagStyle(tag.name)]}>
+              <Text style={[styles.tagText, getTagTextStyle(tag.name)]}>
+                {tag.name}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
