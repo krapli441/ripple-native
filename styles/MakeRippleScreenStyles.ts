@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 25,
+    paddingTop:10,
     paddingBottom: 5,
   },
   tag: {
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 20,
     margin: 4,
-    backgroundColor: 'darkgray', // 예시 색상
+    backgroundColor: '#1DB954', // 예시 색상
   },
   moreButtonText: {
     textAlign: 'center',

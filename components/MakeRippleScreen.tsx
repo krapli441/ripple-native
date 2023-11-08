@@ -64,7 +64,6 @@ function MakeRippleScreen(): React.ReactElement {
     return {
       backgroundColor: isSelected ? 'black' : 'grey',
       color: isSelected ? 'white' : 'black',
-      // ... 기타 스타일 속성
     };
   };
 
@@ -72,7 +71,6 @@ function MakeRippleScreen(): React.ReactElement {
     const isSelected = selectedTags.includes(tagName);
     return {
       color: isSelected ? 'white' : 'black',
-      // 여기에 다른 텍스트 스타일 속성을 추가할 수 있습니다.
     };
   };
 
@@ -105,7 +103,6 @@ function MakeRippleScreen(): React.ReactElement {
               </View>
             </TouchableWithoutFeedback>
           ))}
-          {/* '더 보기' 버튼 */}
         </View>
         <TouchableOpacity
           style={styles.moreButton}
