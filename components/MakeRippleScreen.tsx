@@ -15,6 +15,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -55,10 +56,7 @@ function MakeRippleScreen(): React.ReactElement {
   const incomingSelectedTags = route.params?.selectedTags;
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [locationState, setLocationState] =
-    useState<LocationState>(initialLocationState);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const {coords, region, gpsError} = locationState;
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -136,7 +134,6 @@ function MakeRippleScreen(): React.ReactElement {
       selectedTags: selectedTags,
     });
   };
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -176,20 +173,6 @@ function MakeRippleScreen(): React.ReactElement {
           <Text style={styles.moreButtonText}>태그 편집</Text>
         </TouchableOpacity>
       </View>
-      <MapView
-        {...mapViewProps}
-        style={styles.map}
-        region={region || undefined}
-        provider={PROVIDER_GOOGLE}>
-        {coords && (
-          <Marker coordinate={coords} title="Your Position">
-            <Image
-              source={require('../assets/img/ripple_sonar.gif')}
-              style={{width: 30, height: 30}}
-            />
-          </Marker>
-        )}
-      </MapView>
     </KeyboardAvoidingView>
   );
 }
