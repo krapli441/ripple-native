@@ -34,11 +34,26 @@ function MakeRippleScreen(): React.ReactElement {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  const getTagStyle = (tagName: string) => {
+    const isSelected = selectedTags.includes(tagName);
+    return {
+      backgroundColor: isSelected ? 'black' : 'grey',
+      color: isSelected ? 'white' : 'black',
+    };
+  };
+
+  const getTagTextStyle = (tagName: string) => {
+    const isSelected = selectedTags.includes(tagName);
+    return {
+      color: isSelected ? 'white' : 'black',
+    };
+  };
+
   useEffect(() => {
-    if (incomingSelectedTags) {
+    if (incomingSelectedTags && incomingSelectedTags !== selectedTags) {
       setSelectedTags(incomingSelectedTags);
     }
-  }, [incomingSelectedTags]);
+  }, [incomingSelectedTags, selectedTags]);
 
   useEffect(() => {
     const fetchRandomTags = async () => {
@@ -81,35 +96,12 @@ function MakeRippleScreen(): React.ReactElement {
     }
   }, [route.params?.selectedTags]);
 
-  useEffect(() => {
-    if (route.params?.selectedTags) {
-      setSelectedTags(route.params.selectedTags);
-    }
-  }, [route.params?.selectedTags]);
-
-  const toggleTag = (tagName: any) => {
+  const toggleTag = (tagName: string) => {
     setSelectedTags(prevSelectedTags => {
-      if (prevSelectedTags.includes(tagName)) {
-        return prevSelectedTags.filter(tag => tag !== tagName); // 태그 해제
-      } else {
-        return [...prevSelectedTags, tagName]; // 태그 선택
-      }
+      return prevSelectedTags.includes(tagName)
+        ? prevSelectedTags.filter(tag => tag !== tagName)
+        : [...prevSelectedTags, tagName];
     });
-  };
-
-  const getTagStyle = (tagName: any) => {
-    const isSelected = selectedTags.includes(tagName);
-    return {
-      backgroundColor: isSelected ? 'black' : 'grey',
-      color: isSelected ? 'white' : 'black',
-    };
-  };
-
-  const getTagTextStyle = (tagName: string) => {
-    const isSelected = selectedTags.includes(tagName);
-    return {
-      color: isSelected ? 'white' : 'black',
-    };
   };
 
   const goToSearchTagScreen = () => {
@@ -118,12 +110,6 @@ function MakeRippleScreen(): React.ReactElement {
       selectedTags: selectedTags,
     });
   };
-
-  useEffect(() => {
-    if (route.params?.selectedTags) {
-      setSelectedTags(route.params.selectedTags);
-    }
-  }, [route.params?.selectedTags, route.params?.track]);
 
   return (
     <KeyboardAvoidingView
