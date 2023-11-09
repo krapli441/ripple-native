@@ -62,25 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
   },
-  resultItem: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 20,
-  },
-  infoContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  artist: {
-    fontSize: 14,
-    color: 'gray',
-  },
 });
 
 export default styles;

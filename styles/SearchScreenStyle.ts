@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
   searchContainer: {
     backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
@@ -12,10 +15,6 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginLeft: 30,
   },
-  flexContainer: {
-    flex: 1, 
-  },
-
   inputStyle: {
     height: 66,
     margin: 28,
@@ -26,10 +25,10 @@ const styles = StyleSheet.create({
   },
   resultItem: {
     flexDirection: 'row',
-    marginVertical: 10, 
-    alignItems: 'center', 
-    marginLeft: 30, 
-    marginRight: 20, 
+    marginVertical: 10,
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 20,
   },
   flatListStyle: {
     flex: 1,
@@ -39,27 +38,22 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
   albumCover: {
-    width: 60, 
-    height: 60, 
+    width: 60,
+    height: 60,
     borderRadius: 5,
     marginRight: 20,
   },
   infoContainer: {
-    flex: 1, 
+    flex: 1,
     justifyContent: 'center',
   },
   title: {
-    fontSize: 16, 
-    fontWeight: 'bold', 
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   artist: {
-    fontSize: 14, 
-    color: 'gray', 
-  },
-  link: {
     fontSize: 14,
-    color: 'black',
-    marginRight: 20,
+    color: 'gray',
   },
 });
 
