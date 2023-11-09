@@ -50,32 +50,6 @@ function MakeRippleScreen(): React.ReactElement {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [location, setLocation] = useState<Region | null>(null);
-
-  const getLocation = () => {
-    console.log('geolocation 함수 실행됨');
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        console.log(position.coords);
-        setLocation({
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        });
-        console.log('위치 정보:', location);
-      },
-      error => {
-        console.error('위치 정보 가져오기 오류:', error);
-      },
-      {enableHighAccuracy: true},
-    );
-  };
-
-  useEffect(() => {
-    getLocation();
-  }, []);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -197,7 +171,6 @@ function MakeRippleScreen(): React.ReactElement {
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           customMapStyle={MapStyle}
-          region={location || undefined}
           showsUserLocation={true}></MapView>
       </View>
     </KeyboardAvoidingView>
