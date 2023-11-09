@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {AuthContext} from './AuthContext'; // 앱의 전역 상태를 관리
 
 const useAuthToken = () => {
