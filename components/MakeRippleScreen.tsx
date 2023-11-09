@@ -41,21 +41,34 @@ function MakeRippleScreen(): React.ReactElement {
   }, [incomingSelectedTags]);
 
   useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch('http://192.168.0.215:3000/tags/random');
-        if (!response.ok) {
-          throw new Error('Server error');
+    // SearchTagScreen.tsx에서 선택한 태그들이 있다면, 화면에 표시될 태그 목록을 업데이트합니다.
+    if (route.params?.selectedTags) {
+      // 서버로부터 모든 태그 목록을 가져오는 로직이 필요할 수 있습니다.
+      // 예를 들어, 아래와 같이 모든 태그를 가져와서 상태를 업데이트합니다.
+      const fetchAllTags = async () => {
+        try {
+          const response = await fetch('http://192.168.0.215:3000/tags/all');
+          if (!response.ok) {
+            throw new Error('Server error');
+          }
+          const allTags: Tag[] = await response.json();
+          const filteredTags = allTags.filter(tag =>
+            route.params.selectedTags?.includes(tag.name),
+          );
+          setTags(filteredTags);
+        } catch (error) {
+          console.error(error);
         }
-        const data: Tag[] = await response.json();
-        setTags(data); // 응답으로 받은 데이터를 상태에 저장
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchTags();
-  }, []);
+      };
+      fetchAllTags();
+    }
+  }, [route.params?.selectedTags]);
+
+  useEffect(() => {
+    if (route.params?.selectedTags) {
+      setSelectedTags(route.params.selectedTags);
+    }
+  }, [route.params?.selectedTags]);
 
   const toggleTag = (tagName: any) => {
     setSelectedTags(prevSelectedTags => {
