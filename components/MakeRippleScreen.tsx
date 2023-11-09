@@ -14,7 +14,7 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker, Region} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 // types
@@ -43,12 +43,6 @@ const mapViewProps = {
   loadingEnabled: true,
 };
 
-const initialLocationState: LocationState = {
-  coords: null,
-  region: null,
-  gpsError: false,
-};
-
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const route = useRoute<RouteProp<RootStackParamList, 'MakeRippleScreen'>>();
@@ -57,6 +51,7 @@ function MakeRippleScreen(): React.ReactElement {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [location, setLocation] = useState<Region | null>(null);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -134,6 +129,29 @@ function MakeRippleScreen(): React.ReactElement {
       selectedTags: selectedTags,
     });
   };
+
+  const getLocation = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setLocation({
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        });
+      },
+      error => {
+        console.error(error);
+      },
+      {enableHighAccuracy: true},
+    );
+  };
+
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -172,6 +190,22 @@ function MakeRippleScreen(): React.ReactElement {
           onPress={goToSearchTagScreen}>
           <Text style={styles.moreButtonText}>태그 편집</Text>
         </TouchableOpacity>
+        <MapView
+          {...mapViewProps}
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          customMapStyle={MapStyle}
+          region={location || undefined}
+          showsUserLocation={true}>
+          {location && (
+            <Marker coordinate={location}>
+              <Image
+                source={require('../assets/img/ripple_sonar.gif')}
+                style={{width: 30, height: 30}}
+              />
+            </Marker>
+          )}
+        </MapView>
       </View>
     </KeyboardAvoidingView>
   );
