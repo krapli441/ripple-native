@@ -21,7 +21,6 @@ import {useFocusEffect} from '@react-navigation/native';
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 import {TrackDetails} from '../types/navigationTypes';
-import {SpotifySearchResponse} from '../types/spotifyTypes';
 
 // asyncStorage
 import useAuthToken from '../utils/useAuthToken';
@@ -66,19 +65,19 @@ function SearchScreen(): React.ReactElement {
         body: JSON.stringify({query: searchQuery}),
       });
 
-      const data: SpotifySearchResponse = await response.json();
+      const data = await response.json();
+      console.log(data);
 
       if (response.ok) {
-        const tracks = data.tracks.items.map((item): any => ({
-          title: item.title,
-          artist: item.artists.map(artist => artist.name).join(', '),
+        const tracks = data.map((item: any) => ({
+          title: item.name,
+          artist: item.artists.map((artist: any) => artist.name).join(', '),
           externalUrl: item.external_urls.spotify,
-          imageUrl: item.album.images[0].url,
+          imageUrl: item.album.images[0].url, // 가장 큰 이미지를 선택합니다.
         }));
-        console.log(data);
         setSearchResults(tracks);
       } else {
-        throw new Error('검색을 완료할 수 없습니다.');
+        throw new Error(data.message || '검색을 완료할 수 없습니다.');
       }
     } catch (error) {
       console.error('검색 중 오류 발생:', error);
