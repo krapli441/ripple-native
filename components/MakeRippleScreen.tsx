@@ -51,13 +51,13 @@ function MakeRippleScreen(): React.ReactElement {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [location, setLocation] = useState<Region | null>(null);
 
-  useEffect(() => {
-    const watchID = Geolocation.watchPosition(
+  const getLocation = () => {
+    Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
         setLocation({
-          latitude: latitude,
-          longitude: longitude,
+          latitude,
+          longitude,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         });
@@ -65,13 +65,12 @@ function MakeRippleScreen(): React.ReactElement {
       error => {
         console.error(error);
       },
-      {enableHighAccuracy: true, distanceFilter: 10},
+      {enableHighAccuracy: true, timeout: 100000, maximumAge: 10000},
     );
+  };
 
-    // 컴포넌트 언마운트 시 위치 감시 종료
-    return () => {
-      Geolocation.clearWatch(watchID);
-    };
+  useEffect(() => {
+    getLocation();
   }, []);
 
   const getTagStyle = (tagName: string) => {
