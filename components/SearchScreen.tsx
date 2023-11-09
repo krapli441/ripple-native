@@ -40,6 +40,11 @@ function SearchScreen(): React.ReactElement {
     React.useCallback(() => {
       setSearchTerm('');
       setSearchResults([]);
+
+      StatusBar.setBarStyle('dark-content');
+
+      // 화면이 blur 될 때 실행될 clean-up function
+      return () => {};
     }, []),
   );
 
@@ -63,11 +68,11 @@ function SearchScreen(): React.ReactElement {
       const data: SpotifySearchResponse = await response.json();
 
       if (response.ok) {
-        const tracks = data.tracks.items.map((item: any) => ({
+        const tracks = data.tracks.items.map(item => ({
           title: item.name,
-          artist: item.artists.map((artist: any) => artist.name).join(', '),
+          artist: item.artists.map(artist => artist.name).join(', '),
           externalUrl: item.external_urls.spotify,
-          imageUrl: item.album.images[0].url, // 가장 큰 이미지를 선택합니다.
+          imageUrl: item.album.images[0].url,
         }));
         setSearchResults(tracks);
       } else {
@@ -94,13 +99,6 @@ function SearchScreen(): React.ReactElement {
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      StatusBar.setBarStyle('dark-content');
-      return () => {};
-    }, []),
-  );
 
   const handleSelectTrack = (track: TrackDetails) => {
     navigation.navigate('MakeRippleScreen', {track});
