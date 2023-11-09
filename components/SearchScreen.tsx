@@ -69,8 +69,8 @@ function SearchScreen(): React.ReactElement {
       const data: SpotifySearchResponse = await response.json();
 
       if (response.ok) {
-        const tracks = data.tracks.items.map(item => ({
-          title: item.name,
+        const tracks = data.tracks.items.map((item): any => ({
+          title: item.title,
           artist: item.artists.map(artist => artist.name).join(', '),
           externalUrl: item.external_urls.spotify,
           imageUrl: item.album.images[0].url,

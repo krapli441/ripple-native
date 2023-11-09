@@ -3,7 +3,7 @@ export type SpotifyArtist = {
 };
 
 export type SpotifyTrack = {
-  name: string;
+  title: string;
   artists: SpotifyArtist[];
   external_urls: {
     spotify: string;
