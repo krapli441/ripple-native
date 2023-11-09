@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 30,
   },
   tagHelpText: {
@@ -68,6 +68,14 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 10,
     marginLeft: 30,
+  },
+  map: {
+    marginTop: 20,
+    alignSelf: 'center',
+    width: '85%',
+    height: '20%',
+    borderRadius: 20,
+    // ...StyleSheet.absoluteFillObject,
   },
   resultItem: {
     flexDirection: 'row',

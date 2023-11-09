@@ -14,16 +14,39 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
+import {Coords, LocationState} from '../types/locationTypes';
 
 // Style
 import styles from '../styles/MakeRippleScreenStyles';
+import MapStyle from '../maps/customMapStyle.json';
 
 interface Tag {
   name: string;
 }
+
+const mapViewProps = {
+  customMapStyle: MapStyle,
+  mapPadding: {bottom: 0, top: 0, right: 0, left: 0},
+  scrollEnabled: false,
+  zoomEnabled: false,
+  rotateEnabled: false,
+  minZoomLevel: 15,
+  maxZoomLevel: 20,
+  showsScale: false,
+  pitchEnabled: false,
+  cacheEnabled: true,
+  loadingEnabled: true,
+};
+
+const initialLocationState: LocationState = {
+  coords: null,
+  region: null,
+  gpsError: false,
+};
 
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,7 +55,10 @@ function MakeRippleScreen(): React.ReactElement {
   const incomingSelectedTags = route.params?.selectedTags;
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [locationState, setLocationState] =
+    useState<LocationState>(initialLocationState);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {coords, region, gpsError} = locationState;
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -128,7 +154,9 @@ function MakeRippleScreen(): React.ReactElement {
           </View>
         )}
         <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
-        <Text style={styles.tagHelpText}>이 음악이 어울리는 순간을 추가해보세요.</Text>
+        <Text style={styles.tagHelpText}>
+          이 음악이 어울리는 순간을 추가해보세요.
+        </Text>
         <View style={styles.tagsContainer}>
           {tags.slice(0, 8).map((tag, index) => (
             <TouchableWithoutFeedback
@@ -148,6 +176,20 @@ function MakeRippleScreen(): React.ReactElement {
           <Text style={styles.moreButtonText}>태그 편집</Text>
         </TouchableOpacity>
       </View>
+      <MapView
+        {...mapViewProps}
+        style={styles.map}
+        region={region || undefined}
+        provider={PROVIDER_GOOGLE}>
+        {coords && (
+          <Marker coordinate={coords} title="Your Position">
+            <Image
+              source={require('../assets/img/ripple_sonar.gif')}
+              style={{width: 30, height: 30}}
+            />
+          </Marker>
+        )}
+      </MapView>
     </KeyboardAvoidingView>
   );
 }
