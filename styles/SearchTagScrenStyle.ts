@@ -16,6 +16,14 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginLeft: 30,
   },
+  headerHelpText: {
+    fontSize: 14,
+    fontWeight: '300',
+    textAlign: 'left',
+    marginTop: 0,
+    marginLeft: 30,
+    marginBottom:10,
+  },
   tagsContainer: {
     flexDirection: 'column',
     backgroundColor: '#f8f9fa',
@@ -27,7 +35,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     height: 66,
     margin: 28,
-    marginBottom: 15,
+    marginBottom: 10,
     borderWidth: 1,
     padding: 10,
     borderRadius: 20,

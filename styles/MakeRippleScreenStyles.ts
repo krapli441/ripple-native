@@ -62,6 +62,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 30,
   },
+  tagHelpText: {
+    fontSize: 14,
+    fontWeight: '300',
+    textAlign: 'left',
+    marginTop: 10,
+    marginLeft: 30,
+  },
   resultItem: {
     flexDirection: 'row',
     marginVertical: 10,

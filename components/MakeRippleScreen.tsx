@@ -128,6 +128,7 @@ function MakeRippleScreen(): React.ReactElement {
           </View>
         )}
         <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
+        <Text style={styles.tagHelpText}>이 음악이 어울리는 순간을 추가해보세요.</Text>
         <View style={styles.tagsContainer}>
           {tags.slice(0, 8).map((tag, index) => (
             <TouchableWithoutFeedback

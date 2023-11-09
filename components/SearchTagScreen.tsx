@@ -125,12 +125,13 @@ function SearchTagScreen(): React.ReactElement {
           <Text style={styles.header}>이럴 때 듣기 좋아요</Text>
           <TextInput
             style={styles.inputStyle}
-            placeholder="어울리는 태그를 검색해보세요"
+            placeholder="태그 검색"
             onChangeText={handleSearchTermChange}
             value={searchTerm}
             returnKeyType="search"
             placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
           />
+          <Text style={styles.headerHelpText}>태그는 5개까지 지정할 수 있어요.</Text>
         </View>
       </TouchableWithoutFeedback>
       <ScrollView
