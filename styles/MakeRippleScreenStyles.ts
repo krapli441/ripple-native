@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 25,
-    paddingTop:10,
+    paddingTop: 10,
     paddingBottom: 5,
   },
   tag: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   moreButtonText: {
     textAlign: 'center',
-    color: 'black',
+    color: 'white',
     fontSize: 16,
   },
   keyboardAvoidingView: {
