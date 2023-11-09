@@ -31,10 +31,10 @@ interface Tag {
 const mapViewProps = {
   customMapStyle: MapStyle,
   mapPadding: {bottom: 0, top: 0, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: false,
-  rotateEnabled: false,
-  minZoomLevel: 15,
+  scrollEnabled: true,
+  zoomEnabled: true,
+  rotateEnabled: true,
+  minZoomLevel: 2,
   maxZoomLevel: 20,
   showsScale: false,
   pitchEnabled: false,
@@ -50,6 +50,33 @@ function MakeRippleScreen(): React.ReactElement {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [location, setLocation] = useState<Region | null>(null);
+
+  const getLocation = () => {
+    console.log('geolocation 함수 실행됨');
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        // 위치 정보를 상태에 저장하고 콘솔에 출력
+        setLocation({
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        });
+        console.log('위치 정보:', position.coords);
+      },
+      error => {
+        console.error('위치 정보 가져오기 오류:', error);
+      },
+      {enableHighAccuracy: true},
+    );
+  };
+
+  // MakeRippleScreen 컴포넌트가 마운트될 때 위치 정보를 가져오는 함수 호출
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -171,7 +198,7 @@ function MakeRippleScreen(): React.ReactElement {
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           customMapStyle={MapStyle}
-          region={undefined}
+          region={location || undefined}
           showsUserLocation={true}></MapView>
       </View>
     </KeyboardAvoidingView>
