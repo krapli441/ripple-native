@@ -144,7 +144,7 @@ function MakeRippleScreen(): React.ReactElement {
         <TouchableOpacity
           style={styles.moreButton}
           onPress={goToSearchTagScreen}>
-          <Text style={styles.moreButtonText}>더 보기</Text>
+          <Text style={styles.moreButtonText}>태그 편집</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
