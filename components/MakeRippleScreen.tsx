@@ -129,11 +129,11 @@ function MakeRippleScreen(): React.ReactElement {
       selectedTags: selectedTags,
     });
   };
-
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
+        console.log(position.coords);
         setLocation({
           latitude: latitude,
           longitude: longitude,
@@ -197,14 +197,14 @@ function MakeRippleScreen(): React.ReactElement {
           customMapStyle={MapStyle}
           region={location || undefined}
           showsUserLocation={true}>
-          {location && (
+          {/* {location && (
             <Marker coordinate={location}>
               <Image
                 source={require('../assets/img/ripple_sonar.gif')}
                 style={{width: 30, height: 30}}
               />
             </Marker>
-          )}
+          )} */}
         </MapView>
       </View>
     </KeyboardAvoidingView>
