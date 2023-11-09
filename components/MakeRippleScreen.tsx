@@ -16,6 +16,7 @@ import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import MapView, {PROVIDER_GOOGLE, Marker, Region} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import {fetchRippleLocation} from '../utils/locationUtils';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -28,6 +29,16 @@ import MapStyle from '../maps/customMapStyle.json';
 interface Tag {
   name: string;
 }
+
+const initialLocationState: LocationState = {
+  coords: null,
+  region: null,
+  gpsError: false,
+};
+
+const GEOLOCATION_OPTIONS = {
+  enableHighAccuracy: true,
+};
 
 const mapViewProps = {
   customMapStyle: MapStyle,
@@ -50,8 +61,10 @@ function MakeRippleScreen(): React.ReactElement {
   const incomingSelectedTags = route.params?.selectedTags;
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [locationState, setLocationState] =
+    useState<LocationState>(initialLocationState);
+  const {coords, region, gpsError} = locationState;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [location, setLocation] = useState<Region | null>(null);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -130,26 +143,8 @@ function MakeRippleScreen(): React.ReactElement {
     });
   };
 
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        setLocation({
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        });
-      },
-      error => {
-        console.error(error);
-      },
-      {enableHighAccuracy: true},
-    );
-  };
-
   useEffect(() => {
-    getLocation();
+    fetchRippleLocation(setLocationState, GEOLOCATION_OPTIONS);
   }, []);
 
   return (
@@ -195,10 +190,10 @@ function MakeRippleScreen(): React.ReactElement {
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           customMapStyle={MapStyle}
-          region={location || undefined}
+          region={region || undefined}
           showsUserLocation={true}>
-          {location && (
-            <Marker coordinate={location}>
+          {region && (
+            <Marker coordinate={region}>
               <Image
                 source={require('../assets/img/ripple_sonar.gif')}
                 style={{width: 30, height: 30}}

@@ -56,6 +56,40 @@ export const fetchInitialLocation = (
   );
 };
 
+export const fetchRippleLocation = (
+  setLocationState: Function,
+  GEOLOCATION_OPTIONS: Object,
+) => {
+  Geolocation.getCurrentPosition(
+    position => {
+      const {latitude, longitude} = position.coords;
+      const newCoords = {latitude, longitude};
+      const newRegion = {
+        latitude,
+        longitude,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+      };
+      setLocationState({
+        coords: newCoords,
+        region: newRegion,
+      });
+      console.log(newRegion);
+    },
+    error => {
+      console.log(error);
+      setLocationState((prevState: LocationState) => ({
+        ...prevState,
+        gpsError: true,
+      }));
+    },
+    {
+      ...GEOLOCATION_OPTIONS,
+      distanceFilter: 3,
+    },
+  );
+};
+
 export const watchUserLocation = (
   setLocationState: Function,
   updateUserLocation: (coords: Coords) => void,
