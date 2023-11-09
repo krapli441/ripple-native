@@ -30,11 +30,10 @@ interface Tag {
 
 const mapViewProps = {
   customMapStyle: MapStyle,
-  mapPadding: {bottom: 0, top: 0, right: 0, left: 0},
   scrollEnabled: true,
   zoomEnabled: true,
   rotateEnabled: true,
-  minZoomLevel: 2,
+  minZoomLevel: 18,
   maxZoomLevel: 20,
   showsScale: false,
   pitchEnabled: false,
@@ -50,6 +49,30 @@ function MakeRippleScreen(): React.ReactElement {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [location, setLocation] = useState<Region | null>(null);
+
+  useEffect(() => {
+    const watchID = Geolocation.watchPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setLocation({
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        });
+      },
+      error => {
+        console.error(error);
+      },
+      {enableHighAccuracy: true, distanceFilter: 10},
+    );
+
+    // 컴포넌트 언마운트 시 위치 감시 종료
+    return () => {
+      Geolocation.clearWatch(watchID);
+    };
+  }, []);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -168,6 +191,7 @@ function MakeRippleScreen(): React.ReactElement {
         </TouchableOpacity>
         <MapView
           {...mapViewProps}
+          region={location || undefined}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           customMapStyle={MapStyle}
