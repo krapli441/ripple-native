@@ -86,11 +86,17 @@ function SearchTagScreen(): React.ReactElement {
 
   const toggleTag = (tagName: string) => {
     setSelectedTags(prevSelectedTags => {
-      if (prevSelectedTags.includes(tagName)) {
+      const isAlreadySelected = prevSelectedTags.includes(tagName);
+
+      if (isAlreadySelected) {
         return prevSelectedTags.filter(tag => tag !== tagName);
-      } else {
+      }
+
+      if (prevSelectedTags.length < 5) {
         return [...prevSelectedTags, tagName];
       }
+
+      return prevSelectedTags;
     });
   };
 
@@ -131,7 +137,9 @@ function SearchTagScreen(): React.ReactElement {
             returnKeyType="search"
             placeholderTextColor={isDarkMode ? 'grey' : 'darkgrey'}
           />
-          <Text style={styles.headerHelpText}>태그는 5개까지 지정할 수 있어요.</Text>
+          <Text style={styles.headerHelpText}>
+            태그는 5개까지 지정할 수 있어요.
+          </Text>
         </View>
       </TouchableWithoutFeedback>
       <ScrollView
