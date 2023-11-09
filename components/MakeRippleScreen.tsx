@@ -30,9 +30,9 @@ interface Tag {
 
 const mapViewProps = {
   customMapStyle: MapStyle,
-  scrollEnabled: true,
-  zoomEnabled: true,
-  rotateEnabled: true,
+  scrollEnabled: false,
+  zoomEnabled: false,
+  rotateEnabled: false,
   minZoomLevel: 18,
   maxZoomLevel: 20,
   showsScale: false,
