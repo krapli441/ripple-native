@@ -19,7 +19,6 @@ import Geolocation from '@react-native-community/geolocation';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
-import {Coords, LocationState} from '../types/locationTypes';
 
 // Style
 import styles from '../styles/MakeRippleScreenStyles';
@@ -51,8 +50,6 @@ function MakeRippleScreen(): React.ReactElement {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [location, setLocation] = useState<Region | null>(null);
-  const [loading, setLoading] = useState(true);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -130,30 +127,6 @@ function MakeRippleScreen(): React.ReactElement {
       selectedTags: selectedTags,
     });
   };
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        console.log(position.coords); // 위치 로그 출력
-        setLocation({
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        });
-        setLoading(false); // 위치 정보를 가져오면 로딩 상태를 false로 설정
-      },
-      error => {
-        console.error(error);
-        setLoading(false); // 에러 발생시에도 로딩 상태를 false로 설정
-      },
-      {enableHighAccuracy: true},
-    );
-  };
-
-  useEffect(() => {
-    getLocation();
-  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -198,7 +171,7 @@ function MakeRippleScreen(): React.ReactElement {
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           customMapStyle={MapStyle}
-          region={location || undefined}
+          region={undefined}
           showsUserLocation={true}></MapView>
       </View>
     </KeyboardAvoidingView>
