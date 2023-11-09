@@ -83,8 +83,17 @@ function MakeRippleScreen(): React.ReactElement {
   };
 
   const goToSearchTagScreen = () => {
-    navigation.navigate('SearchTagScreen', { currentTrack: track });
+    navigation.navigate('SearchTagScreen', {
+      currentTrack: track,
+      selectedTags: selectedTags,
+    });
   };
+
+  useEffect(() => {
+    if (route.params?.selectedTags) {
+      setSelectedTags(route.params.selectedTags);
+    }
+  }, [route.params?.selectedTags, route.params?.track]);
 
   return (
     <KeyboardAvoidingView

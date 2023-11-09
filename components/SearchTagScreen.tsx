@@ -99,8 +99,8 @@ function SearchTagScreen(): React.ReactElement {
 
   const handleComplete = () => {
     navigation.navigate('MakeRippleScreen', {
-      track: selectedTrack,
-      selectedTags,
+      selectedTags: selectedTags, // 선택된 태그 목록을 넘깁니다.
+      track: currentTrack, // 현재 트랙 정보를 다시 전달
     });
   };
 

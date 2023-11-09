@@ -19,6 +19,7 @@ export type RootStackParamList = {
   };
   SearchTagScreen: {
     currentTrack?: TrackDetails;
+    selectedTags?: string[];
   };
 };
 
