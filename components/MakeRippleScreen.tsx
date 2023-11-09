@@ -52,6 +52,7 @@ function MakeRippleScreen(): React.ReactElement {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [location, setLocation] = useState<Region | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -133,16 +134,18 @@ function MakeRippleScreen(): React.ReactElement {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        console.log(position.coords);
+        console.log(position.coords); // 위치 로그 출력
         setLocation({
           latitude: latitude,
           longitude: longitude,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         });
+        setLoading(false); // 위치 정보를 가져오면 로딩 상태를 false로 설정
       },
       error => {
         console.error(error);
+        setLoading(false); // 에러 발생시에도 로딩 상태를 false로 설정
       },
       {enableHighAccuracy: true},
     );
@@ -196,16 +199,7 @@ function MakeRippleScreen(): React.ReactElement {
           style={styles.map}
           customMapStyle={MapStyle}
           region={location || undefined}
-          showsUserLocation={true}>
-          {/* {location && (
-            <Marker coordinate={location}>
-              <Image
-                source={require('../assets/img/ripple_sonar.gif')}
-                style={{width: 30, height: 30}}
-              />
-            </Marker>
-          )} */}
-        </MapView>
+          showsUserLocation={true}></MapView>
       </View>
     </KeyboardAvoidingView>
   );
