@@ -1,5 +1,5 @@
 // react & react-native
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StatusBar,
@@ -21,6 +21,7 @@ import {useFocusEffect} from '@react-navigation/native';
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 import {TrackDetails} from '../types/navigationTypes';
+import {SpotifySearchResponse} from '../types/spotifyTypes';
 
 // asyncStorage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,29 +33,24 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<TrackDetails[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  // 화면 포커스 시 실행될 이펙트
   useFocusEffect(
     React.useCallback(() => {
-      // 검색 상태 초기화
       setSearchTerm('');
       setSearchResults([]);
-      // ...
     }, []),
   );
 
   const searchForMusic = async (searchQuery: string) => {
     try {
-      // AsyncStorage에서 JWT 토큰을 가져옴
       const jwtToken = await AsyncStorage.getItem('userToken');
 
       if (!jwtToken) {
         throw new Error('사용자 인증 토큰이 없습니다.');
       }
 
-      // 백엔드 엔드포인트로 검색 요청을 보낸다.
       const response = await fetch('http://192.168.0.215:3000/search', {
         method: 'POST',
         headers: {
@@ -64,10 +60,10 @@ function SearchScreen(): React.ReactElement {
         body: JSON.stringify({query: searchQuery}),
       });
 
-      const data = await response.json();
+      const data: SpotifySearchResponse = await response.json();
 
       if (response.ok) {
-        const tracks = data.map((item: any) => ({
+        const tracks = data.tracks.items.map((item: any) => ({
           title: item.name,
           artist: item.artists.map((artist: any) => artist.name).join(', '),
           externalUrl: item.external_urls.spotify,
@@ -75,7 +71,7 @@ function SearchScreen(): React.ReactElement {
         }));
         setSearchResults(tracks);
       } else {
-        throw new Error(data.message || '검색을 완료할 수 없습니다.');
+        throw new Error('검색을 완료할 수 없습니다.');
       }
     } catch (error) {
       console.error('검색 중 오류 발생:', error);
@@ -86,7 +82,6 @@ function SearchScreen(): React.ReactElement {
     if (searchTerm.trim()) {
       searchForMusic(searchTerm);
     } else {
-      // 사용자에게 알림을 보여줍니다.
       Alert.alert('검색 오류', '검색어를 입력해주세요.');
     }
   };
@@ -110,7 +105,7 @@ function SearchScreen(): React.ReactElement {
   const handleSelectTrack = (track: TrackDetails) => {
     navigation.navigate('MakeRippleScreen', {track});
   };
-  const renderItem = ({item}: any) => (
+  const renderItem = ({item}: {item: TrackDetails}) => (
     <TouchableOpacity onPress={() => handleSelectTrack(item)}>
       <View style={styles.resultItem}>
         <Image source={{uri: item.imageUrl}} style={styles.albumCover} />
