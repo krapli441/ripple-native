@@ -1,11 +1,21 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+  },
   searchContainer: {
     backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
   },
-
+  header: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    marginTop: 70,
+    marginLeft: 30,
+  },
   tagsContainer: {
     flexDirection: 'column',
     backgroundColor: '#f8f9fa',
@@ -14,21 +24,14 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     marginBottom: 15,
   },
-
-  header: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginTop: 70,
-    marginLeft: 30,
-  },
-  flexContainer: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  tagText: {
-    textAlign: 'center',
-    fontSize: 16,
+  inputStyle: {
+    height: 66,
+    margin: 28,
+    marginBottom: 15,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20,
+    fontSize: 18,
   },
   tag: {
     height: 40,
@@ -40,7 +43,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 4, // 좌우 마진
     marginBottom: 4,
   },
-
+  tagText: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
   completeButton: {
     width: '90%',
     height: 50,
@@ -55,15 +61,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     color: 'white',
-  },
-  inputStyle: {
-    height: 66,
-    margin: 28,
-    marginBottom: 15,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 20,
-    fontSize: 18,
   },
   resultItem: {
     flexDirection: 'row',

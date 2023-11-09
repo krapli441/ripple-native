@@ -8,8 +8,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   useColorScheme,
-  KeyboardAvoidingView,
-  Platform,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
@@ -20,7 +18,6 @@ import {useFocusEffect} from '@react-navigation/native';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
-import {TrackDetails} from '../types/navigationTypes';
 
 // Style
 import styles from '../styles/SearchTagScrenStyle';
