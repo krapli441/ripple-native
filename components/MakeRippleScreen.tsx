@@ -54,6 +54,7 @@ function MakeRippleScreen(): React.ReactElement {
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
+        console.log(position);
         const {latitude, longitude} = position.coords;
         setLocation({
           latitude,
@@ -65,7 +66,7 @@ function MakeRippleScreen(): React.ReactElement {
       error => {
         console.error(error);
       },
-      {enableHighAccuracy: true, timeout: 100000, maximumAge: 10000},
+      {enableHighAccuracy: true, timeout: 30000, maximumAge: 10000},
     );
   };
 
