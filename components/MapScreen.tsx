@@ -22,6 +22,7 @@ import MapStyle from '../maps/customMapStyle.json';
 
 // Utils
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
+import useAuthToken from '../utils/useAuthToken';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
@@ -65,6 +66,8 @@ function MapScreen(): React.ReactElement {
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
   const appState = useRef(AppState.currentState);
+
+  const authToken = useAuthToken();
 
   useFocusEffect(
     React.useCallback(() => {

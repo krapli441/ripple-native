@@ -14,8 +14,9 @@ import MapScreen from './components/MapScreen';
 import SearchScreen from './components/SearchScreen';
 import MakerippleScreen from './components/MakeRippleScreen';
 import SearchTagScreen from './components/SearchTagScreen';
-// import LibraryScreen from './components/LibraryScreen';
-// import ProfileScreen from './components/ProfileScreen';
+
+// AuthProvider
+import AuthProvider from './utils/AuthContext';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,7 +68,6 @@ function MainTabNavigator() {
     <Tab.Navigator
       tabBar={props => <NavigationTabBar {...props} />}
       initialRouteName="홈">
-      {/* <Tab.Screen name="Library" component={LibraryScreen} /> */}
       <Tab.Screen
         name="라이브러리"
         component={SearchScreen}
@@ -98,25 +98,27 @@ function MainTabNavigator() {
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Ripple"
-          component={MainTabNavigator}
-          options={{headerShown: false, gestureEnabled: false}}
-        />
-        <Stack.Screen
-          name="SearchModal"
-          component={SearchStackScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Ripple"
+            component={MainTabNavigator}
+            options={{headerShown: false, gestureEnabled: false}}
+          />
+          <Stack.Screen
+            name="SearchModal"
+            component={SearchStackScreen}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 
