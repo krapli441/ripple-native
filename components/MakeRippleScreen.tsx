@@ -57,14 +57,14 @@ function MakeRippleScreen(): React.ReactElement {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        // 위치 정보를 상태에 저장하고 콘솔에 출력
+        console.log(position.coords);
         setLocation({
           latitude: latitude,
           longitude: longitude,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         });
-        console.log('위치 정보:', position.coords);
+        console.log('위치 정보:', location);
       },
       error => {
         console.error('위치 정보 가져오기 오류:', error);
@@ -73,7 +73,6 @@ function MakeRippleScreen(): React.ReactElement {
     );
   };
 
-  // MakeRippleScreen 컴포넌트가 마운트될 때 위치 정보를 가져오는 함수 호출
   useEffect(() => {
     getLocation();
   }, []);
