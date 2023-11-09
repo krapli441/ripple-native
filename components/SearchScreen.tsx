@@ -24,7 +24,7 @@ import {TrackDetails} from '../types/navigationTypes';
 import {SpotifySearchResponse} from '../types/spotifyTypes';
 
 // asyncStorage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import useAuthToken from '../utils/useAuthToken';
 
 // Style
 import styles from '../styles/SearchScreenStyle';
@@ -35,6 +35,7 @@ function SearchScreen(): React.ReactElement {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<TrackDetails[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const authToken = useAuthToken();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -50,7 +51,7 @@ function SearchScreen(): React.ReactElement {
 
   const searchForMusic = async (searchQuery: string) => {
     try {
-      const jwtToken = await AsyncStorage.getItem('userToken');
+      const jwtToken = authToken;
 
       if (!jwtToken) {
         throw new Error('사용자 인증 토큰이 없습니다.');
@@ -74,6 +75,7 @@ function SearchScreen(): React.ReactElement {
           externalUrl: item.external_urls.spotify,
           imageUrl: item.album.images[0].url,
         }));
+        console.log(data);
         setSearchResults(tracks);
       } else {
         throw new Error('검색을 완료할 수 없습니다.');
