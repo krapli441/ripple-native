@@ -15,7 +15,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import MapView, {PROVIDER_GOOGLE, Marker, Region} from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
+import {useLocation} from '../utils/LocationContext';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -49,30 +49,7 @@ function MakeRippleScreen(): React.ReactElement {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [location, setLocation] = useState<Region | null>(null);
-
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        console.log(position);
-        const {latitude, longitude} = position.coords;
-        setLocation({
-          latitude,
-          longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        });
-      },
-      error => {
-        console.error(error);
-      },
-      {enableHighAccuracy: true, timeout: 30000, maximumAge: 10000},
-    );
-  };
-
-  useEffect(() => {
-    getLocation();
-  }, []);
+  const {location} = useLocation();
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -191,11 +168,28 @@ function MakeRippleScreen(): React.ReactElement {
         </TouchableOpacity>
         <MapView
           {...mapViewProps}
-          region={location || undefined}
+          region={{
+            latitude: location?.latitude || 0,
+            longitude: location?.longitude || 0,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
-          customMapStyle={MapStyle}
-          showsUserLocation={true}></MapView>
+          customMapStyle={MapStyle}>
+          {location && (
+            <Marker
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}>
+              <Image
+                source={require('../assets/img/ripple_sonar.gif')}
+                style={{width: 30, height: 30}}
+              />
+            </Marker>
+          )}
+        </MapView>
       </View>
     </KeyboardAvoidingView>
   );
