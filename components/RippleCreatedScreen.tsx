@@ -23,7 +23,7 @@ import styles from '../styles/RippleCreatedScreenStyles';
 
 const mapViewProps = {
   customMapStyle: MapStyle,
-  mapPadding: {bottom: 0, top: 0, right: 0, left: 0},
+  mapPadding: {bottom: 0, top: 50, right: 0, left: 0},
   scrollEnabled: false,
   zoomEnabled: false,
   rotateEnabled: false,
@@ -73,11 +73,7 @@ function RippleCreatedScreen(): React.ReactElement {
         }}
         style={styles.map}
         provider={PROVIDER_GOOGLE}>
-        <Marker
-          ref={markerRef}
-          coordinate={rippleData.location}
-          title={rippleData.title}
-          description={rippleData.artist}>
+        <Marker ref={markerRef} coordinate={rippleData.location}>
           <Image
             source={require('../assets/img/ripple_sonar.gif')}
             style={{width: 30, height: 30}}
@@ -87,12 +83,16 @@ function RippleCreatedScreen(): React.ReactElement {
       {region.latitude === rippleData.location.latitude &&
         region.longitude === rippleData.location.longitude && (
           <View style={styles.customCallout}>
-            <Image
-              source={{uri: rippleData.albumCoverUrl}}
-              style={styles.albumCover}
-            />
-            <Text style={styles.calloutTitle}>{rippleData.title}</Text>
-            <Text style={styles.calloutArtist}>{rippleData.artist}</Text>
+            <View style={styles.calloutRow}>
+              <Image
+                source={{uri: rippleData.albumCoverUrl}}
+                style={styles.albumCover}
+              />
+              <View style={styles.calloutInfo}>
+                <Text style={styles.calloutTitle}>{rippleData.title}</Text>
+                <Text style={styles.calloutArtist}>{rippleData.artist}</Text>
+              </View>
+            </View>
             <View style={styles.tagContainer}>
               {rippleData.tag.map((tag, index) => (
                 <Text key={index} style={styles.tagText}>

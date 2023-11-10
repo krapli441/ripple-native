@@ -15,9 +15,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   customCallout: {
-    width: '10%',
-    height: '30%',
+    position: 'absolute', // 절대 위치 사용
+    alignItems: 'flex-start', // 세로 축을 기준으로 아이템을 중앙 정렬합니다.
+    width: 'auto', // 너비 조정
+    height: 'auto', // 높이 조정
+    top: '32%', // 상단에서 얼마나 떨어질지 지정
+    alignSelf: 'center', // 가운데 정렬
+    backgroundColor: 'white', // 배경색
+    borderRadius: 10, // 모서리 둥글기
+    padding: 10, // 내부 패딩
   },
+
+  calloutInfo: {
+    marginLeft: 10,
+    flexDirection: 'column', // 세로 방향으로 아이템을 배치합니다.
+  },
+  calloutRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   header: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -26,32 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 20,
   },
-  inputStyle: {
-    height: 66,
-    margin: 28,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 20,
-    fontSize: 18,
-  },
-  resultItem: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 20,
-  },
-  flatListStyle: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  flatListContent: {
-    paddingBottom: 120,
-  },
-  infoContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
+
   title: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -86,7 +78,7 @@ const styles = StyleSheet.create({
   albumCover: {
     width: 60,
     height: 60,
-    borderRadius: 30,
+    borderRadius: 10,
   },
   calloutTitle: {
     fontSize: 16,
@@ -100,10 +92,11 @@ const styles = StyleSheet.create({
   tagContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 5,
   },
   tagText: {
-    backgroundColor: '#e1e1e1',
+    color: 'gray',
     borderRadius: 10,
     padding: 5,
     marginHorizontal: 2,
