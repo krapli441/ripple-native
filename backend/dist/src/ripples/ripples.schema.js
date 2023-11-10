@@ -38,11 +38,15 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({
         type: {
-            latitude: { type: Number, required: true },
-            longitude: { type: Number, required: true },
+            type: String,
+            enum: ['Point'],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
         },
         _id: false,
-        required: true,
     }),
     __metadata("design:type", Object)
 ], Ripple.prototype, "location", void 0);

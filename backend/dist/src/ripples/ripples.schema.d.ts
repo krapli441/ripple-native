@@ -24,8 +24,8 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Document } from 'mongoose';
 export interface Location {
-    latitude: number;
-    longitude: number;
+    type: string;
+    coordinates: number[];
 }
 export interface IRipple extends Document {
     userId: string;

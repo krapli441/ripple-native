@@ -3,8 +3,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export interface Location {
-  latitude: number;
-  longitude: number;
+  type: string;
+  coordinates: number[];
 }
 
 export interface IRipple extends Document {
@@ -39,11 +39,15 @@ export class Ripple extends Document {
 
   @Prop({
     type: {
-      latitude: { type: Number, required: true },
-      longitude: { type: Number, required: true },
+      type: String,
+      enum: ['Point'],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
     },
     _id: false,
-    required: true,
   })
   location: Location;
 
