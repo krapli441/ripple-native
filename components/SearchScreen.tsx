@@ -50,7 +50,7 @@ function SearchScreen(): React.ReactElement {
 
   const searchForMusic = async (searchQuery: string) => {
     try {
-      const jwtToken = authToken;
+      const jwtToken = authToken.token;
 
       if (!jwtToken) {
         throw new Error('사용자 인증 토큰이 없습니다.');

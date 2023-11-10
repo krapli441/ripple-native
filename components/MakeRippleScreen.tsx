@@ -215,6 +215,7 @@ function MakeRippleScreen(): React.ReactElement {
           style={styles.completeButton} // 스타일은 styles 객체에 정의해야 합니다.
           onPress={() => {
             const rippleData = {
+              userId: authToken.username,
               title: track?.title,
               artist: track?.artist,
               albumCoverUrl: track?.imageUrl,
