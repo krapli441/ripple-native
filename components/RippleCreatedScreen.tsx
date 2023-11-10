@@ -47,8 +47,8 @@ function RippleCreatedScreen(): React.ReactElement {
   const markerRef = useRef<any>(null);
 
   const [region, setRegion] = useState({
-    latitude: rippleData.location.latitude,
-    longitude: rippleData.location.longitude,
+    latitude: rippleData.location.coordinates[1], // 위도
+    longitude: rippleData.location.coordinates[0], // 경도
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -66,22 +66,27 @@ function RippleCreatedScreen(): React.ReactElement {
       <MapView
         {...mapViewProps}
         initialRegion={{
-          latitude: rippleData.location.latitude,
-          longitude: rippleData.location.longitude,
+          latitude: rippleData.location.coordinates[1],
+          longitude: rippleData.location.coordinates[0],
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         style={styles.map}
         provider={PROVIDER_GOOGLE}>
-        <Marker ref={markerRef} coordinate={rippleData.location}>
+        <Marker
+          ref={markerRef}
+          coordinate={{
+            latitude: rippleData.location.coordinates[1],
+            longitude: rippleData.location.coordinates[0],
+          }}>
           <Image
             source={require('../assets/img/ripple_sonar.gif')}
             style={{width: 30, height: 30}}
           />
         </Marker>
       </MapView>
-      {region.latitude === rippleData.location.latitude &&
-        region.longitude === rippleData.location.longitude && (
+      {region.latitude === rippleData.location.coordinates[1] &&
+        region.longitude === rippleData.location.coordinates[0] && (
           <View style={styles.customCallout}>
             <View style={styles.calloutRow}>
               <Image

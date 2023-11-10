@@ -25,8 +25,8 @@ export type RootStackParamList = {
   RippleCreatedScreen: {
     rippleData: {
       location: {
-        latitude: number;
-        longitude: number;
+        type: string;
+        coordinates: number[];
       };
       title: string;
       artist: string;
