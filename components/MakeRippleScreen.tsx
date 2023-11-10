@@ -129,6 +129,23 @@ function MakeRippleScreen(): React.ReactElement {
     });
   };
 
+  const createRipple = async (rippleData: any) => {
+    try {
+      const response = await fetch(
+        'http://192.168.0.215:3000/ripples',
+        rippleData,
+      );
+
+      if (response.status === 201) {
+        console.log('Ripple 생성', response);
+      } else {
+        // 다른 응답 처리 (에러 메세지 표시 등)
+      }
+    } catch (error) {
+      console.log('Ripple 생성 에러 :', error);
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -195,7 +212,12 @@ function MakeRippleScreen(): React.ReactElement {
         <TouchableOpacity
           style={styles.completeButton} // 스타일은 styles 객체에 정의해야 합니다.
           onPress={() => {
-            console.log('완료 버튼이 눌렸습니다.');
+            const rippleData = {
+              title: track?.title,
+              artist: track?.artist,
+              albumCoverUrl: track?.imageUrl,
+            };
+            createRipple(rippleData);
           }}>
           <Text style={styles.completeButtonText}>음악 남기기</Text>
         </TouchableOpacity>
