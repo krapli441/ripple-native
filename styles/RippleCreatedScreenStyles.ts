@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
   },
+  customCallout: {
+    width: '10%',
+    height: '30%',
+  },
   header: {
     fontSize: 32,
     fontWeight: 'bold',

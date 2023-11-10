@@ -1,5 +1,5 @@
 // react & react-native
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -46,6 +46,13 @@ function RippleCreatedScreen(): React.ReactElement {
 
   const markerRef = useRef<any>(null);
 
+  const [region, setRegion] = useState({
+    latitude: rippleData.location.latitude,
+    longitude: rippleData.location.longitude,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
   useEffect(() => {
     // 말풍선을 표시하는 로직
     if (markerRef.current) {
@@ -75,25 +82,26 @@ function RippleCreatedScreen(): React.ReactElement {
             source={require('../assets/img/ripple_sonar.gif')}
             style={{width: 30, height: 30}}
           />
-          <Callout tooltip style={styles.calloutStyle}>
-            <View style={styles.calloutView}>
-              <Image
-                source={{uri: rippleData.albumCoverUrl}}
-                style={styles.albumCover}
-              />
-              <Text style={styles.calloutTitle}>{rippleData.title}</Text>
-              <Text style={styles.calloutArtist}>{rippleData.artist}</Text>
-              <View style={styles.tagContainer}>
-                {rippleData.tag.map((tag, index) => (
-                  <Text key={index} style={styles.tagText}>
-                    {tag}
-                  </Text>
-                ))}
-              </View>
-            </View>
-          </Callout>
         </Marker>
       </MapView>
+      {region.latitude === rippleData.location.latitude &&
+        region.longitude === rippleData.location.longitude && (
+          <View style={styles.customCallout}>
+            <Image
+              source={{uri: rippleData.albumCoverUrl}}
+              style={styles.albumCover}
+            />
+            <Text style={styles.calloutTitle}>{rippleData.title}</Text>
+            <Text style={styles.calloutArtist}>{rippleData.artist}</Text>
+            <View style={styles.tagContainer}>
+              {rippleData.tag.map((tag, index) => (
+                <Text key={index} style={styles.tagText}>
+                  {tag}
+                </Text>
+              ))}
+            </View>
+          </View>
+        )}
       <TouchableOpacity
         style={styles.completeButton}
         onPress={() => navigation.navigate('홈')}>
