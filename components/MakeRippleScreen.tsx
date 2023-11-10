@@ -144,6 +144,7 @@ function MakeRippleScreen(): React.ReactElement {
       const responseBody = await response.json();
 
       if (response.status === 201) {
+        navigation.navigate('RippleCreatedScreen', {rippleData});
         console.log('Ripple 생성 성공', responseBody);
       } else {
         console.log(

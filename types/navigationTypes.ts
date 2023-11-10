@@ -21,6 +21,7 @@ export type RootStackParamList = {
     currentTrack?: TrackDetails;
     selectedTags?: string[];
   };
+  RippleCreatedScreen: {};
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<
