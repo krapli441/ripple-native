@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
+  ScrollView,
   StatusBar,
   Text,
   useColorScheme,
@@ -132,7 +133,7 @@ function MakeRippleScreen(): React.ReactElement {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.keyboardAvoidingView}>
-      <View style={styles.searchContainer}>
+      <ScrollView style={styles.searchContainer}>
         <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
         <Text style={styles.header}>음악 남기기</Text>
         {track && (
@@ -198,7 +199,7 @@ function MakeRippleScreen(): React.ReactElement {
           }}>
           <Text style={styles.completeButtonText}>음악 남기기</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
