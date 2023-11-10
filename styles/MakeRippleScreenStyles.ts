@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     width: '85%',
     height: '22%',
     borderRadius: 20,
-    // ...StyleSheet.absoluteFillObject,
   },
   resultItem: {
     flexDirection: 'row',
@@ -110,6 +109,21 @@ const styles = StyleSheet.create({
   artist: {
     fontSize: 14,
     color: 'gray',
+  },
+  completeButton: {
+    width: '85%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#1DB954',
+    borderRadius: 25,
+    margin: 20,
+  },
+  completeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

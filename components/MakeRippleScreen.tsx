@@ -191,6 +191,13 @@ function MakeRippleScreen(): React.ReactElement {
           )}
         </MapView>
         <Text style={styles.rippleHelpText}>이 위치에 음악이 남겨집니다.</Text>
+        <TouchableOpacity
+          style={styles.completeButton} // 스타일은 styles 객체에 정의해야 합니다.
+          onPress={() => {
+            console.log('완료 버튼이 눌렸습니다.');
+          }}>
+          <Text style={styles.completeButtonText}>음악 남기기</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
