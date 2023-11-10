@@ -233,8 +233,8 @@ function MakeRippleScreen(): React.ReactElement {
               albumCoverUrl: track?.imageUrl,
               spotifyExternalUrl: track?.externalUrl,
               location: {
-                latitude: location?.latitude,
-                longitude: location?.longitude,
+                type: 'Point',
+                coordinates: [location?.longitude, location?.latitude], // GeoJSON 형식으로 변경
               },
               tag: tags.map(tag => tag.name),
               likes: 0,

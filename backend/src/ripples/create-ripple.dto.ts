@@ -1,6 +1,6 @@
 export class LocationDto {
-  readonly latitude: number;
-  readonly longitude: number;
+  readonly type: string = 'Point';
+  readonly coordinates: number[];
 }
 
 export class CreateRippleDto {
