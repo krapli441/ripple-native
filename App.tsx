@@ -17,6 +17,7 @@ import SearchTagScreen from './components/SearchTagScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
+import {LocationProvider} from './utils/LocationContext';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,25 +100,27 @@ function MainTabNavigator() {
 function App(): JSX.Element {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Ripple"
-            component={MainTabNavigator}
-            options={{headerShown: false, gestureEnabled: false}}
-          />
-          <Stack.Screen
-            name="SearchModal"
-            component={SearchStackScreen}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <LocationProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Ripple"
+              component={MainTabNavigator}
+              options={{headerShown: false, gestureEnabled: false}}
+            />
+            <Stack.Screen
+              name="SearchModal"
+              component={SearchStackScreen}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </LocationProvider>
     </AuthProvider>
   );
 }
