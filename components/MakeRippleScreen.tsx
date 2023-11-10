@@ -17,6 +17,7 @@ import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import MapView, {PROVIDER_GOOGLE, Marker, Region} from 'react-native-maps';
 import {useLocation} from '../utils/LocationContext';
+import useAuthToken from '../utils/useAuthToken';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -51,6 +52,7 @@ function MakeRippleScreen(): React.ReactElement {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {location} = useLocation();
+  const authToken = useAuthToken();
 
   const getTagStyle = (tagName: string) => {
     const isSelected = selectedTags.includes(tagName);
@@ -221,7 +223,7 @@ function MakeRippleScreen(): React.ReactElement {
               tag: tags,
               likes: 0,
             };
-            console.log('Ripple 데이터',rippleData);
+            console.log('Ripple 데이터', rippleData);
             createRipple(rippleData);
           }}>
           <Text style={styles.completeButtonText}>음악 남기기</Text>

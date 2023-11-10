@@ -4,10 +4,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface AuthContextType {
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  username: string | null;
+  setUsername: React.Dispatch<React.SetStateAction<string | null>>;
 }
 export const AuthContext = createContext<AuthContextType>({
   token: null,
   setToken: () => {},
+  username: null,
+  setUsername: () => {},
 });
 
 interface AuthProviderProps {
@@ -16,6 +20,7 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const [token, setToken] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
     const loadToken = async () => {
@@ -30,7 +35,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{token, setToken}}>
+    <AuthContext.Provider value={{token, setToken, username, setUsername}}>
       {children}
     </AuthContext.Provider>
   );
