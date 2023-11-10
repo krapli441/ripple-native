@@ -1,5 +1,5 @@
 // react & react-native
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 
 // google maps
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 
 // types
@@ -44,6 +44,15 @@ function RippleCreatedScreen(): React.ReactElement {
   // rippleData를 route.params에서 가져옵니다.
   const {rippleData} = route.params;
 
+  const markerRef = useRef<any>(null);
+
+  useEffect(() => {
+    // 말풍선을 표시하는 로직
+    if (markerRef.current) {
+      markerRef.current.showCallout();
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>음악이 남겨졌습니다</Text>
@@ -58,6 +67,7 @@ function RippleCreatedScreen(): React.ReactElement {
         style={styles.map}
         provider={PROVIDER_GOOGLE}>
         <Marker
+          ref={markerRef}
           coordinate={rippleData.location}
           title={rippleData.title}
           description={rippleData.artist}>
@@ -65,7 +75,23 @@ function RippleCreatedScreen(): React.ReactElement {
             source={require('../assets/img/ripple_sonar.gif')}
             style={{width: 30, height: 30}}
           />
-          {/* 마커에 추가할 말풍선 내용이 필요합니다 */}
+          <Callout tooltip style={styles.calloutStyle}>
+            <View style={styles.calloutView}>
+              <Image
+                source={{uri: rippleData.albumCoverUrl}}
+                style={styles.albumCover}
+              />
+              <Text style={styles.calloutTitle}>{rippleData.title}</Text>
+              <Text style={styles.calloutArtist}>{rippleData.artist}</Text>
+              <View style={styles.tagContainer}>
+                {rippleData.tag.map((tag, index) => (
+                  <Text key={index} style={styles.tagText}>
+                    {tag}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          </Callout>
         </Marker>
       </MapView>
       <TouchableOpacity

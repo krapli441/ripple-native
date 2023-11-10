@@ -30,6 +30,8 @@ export type RootStackParamList = {
       };
       title: string;
       artist: string;
+      albumCoverUrl: string;
+      tag: string[];
     };
   };
 };

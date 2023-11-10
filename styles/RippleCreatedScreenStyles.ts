@@ -44,12 +44,6 @@ const styles = StyleSheet.create({
   flatListContent: {
     paddingBottom: 120,
   },
-  albumCover: {
-    width: 60,
-    height: 60,
-    borderRadius: 5,
-    marginRight: 20,
-  },
   infoContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -71,6 +65,45 @@ const styles = StyleSheet.create({
     backgroundColor: '#1DB954',
     borderRadius: 25,
     margin: 20,
+  },
+  calloutStyle: {
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    backgroundColor: 'white',
+    borderRadius: 6,
+    padding: 10,
+    width: 250,
+    maxHeight: 200,
+  },
+  calloutView: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  albumCover: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+  },
+  calloutTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 5,
+  },
+  calloutArtist: {
+    fontSize: 14,
+    color: 'grey',
+  },
+  tagContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 5,
+  },
+  tagText: {
+    backgroundColor: '#e1e1e1',
+    borderRadius: 10,
+    padding: 5,
+    marginHorizontal: 2,
+    fontSize: 12,
   },
 });
 
