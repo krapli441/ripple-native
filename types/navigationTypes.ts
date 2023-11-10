@@ -10,6 +10,7 @@ export type TrackDetails = {
 };
 
 export type RootStackParamList = {
+  홈: undefined;
   Home: undefined;
   Ripple: undefined;
   SearchModal: undefined;

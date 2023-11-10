@@ -5,7 +5,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    flex: 1,
+    width: '85%',
+    height: '63%',
+    alignSelf: 'center',
+    borderRadius: 10,
   },
   searchContainer: {
     backgroundColor: '#f8f9fa',
@@ -17,6 +20,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 70,
     marginLeft: 30,
+    marginBottom: 20,
   },
   inputStyle: {
     height: 66,
@@ -57,6 +61,16 @@ const styles = StyleSheet.create({
   artist: {
     fontSize: 14,
     color: 'gray',
+  },
+  completeButton: {
+    width: '85%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#1DB954',
+    borderRadius: 25,
+    margin: 20,
   },
 });
 

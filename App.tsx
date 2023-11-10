@@ -65,6 +65,7 @@ function SearchStackScreen() {
         component={RippleCreatedScreen}
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          gestureEnabled: false,
         }}
       />
     </SearchStack.Navigator>
