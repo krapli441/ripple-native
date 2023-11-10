@@ -21,7 +21,16 @@ export type RootStackParamList = {
     currentTrack?: TrackDetails;
     selectedTags?: string[];
   };
-  RippleCreatedScreen: {};
+  RippleCreatedScreen: {
+    rippleData: {
+      location: {
+        latitude: number;
+        longitude: number;
+      };
+      title: string;
+      artist: string;
+    };
+  };
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<
