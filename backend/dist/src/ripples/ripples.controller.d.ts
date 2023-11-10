@@ -9,4 +9,5 @@ export declare class RipplesController {
     findOne(id: string): Promise<import("./ripples.schema").Ripple>;
     update(id: string, updateRippleDto: UpdateRippleDto): Promise<import("./ripples.schema").Ripple>;
     remove(id: string): Promise<import("./ripples.schema").Ripple>;
+    findNearby(longitude: number, latitude: number, maxDistance: number): Promise<import("./ripples.schema").IRipple[]>;
 }
