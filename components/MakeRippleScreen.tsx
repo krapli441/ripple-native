@@ -190,6 +190,7 @@ function MakeRippleScreen(): React.ReactElement {
             </Marker>
           )}
         </MapView>
+        <Text style={styles.rippleHelpText}>이 위치에 음악이 남겨집니다.</Text>
       </View>
     </KeyboardAvoidingView>
   );
