@@ -24,6 +24,9 @@ let RipplesController = class RipplesController {
     create(createRippleDto) {
         return this.ripplesService.create(createRippleDto);
     }
+    async findNearby(longitude, latitude, maxDistance) {
+        return this.ripplesService.findNearbyRipples(longitude, latitude, maxDistance);
+    }
     findAll() {
         return this.ripplesService.findAll();
     }
@@ -36,9 +39,6 @@ let RipplesController = class RipplesController {
     remove(id) {
         return this.ripplesService.remove(id);
     }
-    async findNearby(longitude, latitude, maxDistance) {
-        return this.ripplesService.findNearbyRipples(longitude, latitude, maxDistance);
-    }
 };
 exports.RipplesController = RipplesController;
 __decorate([
@@ -48,6 +48,15 @@ __decorate([
     __metadata("design:paramtypes", [create_ripple_dto_1.CreateRippleDto]),
     __metadata("design:returntype", void 0)
 ], RipplesController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('/nearby'),
+    __param(0, (0, common_1.Query)('longitude')),
+    __param(1, (0, common_1.Query)('latitude')),
+    __param(2, (0, common_1.Query)('maxDistance')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, Number]),
+    __metadata("design:returntype", Promise)
+], RipplesController.prototype, "findNearby", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -77,15 +86,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], RipplesController.prototype, "remove", null);
-__decorate([
-    (0, common_1.Get)('/nearby'),
-    __param(0, (0, common_1.Query)('longitude')),
-    __param(1, (0, common_1.Query)('latitude')),
-    __param(2, (0, common_1.Query)('maxDistance')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, Number]),
-    __metadata("design:returntype", Promise)
-], RipplesController.prototype, "findNearby", null);
 exports.RipplesController = RipplesController = __decorate([
     (0, common_1.Controller)('ripples'),
     __metadata("design:paramtypes", [ripples_service_1.RipplesService])

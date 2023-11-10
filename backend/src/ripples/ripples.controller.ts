@@ -23,6 +23,19 @@ export class RipplesController {
     return this.ripplesService.create(createRippleDto);
   }
 
+  @Get('/nearby')
+  async findNearby(
+    @Query('longitude') longitude: number,
+    @Query('latitude') latitude: number,
+    @Query('maxDistance') maxDistance: number,
+  ) {
+    return this.ripplesService.findNearbyRipples(
+      longitude,
+      latitude,
+      maxDistance,
+    );
+  }
+
   @Get()
   findAll() {
     return this.ripplesService.findAll();
@@ -42,18 +55,5 @@ export class RipplesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.ripplesService.remove(id);
-  }
-
-  @Get('/nearby')
-  async findNearby(
-    @Query('longitude') longitude: number,
-    @Query('latitude') latitude: number,
-    @Query('maxDistance') maxDistance: number,
-  ) {
-    return this.ripplesService.findNearbyRipples(
-      longitude,
-      latitude,
-      maxDistance,
-    );
   }
 }
