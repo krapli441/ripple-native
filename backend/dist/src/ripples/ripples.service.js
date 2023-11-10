@@ -39,6 +39,22 @@ let RipplesService = class RipplesService {
     async remove(id) {
         return this.rippleModel.findByIdAndRemove(id).exec();
     }
+    async findNearbyRipples(longitude, latitude, maxDistance) {
+        const ripples = await this.rippleModel
+            .find({
+            location: {
+                $nearSphere: {
+                    $geometry: {
+                        type: 'Point',
+                        coordinates: [longitude, latitude],
+                    },
+                    $maxDistance: maxDistance,
+                },
+            },
+        })
+            .exec();
+        return Promise.resolve(ripples.map((ripple) => ripple.toObject({ versionKey: false })));
+    }
 };
 exports.RipplesService = RipplesService;
 exports.RipplesService = RipplesService = __decorate([

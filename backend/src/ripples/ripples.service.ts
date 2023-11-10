@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateRippleDto } from './create-ripple.dto';
 import { UpdateRippleDto } from './update-ripple.dto';
-import { Ripple } from './ripples.schema';
+import { Ripple, IRipple } from './ripples.schema';
 
 @Injectable()
 export class RipplesService {
@@ -30,5 +30,30 @@ export class RipplesService {
 
   async remove(id: string): Promise<Ripple> {
     return this.rippleModel.findByIdAndRemove(id).exec();
+  }
+
+  async findNearbyRipples(
+    longitude: number,
+    latitude: number,
+    maxDistance: number,
+  ): Promise<IRipple[]> {
+    const ripples = await this.rippleModel
+      .find({
+        location: {
+          $nearSphere: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [longitude, latitude],
+            },
+            $maxDistance: maxDistance,
+          },
+        },
+      })
+      .exec();
+    return Promise.resolve(
+      ripples.map((ripple) =>
+        ripple.toObject({ versionKey: false }),
+      ) as IRipple[],
+    );
   }
 }

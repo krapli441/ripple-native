@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { CreateRippleDto } from './create-ripple.dto';
 import { UpdateRippleDto } from './update-ripple.dto';
-import { Ripple } from './ripples.schema';
+import { Ripple, IRipple } from './ripples.schema';
 export declare class RipplesService {
     private rippleModel;
     constructor(rippleModel: Model<Ripple>);
@@ -10,4 +10,5 @@ export declare class RipplesService {
     findOne(id: string): Promise<Ripple>;
     update(id: string, updateRippleDto: UpdateRippleDto): Promise<Ripple>;
     remove(id: string): Promise<Ripple>;
+    findNearbyRipples(longitude: number, latitude: number, maxDistance: number): Promise<IRipple[]>;
 }
