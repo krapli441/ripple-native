@@ -14,6 +14,7 @@ import MapScreen from './components/MapScreen';
 import SearchScreen from './components/SearchScreen';
 import MakerippleScreen from './components/MakeRippleScreen';
 import SearchTagScreen from './components/SearchTagScreen';
+import RippleCreatedScreen from './components/RippleCreatedScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -56,7 +57,14 @@ function SearchStackScreen() {
         name="SearchTagScreen"
         component={SearchTagScreen}
         options={{
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, // iOS 스타일의 수평 전환 효과를 사용
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <SearchStack.Screen
+        name="RippleCreatedScreen"
+        component={RippleCreatedScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </SearchStack.Navigator>

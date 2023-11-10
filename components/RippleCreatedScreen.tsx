@@ -11,7 +11,7 @@ import MapView, {Marker} from 'react-native-maps';
 import {RootStackParamList} from '../types/navigationTypes';
 
 // Style
-import styles from '../styles/RippleCreatedScreen';
+import styles from '../styles/RippleCreatedScreenStyles';
 
 function RippleCreatedScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
