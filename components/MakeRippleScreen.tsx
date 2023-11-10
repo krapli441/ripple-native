@@ -133,15 +133,25 @@ function MakeRippleScreen(): React.ReactElement {
 
   const createRipple = async (rippleData: any) => {
     try {
-      const response = await fetch(
-        'http://192.168.0.215:3000/ripples',
-        rippleData,
-      );
+      const response = await fetch('http://192.168.0.215:3000/ripples', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(rippleData),
+      });
+
+      const responseBody = await response.json();
 
       if (response.status === 201) {
-        console.log('Ripple 생성', response);
+        console.log('Ripple 생성 성공', responseBody);
       } else {
-        // 다른 응답 처리 (에러 메세지 표시 등)
+        console.log(
+          'Ripple 생성 실패',
+          response.status,
+          response.statusText,
+          responseBody,
+        );
       }
     } catch (error) {
       console.log('Ripple 생성 에러 :', error);
@@ -220,9 +230,13 @@ function MakeRippleScreen(): React.ReactElement {
               artist: track?.artist,
               albumCoverUrl: track?.imageUrl,
               spotifyExternalUrl: track?.externalUrl,
-              location: location,
-              tag: tags,
+              location: {
+                latitude: location?.latitude,
+                longitude: location?.longitude,
+              },
+              tag: tags.map(tag => tag.name),
               likes: 0,
+              expiresAt: new Date(/* 만료 날짜 계산 */),
             };
             console.log('Ripple 데이터', rippleData);
             createRipple(rippleData);
