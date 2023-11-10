@@ -32,6 +32,7 @@ interface Tag {
 
 const mapViewProps = {
   customMapStyle: MapStyle,
+  mapPadding: {bottom: 0, top: 20, right: 0, left: 0},
   scrollEnabled: false,
   zoomEnabled: false,
   rotateEnabled: false,
@@ -237,7 +238,7 @@ function MakeRippleScreen(): React.ReactElement {
               },
               tag: tags.map(tag => tag.name),
               likes: 0,
-              expiresAt: new Date(/* 만료 날짜 계산 */),
+              expiresAt: new Date(/* 만료 날짜 계산 */).toISOString(),
             };
             console.log('Ripple 데이터', rippleData);
             createRipple(rippleData);

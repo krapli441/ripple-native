@@ -1,6 +1,12 @@
 // react & react-native
 import React from 'react';
-import {View, Text, TouchableOpacity, useColorScheme} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  Image,
+} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -17,7 +23,7 @@ import styles from '../styles/RippleCreatedScreenStyles';
 
 const mapViewProps = {
   customMapStyle: MapStyle,
-  mapPadding: {bottom: 90, top: 0, right: 0, left: 0},
+  mapPadding: {bottom: 0, top: 0, right: 0, left: 0},
   scrollEnabled: false,
   zoomEnabled: false,
   rotateEnabled: false,
@@ -55,6 +61,10 @@ function RippleCreatedScreen(): React.ReactElement {
           coordinate={rippleData.location}
           title={rippleData.title}
           description={rippleData.artist}>
+          <Image
+            source={require('../assets/img/ripple_sonar.gif')}
+            style={{width: 30, height: 30}}
+          />
           {/* 마커에 추가할 말풍선 내용이 필요합니다 */}
         </Marker>
       </MapView>
