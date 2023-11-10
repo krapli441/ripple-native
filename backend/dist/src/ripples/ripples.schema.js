@@ -66,6 +66,7 @@ exports.Ripple = Ripple = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Ripple);
 exports.RippleSchema = mongoose_1.SchemaFactory.createForClass(Ripple);
+exports.RippleSchema.index({ location: '2dsphere' });
 exports.RippleSchema.pre('save', function (next) {
     if (this.isNew) {
         this.expiresAt = new Date(this.createdAt.getTime() + 24 * 60 * 60 * 1000);

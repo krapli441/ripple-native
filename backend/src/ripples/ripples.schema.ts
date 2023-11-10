@@ -62,6 +62,7 @@ export class Ripple extends Document {
 }
 
 export const RippleSchema = SchemaFactory.createForClass(Ripple);
+RippleSchema.index({ location: '2dsphere' });
 
 RippleSchema.pre<IRipple>('save', function (next) {
   if (this.isNew) {
