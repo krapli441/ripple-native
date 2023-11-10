@@ -41,6 +41,7 @@ __decorate([
             latitude: { type: Number, required: true },
             longitude: { type: Number, required: true },
         },
+        _id: false,
         required: true,
     }),
     __metadata("design:type", Object)
