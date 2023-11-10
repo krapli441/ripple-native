@@ -2,9 +2,9 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#f8f9fa',
-    // justifyContent: 'flex-start',
+    justifyContent: 'flex-start',
   },
   tagsContainer: {
     flexDirection: 'row',

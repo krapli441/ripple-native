@@ -21,7 +21,7 @@ let TagService = class TagService {
         this.tagModel = tagModel;
     }
     async getRandomTags() {
-        return this.tagModel.aggregate([{ $sample: { size: 8 } }]).exec();
+        return this.tagModel.aggregate([{ $sample: { size: 5 } }]).exec();
     }
     async getAllTags() {
         return this.tagModel.find().exec();

@@ -133,7 +133,7 @@ function MakeRippleScreen(): React.ReactElement {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.keyboardAvoidingView}>
-      <ScrollView style={styles.searchContainer}>
+      <View style={styles.searchContainer}>
         <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
         <Text style={styles.header}>음악 남기기</Text>
         {track && (
@@ -199,7 +199,7 @@ function MakeRippleScreen(): React.ReactElement {
           }}>
           <Text style={styles.completeButtonText}>음악 남기기</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </KeyboardAvoidingView>
   );
 }
