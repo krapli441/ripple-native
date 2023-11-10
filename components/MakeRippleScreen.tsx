@@ -216,7 +216,12 @@ function MakeRippleScreen(): React.ReactElement {
               title: track?.title,
               artist: track?.artist,
               albumCoverUrl: track?.imageUrl,
+              spotifyExternalUrl: track?.externalUrl,
+              location: location,
+              tag: tags,
+              likes: 0,
             };
+            console.log('Ripple 데이터',rippleData);
             createRipple(rippleData);
           }}>
           <Text style={styles.completeButtonText}>음악 남기기</Text>
