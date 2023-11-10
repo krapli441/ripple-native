@@ -129,6 +129,32 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
+  const fetchNearbyRipples = async (
+    latitude: number,
+    longitude: number,
+    maxDistance: number,
+  ) => {
+    try {
+      const response = await fetch(
+        `http://http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+      );
+      if (response.ok) {
+        const ripples = await response.json();
+        console.log('사용자 주변 리플 :', ripples);
+      } else {
+        console.log('리플 불러오기 실패');
+      }
+    } catch (error) {
+      console.error('fetchNearbyRipples Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (coords) {
+      fetchNearbyRipples(coords.latitude, coords.longitude, 1000); // 1000은 예시로 사용된 검색 반경입니다. 필요에 따라 조정하세요.
+    }
+  }, [coords]);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
