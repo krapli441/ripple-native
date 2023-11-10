@@ -23,6 +23,7 @@ import MapStyle from '../maps/customMapStyle.json';
 // Utils
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
+import {useLocation} from '../utils/LocationContext';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
@@ -66,6 +67,7 @@ function MapScreen(): React.ReactElement {
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
 
+  const {setLocation} = useLocation();
   const authToken = useAuthToken();
 
   useFocusEffect(
@@ -94,6 +96,13 @@ function MapScreen(): React.ReactElement {
 
   const updateUserLocation = async (newCoords: Coords) => {
     setLocationState(prevState => ({...prevState, coords: newCoords}));
+    setLocation(prevState => ({
+      ...prevState,
+      latitude: newCoords.latitude,
+      longitude: newCoords.longitude,
+      latitudeDelta: prevState?.latitudeDelta ?? 0,
+      longitudeDelta: prevState?.longitudeDelta ?? 0,
+    }));
     if (mapRef.current) {
       const currentCamera = await mapRef.current.getCamera();
       const newCamera = {
@@ -105,11 +114,13 @@ function MapScreen(): React.ReactElement {
     }
   };
   useEffect(() => {
+    setLocation;
     fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
   }, []);
 
   useEffect(() => {
     const clearWatch = watchUserLocation(
+      setLocation,
       setLocationState,
       updateUserLocation,
       GEOLOCATION_OPTIONS,

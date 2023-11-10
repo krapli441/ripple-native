@@ -57,6 +57,7 @@ export const fetchInitialLocation = (
 };
 
 export const watchUserLocation = (
+  setLocation: (region: Region) => void,
   setLocationState: Function,
   updateUserLocation: (coords: Coords) => void,
   GEOLOCATION_OPTIONS: Object,
@@ -67,6 +68,12 @@ export const watchUserLocation = (
     position => {
       const {latitude, longitude} = position.coords;
       const newCoords = {latitude, longitude};
+      const newRegion = {
+        ...newCoords,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+      };
+      setLocation(newRegion);
       setLocationState((prevState: LocationState) => ({
         ...prevState,
         gpsError: false,
