@@ -134,7 +134,7 @@ function MakeRippleScreen(): React.ReactElement {
 
   const createRipple = async (rippleData: any) => {
     try {
-      const response = await fetch('http://192.168.0.215:3000/ripples', {
+      const response = await fetch('http://192.168.123.130:3000/ripples', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ function MakeRippleScreen(): React.ReactElement {
               spotifyExternalUrl: track?.externalUrl,
               location: {
                 type: 'Point',
-                coordinates: [location?.longitude, location?.latitude], // GeoJSON 형식으로 변경
+                coordinates: [location?.longitude, location?.latitude],
               },
               tag: tags.map(tag => tag.name),
               likes: 0,
