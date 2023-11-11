@@ -136,7 +136,7 @@ function MapScreen(): React.ReactElement {
   ) => {
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+        `http://192.168.123.130:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
         const ripples = await response.json();

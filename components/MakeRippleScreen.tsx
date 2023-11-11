@@ -79,7 +79,7 @@ function MakeRippleScreen(): React.ReactElement {
   useEffect(() => {
     const fetchRandomTags = async () => {
       try {
-        const response = await fetch('http://192.168.0.215:3000/tags/random');
+        const response = await fetch('http://192.168.123.130:3000/tags/random');
         if (!response.ok) {
           throw new Error('Server error');
         }
@@ -99,7 +99,7 @@ function MakeRippleScreen(): React.ReactElement {
     if (route.params?.selectedTags) {
       const updateTagsWithSelected = async () => {
         try {
-          const response = await fetch('http://192.168.0.215:3000/tags/all');
+          const response = await fetch('http://192.168.123.130:3000/tags/all');
           if (!response.ok) {
             throw new Error('Server error');
           }
