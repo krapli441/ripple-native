@@ -27,6 +27,7 @@ import {useLocation} from '../utils/LocationContext';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
+import {Ripple} from '../types/rippleTypes';
 
 // Style
 import styles from '../styles/MapScreenStyles';
@@ -66,6 +67,8 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
+
+  const [ripples, setRipples] = useState<Ripple[]>([]);
 
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
@@ -139,7 +142,9 @@ function MapScreen(): React.ReactElement {
         `http://192.168.123.130:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
-        const ripples = await response.json();
+        const ripples: Ripple[] = await response.json();
+        setRipples(ripples);
+        console.log('사용자 주변 리플 :', ripples);
         console.log('사용자 주변 리플 :', ripples);
       } else {
         console.log('리플 불러오기 실패');
@@ -172,6 +177,18 @@ function MapScreen(): React.ReactElement {
             />
           </Marker>
         )}
+        {ripples.map((ripple, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: ripple.location.coordinates[1],
+              longitude: ripple.location.coordinates[0],
+            }}
+            title={ripple.title}
+            description={ripple.artist}>
+            {/* 마커 커스텀 디자인이 필요하면 여기에 추가 */}
+          </Marker>
+        ))}
       </MapView>
       {gpsError && (
         <Animated.View
