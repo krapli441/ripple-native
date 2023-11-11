@@ -84,10 +84,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
+    maxWidth: 200,
   },
   calloutArtist: {
     fontSize: 14,
     color: 'grey',
+    maxWidth: 200,
   },
   tagContainer: {
     flexDirection: 'row',

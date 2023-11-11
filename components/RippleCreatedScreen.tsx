@@ -94,8 +94,8 @@ function RippleCreatedScreen(): React.ReactElement {
                 style={styles.albumCover}
               />
               <View style={styles.calloutInfo}>
-                <Text style={styles.calloutTitle}>{rippleData.title}</Text>
-                <Text style={styles.calloutArtist}>{rippleData.artist}</Text>
+                <Text style={styles.calloutTitle} numberOfLines={1}>{rippleData.title}</Text>
+                <Text style={styles.calloutArtist} numberOfLines={1}>{rippleData.artist}</Text>
               </View>
             </View>
             <View style={styles.tagContainer}>
