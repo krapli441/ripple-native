@@ -10,6 +10,7 @@ import {
   Easing,
   Text,
   Image,
+  Linking,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -159,6 +160,10 @@ function MapScreen(): React.ReactElement {
       fetchNearbyRipples(coords.latitude, coords.longitude, 1000); // 1000은 예시로 사용된 검색 반경입니다. 필요에 따라 조정하세요.
     }
   }, [coords]);
+
+  const handleSpotifyPlay = (spotifyUrl: string) => {
+    Linking.openURL(spotifyUrl);
+  };
 
   return (
     <View style={styles.container}>
