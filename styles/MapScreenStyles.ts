@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   calloutStyle: {
     width: 260, // 콜아웃의 너비
     minHeight: 120, // 최소 높이
-    // backgroundColor: 'white', // 배경색
+    backgroundColor: 'white', // 배경색
     borderRadius: 6, // 모서리 둥글기
     padding: 10, // 내부 패딩
     alignItems: 'flex-start', // 내부 아이템 가운데 정렬

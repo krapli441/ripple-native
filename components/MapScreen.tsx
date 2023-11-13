@@ -196,6 +196,7 @@ function MapScreen(): React.ReactElement {
         )}
         {ripples.map((ripple, index) => (
           <Marker
+          style={{padding:10}}
             key={index}
             coordinate={{
               latitude: ripple.location.coordinates[1],
@@ -205,7 +206,7 @@ function MapScreen(): React.ReactElement {
               source={require('../assets/img/ripplemarker.png')}
               style={{width: 30, height: 30}}
             />
-            <Callout style={styles.calloutStyle}>
+            <Callout tooltip={true} style={styles.calloutStyle}>
               <Text style={styles.userInfo}>{ripple.userId}</Text>
               <View style={styles.secondRow}>
                 <Image
