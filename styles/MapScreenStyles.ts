@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
 
   calloutButtonText: {
+    fontSize: 11,
     textAlign: 'center',
     alignItems: 'center',
   },
@@ -147,6 +148,11 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#1DB954',
     borderRadius: 10,
+  },
+  buttonLayout: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });
 

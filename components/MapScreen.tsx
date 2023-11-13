@@ -5,13 +5,11 @@ import {
   Animated,
   StatusBar,
   useColorScheme,
-  AppState,
   TouchableOpacity,
   Easing,
   Text,
   Image,
   Linking,
-  Button,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -24,6 +22,7 @@ import MapView, {
   CalloutSubview,
 } from 'react-native-maps';
 import {mapViewProps} from '../maps/MapScreen-mapViewProps';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Components
 
@@ -213,7 +212,7 @@ function MapScreen(): React.ReactElement {
                   <View style={styles.tagContainer}>
                     {ripple.tag.map((tag, idx) => (
                       <Text style={styles.tagText} key={idx}>
-                        {tag}
+                        #{tag}
                       </Text>
                     ))}
                   </View>
@@ -223,7 +222,8 @@ function MapScreen(): React.ReactElement {
                 <CalloutSubview
                   onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
                   style={styles.calloutSpotifyButton}>
-                  <TouchableOpacity>
+                  <TouchableOpacity style={styles.buttonLayout}>
+                    <Icon name="spotify" size={20} color="black" />
                     <Text style={styles.calloutButtonText}>
                       Spotify에서 재생
                     </Text>
@@ -232,7 +232,8 @@ function MapScreen(): React.ReactElement {
                 <CalloutSubview
                   onPress={() => handleLike(ripple._id)}
                   style={styles.calloutLikeButton}>
-                  <TouchableOpacity>
+                  <TouchableOpacity style={styles.buttonLayout}>
+                    <Icon name="heart" size={20} color="white" />
                     <Text style={styles.calloutLikeButtonText}>좋아요</Text>
                   </TouchableOpacity>
                 </CalloutSubview>
