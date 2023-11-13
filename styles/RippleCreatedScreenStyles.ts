@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start', // 세로 축을 기준으로 아이템을 중앙 정렬합니다.
     width: 'auto', // 너비 조정
     height: 'auto', // 높이 조정
-    top: '32%', // 상단에서 얼마나 떨어질지 지정
+    top: '34%', // 상단에서 얼마나 떨어질지 지정
     alignSelf: 'center', // 가운데 정렬
     backgroundColor: 'white', // 배경색
     borderRadius: 10, // 모서리 둥글기
