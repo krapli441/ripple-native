@@ -196,7 +196,7 @@ function MapScreen(): React.ReactElement {
         )}
         {ripples.map((ripple, index) => (
           <Marker
-          style={{padding:10}}
+            style={{padding: 10}}
             key={index}
             coordinate={{
               latitude: ripple.location.coordinates[1],
@@ -226,14 +226,16 @@ function MapScreen(): React.ReactElement {
                   onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
                   style={styles.calloutSpotifyButton}>
                   <TouchableOpacity>
-                    <Text>Spotify에서 재생</Text>
+                    <Text style={styles.calloutButtonText}>
+                      Spotify에서 재생
+                    </Text>
                   </TouchableOpacity>
                 </CalloutSubview>
                 <CalloutSubview
                   onPress={() => handleLike(ripple._id)}
                   style={styles.calloutLikeButton}>
                   <TouchableOpacity>
-                    <Text style={{color: 'white'}}>좋아요</Text>
+                    <Text style={styles.calloutLikeButtonText}>좋아요</Text>
                   </TouchableOpacity>
                 </CalloutSubview>
               </View>

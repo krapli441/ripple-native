@@ -84,14 +84,25 @@ const styles = StyleSheet.create({
     fontSize: 12, // 태그 폰트 크기
   },
   calloutLikeButton: {
+    width: '50%',
     padding: 10,
     backgroundColor: 'black',
     borderRadius: 10,
   },
   calloutSpotifyButton: {
+    width: '50%',
     padding: 10,
     backgroundColor: '#1DB954',
     borderRadius: 10,
+  },
+  calloutButtonText: {
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  calloutLikeButtonText: {
+    textAlign: 'center',
+    alignItems: 'center',
+    color: 'white',
   },
   calloutText: {
     fontSize: 14,
