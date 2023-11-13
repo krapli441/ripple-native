@@ -201,6 +201,11 @@ function MapScreen(): React.ReactElement {
               latitude: ripple.location.coordinates[1],
               longitude: ripple.location.coordinates[0],
             }}>
+            <Image
+              source={require('../assets/img/ripplemarker.png')}
+              style={{width: 30, height: 30}}
+            />
+
             <Callout tooltip style={styles.calloutStyle}>
               <Text>{ripple.userId}</Text>
               <Image

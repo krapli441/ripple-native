@@ -52,12 +52,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white', // 배경색
     borderRadius: 6, // 모서리 둥글기
     padding: 10, // 내부 패딩
-    alignItems: 'center', // 내부 아이템 가운데 정렬
+    alignItems: 'flex-start', // 내부 아이템 가운데 정렬
     shadowColor: '#000', // 그림자 색상
     shadowOffset: {width: 0, height: 2}, // 그림자 위치
     shadowOpacity: 0.25, // 그림자 투명도
     shadowRadius: 3.84, // 그림자 반경
-    elevation: 5, // 안드로이드 전용 그림자 깊이
   },
   calloutView: {
     width: '100%', // 콜아웃 뷰의 전체 너비 사용
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white', // Background color for the callout content
     borderRadius: 6, // Rounded corners for a smoother look
     shadowColor: '#000', // Shadow for 3D effect, can be adjusted or removed
-    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOffset: {width: 0, height: 2}, // Shadow offset
     shadowOpacity: 0.25, // Shadow opacity
     shadowRadius: 3.84, // Shadow blur radius
     elevation: 5, // Elevation for Android
