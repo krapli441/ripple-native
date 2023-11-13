@@ -24,6 +24,7 @@ import MapView, {
   CalloutSubview,
 } from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
+import {mapViewProps} from '../maps/mapViewProps';
 
 // Components
 
@@ -50,20 +51,6 @@ const GEOLOCATION_OPTIONS = {
   maximumAge: 1000,
   timeout: 5000,
   distanceFilter: 5,
-};
-
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 90, top: 0, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: true,
-  rotateEnabled: true,
-  minZoomLevel: 15,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
 };
 
 function MapScreen(): React.ReactElement {
