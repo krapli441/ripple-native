@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   calloutText: {
-    fontSize: 14,
+    fontSize: 18,
     color: 'black',
   },
   calloutButton: {

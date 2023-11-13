@@ -214,8 +214,10 @@ function MapScreen(): React.ReactElement {
                   style={styles.albumCover}
                 />
                 <View style={styles.trackInfo}>
-                  <Text>{ripple.title}</Text>
-                  <Text>{ripple.artist}</Text>
+                  <Text style={styles.calloutText} numberOfLines={1}>
+                    {ripple.title}
+                  </Text>
+                  <Text numberOfLines={1}>{ripple.artist}</Text>
                   {ripple.tag.map((tag, idx) => (
                     <Text key={idx}>{tag}</Text>
                   ))}
