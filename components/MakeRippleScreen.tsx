@@ -134,7 +134,7 @@ function MakeRippleScreen(): React.ReactElement {
 
   const createRipple = async (rippleData: any) => {
     try {
-      const response = await fetch('http://192.168.123.130:3000/ripples', {
+      const response = await fetch('http://192.168.0.215:3000/ripples', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

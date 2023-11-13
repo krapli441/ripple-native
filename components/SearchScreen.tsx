@@ -56,7 +56,7 @@ function SearchScreen(): React.ReactElement {
         throw new Error('사용자 인증 토큰이 없습니다.');
       }
 
-      const response = await fetch('http://192.168.123.130:3000/search', {
+      const response = await fetch('http://192.168.0.215:3000/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
