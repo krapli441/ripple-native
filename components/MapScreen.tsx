@@ -224,12 +224,16 @@ function MapScreen(): React.ReactElement {
                 <CalloutSubview
                   onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
                   style={styles.calloutSubview}>
-                  <Text>Spotify에서 재생</Text>
+                  <TouchableOpacity>
+                    <Text>Spotify에서 재생</Text>
+                  </TouchableOpacity>
                 </CalloutSubview>
                 <CalloutSubview
                   onPress={() => handleLike(ripple._id)}
                   style={styles.calloutSubview}>
-                  <Text>좋아요</Text>
+                  <TouchableOpacity>
+                    <Text>좋아요</Text>
+                  </TouchableOpacity>
                 </CalloutSubview>
               </View>
             </Callout>
