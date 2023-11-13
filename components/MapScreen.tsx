@@ -24,6 +24,7 @@ import MapStyle from '../maps/customMapStyle.json';
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
 import {useLocation} from '../utils/LocationContext';
+import Config from 'react-native-config';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
@@ -139,7 +140,7 @@ function MapScreen(): React.ReactElement {
   ) => {
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+        `http://${Config.SERVER_ADDRESS}:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
         const ripples: Ripple[] = await response.json();

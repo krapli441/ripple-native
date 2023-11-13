@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+import Config from 'react-native-config';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
@@ -41,7 +42,9 @@ function SearchTagScreen(): React.ReactElement {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch('http://192.168.0.215:3000/tags/all');
+        const response = await fetch(
+          `http://${Config.SERVER_ADDRESS}:3000/tags/all`,
+        );
         if (!response.ok) {
           throw new Error('Server error');
         }

@@ -14,6 +14,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
+import Config from 'react-native-config';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -56,14 +57,17 @@ function SearchScreen(): React.ReactElement {
         throw new Error('사용자 인증 토큰이 없습니다.');
       }
 
-      const response = await fetch('http://192.168.0.215:3000/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${jwtToken}`,
+      const response = await fetch(
+        `http://${Config.SERVER_ADDRESS}:3000/search`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${jwtToken}`,
+          },
+          body: JSON.stringify({query: searchQuery}),
         },
-        body: JSON.stringify({query: searchQuery}),
-      });
+      );
 
       const data = await response.json();
       // console.log(data);

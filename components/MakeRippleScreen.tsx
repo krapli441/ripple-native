@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
+import Config from 'react-native-config';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -99,7 +100,9 @@ function MakeRippleScreen(): React.ReactElement {
     if (route.params?.selectedTags) {
       const updateTagsWithSelected = async () => {
         try {
-          const response = await fetch('http://192.168.123.130:3000/tags/all');
+          const response = await fetch(
+            `http://${Config.SERVER_ADDRESS}:3000/tags/all`,
+          );
           if (!response.ok) {
             throw new Error('Server error');
           }
@@ -134,13 +137,16 @@ function MakeRippleScreen(): React.ReactElement {
 
   const createRipple = async (rippleData: any) => {
     try {
-      const response = await fetch('http://192.168.0.215:3000/ripples', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `http://${Config.SERVER_ADDRESS}:3000/ripples`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(rippleData),
         },
-        body: JSON.stringify(rippleData),
-      });
+      );
 
       const responseBody = await response.json();
 

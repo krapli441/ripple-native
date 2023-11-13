@@ -8,7 +8,7 @@ const config: AuthConfiguration = {
   scopes: ['user-read-email', 'playlist-modify-public', 'user-read-private'],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    tokenEndpoint: 'http://192.168.0.215:3000/auth/spotify/token',
+    tokenEndpoint: `http://${Config.SERVER_ADDRESS}:3000/auth/spotify/token`,
   },
   skipCodeExchange: true,
 };
@@ -21,7 +21,7 @@ const handleSpotifyLogin = async (navigation: any) => {
 
     // 서버에 인증 코드와 codeVerifier를 전달
     const response = await fetch(
-      'http://192.168.0.215:3000/auth/spotify/token',
+      `http://${Config.SERVER_ADDRESS}:3000/auth/spotify/token`,
       {
         method: 'POST',
         headers: {
