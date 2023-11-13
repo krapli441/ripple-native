@@ -46,18 +46,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#000',
   },
-  calloutStyle: {
-    width: 260, // 콜아웃의 너비
-    minHeight: 120, // 최소 높이
-    backgroundColor: 'white', // 배경색
-    borderRadius: 6, // 모서리 둥글기
-    padding: 10, // 내부 패딩
-    alignItems: 'flex-start', // 내부 아이템 가운데 정렬
-    shadowColor: '#000', // 그림자 색상
-    shadowOffset: {width: 0, height: 2}, // 그림자 위치
-    shadowOpacity: 0.25, // 그림자 투명도
-    shadowRadius: 3.84, // 그림자 반경
-  },
   calloutView: {
     width: '100%', // 콜아웃 뷰의 전체 너비 사용
     alignItems: 'flex-start', // 가로축에서 시작 위치에 아이템 정렬
@@ -83,42 +71,65 @@ const styles = StyleSheet.create({
     marginHorizontal: 2, // 수평 여백
     fontSize: 12, // 태그 폰트 크기
   },
-  calloutSubview: {
-    padding: 10, // Add padding for spacing inside the callout
-    backgroundColor: 'white', // Background color for the callout content
-    borderRadius: 6, // Rounded corners for a smoother look
-  },
-  calloutText: {
-    fontSize: 14,
-    color: 'black',
-  },
   calloutButton: {
     backgroundColor: '#1DB954',
     padding: 10,
     borderRadius: 20,
     margin: 5,
   },
+  // Callout 스타일
+  calloutStyle: {
+    width: 260, // 너비
+    minHeight: 120, // 최소 높이
+    backgroundColor: 'white', // 배경색
+    borderRadius: 6, // 둥근 모서리
+    padding: 10, // 내부 패딩
+    alignItems: 'flex-start', // 좌측 정렬
+    shadowColor: '#000', // 그림자 색상
+    shadowOffset: {width: 0, height: 2}, // 그림자 위치
+    shadowOpacity: 0.25, // 그림자 투명도
+    shadowRadius: 3.84, // 그림자 크기
+  },
+
+  // 사용자 정보 스타일
   userInfo: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
   },
+
+  // 앨범 커버 및 트랙 정보 스타일
   secondRow: {
-    flexDirection: 'row',
+    flexDirection: 'row', // 가로로 배열
+    alignItems: 'center', // 가운데 정렬
   },
   albumCover: {
     width: 60,
     height: 60,
     borderRadius: 10,
+    marginRight: 10, // 오른쪽 여백
   },
   trackInfo: {
-    marginLeft: 10,
-    justifyContent: 'space-around',
+    flex: 1, // 나머지 공간 차지
   },
+
+  // 버튼 스타일
   thirdRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around', // 공간 균등 분배
     marginTop: 10,
+  },
+
+  // CalloutSubview 스타일
+  calloutSubview: {
+    backgroundColor: '#1DB954',
+    borderRadius: 20,
+    padding: 10,
+    margin: 5,
+  },
+  calloutText: {
+    fontSize: 14,
+    color: 'white',
   },
 });
 
