@@ -74,7 +74,6 @@ export const watchUserLocation = (
         longitudeDelta: 0.0121,
       };
       setLocation(newRegion);
-      console.log('User location:', newRegion);
       setLocationState((prevState: LocationState) => ({
         ...prevState,
         gpsError: false,
