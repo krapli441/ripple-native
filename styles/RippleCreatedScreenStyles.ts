@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: 'auto',
     height: 'auto',
-    top: '34%',
+    top: '32%',
     alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 10,

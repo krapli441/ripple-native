@@ -80,7 +80,7 @@ function RippleCreatedScreen(): React.ReactElement {
             longitude: rippleData.location.coordinates[0],
           }}>
           <Image
-            source={require('../assets/img/ripple_sonar.gif')}
+            source={require('../assets/img/ripplemarker.png')}
             style={{width: 30, height: 30}}
           />
         </Marker>
@@ -94,8 +94,12 @@ function RippleCreatedScreen(): React.ReactElement {
                 style={styles.albumCover}
               />
               <View style={styles.calloutInfo}>
-                <Text style={styles.calloutTitle} numberOfLines={1}>{rippleData.title}</Text>
-                <Text style={styles.calloutArtist} numberOfLines={1}>{rippleData.artist}</Text>
+                <Text style={styles.calloutTitle} numberOfLines={1}>
+                  {rippleData.title}
+                </Text>
+                <Text style={styles.calloutArtist} numberOfLines={1}>
+                  {rippleData.artist}
+                </Text>
               </View>
             </View>
             <View style={styles.tagContainer}>
