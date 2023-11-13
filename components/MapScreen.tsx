@@ -132,10 +132,25 @@ function MapScreen(): React.ReactElement {
         `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
-        const ripples: Ripple[] = await response.json();
-        setRipples(ripples);
-        console.log('사용자 주변 리플 :', ripples);
-        console.log('사용자 주변 리플 :', ripples);
+        const newRipples: Ripple[] = await response.json();
+
+        // 현재 상태의 리플과 새로 가져온 리플을 비교하여 변경 사항이 있는지 확인
+        const updatedRipples = newRipples.map(newRipple => {
+          const existingRipple = ripples.find(r => r._id === newRipple._id);
+          if (
+            existingRipple &&
+            (existingRipple.location.coordinates[0] !==
+              newRipple.location.coordinates[0] ||
+              existingRipple.location.coordinates[1] !==
+                newRipple.location.coordinates[1])
+          ) {
+            // 좌표가 변경된 경우에만 새로운 객체를 반환
+            return newRipple;
+          }
+          return existingRipple || newRipple;
+        });
+
+        setRipples(updatedRipples);
       } else {
         console.log('리플 불러오기 실패');
       }
