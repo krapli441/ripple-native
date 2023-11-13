@@ -2,7 +2,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  ScrollView,
   StatusBar,
   Text,
   useColorScheme,
@@ -26,23 +25,11 @@ import {RootStackParamList} from '../types/navigationTypes';
 import styles from '../styles/MakeRippleScreenStyles';
 import MapStyle from '../maps/customMapStyle.json';
 
+import {mapViewProps} from '../maps/MakeRippleScreen-mapViewProps';
+
 interface Tag {
   name: string;
 }
-
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 0, top: 20, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: false,
-  rotateEnabled: false,
-  minZoomLevel: 18,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
-};
 
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';

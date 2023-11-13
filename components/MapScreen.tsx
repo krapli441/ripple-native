@@ -23,8 +23,7 @@ import MapView, {
   Callout,
   CalloutSubview,
 } from 'react-native-maps';
-import MapStyle from '../maps/customMapStyle.json';
-import {mapViewProps} from '../maps/mapViewProps';
+import {mapViewProps} from '../maps/MapScreen-mapViewProps';
 
 // Components
 

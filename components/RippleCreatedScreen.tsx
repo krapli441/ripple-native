@@ -13,27 +13,13 @@ import type {NavigationProp} from '@react-navigation/native';
 
 // google maps
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
-import MapStyle from '../maps/customMapStyle.json';
+import {mapViewProps} from '../maps/RippleCreatedScreen-mapViewProps';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 
 // Style
 import styles from '../styles/RippleCreatedScreenStyles';
-
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 0, top: 50, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: false,
-  rotateEnabled: false,
-  minZoomLevel: 17,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
-};
 
 function RippleCreatedScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
