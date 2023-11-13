@@ -69,11 +69,10 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-
   const [ripples, setRipples] = useState<Ripple[]>([]);
-
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
+  const [selectedRipple, setSelectedRipple] = useState<Ripple | null>(null);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -167,6 +166,10 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
+  const onMarkerPress = (ripple: Ripple) => {
+    setSelectedRipple(ripple);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
@@ -190,34 +193,40 @@ function MapScreen(): React.ReactElement {
             coordinate={{
               latitude: ripple.location.coordinates[1],
               longitude: ripple.location.coordinates[0],
-            }}>
-            <Callout tooltip style={styles.calloutStyle}>
-              <View style={styles.calloutView}>
-                <Text>{ripple.userId}</Text>
-                <Image
-                  source={{uri: ripple.albumCoverUrl}}
-                  style={styles.albumCover}
-                />
-                <Text>{ripple.title}</Text>
-                <Text>{ripple.artist}</Text>
-                <View>
-                  {ripple.tag.map((tag, idx) => (
-                    <Text key={idx}>{tag}</Text>
-                  ))}
-                </View>
-                <Button
-                  title="Spotify에서 재생"
-                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
-                />
-                <Button
-                  title="좋아요"
-                  // onPress={() => handleLike(ripple._id)}
-                />
-              </View>
-            </Callout>
-          </Marker>
+            }}
+            onPress={() => onMarkerPress(ripple)}></Marker>
         ))}
       </MapView>
+
+      {selectedRipple && (
+        <View style={styles.customPopup}>
+          {/* 사용자 정의 팝업 내용 */}
+          <Text style={styles.popupText}>{selectedRipple.userId}</Text>
+          <Image
+            source={{uri: selectedRipple.albumCoverUrl}}
+            style={styles.albumCover}
+          />
+          <Text style={styles.popupTitle}>{selectedRipple.title}</Text>
+          <Text style={styles.popupText}>{selectedRipple.artist}</Text>
+          {selectedRipple.tag.map((tag, idx) => (
+            <Text key={idx}>{tag}</Text>
+          ))}
+          <TouchableOpacity
+            style={styles.popupButton}
+            onPress={() =>
+              handleSpotifyPlay(selectedRipple.spotifyExternalUrl)
+            }>
+            <Text style={styles.popupButtonText}>Spotify에서 재생</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.popupButton}
+            onPress={() => {
+              /* 좋아요 버튼 로직 */
+            }}>
+            <Text style={styles.popupButtonText}>좋아요</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       {gpsError && (
         <Animated.View
           style={[styles.errorOverlay, {transform: [{translateY: errorAnim}]}]}>
