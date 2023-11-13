@@ -74,9 +74,7 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-
   const [ripples, setRipples] = useState<Ripple[]>([]);
-
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
 
