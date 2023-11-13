@@ -85,18 +85,7 @@ const styles = StyleSheet.create({
     padding: 2, // 태그 내부 패딩
     fontSize: 12, // 태그 폰트 크기
   },
-  calloutLikeButton: {
-    width: '50%',
-    padding: 10,
-    backgroundColor: 'black',
-    borderRadius: 10,
-  },
-  calloutSpotifyButton: {
-    width: '50%',
-    padding: 10,
-    backgroundColor: '#1DB954',
-    borderRadius: 10,
-  },
+
   calloutButtonText: {
     textAlign: 'center',
     alignItems: 'center',
@@ -144,8 +133,20 @@ const styles = StyleSheet.create({
   thirdRow: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: 10,
+  },
+  calloutLikeButton: {
+    width: '48%',
+    padding: 10,
+    backgroundColor: 'black',
+    borderRadius: 10,
+  },
+  calloutSpotifyButton: {
+    width: '48%',
+    padding: 10,
+    backgroundColor: '#1DB954',
+    borderRadius: 10,
   },
 });
 
