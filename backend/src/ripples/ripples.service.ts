@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateRippleDto } from './create-ripple.dto';
@@ -55,5 +55,21 @@ export class RipplesService {
         ripple.toObject({ versionKey: false }),
       ) as IRipple[],
     );
+  }
+
+  async updateLike(id: string, userId: string): Promise<Ripple> {
+    const ripple = await this.rippleModel.findById(id).exec();
+    if (!ripple) {
+      throw new NotFoundException('Ripple not found');
+    }
+
+    const index = ripple.likedUsers.indexOf(userId);
+    if (index === -1) {
+      ripple.likedUsers.push(userId); // 사용자가 '좋아요'한 경우 추가
+    } else {
+      ripple.likedUsers.splice(index, 1); // 이미 '좋아요'한 경우 제거
+    }
+
+    return ripple.save();
   }
 }

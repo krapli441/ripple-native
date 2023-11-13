@@ -55,6 +55,20 @@ let RipplesService = class RipplesService {
             .exec();
         return Promise.resolve(ripples.map((ripple) => ripple.toObject({ versionKey: false })));
     }
+    async updateLike(id, userId) {
+        const ripple = await this.rippleModel.findById(id).exec();
+        if (!ripple) {
+            throw new common_1.NotFoundException('Ripple not found');
+        }
+        const index = ripple.likedUsers.indexOf(userId);
+        if (index === -1) {
+            ripple.likedUsers.push(userId);
+        }
+        else {
+            ripple.likedUsers.splice(index, 1);
+        }
+        return ripple.save();
+    }
 };
 exports.RipplesService = RipplesService;
 exports.RipplesService = RipplesService = __decorate([

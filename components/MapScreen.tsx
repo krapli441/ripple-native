@@ -170,10 +170,27 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  const handleLike = (rippleId: string) => {
-    console.log('Like Button Pressed for Ripple ID:', rippleId);
-    // Implement your logic to increase the likes count in the database
+  const handleLike = async (rippleId: string) => {
+    try {
+      const response = await fetch(`http://192.168.0.215:3000/ripples/like/${rippleId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // 추가적인 데이터가 필요하다면 body에 포함시키세요.
+      });
+  
+      if (response.ok) {
+        console.log('Like updated successfully');
+        // 필요하다면 상태 업데이트 로직을 추가하세요.
+      } else {
+        console.error('Failed to update like');
+      }
+    } catch (error) {
+      console.error('Error updating like:', error);
+    }
   };
+  
 
   return (
     <View style={styles.container}>

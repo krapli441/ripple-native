@@ -38,6 +38,7 @@ export interface IRipple extends Document {
     likes: number;
     createdAt: Date;
     expiresAt?: Date;
+    likedUsers: string[];
 }
 export declare class Ripple extends Document {
     userId: string;
@@ -49,6 +50,7 @@ export declare class Ripple extends Document {
     tag: string[];
     likes: number;
     expiresAt: Date;
+    likedUsers: string[];
 }
 export declare const RippleSchema: import("mongoose").Schema<Ripple, import("mongoose").Model<Ripple, any, any, any, Document<unknown, any, Ripple> & Ripple & {
     _id: import("mongoose").Types.ObjectId;

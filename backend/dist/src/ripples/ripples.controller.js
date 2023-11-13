@@ -39,6 +39,9 @@ let RipplesController = class RipplesController {
     remove(id) {
         return this.ripplesService.remove(id);
     }
+    updateLike(id, userId) {
+        return this.ripplesService.updateLike(id, userId);
+    }
 };
 exports.RipplesController = RipplesController;
 __decorate([
@@ -86,6 +89,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], RipplesController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Patch)(':id/like'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], RipplesController.prototype, "updateLike", null);
 exports.RipplesController = RipplesController = __decorate([
     (0, common_1.Controller)('ripples'),
     __metadata("design:paramtypes", [ripples_service_1.RipplesService])

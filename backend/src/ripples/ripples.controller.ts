@@ -56,4 +56,9 @@ export class RipplesController {
   remove(@Param('id') id: string) {
     return this.ripplesService.remove(id);
   }
+
+  @Patch(':id/like')
+  updateLike(@Param('id') id: string, @Body('userId') userId: string) {
+    return this.ripplesService.updateLike(id, userId);
+  }
 }
