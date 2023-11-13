@@ -177,7 +177,7 @@ function MapScreen(): React.ReactElement {
         {coords && (
           <Marker coordinate={coords} title="Your Position">
             <Image
-              source={require('../assets/img/ripple_sonar.gif')}
+              source={require('../assets/img/ripplemarker.png')}
               style={{width: 30, height: 30}}
             />
           </Marker>
@@ -192,6 +192,10 @@ function MapScreen(): React.ReactElement {
             title={ripple.title}
             description={ripple.artist}>
             {/* 마커 커스텀 디자인이 필요하면 여기에 추가 */}
+            <Image
+              source={require('../assets/img/otherUserMarker.png')}
+              style={{width: 30, height: 30}}
+            />
           </Marker>
         ))}
       </MapView>
