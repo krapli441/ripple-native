@@ -203,8 +203,8 @@ function MakeRippleScreen(): React.ReactElement {
                 longitude: location.longitude,
               }}>
               <Image
-                source={require('../assets/img/ripple_sonar.gif')}
-                style={{width: 30, height: 30}}
+                source={require('../assets/img/ripplemarker.png')}
+                style={{width: 20, height: 20}}
               />
             </Marker>
           )}

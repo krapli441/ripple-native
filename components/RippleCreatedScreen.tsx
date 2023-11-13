@@ -86,14 +86,14 @@ function RippleCreatedScreen(): React.ReactElement {
                 <Text style={styles.calloutArtist} numberOfLines={1}>
                   {rippleData.artist}
                 </Text>
+                <View style={styles.tagContainer}>
+                  {rippleData.tag.map((tag, index) => (
+                    <Text key={index} style={styles.tagText}>
+                      #{tag}
+                    </Text>
+                  ))}
+                </View>
               </View>
-            </View>
-            <View style={styles.tagContainer}>
-              {rippleData.tag.map((tag, index) => (
-                <Text key={index} style={styles.tagText}>
-                  {tag}
-                </Text>
-              ))}
             </View>
           </View>
         )}

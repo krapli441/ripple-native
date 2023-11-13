@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   customCallout: {
     position: 'absolute',
     alignItems: 'flex-start',
-    width: 'auto',
+    width: '80%', // 너비를 고정값으로 설정
     height: 'auto',
     top: '32%',
     alignSelf: 'center',
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   calloutInfo: {
     marginLeft: 10,
     flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   calloutRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-
   header: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   calloutTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 5,
     maxWidth: 200,
   },
   calloutArtist: {
@@ -93,9 +92,10 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 5,
+    flexWrap: 'wrap', // 내용이 넘치면 다음 줄로 넘어가게 설정
+    maxWidth: 280, // customCallout 너비에서 padding을 고려한 값으로 설정
   },
   tagText: {
     color: 'gray',
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginHorizontal: 2,
     fontSize: 12,
+    maxWidth: 80,
   },
 });
 
