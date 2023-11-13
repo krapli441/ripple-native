@@ -46,6 +46,50 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#000',
   },
+  calloutStyle: {
+    width: 260, // 콜아웃의 너비
+    minHeight: 120, // 최소 높이
+    backgroundColor: 'white', // 배경색
+    borderRadius: 6, // 모서리 둥글기
+    padding: 10, // 내부 패딩
+    alignItems: 'center', // 내부 아이템 가운데 정렬
+    shadowColor: '#000', // 그림자 색상
+    shadowOffset: {width: 0, height: 2}, // 그림자 위치
+    shadowOpacity: 0.25, // 그림자 투명도
+    shadowRadius: 3.84, // 그림자 반경
+    elevation: 5, // 안드로이드 전용 그림자 깊이
+  },
+  calloutView: {
+    width: '100%', // 콜아웃 뷰의 전체 너비 사용
+    alignItems: 'flex-start', // 가로축에서 시작 위치에 아이템 정렬
+  },
+  albumCover: {
+    width: 60, // 앨범 커버 너비
+    height: 60, // 앨범 커버 높이
+    borderRadius: 30, // 앨범 커버 모서리 둥글기
+    marginRight: 10, // 오른쪽 여백
+  },
+  title: {
+    fontSize: 16, // 제목 폰트 크기
+    fontWeight: 'bold', // 글씨 두께
+    color: '#333', // 글씨 색상
+  },
+  artist: {
+    fontSize: 14, // 아티스트 폰트 크기
+    color: '#666', // 글씨 색상
+  },
+  tagContainer: {
+    flexDirection: 'row', // 가로 방향 배치
+    flexWrap: 'wrap', // 태그가 여러 줄로 나눠질 수 있도록 함
+    marginTop: 5, // 상단 여백
+  },
+  tagText: {
+    backgroundColor: '#e1e1e1', // 태그 배경색
+    borderRadius: 10, // 태그 모서리 둥글기
+    padding: 5, // 태그 내부 패딩
+    marginHorizontal: 2, // 수평 여백
+    fontSize: 12, // 태그 폰트 크기
+  },
 });
 
 export default styles;

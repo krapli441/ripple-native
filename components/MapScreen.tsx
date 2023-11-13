@@ -10,13 +10,13 @@ import {
   Easing,
   Text,
   Image,
-  Linking,
+  Linking,Button
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 // Libraries
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 
 // Components
@@ -182,22 +182,36 @@ function MapScreen(): React.ReactElement {
             />
           </Marker>
         )}
-        {ripples.map((ripple, index) => (
-          <Marker
-            key={index}
-            coordinate={{
-              latitude: ripple.location.coordinates[1],
-              longitude: ripple.location.coordinates[0],
-            }}
-            title={ripple.title}
-            description={ripple.artist}>
-            {/* 마커 커스텀 디자인이 필요하면 여기에 추가 */}
-            <Image
-              source={require('../assets/img/otherUserMarker.png')}
-              style={{width: 30, height: 30}}
-            />
-          </Marker>
-        ))}
+      {ripples.map((ripple, index) => (
+        <Marker
+          key={index}
+          coordinate={{
+            latitude: ripple.location.coordinates[1],
+            longitude: ripple.location.coordinates[0],
+          }}>
+          <Callout tooltip style={styles.calloutStyle}>
+            <View style={styles.calloutView}>
+              <Text>User ID: {ripple.userId}</Text>
+              <Image source={{ uri: ripple.albumCoverUrl }} style={styles.albumCover} />
+              <Text>Title: {ripple.title}</Text>
+              <Text>Artist: {ripple.artist}</Text>
+              <View>
+                {ripple.tag.map((tag, idx) => (
+                  <Text key={idx}>{tag}</Text>
+                ))}
+              </View>
+              <Button
+                title="Spotify에서 재생"
+                onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
+              />
+              <Button
+                title="좋아요"
+                // onPress={() => handleLike(ripple._id)}
+              />
+            </View>
+          </Callout>
+        </Marker>
+      ))}
       </MapView>
       {gpsError && (
         <Animated.View
