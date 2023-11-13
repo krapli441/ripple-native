@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   calloutStyle: {
-    width: 260, // 콜아웃의 너비
+    width: 300, // 콜아웃의 너비
     minHeight: 120, // 최소 높이
     backgroundColor: 'white',
     borderRadius: 6,
@@ -106,10 +106,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: 'white',
   },
-  calloutText: {
+  titleText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: 'black',
+    flexShrink: 1, // 내용이 넘치면 줄이도록 설정
+  },
+  artistText: {
+    fontSize: 10,
+    fontWeight: '300',
+    color: 'gray',
     flexShrink: 1, // 내용이 넘치면 줄이도록 설정
   },
   calloutButton: {
@@ -133,6 +139,7 @@ const styles = StyleSheet.create({
   trackInfo: {
     marginLeft: 10,
     justifyContent: 'space-around',
+    flex: 1,
   },
   thirdRow: {
     flexDirection: 'row',

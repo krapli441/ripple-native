@@ -215,12 +215,17 @@ function MapScreen(): React.ReactElement {
                 />
                 <View style={styles.trackInfo}>
                   <Text
-                    style={styles.calloutText}
+                    style={styles.titleText}
                     numberOfLines={1}
                     ellipsizeMode="tail">
                     {ripple.title}
                   </Text>
-                  <Text numberOfLines={1}>{ripple.artist}</Text>
+                  <Text
+                    style={styles.artistText}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {ripple.artist}
+                  </Text>
                   <View style={styles.tagContainer}>
                     {ripple.tag.map((tag, idx) => (
                       <Text style={styles.tagText} key={idx}>
