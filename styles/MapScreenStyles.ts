@@ -83,10 +83,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 2, // 수평 여백
     fontSize: 12, // 태그 폰트 크기
   },
-  calloutSubview: {
-    padding: 10, // Add padding for spacing inside the callout
-    backgroundColor: 'white', // Background color for the callout content
-    borderRadius: 6, // Rounded corners for a smoother look
+  calloutLikeButton: {
+    padding: 10,
+    backgroundColor: 'black',
+    borderRadius: 10,
+  },
+  calloutSpotifyButton: {
+    padding: 10,
+    backgroundColor: '#1DB954',
+    borderRadius: 10,
   },
   calloutText: {
     fontSize: 14,
