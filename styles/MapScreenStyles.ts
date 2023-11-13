@@ -49,14 +49,15 @@ const styles = StyleSheet.create({
   calloutStyle: {
     width: 260, // 콜아웃의 너비
     minHeight: 120, // 최소 높이
-    backgroundColor: 'white', // 배경색
-    borderRadius: 6, // 모서리 둥글기
-    padding: 10, // 내부 패딩
-    alignItems: 'flex-start', // 내부 아이템 가운데 정렬
-    shadowColor: '#000', // 그림자 색상
-    shadowOffset: {width: 0, height: 2}, // 그림자 위치
-    shadowOpacity: 0.25, // 그림자 투명도
-    shadowRadius: 3.84, // 그림자 반경
+    backgroundColor: 'white',
+    borderRadius: 6,
+    padding: 10,
+    alignItems: 'flex-start',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    flexWrap: 'wrap', // 내용이 넘치면 다음 줄로 넘어가게 설정
   },
   calloutView: {
     width: '100%', // 콜아웃 뷰의 전체 너비 사용
@@ -77,10 +78,8 @@ const styles = StyleSheet.create({
     marginTop: 5, // 상단 여백
   },
   tagText: {
-    backgroundColor: '#e1e1e1', // 태그 배경색
-    borderRadius: 10, // 태그 모서리 둥글기
-    padding: 5, // 태그 내부 패딩
-    marginHorizontal: 2, // 수평 여백
+    color: '#e1e1e1', // 태그 배경색
+    padding: 2, // 태그 내부 패딩
     fontSize: 12, // 태그 폰트 크기
   },
   calloutLikeButton: {
@@ -105,8 +104,10 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   calloutText: {
-    fontSize: 18,
+    fontSize: 14,
+    fontWeight: 'bold',
     color: 'black',
+    flexShrink: 1, // 내용이 넘치면 줄이도록 설정
   },
   calloutButton: {
     backgroundColor: '#1DB954',
@@ -116,7 +117,6 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     fontSize: 14,
-    fontWeight: 'bold',
     marginBottom: 5,
   },
   secondRow: {
