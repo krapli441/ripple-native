@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'gray', // 태그 배경색
     padding: 2, // 태그 내부 패딩
-    fontSize: 12, // 태그 폰트 크기
+    fontSize: 10, // 태그 폰트 크기
   },
 
   calloutButtonText: {
