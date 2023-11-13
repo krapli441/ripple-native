@@ -66,7 +66,6 @@ function MapScreen(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
-      console.log(authToken.username);
       return () => {
         // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
       };
@@ -174,7 +173,7 @@ function MapScreen(): React.ReactElement {
   const handleLike = async (rippleId: string, userId: string) => {
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/like/${rippleId}`,
+        `http://192.168.0.215:3000/ripples/${rippleId}/like`,
         {
           method: 'PATCH',
           headers: {
@@ -183,11 +182,13 @@ function MapScreen(): React.ReactElement {
           body: JSON.stringify({userId}),
         },
       );
-
+      console.log(response);
       if (response.ok) {
         console.log('Like updated successfully');
       } else {
         console.error('Failed to update like');
+        console.log(response.status);
+        console.log(response.statusText);
       }
     } catch (error) {
       console.error('Error updating like:', error);
