@@ -87,11 +87,6 @@ const styles = StyleSheet.create({
     padding: 10, // Add padding for spacing inside the callout
     backgroundColor: 'white', // Background color for the callout content
     borderRadius: 6, // Rounded corners for a smoother look
-    shadowColor: '#000', // Shadow for 3D effect, can be adjusted or removed
-    shadowOffset: {width: 0, height: 2}, // Shadow offset
-    shadowOpacity: 0.25, // Shadow opacity
-    shadowRadius: 3.84, // Shadow blur radius
-    elevation: 5, // Elevation for Android
   },
   calloutText: {
     fontSize: 14,
