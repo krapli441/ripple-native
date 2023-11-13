@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   calloutStyle: {
     width: 260, // 콜아웃의 너비
     minHeight: 120, // 최소 높이
-    backgroundColor: 'white', // 배경색
+    // backgroundColor: 'white', // 배경색
     borderRadius: 6, // 모서리 둥글기
     padding: 10, // 내부 패딩
     alignItems: 'flex-start', // 내부 아이템 가운데 정렬
@@ -93,23 +93,37 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84, // Shadow blur radius
     elevation: 5, // Elevation for Android
   },
-  albumCover: {
-    width: 60, // Width of the album cover image
-    height: 60, // Height of the album cover image
-    borderRadius: 10, // Make the image circular
-    margin: 5, // Margin around the image
-  },
   calloutText: {
-    fontSize: 14, // Font size for the text inside the callout
-    color: 'black', // Text color
-    // Add more text styling as needed
+    fontSize: 14,
+    color: 'black',
   },
   calloutButton: {
-    backgroundColor: '#1DB954', // Button background color
-    padding: 10, // Padding inside the button
-    borderRadius: 20, // Rounded button edges
-    margin: 5, // Margin around the button
-    // Add more button styling as needed
+    backgroundColor: '#1DB954',
+    padding: 10,
+    borderRadius: 20,
+    margin: 5,
+  },
+  userInfo: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  secondRow: {
+    flexDirection: 'row',
+  },
+  albumCover: {
+    width: 60,
+    height: 60,
+    borderRadius: 10,
+  },
+  trackInfo: {
+    marginLeft: 10,
+    justifyContent: 'space-around',
+  },
+  thirdRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 10,
   },
 });
 
