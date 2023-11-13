@@ -193,13 +193,13 @@ function MapScreen(): React.ReactElement {
             }}>
             <Callout tooltip style={styles.calloutStyle}>
               <View style={styles.calloutView}>
-                <Text>User ID: {ripple.userId}</Text>
+                <Text>{ripple.userId}</Text>
                 <Image
                   source={{uri: ripple.albumCoverUrl}}
                   style={styles.albumCover}
                 />
-                <Text>Title: {ripple.title}</Text>
-                <Text>Artist: {ripple.artist}</Text>
+                <Text>{ripple.title}</Text>
+                <Text>{ripple.artist}</Text>
                 <View>
                   {ripple.tag.map((tag, idx) => (
                     <Text key={idx}>{tag}</Text>

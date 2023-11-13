@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   albumCover: {
     width: 60, // 앨범 커버 너비
     height: 60, // 앨범 커버 높이
-    borderRadius: 30, // 앨범 커버 모서리 둥글기
+    borderRadius: 10, // 앨범 커버 모서리 둥글기
     marginRight: 10, // 오른쪽 여백
   },
   title: {
