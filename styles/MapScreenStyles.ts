@@ -90,20 +90,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 2, // 수평 여백
     fontSize: 12, // 태그 폰트 크기
   },
-  customPopup: {
-    position: 'absolute', // 팝업이 화면 내에서 절대 위치를 가짐
-    bottom: 100, // 화면 하단으로부터의 거리
-    left: 20, // 화면 좌측으로부터의 거리
-    right: 20, // 화면 우측으로부터의 거리
-    backgroundColor: 'white', // 배경색
-    borderRadius: 10, // 모서리 둥글게
-    padding: 15, // 내부 패딩
-    shadowColor: '#000', // 그림자 색
-    shadowOffset: {width: 0, height: 2}, // 그림자 위치
-    shadowOpacity: 0.25, // 그림자 투명도
-    shadowRadius: 3.84, // 그림자 둥글기
-    elevation: 5, // 안드로이드에서 그림자 효과
-  },
   popupTitle: {
     fontSize: 18, // 제목 글자 크기
     fontWeight: 'bold', // 글자 굵기
@@ -121,6 +107,22 @@ const styles = StyleSheet.create({
   popupButtonText: {
     color: 'white', // 버튼 텍스트 색상
     textAlign: 'center', // 텍스트 중앙 정렬
+  },
+  fullScreenOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent', // 투명 배경
+  },
+  customPopup: {
+    position: 'absolute',
+    width: 250, // 콜아웃 너비
+    height: 150, // 콜아웃 높이
+    backgroundColor: 'white',
+    borderRadius: 10,
+    // ... 추가 스타일링 ...
   },
 });
 

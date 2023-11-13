@@ -73,6 +73,7 @@ function MapScreen(): React.ReactElement {
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
   const [selectedRipple, setSelectedRipple] = useState<Ripple | null>(null);
+  const [calloutPosition, setCalloutPosition] = useState({x: 0, y: 0});
 
   useFocusEffect(
     React.useCallback(() => {
@@ -170,6 +171,25 @@ function MapScreen(): React.ReactElement {
     setSelectedRipple(ripple);
   };
 
+  // 콜아웃 위치 계산
+  const calculateCalloutPosition = async (coordinates: any) => {
+    const point = await mapRef.current?.pointForCoordinate(coordinates);
+    if (point) {
+      setCalloutPosition({x: point.x, y: point.y - 50}); // 마커 위에 콜아웃이 나타나도록 조정
+    }
+  };
+
+  // 마커 터치 시 콜아웃 표시
+  const handleMarkerPress = (ripple: any) => {
+    calculateCalloutPosition(ripple.location.coordinates);
+    setSelectedRipple(ripple);
+  };
+
+  // 콜아웃 바깥 영역 터치 시 숨기기
+  const handleHideCallout = () => {
+    setSelectedRipple(null);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
@@ -194,7 +214,9 @@ function MapScreen(): React.ReactElement {
               latitude: ripple.location.coordinates[1],
               longitude: ripple.location.coordinates[0],
             }}
-            onPress={() => onMarkerPress(ripple)}></Marker>
+            onPress={() => handleMarkerPress(ripple)}>
+            {/* 마커 이미지 등 */}
+          </Marker>
         ))}
       </MapView>
 
@@ -226,6 +248,21 @@ function MapScreen(): React.ReactElement {
             <Text style={styles.popupButtonText}>좋아요</Text>
           </TouchableOpacity>
         </View>
+      )}
+
+      {selectedRipple && (
+        <TouchableOpacity
+          style={styles.fullScreenOverlay}
+          onPress={handleHideCallout}>
+          <View
+            style={[
+              styles.customPopup,
+              {top: calloutPosition.y, left: calloutPosition.x},
+            ]}>
+            {/* 커스텀 콜아웃 내용 */}
+            {/* ... */}
+          </View>
+        </TouchableOpacity>
       )}
       {gpsError && (
         <Animated.View
