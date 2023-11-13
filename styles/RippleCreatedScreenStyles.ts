@@ -100,9 +100,8 @@ const styles = StyleSheet.create({
   tagText: {
     color: 'gray',
     borderRadius: 10,
-    padding: 5,
-    marginHorizontal: 2,
-    fontSize: 12,
+    padding: 3,
+    fontSize: 10,
     maxWidth: 80,
   },
 });
