@@ -205,7 +205,7 @@ function MapScreen(): React.ReactElement {
               source={require('../assets/img/ripplemarker.png')}
               style={{width: 30, height: 30}}
             />
-            <Callout tooltip style={styles.calloutStyle}>
+            <Callout style={styles.calloutStyle}>
               <Text style={styles.userInfo}>{ripple.userId}</Text>
               <View style={styles.secondRow}>
                 <Image
