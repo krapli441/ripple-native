@@ -66,6 +66,7 @@ function MapScreen(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
+      console.log(authToken.username);
       return () => {
         // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
       };
@@ -170,19 +171,21 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  const handleLike = async (rippleId: string) => {
+  const handleLike = async (rippleId: string, userId: string) => {
     try {
-      const response = await fetch(`http://192.168.0.215:3000/ripples/like/${rippleId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `http://192.168.0.215:3000/ripples/like/${rippleId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({userId}),
         },
-        // 추가적인 데이터가 필요하다면 body에 포함시키세요.
-      });
-  
+      );
+
       if (response.ok) {
         console.log('Like updated successfully');
-        // 필요하다면 상태 업데이트 로직을 추가하세요.
       } else {
         console.error('Failed to update like');
       }
@@ -190,7 +193,6 @@ function MapScreen(): React.ReactElement {
       console.error('Error updating like:', error);
     }
   };
-  
 
   return (
     <View style={styles.container}>
@@ -262,7 +264,11 @@ function MapScreen(): React.ReactElement {
                   </TouchableOpacity>
                 </CalloutSubview>
                 <CalloutSubview
-                  onPress={() => handleLike(ripple._id)}
+                  onPress={() => {
+                    if (authToken.username) {
+                      handleLike(ripple._id, authToken.username);
+                    }
+                  }}
                   style={styles.calloutLikeButton}>
                   <TouchableOpacity style={styles.buttonLayout}>
                     <Icon name="heart" size={20} color="white" />
