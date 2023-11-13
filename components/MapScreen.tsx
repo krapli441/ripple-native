@@ -5,18 +5,24 @@ import {
   Animated,
   StatusBar,
   useColorScheme,
-  AppState,
   TouchableOpacity,
   Easing,
   Text,
   Image,
+  Linking,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 // Libraries
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import MapStyle from '../maps/customMapStyle.json';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  CalloutSubview,
+} from 'react-native-maps';
+import {mapViewProps} from '../maps/MapScreen-mapViewProps';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Components
 
@@ -45,20 +51,6 @@ const GEOLOCATION_OPTIONS = {
   distanceFilter: 5,
 };
 
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 90, top: 0, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: true,
-  rotateEnabled: true,
-  minZoomLevel: 15,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
-};
-
 function MapScreen(): React.ReactElement {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const mapRef = useRef<MapView>(null);
@@ -67,9 +59,7 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-
   const [ripples, setRipples] = useState<Ripple[]>([]);
-
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
 
@@ -139,13 +129,28 @@ function MapScreen(): React.ReactElement {
   ) => {
     try {
       const response = await fetch(
-        `http://192.168.123.130:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
-        const ripples: Ripple[] = await response.json();
-        setRipples(ripples);
-        console.log('사용자 주변 리플 :', ripples);
-        console.log('사용자 주변 리플 :', ripples);
+        const newRipples: Ripple[] = await response.json();
+
+        // 현재 상태의 리플과 새로 가져온 리플을 비교하여 변경 사항이 있는지 확인
+        const updatedRipples = newRipples.map(newRipple => {
+          const existingRipple = ripples.find(r => r._id === newRipple._id);
+          if (
+            existingRipple &&
+            (existingRipple.location.coordinates[0] !==
+              newRipple.location.coordinates[0] ||
+              existingRipple.location.coordinates[1] !==
+                newRipple.location.coordinates[1])
+          ) {
+            // 좌표가 변경된 경우에만 새로운 객체를 반환
+            return newRipple;
+          }
+          return existingRipple || newRipple;
+        });
+
+        setRipples(updatedRipples);
       } else {
         console.log('리플 불러오기 실패');
       }
@@ -156,9 +161,39 @@ function MapScreen(): React.ReactElement {
 
   useEffect(() => {
     if (coords) {
-      fetchNearbyRipples(coords.latitude, coords.longitude, 1000); // 1000은 예시로 사용된 검색 반경입니다. 필요에 따라 조정하세요.
+      fetchNearbyRipples(coords.latitude, coords.longitude, 1000);
     }
   }, [coords]);
+
+  const handleSpotifyPlay = (spotifyUrl: string) => {
+    console.log('Spotify Play Button Pressed');
+    Linking.openURL(spotifyUrl);
+  };
+
+  const handleLike = async (rippleId: string, userId: string) => {
+    try {
+      const response = await fetch(
+        `http://192.168.0.215:3000/ripples/${rippleId}/like`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({userId}),
+        },
+      );
+      console.log(response);
+      if (response.ok) {
+        console.log('Like updated successfully');
+      } else {
+        console.error('Failed to update like');
+        console.log(response.status);
+        console.log(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating like:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -170,23 +205,79 @@ function MapScreen(): React.ReactElement {
         region={region || undefined}
         provider={PROVIDER_GOOGLE}>
         {coords && (
-          <Marker coordinate={coords} title="Your Position">
+          <Marker coordinate={coords}>
             <Image
-              source={require('../assets/img/ripple_sonar.gif')}
+              source={require('../assets/img/ripplemarker.png')}
               style={{width: 30, height: 30}}
             />
           </Marker>
         )}
         {ripples.map((ripple, index) => (
           <Marker
+            style={{padding: 10}}
             key={index}
             coordinate={{
               latitude: ripple.location.coordinates[1],
               longitude: ripple.location.coordinates[0],
-            }}
-            title={ripple.title}
-            description={ripple.artist}>
-            {/* 마커 커스텀 디자인이 필요하면 여기에 추가 */}
+            }}>
+            <Image
+              source={require('../assets/img/otherUserMarker.png')}
+              style={{width: 30, height: 30}}
+            />
+            <Callout tooltip={true} style={styles.calloutStyle}>
+              <Text style={styles.userInfo}>{ripple.userId}</Text>
+              <View style={styles.secondRow}>
+                <Image
+                  source={{uri: ripple.albumCoverUrl}}
+                  style={styles.albumCover}
+                />
+                <View style={styles.trackInfo}>
+                  <Text
+                    style={styles.titleText}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {ripple.title}
+                  </Text>
+                  <Text
+                    style={styles.artistText}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {ripple.artist}
+                  </Text>
+                  <View style={styles.tagContainer}>
+                    {ripple.tag.map((tag, idx) => (
+                      <Text style={styles.tagText} key={idx}>
+                        #{tag}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+              </View>
+              <View style={styles.thirdRow}>
+                <CalloutSubview
+                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
+                  style={styles.calloutSpotifyButton}>
+                  <TouchableOpacity style={styles.buttonLayout}>
+                    <Icon name="spotify" size={20} color="black" />
+                    <Text style={styles.calloutButtonText}>
+                      Spotify에서 재생
+                    </Text>
+                  </TouchableOpacity>
+                </CalloutSubview>
+                <CalloutSubview
+                  onPress={() => {
+                    if (authToken.username) {
+                      handleLike(ripple._id, authToken.username);
+                    }
+                  }}
+                  style={styles.calloutLikeButton}>
+                  <TouchableOpacity style={styles.buttonLayout}>
+                    <Icon name="heart" size={20} color="white" />
+                    <Text style={styles.calloutLikeButtonText}>좋아요</Text>
+                  </TouchableOpacity>
+                </CalloutSubview>
+              </View>
+            </Callout>
           </Marker>
         ))}
       </MapView>

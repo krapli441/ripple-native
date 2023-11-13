@@ -13,27 +13,13 @@ import type {NavigationProp} from '@react-navigation/native';
 
 // google maps
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
-import MapStyle from '../maps/customMapStyle.json';
+import {mapViewProps} from '../maps/RippleCreatedScreen-mapViewProps';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 
 // Style
 import styles from '../styles/RippleCreatedScreenStyles';
-
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 0, top: 50, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: false,
-  rotateEnabled: false,
-  minZoomLevel: 17,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
-};
 
 function RippleCreatedScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -80,7 +66,7 @@ function RippleCreatedScreen(): React.ReactElement {
             longitude: rippleData.location.coordinates[0],
           }}>
           <Image
-            source={require('../assets/img/ripple_sonar.gif')}
+            source={require('../assets/img/ripplemarker.png')}
             style={{width: 30, height: 30}}
           />
         </Marker>
@@ -94,16 +80,20 @@ function RippleCreatedScreen(): React.ReactElement {
                 style={styles.albumCover}
               />
               <View style={styles.calloutInfo}>
-                <Text style={styles.calloutTitle} numberOfLines={1}>{rippleData.title}</Text>
-                <Text style={styles.calloutArtist} numberOfLines={1}>{rippleData.artist}</Text>
-              </View>
-            </View>
-            <View style={styles.tagContainer}>
-              {rippleData.tag.map((tag, index) => (
-                <Text key={index} style={styles.tagText}>
-                  {tag}
+                <Text style={styles.calloutTitle} numberOfLines={1}>
+                  {rippleData.title}
                 </Text>
-              ))}
+                <Text style={styles.calloutArtist} numberOfLines={1}>
+                  {rippleData.artist}
+                </Text>
+                <View style={styles.tagContainer}>
+                  {rippleData.tag.map((tag, index) => (
+                    <Text key={index} style={styles.tagText}>
+                      #{tag}
+                    </Text>
+                  ))}
+                </View>
+              </View>
             </View>
           </View>
         )}

@@ -18,6 +18,7 @@ export interface IRipple extends Document {
   likes: number;
   createdAt: Date; // 이 줄을 추가
   expiresAt?: Date;
+  likedUsers: string[];
 }
 
 @Schema({ timestamps: true })
@@ -59,6 +60,10 @@ export class Ripple extends Document {
 
   @Prop()
   expiresAt: Date;
+
+  @Prop({ default: [] })
+  likedUsers: string[]; // '좋아요'를 누른 사용자들의 ID 목록
+
 }
 
 export const RippleSchema = SchemaFactory.createForClass(Ripple);

@@ -15,26 +15,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   customCallout: {
-    position: 'absolute', // 절대 위치 사용
-    alignItems: 'flex-start', // 세로 축을 기준으로 아이템을 중앙 정렬합니다.
-    width: 'auto', // 너비 조정
-    height: 'auto', // 높이 조정
-    top: '32%', // 상단에서 얼마나 떨어질지 지정
-    alignSelf: 'center', // 가운데 정렬
-    backgroundColor: 'white', // 배경색
-    borderRadius: 10, // 모서리 둥글기
-    padding: 10, // 내부 패딩
+    position: 'absolute',
+    alignItems: 'flex-start',
+    width: '80%', // 너비를 고정값으로 설정
+    height: 'auto',
+    top: '32%',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
   },
 
   calloutInfo: {
     marginLeft: 10,
-    flexDirection: 'column', // 세로 방향으로 아이템을 배치합니다.
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   calloutRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-
   header: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   calloutTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 5,
     maxWidth: 200,
   },
   calloutArtist: {
@@ -93,16 +92,17 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 5,
+    flexWrap: 'wrap', // 내용이 넘치면 다음 줄로 넘어가게 설정
+    maxWidth: 280, // customCallout 너비에서 padding을 고려한 값으로 설정
   },
   tagText: {
     color: 'gray',
     borderRadius: 10,
-    padding: 5,
-    marginHorizontal: 2,
-    fontSize: 12,
+    padding: 3,
+    fontSize: 10,
+    maxWidth: 80,
   },
 });
 

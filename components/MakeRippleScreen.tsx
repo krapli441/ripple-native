@@ -2,7 +2,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  ScrollView,
   StatusBar,
   Text,
   useColorScheme,
@@ -26,23 +25,11 @@ import {RootStackParamList} from '../types/navigationTypes';
 import styles from '../styles/MakeRippleScreenStyles';
 import MapStyle from '../maps/customMapStyle.json';
 
+import {mapViewProps} from '../maps/MakeRippleScreen-mapViewProps';
+
 interface Tag {
   name: string;
 }
-
-const mapViewProps = {
-  customMapStyle: MapStyle,
-  mapPadding: {bottom: 0, top: 20, right: 0, left: 0},
-  scrollEnabled: false,
-  zoomEnabled: false,
-  rotateEnabled: false,
-  minZoomLevel: 18,
-  maxZoomLevel: 20,
-  showsScale: false,
-  pitchEnabled: false,
-  cacheEnabled: true,
-  loadingEnabled: true,
-};
 
 function MakeRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -79,7 +66,7 @@ function MakeRippleScreen(): React.ReactElement {
   useEffect(() => {
     const fetchRandomTags = async () => {
       try {
-        const response = await fetch('http://192.168.123.130:3000/tags/random');
+        const response = await fetch('http://192.168.0.215:3000/tags/random');
         if (!response.ok) {
           throw new Error('Server error');
         }
@@ -99,7 +86,7 @@ function MakeRippleScreen(): React.ReactElement {
     if (route.params?.selectedTags) {
       const updateTagsWithSelected = async () => {
         try {
-          const response = await fetch('http://192.168.123.130:3000/tags/all');
+          const response = await fetch('http://192.168.0.215:3000/tags/all');
           if (!response.ok) {
             throw new Error('Server error');
           }
@@ -134,7 +121,7 @@ function MakeRippleScreen(): React.ReactElement {
 
   const createRipple = async (rippleData: any) => {
     try {
-      const response = await fetch('http://192.168.123.130:3000/ripples', {
+      const response = await fetch('http://192.168.0.215:3000/ripples', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -216,8 +203,8 @@ function MakeRippleScreen(): React.ReactElement {
                 longitude: location.longitude,
               }}>
               <Image
-                source={require('../assets/img/ripple_sonar.gif')}
-                style={{width: 30, height: 30}}
+                source={require('../assets/img/ripplemarker.png')}
+                style={{width: 20, height: 20}}
               />
             </Marker>
           )}

@@ -62,6 +62,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Date)
 ], Ripple.prototype, "expiresAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], Ripple.prototype, "likedUsers", void 0);
 exports.Ripple = Ripple = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Ripple);
