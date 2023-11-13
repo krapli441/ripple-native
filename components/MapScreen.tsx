@@ -222,10 +222,13 @@ function MapScreen(): React.ReactElement {
               </View>
               <View style={styles.thirdRow}>
                 <CalloutSubview
-                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}>
+                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
+                  style={styles.calloutSubview}>
                   <Text>Spotify에서 재생</Text>
                 </CalloutSubview>
-                <CalloutSubview onPress={() => handleLike(ripple._id)}>
+                <CalloutSubview
+                  onPress={() => handleLike(ripple._id)}
+                  style={styles.calloutSubview}>
                   <Text>좋아요</Text>
                 </CalloutSubview>
               </View>
