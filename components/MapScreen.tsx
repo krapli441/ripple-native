@@ -17,7 +17,12 @@ import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 // Libraries
-import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  CalloutSubview,
+} from 'react-native-maps';
 import MapStyle from '../maps/customMapStyle.json';
 
 // Components
@@ -158,13 +163,18 @@ function MapScreen(): React.ReactElement {
 
   useEffect(() => {
     if (coords) {
-      fetchNearbyRipples(coords.latitude, coords.longitude, 1000); // 1000은 예시로 사용된 검색 반경입니다. 필요에 따라 조정하세요.
+      fetchNearbyRipples(coords.latitude, coords.longitude, 1000);
     }
   }, [coords]);
 
   const handleSpotifyPlay = (spotifyUrl: string) => {
-    console.log('버튼 눌림');
+    console.log('Spotify Play Button Pressed');
     Linking.openURL(spotifyUrl);
+  };
+
+  const handleLike = (rippleId: string) => {
+    console.log('Like Button Pressed for Ripple ID:', rippleId);
+    // Implement your logic to increase the likes count in the database
   };
 
   return (
@@ -177,7 +187,7 @@ function MapScreen(): React.ReactElement {
         region={region || undefined}
         provider={PROVIDER_GOOGLE}>
         {coords && (
-          <Marker coordinate={coords} title="Your Position">
+          <Marker coordinate={coords}>
             <Image
               source={require('../assets/img/ripplemarker.png')}
               style={{width: 30, height: 30}}
@@ -192,28 +202,32 @@ function MapScreen(): React.ReactElement {
               longitude: ripple.location.coordinates[0],
             }}>
             <Callout tooltip style={styles.calloutStyle}>
-              <View style={styles.calloutView}>
-                <Text>User ID: {ripple.userId}</Text>
-                <Image
-                  source={{uri: ripple.albumCoverUrl}}
-                  style={styles.albumCover}
-                />
-                <Text>Title: {ripple.title}</Text>
-                <Text>Artist: {ripple.artist}</Text>
-                <View>
-                  {ripple.tag.map((tag, idx) => (
-                    <Text key={idx}>{tag}</Text>
-                  ))}
-                </View>
-                <Button
-                  title="Spotify에서 재생"
-                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
-                />
-                <Button
-                  title="좋아요"
-                  // onPress={() => handleLike(ripple._id)}
-                />
+              <Text>{ripple.userId}</Text>
+              <Image
+                source={{uri: ripple.albumCoverUrl}}
+                style={styles.albumCover}
+              />
+              <Text>{ripple.title}</Text>
+              <Text>{ripple.artist}</Text>
+              <View>
+                {ripple.tag.map((tag, idx) => (
+                  <Text key={idx}>{tag}</Text>
+                ))}
               </View>
+              <CalloutSubview
+                onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
+                style={styles.calloutSubview}>
+                <TouchableOpacity>
+                  <Text>Spotify에서 재생</Text>
+                </TouchableOpacity>
+              </CalloutSubview>
+              <CalloutSubview
+                onPress={() => handleLike(ripple._id)}
+                style={styles.calloutSubview}>
+                <TouchableOpacity>
+                  <Text>좋아요</Text>
+                </TouchableOpacity>
+              </CalloutSubview>
             </Callout>
           </Marker>
         ))}

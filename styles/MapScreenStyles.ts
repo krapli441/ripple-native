@@ -63,12 +63,6 @@ const styles = StyleSheet.create({
     width: '100%', // 콜아웃 뷰의 전체 너비 사용
     alignItems: 'flex-start', // 가로축에서 시작 위치에 아이템 정렬
   },
-  albumCover: {
-    width: 60, // 앨범 커버 너비
-    height: 60, // 앨범 커버 높이
-    borderRadius: 30, // 앨범 커버 모서리 둥글기
-    marginRight: 10, // 오른쪽 여백
-  },
   title: {
     fontSize: 16, // 제목 폰트 크기
     fontWeight: 'bold', // 글씨 두께
@@ -89,6 +83,34 @@ const styles = StyleSheet.create({
     padding: 5, // 태그 내부 패딩
     marginHorizontal: 2, // 수평 여백
     fontSize: 12, // 태그 폰트 크기
+  },
+  calloutSubview: {
+    padding: 10, // Add padding for spacing inside the callout
+    backgroundColor: 'white', // Background color for the callout content
+    borderRadius: 6, // Rounded corners for a smoother look
+    shadowColor: '#000', // Shadow for 3D effect, can be adjusted or removed
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.84, // Shadow blur radius
+    elevation: 5, // Elevation for Android
+  },
+  albumCover: {
+    width: 60, // Width of the album cover image
+    height: 60, // Height of the album cover image
+    borderRadius: 10, // Make the image circular
+    margin: 5, // Margin around the image
+  },
+  calloutText: {
+    fontSize: 14, // Font size for the text inside the callout
+    color: 'black', // Text color
+    // Add more text styling as needed
+  },
+  calloutButton: {
+    backgroundColor: '#1DB954', // Button background color
+    padding: 10, // Padding inside the button
+    borderRadius: 20, // Rounded button edges
+    margin: 5, // Margin around the button
+    // Add more button styling as needed
   },
 });
 
