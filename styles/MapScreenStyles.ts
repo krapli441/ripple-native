@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   userInfo: {
-    fontSize: 10,
-    marginBottom: 5,
+    fontSize: 16,
+    marginBottom: 12,
   },
   secondRow: {
     flexDirection: 'row',
