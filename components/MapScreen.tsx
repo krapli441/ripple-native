@@ -201,41 +201,33 @@ function MapScreen(): React.ReactElement {
               latitude: ripple.location.coordinates[1],
               longitude: ripple.location.coordinates[0],
             }}>
-            <Image
-              source={require('../assets/img/ripplemarker.png')}
-              style={{width: 30, height: 30}}
-            />
-            <Callout style={styles.calloutStyle}>
-              <Text style={styles.userInfo}>{ripple.userId}</Text>
-              <View style={styles.secondRow}>
-                <Image
-                  source={{uri: ripple.albumCoverUrl}}
-                  style={styles.albumCover}
-                />
-                <View style={styles.trackInfo}>
-                  <Text>{ripple.title}</Text>
-                  <Text>{ripple.artist}</Text>
-                  {ripple.tag.map((tag, idx) => (
-                    <Text key={idx}>{tag}</Text>
-                  ))}
-                </View>
+            <Callout tooltip style={styles.calloutStyle}>
+              <Text>{ripple.userId}</Text>
+              <Image
+                source={{uri: ripple.albumCoverUrl}}
+                style={styles.albumCover}
+              />
+              <Text>{ripple.title}</Text>
+              <Text>{ripple.artist}</Text>
+              <View>
+                {ripple.tag.map((tag, idx) => (
+                  <Text key={idx}>{tag}</Text>
+                ))}
               </View>
-              <View style={styles.thirdRow}>
-                <CalloutSubview
-                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
-                  style={styles.calloutSubview}>
-                  <TouchableOpacity>
-                    <Text>Spotify에서 재생</Text>
-                  </TouchableOpacity>
-                </CalloutSubview>
-                <CalloutSubview
-                  onPress={() => handleLike(ripple._id)}
-                  style={styles.calloutSubview}>
-                  <TouchableOpacity>
-                    <Text>좋아요</Text>
-                  </TouchableOpacity>
-                </CalloutSubview>
-              </View>
+              <CalloutSubview
+                onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
+                style={styles.calloutSubview}>
+                <TouchableOpacity>
+                  <Text>Spotify에서 재생</Text>
+                </TouchableOpacity>
+              </CalloutSubview>
+              <CalloutSubview
+                onPress={() => handleLike(ripple._id)}
+                style={styles.calloutSubview}>
+                <TouchableOpacity>
+                  <Text>좋아요</Text>
+                </TouchableOpacity>
+              </CalloutSubview>
             </Callout>
           </Marker>
         ))}
