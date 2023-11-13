@@ -10,7 +10,8 @@ import {
   Easing,
   Text,
   Image,
-  Linking,Button
+  Linking,
+  Button,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -162,6 +163,7 @@ function MapScreen(): React.ReactElement {
   }, [coords]);
 
   const handleSpotifyPlay = (spotifyUrl: string) => {
+    console.log('버튼 눌림');
     Linking.openURL(spotifyUrl);
   };
 
@@ -182,36 +184,39 @@ function MapScreen(): React.ReactElement {
             />
           </Marker>
         )}
-      {ripples.map((ripple, index) => (
-        <Marker
-          key={index}
-          coordinate={{
-            latitude: ripple.location.coordinates[1],
-            longitude: ripple.location.coordinates[0],
-          }}>
-          <Callout tooltip style={styles.calloutStyle}>
-            <View style={styles.calloutView}>
-              <Text>User ID: {ripple.userId}</Text>
-              <Image source={{ uri: ripple.albumCoverUrl }} style={styles.albumCover} />
-              <Text>Title: {ripple.title}</Text>
-              <Text>Artist: {ripple.artist}</Text>
-              <View>
-                {ripple.tag.map((tag, idx) => (
-                  <Text key={idx}>{tag}</Text>
-                ))}
+        {ripples.map((ripple, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: ripple.location.coordinates[1],
+              longitude: ripple.location.coordinates[0],
+            }}>
+            <Callout tooltip style={styles.calloutStyle}>
+              <View style={styles.calloutView}>
+                <Text>User ID: {ripple.userId}</Text>
+                <Image
+                  source={{uri: ripple.albumCoverUrl}}
+                  style={styles.albumCover}
+                />
+                <Text>Title: {ripple.title}</Text>
+                <Text>Artist: {ripple.artist}</Text>
+                <View>
+                  {ripple.tag.map((tag, idx) => (
+                    <Text key={idx}>{tag}</Text>
+                  ))}
+                </View>
+                <Button
+                  title="Spotify에서 재생"
+                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
+                />
+                <Button
+                  title="좋아요"
+                  // onPress={() => handleLike(ripple._id)}
+                />
               </View>
-              <Button
-                title="Spotify에서 재생"
-                onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
-              />
-              <Button
-                title="좋아요"
-                // onPress={() => handleLike(ripple._id)}
-              />
-            </View>
-          </Callout>
-        </Marker>
-      ))}
+            </Callout>
+          </Marker>
+        ))}
       </MapView>
       {gpsError && (
         <Animated.View
