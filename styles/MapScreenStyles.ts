@@ -73,12 +73,15 @@ const styles = StyleSheet.create({
     color: '#666', // 글씨 색상
   },
   tagContainer: {
-    flexDirection: 'row', // 가로 방향 배치
-    flexWrap: 'wrap', // 태그가 여러 줄로 나눠질 수 있도록 함
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: 5, // 상단 여백
   },
   tagText: {
-    color: '#e1e1e1', // 태그 배경색
+    alignSelf: 'center',
+    color: 'gray', // 태그 배경색
     padding: 2, // 태그 내부 패딩
     fontSize: 12, // 태그 폰트 크기
   },
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   userInfo: {
-    fontSize: 14,
+    fontSize: 10,
     marginBottom: 5,
   },
   secondRow: {

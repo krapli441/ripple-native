@@ -221,7 +221,7 @@ function MapScreen(): React.ReactElement {
                     {ripple.title}
                   </Text>
                   <Text numberOfLines={1}>{ripple.artist}</Text>
-                  <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  <View style={styles.tagContainer}>
                     {ripple.tag.map((tag, idx) => (
                       <Text style={styles.tagText} key={idx}>
                         {tag}
