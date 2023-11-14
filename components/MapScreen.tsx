@@ -185,7 +185,7 @@ function MapScreen(): React.ReactElement {
 
       if (response.ok) {
         const updatedRipple = await response.json();
-        // 리플 목록 업데이트
+        // 현재 상태의 리플들 중 업데이트된 리플을 찾아서 교체합니다.
         setRipples(ripples.map(r => (r._id === rippleId ? updatedRipple : r)));
         console.log('Like updated successfully');
       } else {
@@ -275,7 +275,15 @@ function MapScreen(): React.ReactElement {
                   }}
                   style={styles.calloutLikeButton}>
                   <TouchableOpacity style={styles.buttonLayout}>
-                    <Icon name="heart" size={20} color="white" />
+                    <Icon
+                      name={
+                        ripple.likedUsers.includes(authToken.username ?? '')
+                          ? 'check'
+                          : 'heart'
+                      }
+                      size={20}
+                      color="white"
+                    />
                     <Text style={styles.calloutLikeButtonText}>좋아요</Text>
                   </TouchableOpacity>
                 </CalloutSubview>

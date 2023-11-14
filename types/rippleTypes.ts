@@ -4,7 +4,7 @@ export type Ripple = {
   artist: string;
   createdAt: string;
   expiresAt: string;
-  likes: number;
+  likedUsers: string[];
   location: {
     coordinates: number[];
     type: string;
