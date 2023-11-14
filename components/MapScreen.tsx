@@ -182,8 +182,11 @@ function MapScreen(): React.ReactElement {
           body: JSON.stringify({userId}),
         },
       );
-      console.log(response);
+
       if (response.ok) {
+        const updatedRipple = await response.json();
+        // 리플 목록 업데이트
+        setRipples(ripples.map(r => (r._id === rippleId ? updatedRipple : r)));
         console.log('Like updated successfully');
       } else {
         console.error('Failed to update like');

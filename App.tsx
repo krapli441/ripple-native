@@ -86,7 +86,9 @@ function MainTabNavigator() {
       <Tab.Screen
         name="홈"
         component={MapScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Tab.Screen
         name="내 정보"
