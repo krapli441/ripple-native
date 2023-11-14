@@ -168,7 +168,6 @@ function MapScreen(): React.ReactElement {
 
       if (response.ok) {
         const updatedRipple = await response.json();
-        // 업데이트된 likedUsers 배열로 상태를 갱신합니다.
         setRipples(
           ripples.map(r => {
             if (r._id === rippleId) {

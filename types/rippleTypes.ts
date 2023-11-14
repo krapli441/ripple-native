@@ -15,3 +15,8 @@ export type Ripple = {
   updatedAt: string;
   userId: string;
 };
+
+export type AuthToken = {
+  username: string;
+  tokne: string;
+};
