@@ -55,10 +55,6 @@ __decorate([
     __metadata("design:type", Array)
 ], Ripple.prototype, "tag", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: 0 }),
-    __metadata("design:type", Number)
-], Ripple.prototype, "likes", void 0);
-__decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Date)
 ], Ripple.prototype, "expiresAt", void 0);

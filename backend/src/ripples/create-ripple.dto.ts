@@ -11,6 +11,6 @@ export class CreateRippleDto {
   readonly spotifyExternalUrl: string;
   readonly location: LocationDto;
   readonly tag: string[];
-  readonly likes: number;
   readonly expiresAt: Date;
+  readonly likesUsers: string[];
 }
