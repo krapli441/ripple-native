@@ -15,6 +15,7 @@ import SearchScreen from './components/SearchScreen';
 import MakerippleScreen from './components/MakeRippleScreen';
 import SearchTagScreen from './components/SearchTagScreen';
 import RippleCreatedScreen from './components/RippleCreatedScreen';
+import LibraryScreen from './components/LibraryScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -80,7 +81,7 @@ function MainTabNavigator() {
       initialRouteName="홈">
       <Tab.Screen
         name="라이브러리"
-        component={SearchScreen}
+        component={LibraryScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen
@@ -97,7 +98,7 @@ function MainTabNavigator() {
       />
       <Tab.Screen
         name="SearchModal"
-        component={SearchStackScreen} // SearchStackScreen을 탭에 연결.
+        component={SearchStackScreen}
         options={{
           headerShown: false,
           unmountOnBlur: true,
