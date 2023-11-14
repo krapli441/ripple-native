@@ -133,24 +133,22 @@ function MapScreen(): React.ReactElement {
       );
       if (response.ok) {
         const newRipples: Ripple[] = await response.json();
+        // const updatedRipples = newRipples.map(newRipple => {
+        //   const existingRipple = ripples.find(r => r._id === newRipple._id);
+        //   if (
+        //     existingRipple &&
+        //     (existingRipple.location.coordinates[0] !==
+        //       newRipple.location.coordinates[0] ||
+        //       existingRipple.location.coordinates[1] !==
+        //         newRipple.location.coordinates[1])
+        //   ) {
+        //     // 좌표가 변경된 경우에만 새로운 객체를 반환
+        //     return newRipple;
+        //   }
+        //   return existingRipple || newRipple;
+        // });
 
-        // 현재 상태의 리플과 새로 가져온 리플을 비교하여 변경 사항이 있는지 확인
-        const updatedRipples = newRipples.map(newRipple => {
-          const existingRipple = ripples.find(r => r._id === newRipple._id);
-          if (
-            existingRipple &&
-            (existingRipple.location.coordinates[0] !==
-              newRipple.location.coordinates[0] ||
-              existingRipple.location.coordinates[1] !==
-                newRipple.location.coordinates[1])
-          ) {
-            // 좌표가 변경된 경우에만 새로운 객체를 반환
-            return newRipple;
-          }
-          return existingRipple || newRipple;
-        });
-
-        setRipples(updatedRipples);
+        setRipples(newRipples);
       } else {
         console.log('리플 불러오기 실패');
       }
@@ -185,13 +183,17 @@ function MapScreen(): React.ReactElement {
 
       if (response.ok) {
         const updatedRipple = await response.json();
-        // 현재 상태의 리플들 중 업데이트된 리플을 찾아서 교체합니다.
-        setRipples(ripples.map(r => (r._id === rippleId ? updatedRipple : r)));
-        console.log('Like updated successfully');
+        // 업데이트된 likedUsers 배열로 상태를 갱신합니다.
+        setRipples(
+          ripples.map(r => {
+            if (r._id === rippleId) {
+              return {...r, likedUsers: updatedRipple.likedUsers};
+            }
+            return r;
+          }),
+        );
       } else {
         console.error('Failed to update like');
-        console.log(response.status);
-        console.log(response.statusText);
       }
     } catch (error) {
       console.error('Error updating like:', error);
