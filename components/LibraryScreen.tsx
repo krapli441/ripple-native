@@ -92,6 +92,16 @@ function LibraryScreen(): React.ReactElement {
 
   useFocusEffect(
     React.useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+      return () => {
+        // 필요한 경우, 화면이 블러(blur) 될 때 다른 스타일로 되돌릴 수 있습니다
+        // 예: StatusBar.setBarStyle('light-content');
+      };
+    }, []),
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
       fetchMyRipples();
       fetchLikedRipples();
     }, []),
@@ -99,7 +109,7 @@ function LibraryScreen(): React.ReactElement {
 
   return (
     <View style={styles.searchContainer}>
-      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <StatusBar barStyle="dark-content" />
       <Text style={styles.header}>라이브러리</Text>
       <MyRipple
         title="내가 남긴 음악"

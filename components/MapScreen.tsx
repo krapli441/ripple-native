@@ -139,7 +139,7 @@ function MapScreen(): React.ReactElement {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <MapView
         {...mapViewProps}
         ref={mapRef}
