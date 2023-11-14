@@ -1,11 +1,19 @@
 // react & react-native
 import React, {useEffect, useState} from 'react';
-import {View, StatusBar, Text, useColorScheme} from 'react-native';
+import {View, StatusBar, Text, useColorScheme, TouchableOpacity} from 'react-native';
 
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
 import styles from '../styles/LibraryScreenStyles';
+
+const MenuItem = ({ title, count, onPress }:any) => (
+  <TouchableOpacity style={styles.menuItem} onPress={onPress}>
+    <Text style={styles.menuTitle}>{title}</Text>
+    <Text style={styles.menuCount}>{count}</Text>
+  </TouchableOpacity>
+);
+
 
 function LibraryScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -39,6 +47,11 @@ function LibraryScreen(): React.ReactElement {
     <View style={styles.searchContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>라이브러리</Text>
+      <MenuItem
+        title="내가 남긴 음악"
+        count={myRipples.length}
+        // onPress={navigateToMyRipples}
+      />
     </View>
   );
 }

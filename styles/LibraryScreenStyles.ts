@@ -55,6 +55,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'gray',
   },
+  menuItem: {
+    padding: 20,
+    backgroundColor: '#191414',
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  menuTitle: {
+    fontSize: 18,
+    color: 'white',
+  },
+  menuCount: {
+    fontSize: 14,
+    color: 'grey',
+  },
 });
 
 export default styles;
