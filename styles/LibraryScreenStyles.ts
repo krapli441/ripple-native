@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   menuIcon: {
-    marginRight: 15,
+    marginLeft: 2,
+    marginRight: 13,
     // 기타 스타일 설정
   },
 });
