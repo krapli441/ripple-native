@@ -100,7 +100,7 @@ function LikedRippleScreen(): React.ReactElement {
   return (
     <View style={styles.searchContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-      <Text style={styles.header}>라이브러리</Text>
+      <Text style={styles.header}>좋아요 표시한 음악</Text>
       <MyRipple
         title="내가 남긴 음악"
         count={myRipples.length}
