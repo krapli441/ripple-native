@@ -40,7 +40,7 @@ const LikedRipple = ({title, count, onPress, imageSource}: any) => (
   </TouchableOpacity>
 );
 
-function LibraryScreen(): React.ReactElement {
+function MyRippleScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [myRipples, setMyRipples] = useState([]);
   const [likedRipples, setLikedRipples] = useState([]);
@@ -105,16 +105,15 @@ function LibraryScreen(): React.ReactElement {
         title="내가 남긴 음악"
         count={myRipples.length}
         imageSource={require('../assets/img/myRipple.png')}
-        onPress={navigateToMyRipples}
+        // onPress={navigateToMyRipples}
       />
       <LikedRipple
         title="좋아요 표시한 음악"
         count={likedRipples.length}
         imageSource={require('../assets/img/myRipple.png')}
-        onPress={navigateToLikedRipples}
       />
     </View>
   );
 }
 
-export default LibraryScreen;
+export default MyRippleScreen;

@@ -16,6 +16,8 @@ import MakerippleScreen from './components/MakeRippleScreen';
 import SearchTagScreen from './components/SearchTagScreen';
 import RippleCreatedScreen from './components/RippleCreatedScreen';
 import LibraryScreen from './components/LibraryScreen';
+import MyRippleScreen from './components/MyRippleScreen';
+import LikedRippleScreen from './components/LikedRippleScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -128,6 +130,16 @@ function App(): JSX.Element {
             <Stack.Screen
               name="SearchModal"
               component={SearchStackScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="MyRippleScreen"
+              component={MyRippleScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="LikedRippleScreen"
+              component={LikedRippleScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
