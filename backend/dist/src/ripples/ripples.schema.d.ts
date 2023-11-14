@@ -48,7 +48,6 @@ export declare class Ripple extends Document {
     spotifyExternalUrl: string;
     location: Location;
     tag: string[];
-    likes: number;
     expiresAt: Date;
     likedUsers: string[];
 }

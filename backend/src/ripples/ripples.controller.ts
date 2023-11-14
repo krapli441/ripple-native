@@ -61,4 +61,14 @@ export class RipplesController {
   updateLike(@Param('id') id: string, @Body('userId') userId: string) {
     return this.ripplesService.updateLike(id, userId);
   }
+
+  @Get('my-ripples/:userId')
+  findMyRipples(@Param('userId') userId: string) {
+    return this.ripplesService.findMyRipples(userId);
+  }
+
+  @Get('liked-ripples/:userId')
+  async findLikedRipples(@Param('userId') userId: string) {
+    return this.ripplesService.findLikedRipplesByUser(userId);
+  }
 }

@@ -30,10 +30,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
 import {useLocation} from '../utils/LocationContext';
+import useRippleActions from '../hooks/useRippleActions';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
-import {Ripple} from '../types/rippleTypes';
 
 // Style
 import styles from '../styles/MapScreenStyles';
@@ -59,9 +59,13 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-  const [ripples, setRipples] = useState<Ripple[]>([]);
+  // const [ripples, setRipples] = useState<Ripple[]>([]);
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
+  const {ripples, setRipples, fetchNearbyRipples, handleLike} =
+    useRippleActions(
+      authToken.username ? authToken : {...authToken, username: ''},
+    );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -122,43 +126,6 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
-  const fetchNearbyRipples = async (
-    latitude: number,
-    longitude: number,
-    maxDistance: number,
-  ) => {
-    try {
-      const response = await fetch(
-        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
-      );
-      if (response.ok) {
-        const newRipples: Ripple[] = await response.json();
-
-        // 현재 상태의 리플과 새로 가져온 리플을 비교하여 변경 사항이 있는지 확인
-        const updatedRipples = newRipples.map(newRipple => {
-          const existingRipple = ripples.find(r => r._id === newRipple._id);
-          if (
-            existingRipple &&
-            (existingRipple.location.coordinates[0] !==
-              newRipple.location.coordinates[0] ||
-              existingRipple.location.coordinates[1] !==
-                newRipple.location.coordinates[1])
-          ) {
-            // 좌표가 변경된 경우에만 새로운 객체를 반환
-            return newRipple;
-          }
-          return existingRipple || newRipple;
-        });
-
-        setRipples(updatedRipples);
-      } else {
-        console.log('리플 불러오기 실패');
-      }
-    } catch (error) {
-      console.error('fetchNearbyRipples Error:', error);
-    }
-  };
-
   useEffect(() => {
     if (coords) {
       fetchNearbyRipples(coords.latitude, coords.longitude, 1000);
@@ -170,34 +137,9 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  const handleLike = async (rippleId: string, userId: string) => {
-    try {
-      const response = await fetch(
-        `http://192.168.0.215:3000/ripples/${rippleId}/like`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({userId}),
-        },
-      );
-      console.log(response);
-      if (response.ok) {
-        console.log('Like updated successfully');
-      } else {
-        console.error('Failed to update like');
-        console.log(response.status);
-        console.log(response.statusText);
-      }
-    } catch (error) {
-      console.error('Error updating like:', error);
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'light-content'} />
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <MapView
         {...mapViewProps}
         ref={mapRef}
@@ -272,7 +214,15 @@ function MapScreen(): React.ReactElement {
                   }}
                   style={styles.calloutLikeButton}>
                   <TouchableOpacity style={styles.buttonLayout}>
-                    <Icon name="heart" size={20} color="white" />
+                    <Icon
+                      name={
+                        ripple.likedUsers.includes(authToken.username ?? '')
+                          ? 'check'
+                          : 'heart'
+                      }
+                      size={20}
+                      color="white"
+                    />
                     <Text style={styles.calloutLikeButtonText}>좋아요</Text>
                   </TouchableOpacity>
                 </CalloutSubview>

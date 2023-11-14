@@ -20,7 +20,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 
 // Style
-import styles from '../styles/SearchTagScrenStyle';
+import styles from '../styles/SearchTagScrenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface Tag {

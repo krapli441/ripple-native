@@ -55,9 +55,6 @@ export class Ripple extends Document {
   @Prop()
   tag: string[];
 
-  @Prop({ default: 0 })
-  likes: number; // 기본값으로 0을 설정
-
   @Prop()
   expiresAt: Date;
 

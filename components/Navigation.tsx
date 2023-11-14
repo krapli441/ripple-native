@@ -13,7 +13,7 @@ const ROUTES = {
 };
 
 const ICONS = {
-  [ROUTES.LIBRARY]: 'book',
+  [ROUTES.LIBRARY]: 'bars',
   [ROUTES.HOME]: 'home',
   [ROUTES.PROFILE]: 'user',
   // ... 다른 아이콘 이름들

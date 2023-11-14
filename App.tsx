@@ -15,6 +15,9 @@ import SearchScreen from './components/SearchScreen';
 import MakerippleScreen from './components/MakeRippleScreen';
 import SearchTagScreen from './components/SearchTagScreen';
 import RippleCreatedScreen from './components/RippleCreatedScreen';
+import LibraryScreen from './components/LibraryScreen';
+import MyRippleScreen from './components/MyRippleScreen';
+import LikedRippleScreen from './components/LikedRippleScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -23,6 +26,23 @@ import {LocationProvider} from './utils/LocationContext';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const SearchStack = createStackNavigator();
+const LibraryStack = createStackNavigator();
+
+function LibraryStackScreen() {
+  return (
+    <LibraryStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <LibraryStack.Screen name="Library" component={LibraryScreen} />
+      <LibraryStack.Screen name="MyRippleScreen" component={MyRippleScreen} />
+      <LibraryStack.Screen
+        name="LikedRippleScreen"
+        component={LikedRippleScreen}
+      />
+    </LibraryStack.Navigator>
+  );
+}
 
 function SearchStackScreen() {
   return (
@@ -80,13 +100,15 @@ function MainTabNavigator() {
       initialRouteName="홈">
       <Tab.Screen
         name="라이브러리"
-        component={SearchScreen}
+        component={LibraryStackScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen
         name="홈"
         component={MapScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Tab.Screen
         name="내 정보"
@@ -95,7 +117,7 @@ function MainTabNavigator() {
       />
       <Tab.Screen
         name="SearchModal"
-        component={SearchStackScreen} // SearchStackScreen을 탭에 연결.
+        component={SearchStackScreen}
         options={{
           headerShown: false,
           unmountOnBlur: true,
@@ -125,6 +147,16 @@ function App(): JSX.Element {
             <Stack.Screen
               name="SearchModal"
               component={SearchStackScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="MyRippleScreen"
+              component={MyRippleScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="LikedRippleScreen"
+              component={LikedRippleScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

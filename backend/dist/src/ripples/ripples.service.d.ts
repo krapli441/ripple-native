@@ -11,5 +11,7 @@ export declare class RipplesService {
     update(id: string, updateRippleDto: UpdateRippleDto): Promise<Ripple>;
     remove(id: string): Promise<Ripple>;
     findNearbyRipples(longitude: number, latitude: number, maxDistance: number): Promise<IRipple[]>;
+    findMyRipples(userId: string): Promise<Ripple[]>;
+    findLikedRipplesByUser(userId: string): Promise<Ripple[]>;
     updateLike(id: string, userId: string): Promise<Ripple>;
 }
