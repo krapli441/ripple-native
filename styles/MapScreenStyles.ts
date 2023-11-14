@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   userInfo: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 12,
   },
   secondRow: {
