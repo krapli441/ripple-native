@@ -39,6 +39,7 @@ const LikedRipple = ({title, count, onPress, imageSource}: any) => (
 function LibraryScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [myRipples, setMyRipples] = useState([]);
+  const [likedRipples, setLikedRipples] = useState([]);
   const authToken = useAuthToken();
 
   useEffect(() => {
@@ -51,9 +52,7 @@ function LibraryScreen(): React.ReactElement {
         if (response.ok) {
           const data = await response.json();
           setMyRipples(data);
-          console.log('내가 남긴 음악 : ', data);
         } else {
-          // 오류 처리
           console.error('Failed to fetch my ripples');
         }
       } catch (error) {
@@ -61,7 +60,26 @@ function LibraryScreen(): React.ReactElement {
       }
     }
 
+    async function fetchLikedRipples() {
+      const userId = authToken.username;
+      try {
+        const response = await fetch(
+          `http://192.168.0.215:3000/ripples/liked-ripples/${userId}`,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setLikedRipples(data);
+          console.log('내가 좋아요 누른 음악', data.length);
+        } else {
+          console.error('Failed to fetch liked ripples');
+        }
+      } catch (error) {
+        console.error('Error fetching liked ripples:', error);
+      }
+    }
+
     fetchMyRipples();
+    fetchLikedRipples();
   }, []);
 
   return (
@@ -76,7 +94,7 @@ function LibraryScreen(): React.ReactElement {
       />
       <LikedRipple
         title="좋아요 표시한 음악"
-        count={myRipples.length}
+        count={likedRipples.length}
         imageSource={require('../assets/img/myRipple.png')}
       />
     </View>

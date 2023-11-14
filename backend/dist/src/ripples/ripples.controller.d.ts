@@ -12,4 +12,5 @@ export declare class RipplesController {
     remove(id: string): Promise<import("./ripples.schema").Ripple>;
     updateLike(id: string, userId: string): Promise<import("./ripples.schema").Ripple>;
     findMyRipples(userId: string): Promise<import("./ripples.schema").Ripple[]>;
+    findLikedRipples(userId: string): Promise<import("./ripples.schema").Ripple[]>;
 }

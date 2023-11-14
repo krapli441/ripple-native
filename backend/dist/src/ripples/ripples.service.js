@@ -58,6 +58,9 @@ let RipplesService = class RipplesService {
     async findMyRipples(userId) {
         return this.rippleModel.find({ userId: userId }).exec();
     }
+    async findLikedRipplesByUser(userId) {
+        return this.rippleModel.find({ likedUsers: userId }).exec();
+    }
     async updateLike(id, userId) {
         const ripple = await this.rippleModel.findById(id).exec();
         if (!ripple) {
