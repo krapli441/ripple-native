@@ -62,6 +62,7 @@ function MapScreen(): React.ReactElement {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
+  const [likedRipples, setLikedRipples] = useState(new Set<string>());
 
   useFocusEffect(
     React.useCallback(() => {
@@ -185,13 +186,22 @@ function MapScreen(): React.ReactElement {
 
       if (response.ok) {
         const updatedRipple = await response.json();
-        // 현재 상태의 리플들 중 업데이트된 리플을 찾아서 교체합니다.
         setRipples(ripples.map(r => (r._id === rippleId ? updatedRipple : r)));
+
+        // 좋아요 상태를 로컬 상태로 업데이트합니다.
+        setLikedRipples(prevLikedRipples => {
+          const newLikedRipples = new Set(prevLikedRipples);
+          if (newLikedRipples.has(rippleId)) {
+            newLikedRipples.delete(rippleId);
+          } else {
+            newLikedRipples.add(rippleId);
+          }
+          return newLikedRipples;
+        });
+
         console.log('Like updated successfully');
       } else {
         console.error('Failed to update like');
-        console.log(response.status);
-        console.log(response.statusText);
       }
     } catch (error) {
       console.error('Error updating like:', error);
@@ -276,11 +286,7 @@ function MapScreen(): React.ReactElement {
                   style={styles.calloutLikeButton}>
                   <TouchableOpacity style={styles.buttonLayout}>
                     <Icon
-                      name={
-                        ripple.likedUsers.includes(authToken.username ?? '')
-                          ? 'check'
-                          : 'heart'
-                      }
+                      name={likedRipples.has(ripple._id) ? 'check' : 'heart'}
                       size={20}
                       color="white"
                     />
