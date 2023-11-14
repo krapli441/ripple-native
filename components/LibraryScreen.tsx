@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -42,45 +43,46 @@ function LibraryScreen(): React.ReactElement {
   const [likedRipples, setLikedRipples] = useState([]);
   const authToken = useAuthToken();
 
-  useEffect(() => {
-    async function fetchMyRipples() {
-      const userId = authToken.username;
-      try {
-        const response = await fetch(
-          `http://192.168.0.215:3000/ripples/my-ripples/${userId}`,
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setMyRipples(data);
-        } else {
-          console.error('Failed to fetch my ripples');
-        }
-      } catch (error) {
-        console.error('Error fetching my ripples:', error);
+  const fetchMyRipples = async () => {
+    const userId = authToken.username;
+    try {
+      const response = await fetch(
+        `http://192.168.0.215:3000/ripples/my-ripples/${userId}`,
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setMyRipples(data);
+      } else {
+        console.error('Failed to fetch my ripples');
       }
+    } catch (error) {
+      console.error('Error fetching my ripples:', error);
     }
+  };
 
-    async function fetchLikedRipples() {
-      const userId = authToken.username;
-      try {
-        const response = await fetch(
-          `http://192.168.0.215:3000/ripples/liked-ripples/${userId}`,
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setLikedRipples(data);
-          console.log('내가 좋아요 누른 음악', data.length);
-        } else {
-          console.error('Failed to fetch liked ripples');
-        }
-      } catch (error) {
-        console.error('Error fetching liked ripples:', error);
+  const fetchLikedRipples = async () => {
+    const userId = authToken.username;
+    try {
+      const response = await fetch(
+        `http://192.168.0.215:3000/ripples/liked-ripples/${userId}`,
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setLikedRipples(data);
+      } else {
+        console.error('Failed to fetch liked ripples');
       }
+    } catch (error) {
+      console.error('Error fetching liked ripples:', error);
     }
+  };
 
-    fetchMyRipples();
-    fetchLikedRipples();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchMyRipples();
+      fetchLikedRipples();
+    }, []),
+  );
 
   return (
     <View style={styles.searchContainer}>
