@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 70,
     marginLeft: 30,
+    marginBottom: 30,
   },
   inputStyle: {
     height: 66,
@@ -56,17 +57,20 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   menuItem: {
+    width: '85%',
     padding: 20,
+    alignSelf: 'center',
     backgroundColor: '#191414',
     borderRadius: 10,
     marginBottom: 10,
   },
   menuTitle: {
-    fontSize: 18,
+    fontSize: 23,
+    fontWeight: 'bold',
     color: 'white',
   },
   menuCount: {
-    fontSize: 14,
+    fontSize: 18,
     color: 'grey',
   },
 });

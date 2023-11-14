@@ -1,19 +1,24 @@
 // react & react-native
 import React, {useEffect, useState} from 'react';
-import {View, StatusBar, Text, useColorScheme, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StatusBar,
+  Text,
+  useColorScheme,
+  TouchableOpacity,
+} from 'react-native';
 
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
 import styles from '../styles/LibraryScreenStyles';
 
-const MenuItem = ({ title, count, onPress }:any) => (
+const MenuItem = ({title, count, onPress}: any) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
     <Text style={styles.menuTitle}>{title}</Text>
-    <Text style={styles.menuCount}>{count}</Text>
+    <Text style={styles.menuCount}>{count}개</Text>
   </TouchableOpacity>
 );
-
 
 function LibraryScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
