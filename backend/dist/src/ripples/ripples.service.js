@@ -55,6 +55,9 @@ let RipplesService = class RipplesService {
             .exec();
         return Promise.resolve(ripples.map((ripple) => ripple.toObject({ versionKey: false })));
     }
+    async findMyRipples(userId) {
+        return this.rippleModel.find({ userId: userId }).exec();
+    }
     async updateLike(id, userId) {
         const ripple = await this.rippleModel.findById(id).exec();
         if (!ripple) {

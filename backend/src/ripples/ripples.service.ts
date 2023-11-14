@@ -57,6 +57,10 @@ export class RipplesService {
     );
   }
 
+  async findMyRipples(userId: string): Promise<Ripple[]> {
+    return this.rippleModel.find({ userId: userId }).exec();
+  }
+
   async updateLike(id: string, userId: string): Promise<Ripple> {
     const ripple = await this.rippleModel.findById(id).exec();
     if (!ripple) {

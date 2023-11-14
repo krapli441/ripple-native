@@ -42,6 +42,9 @@ let RipplesController = class RipplesController {
     updateLike(id, userId) {
         return this.ripplesService.updateLike(id, userId);
     }
+    findMyRipples(userId) {
+        return this.ripplesService.findMyRipples(userId);
+    }
 };
 exports.RipplesController = RipplesController;
 __decorate([
@@ -97,6 +100,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], RipplesController.prototype, "updateLike", null);
+__decorate([
+    (0, common_1.Get)('my-ripples/:userId'),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], RipplesController.prototype, "findMyRipples", null);
 exports.RipplesController = RipplesController = __decorate([
     (0, common_1.Controller)('ripples'),
     __metadata("design:paramtypes", [ripples_service_1.RipplesService])
