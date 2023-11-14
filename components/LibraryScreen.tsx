@@ -26,7 +26,7 @@ import {TrackDetails} from '../types/navigationTypes';
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
-import styles from '../styles/SearchScreenStyles';
+import styles from '../styles/LibraryScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function SearchScreen(): React.ReactElement {
@@ -123,7 +123,7 @@ function SearchScreen(): React.ReactElement {
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.searchContainer}>
           <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-          <Text style={styles.header}>음악 남기기</Text>
+          <Text style={styles.header}>라이브러리</Text>
           <TextInput
             style={styles.inputStyle}
             placeholder="음악을 검색해주세요"
