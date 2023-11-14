@@ -6,6 +6,7 @@ import {
   Text,
   useColorScheme,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 
 import useAuthToken from '../utils/useAuthToken';
@@ -13,10 +14,13 @@ import useAuthToken from '../utils/useAuthToken';
 // Style
 import styles from '../styles/LibraryScreenStyles';
 
-const MenuItem = ({title, count, onPress}: any) => (
+const MenuItem = ({title, count, onPress, imageSource}: any) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-    <Text style={styles.menuTitle}>{title}</Text>
-    <Text style={styles.menuCount}>{count}개</Text>
+    <Image source={imageSource} style={styles.menuImage} />
+    <View style={styles.menuTextContainer}>
+      <Text style={styles.menuTitle}>{title}</Text>
+      <Text style={styles.menuCount}>{count}개</Text>
+    </View>
   </TouchableOpacity>
 );
 
@@ -55,6 +59,7 @@ function LibraryScreen(): React.ReactElement {
       <MenuItem
         title="내가 남긴 음악"
         count={myRipples.length}
+        imageSource={require('../assets/img/myRipple.png')}
         // onPress={navigateToMyRipples}
       />
     </View>

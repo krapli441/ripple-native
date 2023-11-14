@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '85%',
     padding: 20,
     alignSelf: 'center',
@@ -72,6 +74,14 @@ const styles = StyleSheet.create({
   menuCount: {
     fontSize: 18,
     color: 'grey',
+  },
+  menuImage: {
+    width: 40,
+    height: 40,
+    marginRight: 10,
+  },
+  menuTextContainer: {
+    flexDirection: 'column',
   },
 });
 
