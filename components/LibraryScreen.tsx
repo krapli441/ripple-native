@@ -9,6 +9,8 @@ import {
   Image,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
@@ -17,6 +19,16 @@ import styles from '../styles/LibraryScreenStyles';
 const MyRipple = ({title, count, onPress, imageSource}: any) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
     <Image source={imageSource} style={styles.menuImage} />
+    <View style={styles.menuTextContainer}>
+      <Text style={styles.menuTitle}>{title}</Text>
+      <Text style={styles.menuCount}>{count}개</Text>
+    </View>
+  </TouchableOpacity>
+);
+
+const LikedRipple = ({title, count, onPress, imageSource}: any) => (
+  <TouchableOpacity style={styles.menuItem} onPress={onPress}>
+    <Icon name="heart" size={35} color="#6ADE6C" style={styles.menuIcon} />
     <View style={styles.menuTextContainer}>
       <Text style={styles.menuTitle}>{title}</Text>
       <Text style={styles.menuCount}>{count}개</Text>
@@ -61,6 +73,11 @@ function LibraryScreen(): React.ReactElement {
         count={myRipples.length}
         imageSource={require('../assets/img/myRipple.png')}
         // onPress={navigateToMyRipples}
+      />
+      <LikedRipple
+        title="좋아요 표시한 음악"
+        count={myRipples.length}
+        imageSource={require('../assets/img/myRipple.png')}
       />
     </View>
   );

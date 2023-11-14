@@ -83,6 +83,10 @@ const styles = StyleSheet.create({
   menuTextContainer: {
     flexDirection: 'column',
   },
+  menuIcon: {
+    marginRight: 15,
+    // 기타 스타일 설정
+  },
 });
 
 export default styles;
