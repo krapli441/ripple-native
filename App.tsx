@@ -26,6 +26,23 @@ import {LocationProvider} from './utils/LocationContext';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const SearchStack = createStackNavigator();
+const LibraryStack = createStackNavigator();
+
+function LibraryStackScreen() {
+  return (
+    <LibraryStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <LibraryStack.Screen name="Library" component={LibraryScreen} />
+      <LibraryStack.Screen name="MyRippleScreen" component={MyRippleScreen} />
+      <LibraryStack.Screen
+        name="LikedRippleScreen"
+        component={LikedRippleScreen}
+      />
+    </LibraryStack.Navigator>
+  );
+}
 
 function SearchStackScreen() {
   return (
@@ -83,7 +100,7 @@ function MainTabNavigator() {
       initialRouteName="홈">
       <Tab.Screen
         name="라이브러리"
-        component={LibraryScreen}
+        component={LibraryStackScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen
