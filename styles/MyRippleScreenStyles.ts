@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   rippleInfo: {
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+    // flexShrink: 1,
   },
 });
 
