@@ -16,7 +16,7 @@ export type Ripple = {
   userId: string;
 };
 
-export type AuthToken = {
-  username: string;
-  tokne: string;
-};
+export interface AuthToken {
+  token: string | null;
+  username: string | null;
+}

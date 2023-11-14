@@ -30,10 +30,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
 import {useLocation} from '../utils/LocationContext';
+import useRippleActions from '../hooks/useRippleActions';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
-import {Ripple} from '../types/rippleTypes';
 
 // Style
 import styles from '../styles/MapScreenStyles';
@@ -59,9 +59,13 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-  const [ripples, setRipples] = useState<Ripple[]>([]);
+  // const [ripples, setRipples] = useState<Ripple[]>([]);
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
+  const {ripples, setRipples, fetchNearbyRipples, handleLike} =
+    useRippleActions(
+      authToken.username ? authToken : {...authToken, username: ''},
+    );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -122,26 +126,6 @@ function MapScreen(): React.ReactElement {
     return () => clearWatch();
   }, []);
 
-  const fetchNearbyRipples = async (
-    latitude: number,
-    longitude: number,
-    maxDistance: number,
-  ) => {
-    try {
-      const response = await fetch(
-        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
-      );
-      if (response.ok) {
-        const newRipples: Ripple[] = await response.json();
-        setRipples(newRipples);
-      } else {
-        console.log('리플 불러오기 실패');
-      }
-    } catch (error) {
-      console.error('fetchNearbyRipples Error:', error);
-    }
-  };
-
   useEffect(() => {
     if (coords) {
       fetchNearbyRipples(coords.latitude, coords.longitude, 1000);
@@ -151,37 +135,6 @@ function MapScreen(): React.ReactElement {
   const handleSpotifyPlay = (spotifyUrl: string) => {
     console.log('Spotify Play Button Pressed');
     Linking.openURL(spotifyUrl);
-  };
-
-  const handleLike = async (rippleId: string, userId: string) => {
-    try {
-      const response = await fetch(
-        `http://192.168.0.215:3000/ripples/${rippleId}/like`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({userId}),
-        },
-      );
-
-      if (response.ok) {
-        const updatedRipple = await response.json();
-        setRipples(
-          ripples.map(r => {
-            if (r._id === rippleId) {
-              return {...r, likedUsers: updatedRipple.likedUsers};
-            }
-            return r;
-          }),
-        );
-      } else {
-        console.error('Failed to update like');
-      }
-    } catch (error) {
-      console.error('Error updating like:', error);
-    }
   };
 
   return (
