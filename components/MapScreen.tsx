@@ -38,6 +38,9 @@ import {Coords, LocationState} from '../types/locationTypes';
 // Style
 import styles from '../styles/MapScreenStyles';
 
+// Notification
+import messaging from '@react-native-firebase/messaging';
+
 const initialLocationState: LocationState = {
   coords: null,
   region: null,
@@ -136,6 +139,21 @@ function MapScreen(): React.ReactElement {
     console.log('Spotify Play Button Pressed');
     Linking.openURL(spotifyUrl);
   };
+
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
+  useEffect(() => {
+    requestUserPermission();
+  }, []);
 
   return (
     <View style={styles.container}>
