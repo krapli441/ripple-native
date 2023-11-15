@@ -24,9 +24,9 @@ target 'ripple' do
 
   config = use_native_modules!
 
-  pod 'FirebaseFirestore', :modular_headers => true
-  pod 'FirebaseCore', :modular_headers => true
-  pod 'FirebaseCoreExtension', :modular_headers => true
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
 
   # Flags change depending on the env values.
   flags = get_default_flags()
