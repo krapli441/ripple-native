@@ -41,6 +41,10 @@ target 'ripple' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'FirebaseFirestore', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+
   target 'rippleTests' do
     inherit! :complete
     # Pods for testing
