@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* rippleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* rippleTests.m */; };
-		071D1D5EF6297496120CA70B /* libPods-ripple-rippleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0794B07E11432746FFD8EA0 /* libPods-ripple-rippleTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		3A602BE20F0DFFAE82785F57 /* libPods-ripple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEA5C991F79F6FD8641265D /* libPods-ripple.a */; };
+		14DA3188D2DDEA88D5B095AF /* libPods-ripple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFC2B503038A2561CB169DF /* libPods-ripple.a */; };
 		63051BEA2B04922300D864D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63051BE92B04922300D864D3 /* GoogleService-Info.plist */; };
 		632DB8972AE2148400D96DCA /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8842AE2148300D96DCA /* FontAwesome.ttf */; };
 		632DB8982AE2148400D96DCA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8852AE2148300D96DCA /* MaterialIcons.ttf */; };
@@ -37,6 +36,7 @@
 		63C630F32AE2794800CFD143 /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C630F02AE2794800CFD143 /* appstore.png */; };
 		63C630F42AE2794800CFD143 /* playstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C630F12AE2794800CFD143 /* playstore.png */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		DF9DC8D2DD9DDB662773FF68 /* libPods-ripple-rippleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F07F9B6CE382D365A0C6D67D /* libPods-ripple-rippleTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +59,9 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ripple/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ripple/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ripple/main.m; sourceTree = "<group>"; };
+		3DFC2B503038A2561CB169DF /* libPods-ripple.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ripple.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41479628A584372FD3D18A15 /* Pods-ripple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple.release.xcconfig"; path = "Target Support Files/Pods-ripple/Pods-ripple.release.xcconfig"; sourceTree = "<group>"; };
+		52D1ACA3AF9103AB1BC22DBB /* Pods-ripple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple.debug.xcconfig"; path = "Target Support Files/Pods-ripple/Pods-ripple.debug.xcconfig"; sourceTree = "<group>"; };
 		63051BE92B04922300D864D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63051BEB2B049FB100D864D3 /* ripple.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ripple.entitlements; path = ripple/ripple.entitlements; sourceTree = "<group>"; };
 		632DB8842AE2148300D96DCA /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -84,13 +87,10 @@
 		63C630F02AE2794800CFD143 /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appstore.png; path = ../../../Downloads/AppIcons/appstore.png; sourceTree = "<group>"; };
 		63C630F12AE2794800CFD143 /* playstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playstore.png; path = ../../../Downloads/AppIcons/playstore.png; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ripple/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8AEA5C991F79F6FD8641265D /* libPods-ripple.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ripple.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B26D575358A926FE191B3405 /* Pods-ripple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple.debug.xcconfig"; path = "Target Support Files/Pods-ripple/Pods-ripple.debug.xcconfig"; sourceTree = "<group>"; };
-		D33F794D8A495B3A736E261E /* Pods-ripple-rippleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple-rippleTests.release.xcconfig"; path = "Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests.release.xcconfig"; sourceTree = "<group>"; };
-		E0794B07E11432746FFD8EA0 /* libPods-ripple-rippleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ripple-rippleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A23050B64B35388A501576F8 /* Pods-ripple-rippleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple-rippleTests.debug.xcconfig"; path = "Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D8E04D8883285337098ED00F /* Pods-ripple-rippleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple-rippleTests.release.xcconfig"; path = "Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F2FC18337239733CFB843E5F /* Pods-ripple-rippleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple-rippleTests.debug.xcconfig"; path = "Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F5E34B50DD5CDC7AFEA5DB22 /* Pods-ripple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ripple.release.xcconfig"; path = "Target Support Files/Pods-ripple/Pods-ripple.release.xcconfig"; sourceTree = "<group>"; };
+		F07F9B6CE382D365A0C6D67D /* libPods-ripple-rippleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ripple-rippleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				071D1D5EF6297496120CA70B /* libPods-ripple-rippleTests.a in Frameworks */,
+				DF9DC8D2DD9DDB662773FF68 /* libPods-ripple-rippleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A602BE20F0DFFAE82785F57 /* libPods-ripple.a in Frameworks */,
+				14DA3188D2DDEA88D5B095AF /* libPods-ripple.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,8 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				8AEA5C991F79F6FD8641265D /* libPods-ripple.a */,
-				E0794B07E11432746FFD8EA0 /* libPods-ripple-rippleTests.a */,
+				3DFC2B503038A2561CB169DF /* libPods-ripple.a */,
+				F07F9B6CE382D365A0C6D67D /* libPods-ripple-rippleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -219,10 +219,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B26D575358A926FE191B3405 /* Pods-ripple.debug.xcconfig */,
-				F5E34B50DD5CDC7AFEA5DB22 /* Pods-ripple.release.xcconfig */,
-				F2FC18337239733CFB843E5F /* Pods-ripple-rippleTests.debug.xcconfig */,
-				D33F794D8A495B3A736E261E /* Pods-ripple-rippleTests.release.xcconfig */,
+				52D1ACA3AF9103AB1BC22DBB /* Pods-ripple.debug.xcconfig */,
+				41479628A584372FD3D18A15 /* Pods-ripple.release.xcconfig */,
+				A23050B64B35388A501576F8 /* Pods-ripple-rippleTests.debug.xcconfig */,
+				D8E04D8883285337098ED00F /* Pods-ripple-rippleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -234,12 +234,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "rippleTests" */;
 			buildPhases = (
-				63BE14D069D238F07CE8BE2C /* [CP] Check Pods Manifest.lock */,
+				E531EE9E64BD99125755F321 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				50B8E859DE2CCDEEE0491743 /* [CP] Embed Pods Frameworks */,
-				007D811F6CFA938DF9413FE4 /* [CP] Copy Pods Resources */,
+				3473C85EB7881AB62963A39F /* [CP] Embed Pods Frameworks */,
+				AE1B65D11D364C058C6DBF32 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -255,15 +255,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ripple" */;
 			buildPhases = (
-				68131103731C0AF5D3464499 /* [CP] Check Pods Manifest.lock */,
+				2BECBB50936DEFB0866ED0C1 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				0F76C5095F29F6187251D7EA /* [CP] Embed Pods Frameworks */,
-				CE8D699ED9D2200B5033F84F /* [CP] Copy Pods Resources */,
-				D4A8C54922E8F687A21F72DE /* [CP-User] [RNFB] Core Configuration */,
+				DF84D26D26D94AE02C303424 /* [CP] Embed Pods Frameworks */,
+				00D9646FD7F57E1FBF8629C1 /* [CP] Copy Pods Resources */,
+				FBBE7BE25C5AB99A77432E77 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -353,21 +353,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		007D811F6CFA938DF9413FE4 /* [CP] Copy Pods Resources */ = {
+		00D9646FD7F57E1FBF8629C1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
@@ -386,63 +386,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		0F76C5095F29F6187251D7EA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		50B8E859DE2CCDEEE0491743 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		63BE14D069D238F07CE8BE2C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ripple-rippleTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		68131103731C0AF5D3464499 /* [CP] Check Pods Manifest.lock */ = {
+		2BECBB50936DEFB0866ED0C1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -464,24 +408,80 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CE8D699ED9D2200B5033F84F /* [CP] Copy Pods Resources */ = {
+		3473C85EB7881AB62963A39F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D4A8C54922E8F687A21F72DE /* [CP-User] [RNFB] Core Configuration */ = {
+		AE1B65D11D364C058C6DBF32 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple-rippleTests/Pods-ripple-rippleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF84D26D26D94AE02C303424 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ripple/Pods-ripple-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E531EE9E64BD99125755F321 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ripple-rippleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBBE7BE25C5AB99A77432E77 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -546,7 +546,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2FC18337239733CFB843E5F /* Pods-ripple-rippleTests.debug.xcconfig */;
+			baseConfigurationReference = A23050B64B35388A501576F8 /* Pods-ripple-rippleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -573,7 +573,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D33F794D8A495B3A736E261E /* Pods-ripple-rippleTests.release.xcconfig */;
+			baseConfigurationReference = D8E04D8883285337098ED00F /* Pods-ripple-rippleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -597,7 +597,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B26D575358A926FE191B3405 /* Pods-ripple.debug.xcconfig */;
+			baseConfigurationReference = 52D1ACA3AF9103AB1BC22DBB /* Pods-ripple.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -629,7 +629,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5E34B50DD5CDC7AFEA5DB22 /* Pods-ripple.release.xcconfig */;
+			baseConfigurationReference = 41479628A584372FD3D18A15 /* Pods-ripple.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
