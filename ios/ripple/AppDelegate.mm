@@ -8,10 +8,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [FIRApp configure];
 
   NSString *googleMapsApiKey = [RNCConfig envFor:@"GOOGLE_API_KEY"];
   [GMSServices provideAPIKey:googleMapsApiKey];
+  [FIRApp configure];
 
   self.moduleName = @"ripple";
   self.initialProps = {};
