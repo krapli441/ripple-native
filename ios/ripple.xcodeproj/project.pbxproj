@@ -13,6 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3A602BE20F0DFFAE82785F57 /* libPods-ripple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEA5C991F79F6FD8641265D /* libPods-ripple.a */; };
+		63051BE82B048D6200D864D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63051BE72B048D6200D864D3 /* GoogleService-Info.plist */; };
 		632DB8972AE2148400D96DCA /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8842AE2148300D96DCA /* FontAwesome.ttf */; };
 		632DB8982AE2148400D96DCA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8852AE2148300D96DCA /* MaterialIcons.ttf */; };
 		632DB8992AE2148400D96DCA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8862AE2148300D96DCA /* SimpleLineIcons.ttf */; };
@@ -58,6 +59,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ripple/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ripple/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ripple/main.m; sourceTree = "<group>"; };
+		63051BE72B048D6200D864D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		632DB8842AE2148300D96DCA /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		632DB8852AE2148300D96DCA /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		632DB8862AE2148300D96DCA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		13B07FAE1A68108700A75B9A /* ripple */ = {
 			isa = PBXGroup;
 			children = (
+				63051BE72B048D6200D864D3 /* GoogleService-Info.plist */,
 				632DB8832AE2147800D96DCA /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -318,6 +321,7 @@
 			files = (
 				632DB8982AE2148400D96DCA /* MaterialIcons.ttf in Resources */,
 				632DB89F2AE2148400D96DCA /* FontAwesome6_Regular.ttf in Resources */,
+				63051BE82B048D6200D864D3 /* GoogleService-Info.plist in Resources */,
 				63C630F32AE2794800CFD143 /* appstore.png in Resources */,
 				63C630F22AE2794800CFD143 /* Assets.xcassets in Resources */,
 				632DB8A62AE2148400D96DCA /* Ionicons.ttf in Resources */,
