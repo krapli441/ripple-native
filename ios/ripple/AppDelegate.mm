@@ -1,8 +1,8 @@
+#import <Firebase.h>
 #import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "RNCConfig.h"
 #import <React/RCTBundleURLProvider.h>
-#import <Firebase.h>
 
 @implementation AppDelegate
 
@@ -10,7 +10,9 @@
 {
   NSString *googleMapsApiKey = [RNCConfig envFor:@"GOOGLE_API_KEY"];
   [GMSServices provideAPIKey:googleMapsApiKey];
-  [FIRApp configure];
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
 
   
 
