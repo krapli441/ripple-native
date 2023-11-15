@@ -55,12 +55,15 @@ export class Ripple extends Document {
   @Prop()
   tag: string[];
 
-  @Prop()
+  @Prop({
+    type: Date,
+    expires: '24h', // 24시간 뒤 자동 삭제
+    default: () => new Date(), // 문서 생성 시 현재 시간으로 설정
+  })
   expiresAt: Date;
 
   @Prop({ default: [] })
   likedUsers: string[]; // '좋아요'를 누른 사용자들의 ID 목록
-
 }
 
 export const RippleSchema = SchemaFactory.createForClass(Ripple);

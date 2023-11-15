@@ -55,7 +55,11 @@ __decorate([
     __metadata("design:type", Array)
 ], Ripple.prototype, "tag", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({
+        type: Date,
+        expires: '24h',
+        default: () => new Date(),
+    }),
     __metadata("design:type", Date)
 ], Ripple.prototype, "expiresAt", void 0);
 __decorate([
