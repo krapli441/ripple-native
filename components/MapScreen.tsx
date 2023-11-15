@@ -141,13 +141,17 @@ function MapScreen(): React.ReactElement {
   };
 
   async function requestUserPermission() {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    const authorizationStatus = await messaging().requestPermission();
 
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
+    if (authorizationStatus) {
+      console.log('Authorization status:', authorizationStatus);
+
+      // 디바이스 토큰 가져오기
+      const token = await messaging().getToken();
+      console.log('FCM Token:', token);
+
+      // 여기서 token을 서버에 보내서 저장할 수 있습니다.
+      // 예: sendTokenToServer(token);
     }
   }
 
