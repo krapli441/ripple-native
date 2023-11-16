@@ -210,6 +210,7 @@ function MapScreen(): React.ReactElement {
     initializeMessaging();
   }, []);
 
+
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('light-content');
