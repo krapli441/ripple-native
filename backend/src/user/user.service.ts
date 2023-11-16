@@ -27,6 +27,7 @@ export class UserService {
   async findByUsername(username: string): Promise<User | null> {
     return this.userModel.findOne({ username: username }).exec();
   }
+  
 
   // 다른 CRUD 메서드
 }

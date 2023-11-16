@@ -37,7 +37,7 @@ export class SpotifyAuthController {
         });
       }
 
-      const jwtPayload = { email: user.email, userId: user._id };
+      const jwtPayload = { email: user.email, username: user.username };
       const jwtToken = this.jwtService.sign(jwtPayload);
 
       return {
