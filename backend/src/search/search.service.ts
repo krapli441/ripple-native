@@ -12,7 +12,7 @@ export class SearchService {
   ) {}
 
   public async searchMusicForUser(userId: string, query: string): Promise<any> {
-    let user = await this.userService.findByUsername(userId);
+    let user = await this.userService.findById(userId);
     if (!user) {
       throw new Error('User not found');
     }

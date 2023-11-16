@@ -8,4 +8,5 @@ export declare class UserService {
     findByEmail(email: string): Promise<User | null>;
     update(id: string, updateData: Partial<CreateUserDto>): Promise<User>;
     findByUsername(username: string): Promise<User | null>;
+    findById(id: string): Promise<User | null>;
 }
