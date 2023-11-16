@@ -71,6 +71,8 @@ function MapScreen(): React.ReactElement {
       authToken.username ? authToken : {...authToken, username: ''},
     );
 
+  const userID = authToken.token;
+
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
@@ -172,7 +174,7 @@ function MapScreen(): React.ReactElement {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken.token}`,
+        Authorization: `Bearer ${userID}`,
       },
       body: JSON.stringify({pushToken: token}),
     };
