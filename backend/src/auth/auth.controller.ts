@@ -3,6 +3,8 @@ import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '@nestjs/passport';
+import { UseGuards } from '@nestjs/common';
 
 @Controller('auth/spotify')
 export class SpotifyAuthController {
@@ -116,7 +118,7 @@ export class SpotifyAuthController {
 
   @Post('push-token')
   async updatePushToken(@Body() body: { pushToken: string }, @Request() req) {
-    const userId = req.body;
+    const userId = req.user.id;
     await this.userService.update(userId, { pushToken: body.pushToken });
     return { message: 'Push token updated' };
   }

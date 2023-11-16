@@ -156,25 +156,29 @@ function MapScreen(): React.ReactElement {
   }
 
   async function sendTokenToServer(token: string) {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken.token}`,
+      },
+      body: JSON.stringify({pushToken: token}),
+    };
+
     try {
+      console.log('Sending request with:', requestOptions);
+
       const response = await fetch(
         'http://192.168.0.215:3000/auth/spotify/push-token',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // 필요한 경우 인증 헤더 추가
-            // 'Authorization': `Bearer ${yourAuthToken}`,
-          },
-          body: JSON.stringify({pushToken: token}),
-        },
+        requestOptions,
       );
 
       if (!response.ok) {
         throw new Error('Failed to send token to server');
       }
 
-      console.log('Token sent to server');
+      const responseData = await response.json();
+      console.log('Response from server:', responseData);
     } catch (error) {
       console.error('Error sending token to server:', error);
     }

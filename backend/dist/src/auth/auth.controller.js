@@ -103,7 +103,7 @@ let SpotifyAuthController = class SpotifyAuthController {
         return tokenResponse.data.access_token;
     }
     async updatePushToken(body, req) {
-        const userId = req.body;
+        const userId = req.user.id;
         await this.userService.update(userId, { pushToken: body.pushToken });
         return { message: 'Push token updated' };
     }
