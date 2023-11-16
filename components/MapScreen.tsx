@@ -206,7 +206,7 @@ function MapScreen(): React.ReactElement {
   }
 
   useEffect(() => {
-    requestUserPermission();
+    initializeMessaging();
   }, []);
 
   useFocusEffect(
