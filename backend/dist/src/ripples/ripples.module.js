@@ -12,6 +12,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const ripples_service_1 = require("./ripples.service");
 const ripples_controller_1 = require("./ripples.controller");
 const ripples_schema_1 = require("./ripples.schema");
+const user_module_1 = require("../user/user.module");
+const fcm_service_1 = require("../fcm/fcm.service");
 let RipplesModule = class RipplesModule {
 };
 exports.RipplesModule = RipplesModule;
@@ -19,9 +21,10 @@ exports.RipplesModule = RipplesModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: ripples_schema_1.Ripple.name, schema: ripples_schema_1.RippleSchema }]),
+            user_module_1.UserModule,
         ],
         controllers: [ripples_controller_1.RipplesController],
-        providers: [ripples_service_1.RipplesService],
+        providers: [ripples_service_1.RipplesService, fcm_service_1.FcmService],
     })
 ], RipplesModule);
 //# sourceMappingURL=ripples.module.js.map

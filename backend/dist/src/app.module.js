@@ -23,6 +23,7 @@ const axios_1 = require("@nestjs/axios");
 const ripples_module_1 = require("./ripples/ripples.module");
 const music_tag_controller_1 = require("./music-tag/music-tag.controller");
 const music_tag_module_1 = require("./music-tag/music-tag.module");
+const fcm_service_1 = require("./fcm/fcm.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -57,7 +58,7 @@ exports.AppModule = AppModule = __decorate([
             search_controller_1.SearchController,
             music_tag_controller_1.TagController,
         ],
-        providers: [app_service_1.AppService, search_service_1.SearchService],
+        providers: [app_service_1.AppService, search_service_1.SearchService, fcm_service_1.FcmService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
