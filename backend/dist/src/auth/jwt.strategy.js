@@ -26,7 +26,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
     }
     async validate(payload) {
         console.log('Payload received in JWT validate:', payload);
-        const user = await this.userService.findById(payload.userId);
+        const user = await this.userService.findByUsername(payload.userId);
         if (!user) {
             console.error(`User with ID ${payload.userId} not found`);
             throw new Error('User not found');

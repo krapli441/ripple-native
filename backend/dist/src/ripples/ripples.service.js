@@ -73,7 +73,7 @@ let RipplesService = class RipplesService {
         const index = ripple.likedUsers.indexOf(userId);
         if (index === -1) {
             ripple.likedUsers.push(userId);
-            const creator = await this.userService.findById(ripple.userId);
+            const creator = await this.userService.findByUsername(ripple.userId);
             if (creator && creator.pushToken) {
                 this.fcmService.sendNotification(creator.pushToken, 'Someone Likes Your Ripple', 'Your ripple has been liked by someone.');
             }

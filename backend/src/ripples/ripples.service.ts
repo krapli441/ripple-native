@@ -82,7 +82,7 @@ export class RipplesService {
       ripple.likedUsers.push(userId); // 사용자가 '좋아요'한 경우 추가
 
       // 리플 생성자의 푸시 토큰 찾기
-      const creator = await this.userService.findById(ripple.userId);
+      const creator = await this.userService.findByUsername(ripple.userId);
       if (creator && creator.pushToken) {
         // 푸시 알림 전송
         this.fcmService.sendNotification(

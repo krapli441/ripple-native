@@ -21,7 +21,7 @@ let SearchService = class SearchService {
         this.configService = configService;
     }
     async searchMusicForUser(userId, query) {
-        let user = await this.userService.findById(userId);
+        let user = await this.userService.findByUsername(userId);
         if (!user) {
             throw new Error('User not found');
         }
@@ -57,7 +57,7 @@ let SearchService = class SearchService {
             refreshToken: data.refresh_token || refreshToken,
             tokenExpiry: newExpiryDate,
         });
-        return this.userService.findById(user.id);
+        return this.userService.findByUsername(user.id);
     }
 };
 exports.SearchService = SearchService;
