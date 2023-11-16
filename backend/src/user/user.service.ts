@@ -24,12 +24,12 @@ export class UserService {
       .exec();
   }
 
-  async findByUsername(username: string): Promise<User | null> {
-    return this.userModel.findOne({ username: username }).exec();
+  async findById(userId: string): Promise<User | null> {
+    return this.userModel.findById(userId).exec();
   }
 
-  async findById(id: string): Promise<User | null> {
-    return this.userModel.findById(id).exec();
+  async findByUsername(username: string): Promise<User | null> {
+    return this.userModel.findOne({ username: username }).exec();
   }
 
   // 다른 CRUD 메서드
