@@ -74,8 +74,7 @@ function MapScreen(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
-      return () => {
-      };
+      return () => {};
     }, [isDarkMode]),
   );
 
@@ -142,6 +141,7 @@ function MapScreen(): React.ReactElement {
 
   async function initializeMessaging() {
     const storedToken = await AsyncStorage.getItem('pushToken');
+    console.log(storedToken);
 
     if (storedToken) {
       console.log('Push token already obtained and stored.');
