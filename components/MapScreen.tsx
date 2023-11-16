@@ -142,18 +142,19 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  async function requestUserPermission() {
+  async function initializeMessaging() {
     const authorizationStatus = await messaging().requestPermission();
+    if (!authorizationStatus) {
+      console.log('Permission not granted');
+      return;
+    }
 
-    if (authorizationStatus) {
-      console.log('Authorization status:', authorizationStatus);
+    const newToken = await messaging().getToken();
+    const storedToken = await AsyncStorage.getItem('pushToken');
 
-      // 디바이스 토큰 가져오기
-      const token = await messaging().getToken();
-      console.log('FCM Token:', token);
-
-      // 서버에 토큰 전송
-      await sendTokenToServer(token);
+    if (newToken !== storedToken) {
+      await sendTokenToServer(newToken);
+      await AsyncStorage.setItem('pushToken', newToken);
     }
   }
 
@@ -187,21 +188,7 @@ function MapScreen(): React.ReactElement {
   }
 
   useEffect(() => {
-    requestUserPermission();
-  }, []);
-
-  async function updateTokenIfNeeded() {
-    const newToken = await messaging().getToken();
-    const storedToken = await AsyncStorage.getItem('pushToken');
-
-    if (newToken !== storedToken) {
-      await sendTokenToServer(newToken);
-      await AsyncStorage.setItem('pushToken', newToken);
-    }
-  }
-
-  useEffect(() => {
-    updateTokenIfNeeded();
+    initializeMessaging();
   }, []);
 
   return (
