@@ -143,7 +143,7 @@ function MapScreen(): React.ReactElement {
 
   useEffect(() => {
     initializeMessaging();
-  }, [initializeMessaging]);
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {

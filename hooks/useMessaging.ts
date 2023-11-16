@@ -4,7 +4,7 @@ import {sendTokenToServer} from './sendTokenToServer'; // 별도 파일로 분�
 
 const useMessaging = () => {
   const initializeMessaging = async () => {
-    const storedToken: string | null = await AsyncStorage.getItem('pushToken');
+    const storedToken: string | null = await AsyncStorage.getItem('userToken');
 
     if (storedToken) {
       console.log('Push token already obtained and stored.');
@@ -22,7 +22,7 @@ const useMessaging = () => {
 
     try {
       await sendTokenToServer(newToken);
-      await AsyncStorage.setItem('pushToken', newToken);
+      await AsyncStorage.setItem('userToken', newToken);
     } catch (error) {
       console.error('Error in token handling:', error);
     }
