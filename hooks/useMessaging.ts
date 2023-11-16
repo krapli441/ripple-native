@@ -1,10 +1,10 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {sendTokenToServer} from './sendTokenToServer'; // 별도 파일로 분리된 함수
+import {sendTokenToServer} from './sendTokenToServer';
 
 const useMessaging = () => {
   const initializeMessaging = async () => {
-    const storedToken: string | null = await AsyncStorage.getItem('userToken');
+    const storedToken = await AsyncStorage.getItem('userToken');
 
     if (storedToken) {
       console.log('Push token already obtained and stored.');
@@ -17,7 +17,7 @@ const useMessaging = () => {
       return;
     }
 
-    const newToken: string = await messaging().getToken();
+    const newToken = await messaging().getToken();
     console.log('New FCM Token:', newToken);
 
     try {
