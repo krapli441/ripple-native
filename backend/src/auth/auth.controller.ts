@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Request } from '@nestjs/common';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user/user.service';
@@ -112,5 +112,12 @@ export class SpotifyAuthController {
       },
     );
     return tokenResponse.data.access_token;
+  }
+
+  @Post('push-token')
+  async updatePushToken(@Body() body: { pushToken: string }, @Request() req) {
+    const userId = req.body;
+    await this.userService.update(userId, { pushToken: body.pushToken });
+    return { message: 'Push token updated' };
   }
 }

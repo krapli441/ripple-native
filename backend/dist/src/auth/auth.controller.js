@@ -102,6 +102,11 @@ let SpotifyAuthController = class SpotifyAuthController {
         });
         return tokenResponse.data.access_token;
     }
+    async updatePushToken(body, req) {
+        const userId = req.body;
+        await this.userService.update(userId, { pushToken: body.pushToken });
+        return { message: 'Push token updated' };
+    }
 };
 exports.SpotifyAuthController = SpotifyAuthController;
 __decorate([
@@ -111,6 +116,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SpotifyAuthController.prototype, "getToken", null);
+__decorate([
+    (0, common_1.Post)('push-token'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], SpotifyAuthController.prototype, "updatePushToken", null);
 exports.SpotifyAuthController = SpotifyAuthController = __decorate([
     (0, common_1.Controller)('auth/spotify'),
     __metadata("design:paramtypes", [config_1.ConfigService,

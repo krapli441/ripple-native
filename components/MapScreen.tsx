@@ -150,8 +150,33 @@ function MapScreen(): React.ReactElement {
       const token = await messaging().getToken();
       console.log('FCM Token:', token);
 
-      // 여기서 token을 서버에 보내서 저장할 수 있습니다.
-      // 예: sendTokenToServer(token);
+      // 서버에 토큰 전송
+      await sendTokenToServer(token);
+    }
+  }
+
+  async function sendTokenToServer(token: string) {
+    try {
+      const response = await fetch(
+        'http://192.168.0.215:3000/auth/spotify/push-token',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // 필요한 경우 인증 헤더 추가
+            // 'Authorization': `Bearer ${yourAuthToken}`,
+          },
+          body: JSON.stringify({pushToken: token}),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to send token to server');
+      }
+
+      console.log('Token sent to server');
+    } catch (error) {
+      console.error('Error sending token to server:', error);
     }
   }
 
