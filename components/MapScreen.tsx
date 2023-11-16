@@ -75,7 +75,6 @@ function MapScreen(): React.ReactElement {
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
       return () => {
-        // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
       };
     }, [isDarkMode]),
   );
@@ -168,10 +167,8 @@ function MapScreen(): React.ReactElement {
   }
 
   async function sendTokenToServer(token: string) {
-    // AsyncStorage에서 userID를 가져오기
     const userID = await AsyncStorage.getItem('userToken');
 
-    // userID가 유효한지 확인
     if (!userID) {
       console.error('User ID is not available');
       return;
