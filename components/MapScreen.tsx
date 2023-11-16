@@ -141,21 +141,6 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  async function requestUserPermission() {
-    const authorizationStatus = await messaging().requestPermission();
-
-    if (authorizationStatus) {
-      console.log('Authorization status:', authorizationStatus);
-
-      // 디바이스 토큰 가져오기
-      const token = await messaging().getToken();
-      console.log('FCM Token:', token);
-
-      // 서버에 토큰 전송
-      await sendTokenToServer(token);
-    }
-  }
-
   async function initializeMessaging() {
     const storedToken = await AsyncStorage.getItem('pushToken');
 
