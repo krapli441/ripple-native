@@ -188,6 +188,13 @@ function MapScreen(): React.ReactElement {
     requestUserPermission();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('light-content');
+      return () => {};
+    }, []),
+  );
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
