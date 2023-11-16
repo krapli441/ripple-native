@@ -84,11 +84,13 @@ export class RipplesService {
       // 리플 생성자의 푸시 토큰 찾기
       const creator = await this.userService.findByUsername(ripple.userId);
       if (creator && creator.pushToken) {
+        console.log(creator);
+        console.log(creator.pushToken);
         // 푸시 알림 전송
         this.fcmService.sendNotification(
           creator.pushToken,
-          'Someone Likes Your Ripple',
-          'Your ripple has been liked by someone.',
+          'Ripple',
+          '누군가 회원님이 남긴 음악을 좋아합니다.',
         );
       }
     } else {

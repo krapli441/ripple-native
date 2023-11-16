@@ -75,7 +75,9 @@ let RipplesService = class RipplesService {
             ripple.likedUsers.push(userId);
             const creator = await this.userService.findByUsername(ripple.userId);
             if (creator && creator.pushToken) {
-                this.fcmService.sendNotification(creator.pushToken, 'Someone Likes Your Ripple', 'Your ripple has been liked by someone.');
+                console.log(creator);
+                console.log(creator.pushToken);
+                this.fcmService.sendNotification(creator.pushToken, 'Ripple', '누군가 회원님이 남긴 음악을 좋아합니다.');
             }
         }
         else {
