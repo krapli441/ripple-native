@@ -70,3 +70,4 @@ yarn-error.log
 
 # NestJS
 ./backend/dist
+./backend/ripple-firebase-adminsdk.json
