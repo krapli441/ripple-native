@@ -14,6 +14,7 @@ import {
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
+
 // Libraries
 import MapView, {
   PROVIDER_GOOGLE,
@@ -23,6 +24,7 @@ import MapView, {
 } from 'react-native-maps';
 import {mapViewProps} from '../maps/MapScreen-mapViewProps';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
 
@@ -186,6 +188,20 @@ function MapScreen(): React.ReactElement {
 
   useEffect(() => {
     requestUserPermission();
+  }, []);
+
+  async function updateTokenIfNeeded() {
+    const newToken = await messaging().getToken();
+    const storedToken = await AsyncStorage.getItem('pushToken');
+
+    if (newToken !== storedToken) {
+      await sendTokenToServer(newToken);
+      await AsyncStorage.setItem('pushToken', newToken);
+    }
+  }
+
+  useEffect(() => {
+    updateTokenIfNeeded();
   }, []);
 
   return (
