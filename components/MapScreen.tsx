@@ -157,8 +157,14 @@ function MapScreen(): React.ReactElement {
     }
 
     const newToken = await messaging().getToken();
-    await sendTokenToServer(newToken);
-    await AsyncStorage.setItem('pushToken', newToken);
+    console.log('New FCM Token:', newToken);
+
+    try {
+      await sendTokenToServer(newToken);
+      await AsyncStorage.setItem('pushToken', newToken);
+    } catch (error) {
+      console.error('Error in token handling:', error);
+    }
   }
 
   async function sendTokenToServer(token: string) {
@@ -172,14 +178,17 @@ function MapScreen(): React.ReactElement {
     };
 
     try {
-      console.log('Sending request with:', requestOptions);
-
       const response = await fetch(
         'http://192.168.0.215:3000/auth/spotify/push-token',
         requestOptions,
       );
 
       if (!response.ok) {
+        console.error(
+          `Response Error: ${response.status} ${response.statusText}`,
+        );
+        const errorBody = await response.text();
+        console.error(`Error Body: ${errorBody}`);
         throw new Error('Failed to send token to server');
       }
 
