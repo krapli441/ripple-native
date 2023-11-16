@@ -33,6 +33,7 @@ import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
 import {useLocation} from '../utils/LocationContext';
 import useRippleActions from '../hooks/useRippleActions';
+import useMessaging from '../hooks/useMessaging';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
@@ -70,13 +71,12 @@ function MapScreen(): React.ReactElement {
     useRippleActions(
       authToken.username ? authToken : {...authToken, username: ''},
     );
+  const {initializeMessaging} = useMessaging();
 
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
-      return () => {
-        // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
-      };
+      return () => {};
     }, [isDarkMode]),
   );
 
@@ -141,77 +141,9 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  async function initializeMessaging() {
-    const storedToken = await AsyncStorage.getItem('pushToken');
-
-    if (storedToken) {
-      console.log('Push token already obtained and stored.');
-      return;
-    }
-
-    const authorizationStatus = await messaging().requestPermission();
-
-    if (!authorizationStatus) {
-      console.log('Permission not granted');
-      return;
-    }
-
-    const newToken = await messaging().getToken();
-    console.log('New FCM Token:', newToken);
-
-    try {
-      await sendTokenToServer(newToken);
-      await AsyncStorage.setItem('pushToken', newToken);
-    } catch (error) {
-      console.error('Error in token handling:', error);
-    }
-  }
-
-  async function sendTokenToServer(token: string) {
-    // AsyncStorage에서 userID를 가져오기
-    const userID = await AsyncStorage.getItem('userToken');
-
-    // userID가 유효한지 확인
-    if (!userID) {
-      console.error('User ID is not available');
-      return;
-    }
-
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userID}`,
-      },
-      body: JSON.stringify({pushToken: token}),
-    };
-
-    try {
-      console.log('Sending request with:', requestOptions);
-      const response = await fetch(
-        'http://192.168.0.215:3000/auth/spotify/push-token',
-        requestOptions,
-      );
-
-      if (!response.ok) {
-        console.error(
-          `Response Error: ${response.status} ${response.statusText}`,
-        );
-        const errorBody = await response.text();
-        console.error(`Error Body: ${errorBody}`);
-        throw new Error('Failed to send token to server');
-      }
-
-      const responseData = await response.json();
-      console.log('Response from server:', responseData);
-    } catch (error) {
-      console.error('Error sending token to server:', error);
-    }
-  }
-
   useEffect(() => {
     initializeMessaging();
-  }, []);
+  }, [initializeMessaging]);
 
   useFocusEffect(
     React.useCallback(() => {
