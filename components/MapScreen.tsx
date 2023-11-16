@@ -71,8 +71,6 @@ function MapScreen(): React.ReactElement {
       authToken.username ? authToken : {...authToken, username: ''},
     );
 
-  const userID = authToken.token;
-
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
@@ -170,6 +168,15 @@ function MapScreen(): React.ReactElement {
   }
 
   async function sendTokenToServer(token: string) {
+    // AsyncStorage에서 userID를 가져오기
+    const userID = await AsyncStorage.getItem('userToken');
+
+    // userID가 유효한지 확인
+    if (!userID) {
+      console.error('User ID is not available');
+      return;
+    }
+
     const requestOptions = {
       method: 'POST',
       headers: {
