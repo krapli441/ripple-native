@@ -18,6 +18,7 @@ const axios_1 = require("axios");
 const config_1 = require("@nestjs/config");
 const user_service_1 = require("../user/user.service");
 const jwt_1 = require("@nestjs/jwt");
+const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 let SpotifyAuthController = class SpotifyAuthController {
     constructor(configService, userService, jwtService) {
         this.configService = configService;
@@ -117,6 +118,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SpotifyAuthController.prototype, "getToken", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('push-token'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
