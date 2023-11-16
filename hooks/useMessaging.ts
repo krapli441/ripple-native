@@ -15,8 +15,7 @@ const useMessaging = () => {
         return;
       }
 
-      const authorizationStatus: messaging.AuthorizationStatus =
-        await messaging().requestPermission();
+      const authorizationStatus = await messaging().requestPermission();
       if (!authorizationStatus) {
         console.log('Permission not granted');
         return;
