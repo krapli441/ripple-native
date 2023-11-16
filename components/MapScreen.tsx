@@ -180,6 +180,7 @@ function MapScreen(): React.ReactElement {
     };
 
     try {
+      console.log('Sending request with:', requestOptions);
       const response = await fetch(
         'http://192.168.0.215:3000/auth/spotify/push-token',
         requestOptions,
