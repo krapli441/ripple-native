@@ -14,6 +14,7 @@ import {
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
+
 // Libraries
 import MapView, {
   PROVIDER_GOOGLE,
@@ -23,6 +24,7 @@ import MapView, {
 } from 'react-native-maps';
 import {mapViewProps} from '../maps/MapScreen-mapViewProps';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
 
@@ -62,7 +64,6 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-  // const [ripples, setRipples] = useState<Ripple[]>([]);
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
   const {ripples, setRipples, fetchNearbyRipples, handleLike} =
@@ -153,6 +154,26 @@ function MapScreen(): React.ReactElement {
       // 서버에 토큰 전송
       await sendTokenToServer(token);
     }
+  }
+
+  async function initializeMessaging() {
+    const storedToken = await AsyncStorage.getItem('pushToken');
+
+    if (storedToken) {
+      console.log('Push token already obtained and stored.');
+      return;
+    }
+
+    const authorizationStatus = await messaging().requestPermission();
+
+    if (!authorizationStatus) {
+      console.log('Permission not granted');
+      return;
+    }
+
+    const newToken = await messaging().getToken();
+    await sendTokenToServer(newToken);
+    await AsyncStorage.setItem('pushToken', newToken);
   }
 
   async function sendTokenToServer(token: string) {
