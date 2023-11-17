@@ -7,39 +7,34 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   useColorScheme,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// types
-import {RootStackParamList} from '../types/navigationTypes';
-
-// asyncStorage
-import useAuthToken from '../utils/useAuthToken';
-
 // Style
-import styles from '../styles/SearchScreenStyles';
+import styles from '../styles/NotificationScreenStyles';
 
 function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
+      const userId = await AsyncStorage.getItem('userId');
+      if (!userId) return;
+
       try {
-        const userId = await AsyncStorage.getItem('userId');
-        console.log('userId:', userId);
         const response = await fetch(
           `http://192.168.0.215:3000/notifications/${userId}`,
         );
         if (!response.ok) throw new Error('Network response was not ok');
-
         const data = await response.json();
         setNotifications(data);
-        console.log('알림 목록 : ', data);
       } catch (error) {
         console.error('Error fetching notifications:', error);
       }
@@ -48,11 +43,6 @@ function NotificationScreen(): React.ReactElement {
     fetchNotifications();
   }, []);
 
-  // 키보드를 숨기는 함수
-  const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
-
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
@@ -60,13 +50,26 @@ function NotificationScreen(): React.ReactElement {
     }, []),
   );
 
+  const renderItem = ({item}) => (
+    <View style={styles.notificationItem}>
+      <Text style={styles.notificationText}>
+        {item.message}
+        {/* {item.senderId}님이  */}
+      </Text>
+      <Image source={{uri: item.albumCoverUrl}} style={styles.albumCover} />
+    </View>
+  );
+
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View style={styles.searchContainer}>
-        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-        <Text style={styles.header}>알림</Text>
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={styles.searchContainer}>
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <Text style={styles.header}>알림</Text>
+      <FlatList
+        data={notifications}
+        renderItem={renderItem}
+        keyExtractor={item => item._id}
+      />
+    </View>
   );
 }
 
