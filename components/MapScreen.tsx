@@ -14,6 +14,7 @@ import {
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
+
 // Libraries
 import MapView, {
   PROVIDER_GOOGLE,
@@ -23,6 +24,7 @@ import MapView, {
 } from 'react-native-maps';
 import {mapViewProps} from '../maps/MapScreen-mapViewProps';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
 
@@ -62,7 +64,6 @@ function MapScreen(): React.ReactElement {
     useState<LocationState>(initialLocationState);
   const {coords, region, gpsError} = locationState;
   const errorAnim = useRef(new Animated.Value(-100)).current;
-  // const [ripples, setRipples] = useState<Ripple[]>([]);
   const {setLocation} = useLocation();
   const authToken = useAuthToken();
   const {ripples, setRipples, fetchNearbyRipples, handleLike} =
@@ -73,9 +74,7 @@ function MapScreen(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
-      return () => {
-        // 이 부분은 필요하다면 다른 스크린으로 이동할 때의 상태 표시줄 스타일을 복구하는 데 사용할 수 있습니다.
-      };
+      return () => {};
     }, [isDarkMode]),
   );
 
@@ -136,28 +135,86 @@ function MapScreen(): React.ReactElement {
   }, [coords]);
 
   const handleSpotifyPlay = (spotifyUrl: string) => {
-    console.log('Spotify Play Button Pressed');
     Linking.openURL(spotifyUrl);
   };
 
-  async function requestUserPermission() {
+  async function initializeMessaging() {
+    const storedToken = await AsyncStorage.getItem('pushToken');
+    console.log(storedToken);
+
+    if (storedToken) {
+      console.log('Push token already obtained and stored.');
+      return;
+    }
+
     const authorizationStatus = await messaging().requestPermission();
 
-    if (authorizationStatus) {
-      console.log('Authorization status:', authorizationStatus);
+    if (!authorizationStatus) {
+      console.log('Permission not granted');
+      return;
+    }
 
-      // 디바이스 토큰 가져오기
-      const token = await messaging().getToken();
-      console.log('FCM Token:', token);
+    const newToken = await messaging().getToken();
+    console.log('New FCM Token:', newToken);
 
-      // 여기서 token을 서버에 보내서 저장할 수 있습니다.
-      // 예: sendTokenToServer(token);
+    try {
+      await sendTokenToServer(newToken);
+      await AsyncStorage.setItem('pushToken', newToken);
+    } catch (error) {
+      console.error('Error in token handling:', error);
+    }
+  }
+
+  async function sendTokenToServer(token: string) {
+    const userID = await AsyncStorage.getItem('userToken');
+
+    if (!userID) {
+      console.error('User ID is not available');
+      return;
+    }
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userID}`,
+      },
+      body: JSON.stringify({pushToken: token}),
+    };
+
+    try {
+      console.log('Sending request with:', requestOptions);
+      const response = await fetch(
+        'http://192.168.0.215:3000/auth/spotify/push-token',
+        requestOptions,
+      );
+
+      if (!response.ok) {
+        console.error(
+          `Response Error: ${response.status} ${response.statusText}`,
+        );
+        const errorBody = await response.text();
+        console.error(`Error Body: ${errorBody}`);
+        throw new Error('Failed to send token to server');
+      }
+
+      const responseData = await response.json();
+      console.log('Response from server:', responseData);
+    } catch (error) {
+      console.error('Error sending token to server:', error);
     }
   }
 
   useEffect(() => {
-    requestUserPermission();
+    initializeMessaging();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('light-content');
+      return () => {};
+    }, []),
+  );
 
   return (
     <View style={styles.container}>

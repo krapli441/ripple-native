@@ -15,6 +15,7 @@ import { RipplesModule } from './ripples/ripples.module';
 import { TagService } from './music-tag/music-tag.service';
 import { TagController } from './music-tag/music-tag.controller';
 import { TagModule } from './music-tag/music-tag.module';
+import { FcmService } from './fcm/fcm.service';
 
 @Module({
   imports: [
@@ -46,6 +47,6 @@ import { TagModule } from './music-tag/music-tag.module';
     SearchController,
     TagController,
   ],
-  providers: [AppService, SearchService],
+  providers: [AppService, SearchService, FcmService],
 })
 export class AppModule {}

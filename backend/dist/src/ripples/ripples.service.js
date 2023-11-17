@@ -17,9 +17,13 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const ripples_schema_1 = require("./ripples.schema");
+const user_service_1 = require("../user/user.service");
+const fcm_service_1 = require("../fcm/fcm.service");
 let RipplesService = class RipplesService {
-    constructor(rippleModel) {
+    constructor(rippleModel, userService, fcmService) {
         this.rippleModel = rippleModel;
+        this.userService = userService;
+        this.fcmService = fcmService;
     }
     async create(createRippleDto) {
         const newRipple = new this.rippleModel(createRippleDto);
@@ -69,6 +73,12 @@ let RipplesService = class RipplesService {
         const index = ripple.likedUsers.indexOf(userId);
         if (index === -1) {
             ripple.likedUsers.push(userId);
+            if (ripple.userId !== userId) {
+                const creator = await this.userService.findById(ripple.userId);
+                if (creator && creator.pushToken) {
+                    this.fcmService.sendNotification(creator.pushToken, 'Ripple', '누군가 회원님이 남긴 음악을 좋아합니다.');
+                }
+            }
         }
         else {
             ripple.likedUsers.splice(index, 1);
@@ -80,6 +90,8 @@ exports.RipplesService = RipplesService;
 exports.RipplesService = RipplesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(ripples_schema_1.Ripple.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        user_service_1.UserService,
+        fcm_service_1.FcmService])
 ], RipplesService);
 //# sourceMappingURL=ripples.service.js.map

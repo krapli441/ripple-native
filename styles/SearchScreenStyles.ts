@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'center',
     marginLeft: 30,
-    marginRight: 20,
+    marginRight: 30,
   },
   flatListStyle: {
     flex: 1,

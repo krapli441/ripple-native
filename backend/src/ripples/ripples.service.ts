@@ -4,10 +4,16 @@ import { Model } from 'mongoose';
 import { CreateRippleDto } from './create-ripple.dto';
 import { UpdateRippleDto } from './update-ripple.dto';
 import { Ripple, IRipple } from './ripples.schema';
+import { UserService } from '../user/user.service';
+import { FcmService } from '../fcm/fcm.service';
 
 @Injectable()
 export class RipplesService {
-  constructor(@InjectModel(Ripple.name) private rippleModel: Model<Ripple>) {}
+  constructor(
+    @InjectModel(Ripple.name) private rippleModel: Model<Ripple>,
+    private userService: UserService,
+    private fcmService: FcmService,
+  ) {}
 
   async create(createRippleDto: CreateRippleDto): Promise<Ripple> {
     const newRipple = new this.rippleModel(createRippleDto);
@@ -74,6 +80,19 @@ export class RipplesService {
     const index = ripple.likedUsers.indexOf(userId);
     if (index === -1) {
       ripple.likedUsers.push(userId); // 사용자가 '좋아요'한 경우 추가
+
+      // 리플 생성자가 자신의 리플에 '좋아요'를 누르지 않은 경우에만 푸시 알림 전송
+      if (ripple.userId !== userId) {
+        const creator = await this.userService.findById(ripple.userId);
+        if (creator && creator.pushToken) {
+          // 푸시 알림 전송
+          this.fcmService.sendNotification(
+            creator.pushToken,
+            'Ripple',
+            '누군가 회원님이 남긴 음악을 좋아합니다.',
+          );
+        }
+      }
     } else {
       ripple.likedUsers.splice(index, 1); // 이미 '좋아요'한 경우 제거
     }

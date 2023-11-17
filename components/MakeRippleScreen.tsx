@@ -10,6 +10,7 @@ import {
   Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
@@ -150,8 +151,10 @@ function MakeRippleScreen(): React.ReactElement {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.keyboardAvoidingView}>
-      <View style={styles.searchContainer}>
+      style={[styles.keyboardAvoidingView, {flex: 1}]}>
+      <ScrollView
+        style={styles.searchContainer}
+        contentContainerStyle={{flexGrow: 1}}>
         <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
         <Text style={styles.header}>음악 남기기</Text>
         {track && (
@@ -232,7 +235,7 @@ function MakeRippleScreen(): React.ReactElement {
           }}>
           <Text style={styles.completeButtonText}>음악 남기기</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

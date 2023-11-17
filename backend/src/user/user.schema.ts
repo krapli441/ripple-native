@@ -17,6 +17,9 @@ export class User extends Document {
 
   @Prop()
   tokenExpiry: Date;
+
+  @Prop()
+  pushToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -4,4 +4,5 @@ export declare class CreateUserDto {
     accessToken: string;
     refreshToken: string;
     tokenExpiry: Date;
+    pushToken?: string;
 }

@@ -24,8 +24,14 @@ export class UserService {
       .exec();
   }
 
+  // 사용자 ID로 사용자를 찾는 메서드
   async findById(userId: string): Promise<User | null> {
     return this.userModel.findById(userId).exec();
+  }
+
+  // 사용자 이름으로 사용자를 찾는 메서드
+  async findByUsername(username: string): Promise<User | null> {
+    return this.userModel.findOne({ username: username }).exec();
   }
 
   // 다른 CRUD 메서드

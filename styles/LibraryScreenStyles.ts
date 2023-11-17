@@ -1,10 +1,8 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  flexContainer: {
-    flex: 1,
-  },
   searchContainer: {
+    flex:1,
     backgroundColor: '#f8f9fa',
     justifyContent: 'flex-start',
   },
@@ -60,6 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '85%',
+    height: 80,
     padding: 20,
     alignSelf: 'center',
     backgroundColor: '#191414',

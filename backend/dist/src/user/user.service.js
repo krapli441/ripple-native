@@ -36,6 +36,9 @@ let UserService = class UserService {
     async findById(userId) {
         return this.userModel.findById(userId).exec();
     }
+    async findByUsername(username) {
+        return this.userModel.findOne({ username: username }).exec();
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

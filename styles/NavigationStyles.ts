@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     width: 'auto',
-    height: 120,
+    height: '13%',
     borderTopEndRadius: 20,
     borderTopLeftRadius: 20,
     borderColor: '#ccc',
