@@ -33,6 +33,7 @@ let FcmService = class FcmService {
             },
             token,
         };
+        console.log('보내는 사람 ', message);
         try {
             await admin.messaging().send(message);
             console.log('Notification sent successfully');

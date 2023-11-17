@@ -78,22 +78,20 @@ let RipplesService = class RipplesService {
         if (index === -1) {
             ripple.likedUsers.push(userId);
             console.log('After updating likedUsers:', ripple.likedUsers);
-            if (ripple.userId === userId) {
-                const creator = await this.userService.findByUsername(ripple.userId);
-                if (creator && creator.pushToken) {
-                    console.log('Sending push notification to:', creator);
-                    this.fcmService.sendNotification(creator.pushToken, 'Ripple', `${userId}님이 회원님이 남긴 음악을 좋아합니다.`);
-                    const notificationData = {
-                        recipientId: creator._id,
-                        senderId: userId,
-                        type: 'like',
-                        message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
-                        referenceId: id,
-                        albumCoverUrl: ripple.albumCoverUrl,
-                    };
-                    console.log('Notification Data:', notificationData);
-                    await this.notificationService.createNotification(notificationData);
-                }
+            const creator = await this.userService.findByUsername(ripple.userId);
+            if (creator && creator.pushToken) {
+                console.log('Sending push notification to:', creator);
+                this.fcmService.sendNotification(creator.pushToken, 'Ripple', `${userId}님이 회원님이 남긴 음악을 좋아합니다.`);
+                const notificationData = {
+                    recipientId: creator._id,
+                    senderId: userId,
+                    type: 'like',
+                    message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
+                    referenceId: id,
+                    albumCoverUrl: ripple.albumCoverUrl,
+                };
+                console.log('Notification Data:', notificationData);
+                await this.notificationService.createNotification(notificationData);
             }
         }
         else {
