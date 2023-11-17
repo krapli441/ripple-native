@@ -39,7 +39,7 @@ function NotificationScreen(): React.ReactElement {
 
         const data = await response.json();
         setNotifications(data);
-        console.log(notifications);
+        console.log('알림 목록 : ', data);
       } catch (error) {
         console.error('Error fetching notifications:', error);
       }
