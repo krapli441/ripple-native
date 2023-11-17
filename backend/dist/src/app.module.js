@@ -25,6 +25,8 @@ const music_tag_controller_1 = require("./music-tag/music-tag.controller");
 const music_tag_module_1 = require("./music-tag/music-tag.module");
 const fcm_service_1 = require("./fcm/fcm.service");
 const notification_schema_1 = require("./notification/notification.schema");
+const notification_service_1 = require("./notification/notification.service");
+const notification_controller_1 = require("./notification/notification.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -61,8 +63,9 @@ exports.AppModule = AppModule = __decorate([
             auth_controller_1.SpotifyAuthController,
             search_controller_1.SearchController,
             music_tag_controller_1.TagController,
+            notification_controller_1.NotificationController,
         ],
-        providers: [app_service_1.AppService, search_service_1.SearchService, fcm_service_1.FcmService],
+        providers: [app_service_1.AppService, search_service_1.SearchService, fcm_service_1.FcmService, notification_service_1.NotificationService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
