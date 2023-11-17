@@ -27,6 +27,7 @@ const fcm_service_1 = require("./fcm/fcm.service");
 const notification_schema_1 = require("./notification/notification.schema");
 const notification_service_1 = require("./notification/notification.service");
 const notification_controller_1 = require("./notification/notification.controller");
+const notification_module_1 = require("./notification/notification.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -57,6 +58,7 @@ exports.AppModule = AppModule = __decorate([
             axios_1.HttpModule,
             ripples_module_1.RipplesModule,
             music_tag_module_1.TagModule,
+            notification_module_1.NotificationModule,
         ],
         controllers: [
             app_controller_1.AppController,

@@ -1,4 +1,33 @@
 import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
+@Schema()
+export class Notification extends Document {
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  recipientId: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ required: true })
+  senderId: string;
+
+  @Prop({ required: true })
+  type: string;
+
+  @Prop({ required: true })
+  message: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Ripple', required: true })
+  referenceId: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ required: true })
+  albumCoverUrl: string;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
+
+  @Prop({ default: false })
+  read: boolean;
+}
 
 export const NotificationSchema = new mongoose.Schema({
   recipientId: {
@@ -27,5 +56,5 @@ export interface Notification extends mongoose.Document {
   referenceId: mongoose.Schema.Types.ObjectId;
   albumCoverUrl: string;
   createdAt: Date;
-  read: Boolean;
+  read: boolean; // 여기서 'Boolean'을 'boolean'으로 변경
 }
