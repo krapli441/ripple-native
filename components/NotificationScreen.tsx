@@ -26,11 +26,12 @@ function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [notifications, setNotifications] = useState([]);
-  const userId = AsyncStorage.getItem('userId');
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
+        const userId = await AsyncStorage.getItem('userId');
+        console.log('userId:', userId);
         const response = await fetch(
           `http://192.168.0.215:3000/notifications/${userId}`,
         );
@@ -45,7 +46,7 @@ function NotificationScreen(): React.ReactElement {
     };
 
     fetchNotifications();
-  }, [userId]);
+  }, []);
 
   // 키보드를 숨기는 함수
   const dismissKeyboard = () => {
