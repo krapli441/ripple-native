@@ -4,14 +4,9 @@ import {
   View,
   StatusBar,
   Text,
-  TouchableWithoutFeedback,
-  Keyboard,
   useColorScheme,
   FlatList,
   Image,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -68,7 +63,7 @@ function NotificationScreen(): React.ReactElement {
   );
 
   return (
-    <View style={styles.searchContainer}>
+    <View style={styles.notificationContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>알림</Text>
       <FlatList
