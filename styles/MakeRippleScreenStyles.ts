@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   searchContainer: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: '#f8f9fa',
   },
   tagsContainer: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginTop: 70,
+    marginTop: '15%',
     marginLeft: 30,
   },
   tagHeader: {
