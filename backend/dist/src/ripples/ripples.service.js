@@ -70,28 +70,35 @@ let RipplesService = class RipplesService {
     async updateLike(id, userId) {
         const ripple = await this.rippleModel.findById(id).exec();
         if (!ripple) {
+            console.log(`Ripple not found with ID: ${id}`);
             throw new common_1.NotFoundException('Ripple not found');
         }
+        console.log('Before updating likedUsers:', ripple.likedUsers);
         const index = ripple.likedUsers.indexOf(userId);
         if (index === -1) {
             ripple.likedUsers.push(userId);
-            if (ripple.userId !== userId) {
-                await this.notificationService.createNotification({
-                    recipientId: ripple.userId,
-                    senderId: userId,
-                    type: 'like',
-                    message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
-                    referenceId: id,
-                    albumCoverUrl: ripple.albumCoverUrl,
-                });
-                const creator = await this.userService.findById(ripple.userId);
+            console.log('After updating likedUsers:', ripple.likedUsers);
+            if (ripple.userId === userId) {
+                const creator = await this.userService.findByUsername(ripple.userId);
                 if (creator && creator.pushToken) {
+                    console.log('Sending push notification to:', creator);
                     this.fcmService.sendNotification(creator.pushToken, 'Ripple', `${userId}님이 회원님이 남긴 음악을 좋아합니다.`);
+                    const notificationData = {
+                        recipientId: creator._id,
+                        senderId: userId,
+                        type: 'like',
+                        message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
+                        referenceId: id,
+                        albumCoverUrl: ripple.albumCoverUrl,
+                    };
+                    console.log('Notification Data:', notificationData);
+                    await this.notificationService.createNotification(notificationData);
                 }
             }
         }
         else {
             ripple.likedUsers.splice(index, 1);
+            console.log('After removing like:', ripple.likedUsers);
         }
         return ripple.save();
     }
