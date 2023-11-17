@@ -25,7 +25,8 @@ const NavigationTabBar: React.FC<BottomTabBarProps> = ({
   navigation,
 }) => {
   const filteredRoutes = state.routes.filter(
-    route => route.name !== 'SearchModal',
+    route =>
+      route.name !== 'SearchModal' && route.name !== 'NotificationScreen',
   );
 
   return (

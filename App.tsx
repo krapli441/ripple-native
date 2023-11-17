@@ -74,6 +74,7 @@ function SearchStackScreen() {
           gestureEnabled: false,
         }}
       />
+
       <SearchStack.Screen
         name="SearchTagScreen"
         component={SearchTagScreen}
@@ -124,6 +125,11 @@ function MainTabNavigator() {
           unmountOnBlur: true,
         }}
       />
+      <Tab.Screen
+        name="NotificationScreen"
+        component={NotificationScreen}
+        options={{headerShown: false}}
+      />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>
   );
@@ -157,11 +163,6 @@ function App(): JSX.Element {
             />
             <Stack.Screen
               name="LikedRippleScreen"
-              component={LikedRippleScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="NotificationScreen"
               component={LikedRippleScreen}
               options={{headerShown: false}}
             />
