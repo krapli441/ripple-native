@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     flex: 1,
+    backgroundColor: '#f8f9fa',
   },
   rippleItem: {
     width: '85%',
