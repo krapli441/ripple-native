@@ -135,7 +135,6 @@ function MapScreen(): React.ReactElement {
   }, [coords]);
 
   const handleSpotifyPlay = (spotifyUrl: string) => {
-    console.log('Spotify Play Button Pressed');
     Linking.openURL(spotifyUrl);
   };
 

@@ -73,11 +73,11 @@ let RipplesService = class RipplesService {
         const index = ripple.likedUsers.indexOf(userId);
         if (index === -1) {
             ripple.likedUsers.push(userId);
-            const creator = await this.userService.findByUsername(ripple.userId);
-            if (creator && creator.pushToken) {
-                console.log(creator);
-                console.log(creator.pushToken);
-                this.fcmService.sendNotification(creator.pushToken, 'Ripple', '누군가 회원님이 남긴 음악을 좋아합니다.');
+            if (ripple.userId !== userId) {
+                const creator = await this.userService.findById(ripple.userId);
+                if (creator && creator.pushToken) {
+                    this.fcmService.sendNotification(creator.pushToken, 'Ripple', '누군가 회원님이 남긴 음악을 좋아합니다.');
+                }
             }
         }
         else {

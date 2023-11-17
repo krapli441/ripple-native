@@ -81,17 +81,17 @@ export class RipplesService {
     if (index === -1) {
       ripple.likedUsers.push(userId); // 사용자가 '좋아요'한 경우 추가
 
-      // 리플 생성자의 푸시 토큰 찾기
-      const creator = await this.userService.findByUsername(ripple.userId);
-      if (creator && creator.pushToken) {
-        console.log(creator);
-        console.log(creator.pushToken);
-        // 푸시 알림 전송
-        this.fcmService.sendNotification(
-          creator.pushToken,
-          'Ripple',
-          '누군가 회원님이 남긴 음악을 좋아합니다.',
-        );
+      // 리플 생성자가 자신의 리플에 '좋아요'를 누르지 않은 경우에만 푸시 알림 전송
+      if (ripple.userId !== userId) {
+        const creator = await this.userService.findById(ripple.userId);
+        if (creator && creator.pushToken) {
+          // 푸시 알림 전송
+          this.fcmService.sendNotification(
+            creator.pushToken,
+            'Ripple',
+            '누군가 회원님이 남긴 음악을 좋아합니다.',
+          );
+        }
       }
     } else {
       ripple.likedUsers.splice(index, 1); // 이미 '좋아요'한 경우 제거
