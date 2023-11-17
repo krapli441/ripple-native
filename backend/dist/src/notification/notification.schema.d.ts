@@ -1,30 +1,30 @@
 import * as mongoose from 'mongoose';
 export declare const NotificationSchema: mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    recipientId: mongoose.Types.ObjectId;
     type: string;
+    albumCoverUrl: string;
+    createdAt: Date;
+    recipientId: mongoose.Types.ObjectId;
     senderId: string;
     message: string;
     referenceId: mongoose.Types.ObjectId;
-    albumCoverUrl: string;
-    createdAt: Date;
     read: boolean;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
-    recipientId: mongoose.Types.ObjectId;
     type: string;
+    albumCoverUrl: string;
+    createdAt: Date;
+    recipientId: mongoose.Types.ObjectId;
     senderId: string;
     message: string;
     referenceId: mongoose.Types.ObjectId;
-    albumCoverUrl: string;
-    createdAt: Date;
     read: boolean;
 }>> & mongoose.FlatRecord<{
-    recipientId: mongoose.Types.ObjectId;
     type: string;
+    albumCoverUrl: string;
+    createdAt: Date;
+    recipientId: mongoose.Types.ObjectId;
     senderId: string;
     message: string;
     referenceId: mongoose.Types.ObjectId;
-    albumCoverUrl: string;
-    createdAt: Date;
     read: boolean;
 }> & {
     _id: mongoose.Types.ObjectId;

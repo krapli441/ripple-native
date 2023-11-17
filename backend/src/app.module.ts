@@ -16,6 +16,7 @@ import { TagService } from './music-tag/music-tag.service';
 import { TagController } from './music-tag/music-tag.controller';
 import { TagModule } from './music-tag/music-tag.module';
 import { FcmService } from './fcm/fcm.service';
+import { NotificationSchema } from './notification/notification.schema';
 
 @Module({
   imports: [
@@ -25,6 +26,9 @@ import { FcmService } from './fcm/fcm.service';
     }),
     PassportModule.register({ defaultStrategy: 'spotify' }),
     MongooseModule.forRoot('mongodb://localhost:27017/ripple'),
+    MongooseModule.forFeature([
+      { name: 'Notification', schema: NotificationSchema },
+    ]),
     UserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

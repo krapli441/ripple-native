@@ -24,6 +24,7 @@ const ripples_module_1 = require("./ripples/ripples.module");
 const music_tag_controller_1 = require("./music-tag/music-tag.controller");
 const music_tag_module_1 = require("./music-tag/music-tag.module");
 const fcm_service_1 = require("./fcm/fcm.service");
+const notification_schema_1 = require("./notification/notification.schema");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -36,6 +37,9 @@ exports.AppModule = AppModule = __decorate([
             }),
             passport_1.PassportModule.register({ defaultStrategy: 'spotify' }),
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/ripple'),
+            mongoose_1.MongooseModule.forFeature([
+                { name: 'Notification', schema: notification_schema_1.NotificationSchema },
+            ]),
             user_module_1.UserModule,
             jwt_1.JwtModule.registerAsync({
                 imports: [config_1.ConfigModule],
