@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -25,7 +26,7 @@ function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [notifications, setNotifications] = useState([]);
-  const userId = useAuthToken().userId;
+  const userId = AsyncStorage.getItem('userId');
 
   useEffect(() => {
     const fetchNotifications = async () => {
