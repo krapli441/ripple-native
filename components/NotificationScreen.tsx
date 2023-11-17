@@ -19,6 +19,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Style
 import styles from '../styles/NotificationScreenStyles';
 
+interface NotificationItem {
+  _id: string;
+  senderId: string;
+  message: string;
+  albumCoverUrl: string;
+}
+
 function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [notifications, setNotifications] = useState([]);
@@ -50,7 +57,7 @@ function NotificationScreen(): React.ReactElement {
     }, []),
   );
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item}: {item: NotificationItem}) => (
     <View style={styles.notificationItem}>
       <Text style={styles.notificationText}>
         {item.message}
