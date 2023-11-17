@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    right: 40,
-    bottom: 150,
+    right: '9%',
+    bottom: '18%',
     backgroundColor: 'white',
     width: 60,
     height: 60,
