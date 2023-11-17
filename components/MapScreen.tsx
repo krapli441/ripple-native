@@ -216,9 +216,18 @@ function MapScreen(): React.ReactElement {
     }, []),
   );
 
+  const handleNotificationPress = () => {
+    navigation.navigate('NotificationScreen');
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <TouchableOpacity
+        onPress={handleNotificationPress}
+        style={{position: 'absolute', top: 10, right: 10}}>
+        <Icon name="bell" size={24} color="#000" />
+      </TouchableOpacity>
       <MapView
         {...mapViewProps}
         ref={mapRef}

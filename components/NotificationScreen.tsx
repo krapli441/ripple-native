@@ -29,7 +29,7 @@ import useAuthToken from '../utils/useAuthToken';
 import styles from '../styles/SearchScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function SearchScreen(): React.ReactElement {
+function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<TrackDetails[]>([]);
@@ -146,4 +146,4 @@ function SearchScreen(): React.ReactElement {
   );
 }
 
-export default SearchScreen;
+export default NotificationScreen;

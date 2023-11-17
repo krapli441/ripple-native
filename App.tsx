@@ -18,6 +18,7 @@ import RippleCreatedScreen from './components/RippleCreatedScreen';
 import LibraryScreen from './components/LibraryScreen';
 import MyRippleScreen from './components/MyRippleScreen';
 import LikedRippleScreen from './components/LikedRippleScreen';
+import NotificationScreen from './components/NotificationScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -156,6 +157,11 @@ function App(): JSX.Element {
             />
             <Stack.Screen
               name="LikedRippleScreen"
+              component={LikedRippleScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="NotificationScreen"
               component={LikedRippleScreen}
               options={{headerShown: false}}
             />

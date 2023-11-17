@@ -34,8 +34,9 @@ export type RootStackParamList = {
       tag: string[];
     };
   };
-  MyRippleScreen : undefined;
-  LikedRippleScreen : undefined;
+  MyRippleScreen: undefined;
+  LikedRippleScreen: undefined;
+  NotificationScreen: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<
