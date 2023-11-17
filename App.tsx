@@ -130,6 +130,7 @@ function MainTabNavigator() {
         component={NotificationScreen}
         options={{headerShown: false}}
       />
+
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>
   );
