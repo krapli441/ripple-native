@@ -223,11 +223,7 @@ function MapScreen(): React.ReactElement {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-      <TouchableOpacity
-        onPress={handleNotificationPress}
-        style={{position: 'absolute', top: 10, right: 10}}>
-        <Icon name="bell" size={24} color="#000" />
-      </TouchableOpacity>
+
       <MapView
         {...mapViewProps}
         ref={mapRef}
@@ -319,6 +315,11 @@ function MapScreen(): React.ReactElement {
           </Marker>
         ))}
       </MapView>
+      <TouchableOpacity
+        onPress={handleNotificationPress}
+        style={{position: 'absolute', top: 80, right: 30}}>
+        <Icon name="bell" size={24} color="white" />
+      </TouchableOpacity>
       {gpsError && (
         <Animated.View
           style={[styles.errorOverlay, {transform: [{translateY: errorAnim}]}]}>
