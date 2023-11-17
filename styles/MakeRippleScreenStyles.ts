@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     // flex: 1,
     backgroundColor: '#f8f9fa',
-    // justifyContent: 'flex-start',
   },
   tagsContainer: {
     flexDirection: 'row',
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 10,
     marginLeft: 30,
-    marginRight: 20,
+    marginRight: 30,
     marginTop: 30,
   },
   textContainer: {

@@ -149,92 +149,88 @@ function MakeRippleScreen(): React.ReactElement {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.keyboardAvoidingView}>
-      <ScrollView style={styles.searchContainer}>
-        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-        <Text style={styles.header}>음악 남기기</Text>
-        {track && (
-          <View style={styles.resultItem}>
-            <Image source={{uri: track.imageUrl}} style={styles.albumCover} />
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{track.title}</Text>
-              <Text style={styles.artist}>{track.artist}</Text>
-            </View>
+    <ScrollView
+      style={styles.searchContainer}
+      contentContainerStyle={{flexGrow: 1, minHeight: '100%'}}>
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <Text style={styles.header}>음악 남기기</Text>
+      {track && (
+        <View style={styles.resultItem}>
+          <Image source={{uri: track.imageUrl}} style={styles.albumCover} />
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{track.title}</Text>
+            <Text style={styles.artist}>{track.artist}</Text>
           </View>
-        )}
-        <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
-        <Text style={styles.tagHelpText}>
-          이 음악이 어울리는 순간을 추가해보세요.
-        </Text>
-        <View style={styles.tagsContainer}>
-          {tags.slice(0, 8).map((tag, index) => (
-            <TouchableWithoutFeedback
-              key={tag.name}
-              onPress={() => toggleTag(tag.name)}>
-              <View style={[styles.tag, getTagStyle(tag.name)]}>
-                <Text style={[styles.tagText, getTagTextStyle(tag.name)]}>
-                  {tag.name}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
-          ))}
         </View>
-        <TouchableOpacity
-          style={styles.moreButton}
-          onPress={goToSearchTagScreen}>
-          <Text style={styles.moreButtonText}>태그 편집</Text>
-        </TouchableOpacity>
-        <MapView
-          {...mapViewProps}
-          region={{
-            latitude: location?.latitude || 0,
-            longitude: location?.longitude || 0,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          customMapStyle={MapStyle}>
-          {location && (
-            <Marker
-              coordinate={{
-                latitude: location.latitude,
-                longitude: location.longitude,
-              }}>
-              <Image
-                source={require('../assets/img/ripplemarker.png')}
-                style={{width: 20, height: 20}}
-              />
-            </Marker>
-          )}
-        </MapView>
-        <Text style={styles.rippleHelpText}>이 위치에 음악이 남겨집니다.</Text>
-        <TouchableOpacity
-          style={styles.completeButton} // 스타일은 styles 객체에 정의해야 합니다.
-          onPress={() => {
-            const rippleData = {
-              userId: authToken.username,
-              title: track?.title,
-              artist: track?.artist,
-              albumCoverUrl: track?.imageUrl,
-              spotifyExternalUrl: track?.externalUrl,
-              location: {
-                type: 'Point',
-                coordinates: [location?.longitude, location?.latitude],
-              },
-              tag: tags.map(tag => tag.name),
-              likes: 0,
-              expiresAt: new Date(/* 만료 날짜 계산 */).toISOString(),
-            };
-            console.log('Ripple 데이터', rippleData);
-            createRipple(rippleData);
-          }}>
-          <Text style={styles.completeButtonText}>음악 남기기</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      )}
+      <Text style={styles.tagHeader}>이럴 때 듣기 좋아요</Text>
+      <Text style={styles.tagHelpText}>
+        이 음악이 어울리는 순간을 추가해보세요.
+      </Text>
+      <View style={styles.tagsContainer}>
+        {tags.slice(0, 8).map((tag, index) => (
+          <TouchableWithoutFeedback
+            key={tag.name}
+            onPress={() => toggleTag(tag.name)}>
+            <View style={[styles.tag, getTagStyle(tag.name)]}>
+              <Text style={[styles.tagText, getTagTextStyle(tag.name)]}>
+                {tag.name}
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
+      </View>
+      <TouchableOpacity style={styles.moreButton} onPress={goToSearchTagScreen}>
+        <Text style={styles.moreButtonText}>태그 편집</Text>
+      </TouchableOpacity>
+      <MapView
+        {...mapViewProps}
+        region={{
+          latitude: location?.latitude || 0,
+          longitude: location?.longitude || 0,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        customMapStyle={MapStyle}>
+        {location && (
+          <Marker
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}>
+            <Image
+              source={require('../assets/img/ripplemarker.png')}
+              style={{width: 20, height: 20}}
+            />
+          </Marker>
+        )}
+      </MapView>
+      <Text style={styles.rippleHelpText}>이 위치에 음악이 남겨집니다.</Text>
+      <TouchableOpacity
+        style={styles.completeButton} // 스타일은 styles 객체에 정의해야 합니다.
+        onPress={() => {
+          const rippleData = {
+            userId: authToken.username,
+            title: track?.title,
+            artist: track?.artist,
+            albumCoverUrl: track?.imageUrl,
+            spotifyExternalUrl: track?.externalUrl,
+            location: {
+              type: 'Point',
+              coordinates: [location?.longitude, location?.latitude],
+            },
+            tag: tags.map(tag => tag.name),
+            likes: 0,
+            expiresAt: new Date(/* 만료 날짜 계산 */).toISOString(),
+          };
+          console.log('Ripple 데이터', rippleData);
+          createRipple(rippleData);
+        }}>
+        <Text style={styles.completeButtonText}>음악 남기기</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
 
