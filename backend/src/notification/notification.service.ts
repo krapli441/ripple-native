@@ -5,7 +5,9 @@ import { Notification } from './notification.schema';
 
 @Injectable()
 export class NotificationService {
-  constructor(@InjectModel('Notification') private notificationModel: Model<Notification>) {}
+  constructor(
+    @InjectModel('Notification') private notificationModel: Model<Notification>,
+  ) {}
 
   // 새 알림 생성
   async createNotification(data: any): Promise<Notification> {

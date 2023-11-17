@@ -19,6 +19,7 @@ import { FcmService } from './fcm/fcm.service';
 import { NotificationSchema } from './notification/notification.schema';
 import { NotificationService } from './notification/notification.service';
 import { NotificationController } from './notification/notification.controller';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { NotificationController } from './notification/notification.controller';
     HttpModule,
     RipplesModule,
     TagModule,
+    NotificationModule,
   ],
   controllers: [
     AppController,

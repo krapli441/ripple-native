@@ -5,13 +5,14 @@ import { RipplesController } from './ripples.controller';
 import { Ripple, RippleSchema } from './ripples.schema';
 import { UserModule } from '../user/user.module'; // UserModule 가져오기
 import { FcmService } from '../fcm/fcm.service'; // FcmService 가져오기
+import { NotificationService } from 'src/notification/notification.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Ripple.name, schema: RippleSchema }]),
-    UserModule, // UserModule 추가
+    UserModule,
   ],
   controllers: [RipplesController],
-  providers: [RipplesService, FcmService],
+  providers: [RipplesService, FcmService, NotificationService],
 })
 export class RipplesModule {}
