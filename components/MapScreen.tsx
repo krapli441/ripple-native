@@ -317,7 +317,7 @@ function MapScreen(): React.ReactElement {
       </MapView>
       <TouchableOpacity
         onPress={handleNotificationPress}
-        style={{position: 'absolute', top: 80, right: 30}}>
+        style={{position: 'absolute', top: 80, right: 40}}>
         <Icon name="bell" size={24} color="white" />
       </TouchableOpacity>
       {gpsError && (
