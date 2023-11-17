@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
   },
   notificationItem: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center', // 수직 중앙 정렬
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
@@ -33,6 +34,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     marginLeft: 24,
+    marginTop: 6,
+  },
+  notificationTextContainer: {
+    flex: 1, // 텍스트 컨테이너가 가능한 모든 공간을 차지하도록 설정
+    justifyContent: 'center', // 수직 중앙 정렬
   },
 });
 

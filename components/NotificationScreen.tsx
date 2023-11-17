@@ -52,16 +52,22 @@ function NotificationScreen(): React.ReactElement {
     }, []),
   );
 
-  const renderItem = ({item}: {item: NotificationItem}) => (
-    <View style={styles.notificationItem}>
-      <Text style={styles.notificationText}>
-        {item.message}
-        {/* {item.senderId}님이  */}
-      </Text>
-      <Image source={{uri: item.albumCoverUrl}} style={styles.albumCover} />
-    </View>
-  );
+  const renderItem = ({item}: {item: NotificationItem}) => {
+    // 메시지를 "님이" 기준으로 나누기
+    const messageParts = item.message.split('님이');
+    const firstPart = messageParts[0] + '님이';
+    const secondPart = '회원님이 남긴 음악을 좋아합니다.';
 
+    return (
+      <View style={styles.notificationItem}>
+        <View style={styles.notificationTextContainer}>
+          <Text style={styles.notificationText}>{firstPart}</Text>
+          <Text style={styles.notificationText}>{secondPart}</Text>
+        </View>
+        <Image source={{uri: item.albumCoverUrl}} style={styles.albumCover} />
+      </View>
+    );
+  };
   return (
     <View style={styles.notificationContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
