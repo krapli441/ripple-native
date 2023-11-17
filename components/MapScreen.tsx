@@ -317,8 +317,18 @@ function MapScreen(): React.ReactElement {
       </MapView>
       <TouchableOpacity
         onPress={handleNotificationPress}
-        style={{position: 'absolute', top: 80, right: 40}}>
-        <Icon name="bell" size={24} color="white" />
+        style={{
+          position: 'absolute',
+          top: "8%",
+          right: "9%",
+          width: 50,
+          height: 50,
+          backgroundColor: 'white',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius:10,
+        }}>
+        <Icon name="bell" size={24} color="black" />
       </TouchableOpacity>
       {gpsError && (
         <Animated.View
