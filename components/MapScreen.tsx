@@ -70,6 +70,7 @@ function MapScreen(): React.ReactElement {
     useRippleActions(
       authToken.username ? authToken : {...authToken, username: ''},
     );
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -319,14 +320,14 @@ function MapScreen(): React.ReactElement {
         onPress={handleNotificationPress}
         style={{
           position: 'absolute',
-          top: "8%",
-          right: "9%",
+          top: '8%',
+          right: '9%',
           width: 50,
           height: 50,
           backgroundColor: 'white',
           justifyContent: 'center',
           alignItems: 'center',
-          borderRadius:10,
+          borderRadius: 10,
         }}>
         <Icon name="bell" size={24} color="black" />
       </TouchableOpacity>
