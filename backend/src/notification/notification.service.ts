@@ -20,5 +20,11 @@ export class NotificationService {
     return this.notificationModel.find({ recipientId: userId }).exec();
   }
 
-  // 기타 필요한 CRUD 메서드 추가...
+  // 특정 사용자의 '읽지 않은' 알림의 개수 조회
+  async getUnreadNotificationCount(userId: string): Promise<number> {
+    return this.notificationModel.countDocuments({ 
+      recipientId: userId,
+      read: false
+    });
+  }
 }

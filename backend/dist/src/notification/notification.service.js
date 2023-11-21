@@ -27,6 +27,12 @@ let NotificationService = class NotificationService {
     async getUserNotifications(userId) {
         return this.notificationModel.find({ recipientId: userId }).exec();
     }
+    async getUnreadNotificationCount(userId) {
+        return this.notificationModel.countDocuments({
+            recipientId: userId,
+            read: false
+        });
+    }
 };
 exports.NotificationService = NotificationService;
 exports.NotificationService = NotificationService = __decorate([

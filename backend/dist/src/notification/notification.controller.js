@@ -22,6 +22,9 @@ let NotificationController = class NotificationController {
     getUserNotifications(userId) {
         return this.notificationService.getUserNotifications(userId);
     }
+    getUnreadNotificationCount(userId) {
+        return this.notificationService.getUnreadNotificationCount(userId);
+    }
 };
 exports.NotificationController = NotificationController;
 __decorate([
@@ -31,6 +34,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], NotificationController.prototype, "getUserNotifications", null);
+__decorate([
+    (0, common_1.Get)('unread/count/:userId'),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], NotificationController.prototype, "getUnreadNotificationCount", null);
 exports.NotificationController = NotificationController = __decorate([
     (0, common_1.Controller)('notifications'),
     __metadata("design:paramtypes", [notification_service_1.NotificationService])

@@ -11,5 +11,8 @@ export class NotificationController {
     return this.notificationService.getUserNotifications(userId);
   }
 
-  // 기타 알림 관련 경로 추가...
+  @Get('unread/count/:userId')
+  getUnreadNotificationCount(@Param('userId') userId: string) {
+    return this.notificationService.getUnreadNotificationCount(userId);
+  }
 }

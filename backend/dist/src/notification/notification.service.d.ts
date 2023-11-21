@@ -5,4 +5,5 @@ export declare class NotificationService {
     constructor(notificationModel: Model<Notification>);
     createNotification(data: any): Promise<Notification>;
     getUserNotifications(userId: string): Promise<Notification[]>;
+    getUnreadNotificationCount(userId: string): Promise<number>;
 }
