@@ -70,7 +70,7 @@ function MapScreen(): React.ReactElement {
     useRippleActions(
       authToken.username ? authToken : {...authToken, username: ''},
     );
-  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
+  const [unreadCount, setUnreadCount] = React.useState(0);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -217,6 +217,30 @@ function MapScreen(): React.ReactElement {
     }, []),
   );
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchUnreadNotificationsCount = async () => {
+        const userId = await AsyncStorage.getItem('userId');
+        if (userId) {
+          try {
+            const response = await fetch(
+              `http://192.168.0.215:3000/notifications/unread/count/${userId}`,
+            );
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const count = await response.json();
+            setUnreadCount(count);
+            console.log('Unread notifications count:', count);
+          } catch (error) {
+            console.error('Error fetching unread notifications count:', error);
+          }
+        }
+      };
+
+      fetchUnreadNotificationsCount();
+    }, []),
+  );
+
   const handleNotificationPress = () => {
     navigation.navigate('NotificationScreen');
   };
@@ -330,6 +354,7 @@ function MapScreen(): React.ReactElement {
           borderRadius: 10,
         }}>
         <Icon name="bell" size={24} color="black" />
+        {unreadCount > 0 && <Text>{unreadCount}</Text>}
       </TouchableOpacity>
       {gpsError && (
         <Animated.View
