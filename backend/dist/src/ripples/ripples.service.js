@@ -68,6 +68,7 @@ let RipplesService = class RipplesService {
         return this.rippleModel.find({ likedUsers: userId }).exec();
     }
     async updateLike(id, userId) {
+        console.log(`Received like for rippleId: ${id}, userId: ${userId}`);
         const ripple = await this.rippleModel.findById(id).exec();
         if (!ripple) {
             throw new common_1.NotFoundException('Ripple not found');

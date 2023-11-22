@@ -74,6 +74,7 @@ export class RipplesService {
   }
 
   async updateLike(id: string, userId: string): Promise<Ripple> {
+    console.log(`Received like for rippleId: ${id}, userId: ${userId}`);
     const ripple = await this.rippleModel.findById(id).exec();
     if (!ripple) {
       throw new NotFoundException('Ripple not found');

@@ -29,6 +29,7 @@ const useRippleActions = (authToken: AuthToken) => {
     rippleId: string,
     userId: string,
   ): Promise<void> => {
+    console.log(`Sending like for rippleId: ${rippleId}, userId: ${userId}`); 
     try {
       const response = await fetch(
         `http://192.168.0.215:3000/ripples/${rippleId}/like`,
