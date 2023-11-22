@@ -317,8 +317,8 @@ function MapScreen(): React.ReactElement {
                 </CalloutSubview>
                 <CalloutSubview
                   onPress={() => {
-                    if (authToken.username) {
-                      handleLike(ripple._id, authToken.username);
+                    if (authToken.userId) {
+                      handleLike(ripple._id, authToken.userId);
                     }
                   }}
                   style={styles.calloutLikeButton}>
@@ -369,9 +369,9 @@ function MapScreen(): React.ReactElement {
             }}>
             <Text
               style={{
-                color: 'white', 
-                fontSize: 12, 
-                fontWeight: 'bold', 
+                color: 'white',
+                fontSize: 12,
+                fontWeight: 'bold',
               }}>
               {unreadCount}
             </Text>
