@@ -22,9 +22,17 @@ export class NotificationService {
 
   // 특정 사용자의 '읽지 않은' 알림의 개수 조회
   async getUnreadNotificationCount(userId: string): Promise<number> {
-    return this.notificationModel.countDocuments({ 
+    return this.notificationModel.countDocuments({
       recipientId: userId,
-      read: false
+      read: false,
     });
+  }
+
+  // 특정 사용자의 모든 알림을 '읽음' 상태로 업데이트
+  async markNotificationsAsRead(userId: string): Promise<void> {
+    await this.notificationModel.updateMany(
+      { recipientId: userId, read: false },
+      { $set: { read: true } },
+    );
   }
 }

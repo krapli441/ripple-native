@@ -6,4 +6,5 @@ export declare class NotificationService {
     createNotification(data: any): Promise<Notification>;
     getUserNotifications(userId: string): Promise<Notification[]>;
     getUnreadNotificationCount(userId: string): Promise<number>;
+    markNotificationsAsRead(userId: string): Promise<void>;
 }

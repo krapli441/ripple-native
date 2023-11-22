@@ -369,9 +369,9 @@ function MapScreen(): React.ReactElement {
             }}>
             <Text
               style={{
-                color: 'white', // 텍스트 색상
-                fontSize: 12, // 텍스트 크기
-                fontWeight: 'bold', // 텍스트 굵기
+                color: 'white', 
+                fontSize: 12, 
+                fontWeight: 'bold', 
               }}>
               {unreadCount}
             </Text>

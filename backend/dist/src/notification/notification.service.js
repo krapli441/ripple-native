@@ -30,8 +30,11 @@ let NotificationService = class NotificationService {
     async getUnreadNotificationCount(userId) {
         return this.notificationModel.countDocuments({
             recipientId: userId,
-            read: false
+            read: false,
         });
+    }
+    async markNotificationsAsRead(userId) {
+        await this.notificationModel.updateMany({ recipientId: userId, read: false }, { $set: { read: true } });
     }
 };
 exports.NotificationService = NotificationService;
