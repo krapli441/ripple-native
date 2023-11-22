@@ -354,8 +354,31 @@ function MapScreen(): React.ReactElement {
           borderRadius: 10,
         }}>
         <Icon name="bell" size={24} color="black" />
-        {unreadCount > 0 && <Text>{unreadCount}</Text>}
+        {unreadCount > 0 && (
+          <View
+            style={{
+              position: 'absolute',
+              top: -5, // 숫자 카운트를 위로 조금 올림
+              right: -5, // 숫자 카운트를 오른쪽으로 조금 올림
+              minWidth: 25, // 숫자 카운트의 최소 너비
+              height: 25, // 숫자 카운트의 높이
+              backgroundColor: '#1DB954', // 배경 색상
+              borderRadius: 25, // 원형 배경 만들기
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                color: 'white', // 텍스트 색상
+                fontSize: 12, // 텍스트 크기
+                fontWeight: 'bold', // 텍스트 굵기
+              }}>
+              {unreadCount}
+            </Text>
+          </View>
+        )}
       </TouchableOpacity>
+
       {gpsError && (
         <Animated.View
           style={[styles.errorOverlay, {transform: [{translateY: errorAnim}]}]}>
