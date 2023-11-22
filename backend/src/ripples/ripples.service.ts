@@ -84,12 +84,19 @@ export class RipplesService {
     if (index === -1) {
       ripple.likedUsers.push(userId); // 사용자가 '좋아요'한 경우 추가
 
-      // 알림 데이터 생성 (자신이 생성한 리플에 '좋아요'를 누른 경우 포함)
+      // 사용자의 username 조회
+      const senderUser = await this.userService.findById(userId);
+      if (!senderUser) {
+        throw new NotFoundException('User not found');
+      }
+      const senderUsername = senderUser.username;
+
+      // 알림 데이터 생성
       await this.notificationService.createNotification({
         recipientId: ripple.userId,
         senderId: userId,
         type: 'like',
-        message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
+        message: `${senderUsername}님이 회원님이 남긴 음악을 좋아합니다.`,
         referenceId: id,
         albumCoverUrl: ripple.albumCoverUrl,
       });
@@ -100,7 +107,7 @@ export class RipplesService {
         this.fcmService.sendNotification(
           creator.pushToken,
           'Ripple',
-          `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
+          `${senderUsername}님이 회원님이 남긴 음악을 좋아합니다.`,
         );
       }
     } else {
