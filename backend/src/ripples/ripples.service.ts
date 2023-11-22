@@ -76,17 +76,16 @@ export class RipplesService {
   async updateLike(id: string, userId: string): Promise<Ripple> {
     console.log(`Received like for rippleId: ${id}, userId: ${userId}`);
     const ripple = await this.rippleModel.findById(id).exec();
+    console.log('찾아낸 ripple 아이디 : ', ripple);
     if (!ripple) {
       throw new NotFoundException('Ripple not found');
     }
 
     const index = ripple.likedUsers.indexOf(userId);
     if (index === -1) {
-      ripple.likedUsers.push(userId); // 사용자가 '좋아요'한 경우 추가
-
-      // 알림 데이터 생성 (자신이 생성한 리플에 '좋아요'를 누른 경우 포함)
+      ripple.likedUsers.push(userId);
       await this.notificationService.createNotification({
-        recipientId: ripple.userId,
+        recipientId: ripple._id,
         senderId: userId,
         type: 'like',
         message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
@@ -95,7 +94,7 @@ export class RipplesService {
       });
 
       // 푸시 알림 전송
-      const creator = await this.userService.findById(ripple.userId);
+      const creator = await this.userService.findByUsername(ripple.userId);
       if (creator && creator.pushToken) {
         this.fcmService.sendNotification(
           creator.pushToken,

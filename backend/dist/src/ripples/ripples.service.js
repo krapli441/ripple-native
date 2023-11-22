@@ -70,6 +70,7 @@ let RipplesService = class RipplesService {
     async updateLike(id, userId) {
         console.log(`Received like for rippleId: ${id}, userId: ${userId}`);
         const ripple = await this.rippleModel.findById(id).exec();
+        console.log('찾아낸 ripple 아이디 : ', ripple);
         if (!ripple) {
             throw new common_1.NotFoundException('Ripple not found');
         }
@@ -77,14 +78,14 @@ let RipplesService = class RipplesService {
         if (index === -1) {
             ripple.likedUsers.push(userId);
             await this.notificationService.createNotification({
-                recipientId: ripple.userId,
+                recipientId: ripple._id,
                 senderId: userId,
                 type: 'like',
                 message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
                 referenceId: id,
                 albumCoverUrl: ripple.albumCoverUrl,
             });
-            const creator = await this.userService.findById(ripple.userId);
+            const creator = await this.userService.findByUsername(ripple.userId);
             if (creator && creator.pushToken) {
                 this.fcmService.sendNotification(creator.pushToken, 'Ripple', `${userId}님이 회원님이 남긴 음악을 좋아합니다.`);
             }

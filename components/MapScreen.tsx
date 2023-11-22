@@ -317,8 +317,8 @@ function MapScreen(): React.ReactElement {
                 </CalloutSubview>
                 <CalloutSubview
                   onPress={() => {
-                    if (authToken.userId) {
-                      handleLike(ripple._id, authToken.userId);
+                    if (authToken.username) {
+                      handleLike(ripple._id, authToken.username);
                     }
                   }}
                   style={styles.calloutLikeButton}>
