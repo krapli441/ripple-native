@@ -45,6 +45,26 @@ function NotificationScreen(): React.ReactElement {
     fetchNotifications();
   }, []);
 
+  useEffect(() => {
+    const markNotificationsAsRead = async () => {
+      const userId = await AsyncStorage.getItem('userId');
+      if (!userId) return;
+
+      try {
+        await fetch(
+          `http://192.168.0.215:3000/notifications/${userId}/mark-read`,
+          {
+            method: 'PATCH',
+          },
+        );
+      } catch (error) {
+        console.error('Error updating notification read status:', error);
+      }
+    };
+
+    markNotificationsAsRead();
+  }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
