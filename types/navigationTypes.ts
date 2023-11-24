@@ -35,6 +35,11 @@ export type RootStackParamList = {
     };
   };
   MyRippleScreen: undefined;
+  MyRippleScreenSettings: undefined;
+  MyRippleScreenAccount: undefined;
+  MyRippleScreenInformation: undefined;
+  MyRippleScreenCustomerService: undefined;
+  MyRippleScreenSetting: undefined;
   LikedRippleScreen: undefined;
   NotificationScreen: undefined;
 };

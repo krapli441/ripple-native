@@ -20,6 +20,10 @@ import MyRippleScreen from './components/MyRippleScreen';
 import LikedRippleScreen from './components/LikedRippleScreen';
 import NotificationScreen from './components/NotificationScreen';
 import MyPageScreen from './components/MyPageScreen';
+import MyPageScreenAccount from './components/MyPageScreen-Account';
+import MyPageScreenSetting from './components/MyPageScreen-Account';
+import MyPageScreenCustomerService from './components/MyPageScreen-CustomerService';
+import MyPageScreenInformation from './components/MyPageScreen-Information';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -38,6 +42,22 @@ function MyPageStackScreen() {
         headerShown: false,
       }}>
       <MyPageStack.Screen name="MyPage" component={MyPageScreen} />
+      <MyPageStack.Screen
+        name="MyRippleScreenAccount"
+        component={MyPageScreenAccount}
+      />
+      <MyPageStack.Screen
+        name="MyRippleScreenInformation"
+        component={MyPageScreenInformation}
+      />
+      <MyPageStack.Screen
+        name="MyRippleScreenSetting"
+        component={MyPageScreenSetting}
+      />
+      <MyPageStack.Screen
+        name="MyRippleScreenCustomerService"
+        component={MyPageScreenCustomerService}
+      />
     </MyPageStack.Navigator>
   );
 }
@@ -127,7 +147,7 @@ function MainTabNavigator() {
       />
       <Tab.Screen
         name="내 정보"
-        component={MyPageScreen}
+        component={MyPageStackScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen

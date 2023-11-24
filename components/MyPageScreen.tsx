@@ -36,18 +36,22 @@ function MyPageScreen(): React.ReactElement {
   const authToken = useAuthToken();
 
   const handleAccountPress = () => {
+    navigation.navigate('MyRippleScreenAccount');
     // 계정 정보 화면으로 이동
   };
 
   const handleSettingsPress = () => {
+    navigation.navigate('MyRippleScreenSetting');
     // 환경 설정 화면으로 이동
   };
 
-  const handleDetailsPress = () => {
+  const handleInformationPress = () => {
+    navigation.navigate('MyRippleScreenInformation');
     // 상세 정보 화면으로 이동
   };
 
-  const handleSupportPress = () => {
+  const handleCustomerServicePress = () => {
+    navigation.navigate('MyRippleScreenCustomerService');
     // 고객센터 화면으로 이동
   };
 
@@ -76,12 +80,12 @@ function MyPageScreen(): React.ReactElement {
         <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleDetailsPress}>
+      <TouchableOpacity style={styles.menuItem} onPress={handleInformationPress}>
         <Text style={styles.menuText}>상세 정보</Text>
         <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
+      <TouchableOpacity style={styles.menuItem} onPress={handleCustomerServicePress}>
         <Text style={styles.menuText}>고객센터</Text>
         <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
