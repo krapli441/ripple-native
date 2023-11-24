@@ -19,6 +19,7 @@ import LibraryScreen from './components/LibraryScreen';
 import MyRippleScreen from './components/MyRippleScreen';
 import LikedRippleScreen from './components/LikedRippleScreen';
 import NotificationScreen from './components/NotificationScreen';
+import MyPageScreen from './components/MyPageScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -114,7 +115,7 @@ function MainTabNavigator() {
       />
       <Tab.Screen
         name="내 정보"
-        component={MapScreen}
+        component={MyPageScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen
@@ -130,8 +131,6 @@ function MainTabNavigator() {
         component={NotificationScreen}
         options={{headerShown: false}}
       />
-
-      {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
     </Tab.Navigator>
   );
 }
