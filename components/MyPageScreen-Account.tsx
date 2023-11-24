@@ -71,10 +71,12 @@ function MyPageScreenAccount(): React.ReactElement {
 
       <View style={styles.deleteAccountContainer}>
         <Text style={styles.deleteAccountText}>
-          계정을 탈퇴하고 데이터를 영구 삭제하려면 {''}
-          <TouchableOpacity onPress={handleDeleteAccountPress}>
-            <Text style={styles.deleteAccountLink}>여기를 클릭하세요.</Text>
-          </TouchableOpacity>
+          계정을 탈퇴하고 데이터를 영구 삭제하려면{' '}
+          <Text
+            style={styles.deleteAccountLink}
+            onPress={handleDeleteAccountPress}>
+            여기를 클릭하세요.
+          </Text>
         </Text>
       </View>
     </View>

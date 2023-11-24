@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   deleteAccountContainer: {
-    marginTop: 20,
     paddingHorizontal: 20,
   },
   deleteAccountLink: {
