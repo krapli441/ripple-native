@@ -33,8 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   deleteAccountText: {
-    fontSize: 14,
-    color: 'red',
+    fontSize: 12,
     textAlign: 'center',
     marginTop: 20,
   },
@@ -56,8 +55,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   deleteAccountLink: {
-    fontSize: 16,
-    color: 'blue',
+    fontSize: 12,
     textDecorationLine: 'underline',
   },
 });
