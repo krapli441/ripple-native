@@ -35,22 +35,6 @@ function MyPageScreenAccount(): React.ReactElement {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const authToken = useAuthToken();
 
-  const handleAccountPress = () => {
-    // 계정 정보 화면으로 이동
-  };
-
-  const handleSettingsPress = () => {
-    // 환경 설정 화면으로 이동
-  };
-
-  const handleDetailsPress = () => {
-    // 상세 정보 화면으로 이동
-  };
-
-  const handleSupportPress = () => {
-    // 고객센터 화면으로 이동
-  };
-
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
@@ -66,25 +50,6 @@ function MyPageScreenAccount(): React.ReactElement {
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>계정</Text>
 
-      {/* <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
-        <Text style={styles.menuText}>계정</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuItem} onPress={handleSettingsPress}>
-        <Text style={styles.menuText}>환경 설정</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuItem} onPress={handleDetailsPress}>
-        <Text style={styles.menuText}>상세 정보</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
-        <Text style={styles.menuText}>고객센터</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity> */}
     </View>
   );
 }
