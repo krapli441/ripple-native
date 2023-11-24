@@ -186,7 +186,7 @@ function MapScreen(): React.ReactElement {
     try {
       console.log('Sending request with:', requestOptions);
       const response = await fetch(
-        'http://192.168.0.215:3000/auth/spotify/push-token',
+        'http://3.34.138.35:3000/auth/spotify/push-token',
         requestOptions,
       );
 
@@ -226,7 +226,7 @@ function MapScreen(): React.ReactElement {
         if (userId) {
           try {
             const response = await fetch(
-              `http://192.168.0.215:3000/notifications/unread/count/${userId}`,
+              `http://3.34.138.35:3000/notifications/unread/count/${userId}`,
             );
             if (!response.ok) throw new Error('Network response was not ok');
             const count = await response.json();
