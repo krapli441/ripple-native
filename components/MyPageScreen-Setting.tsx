@@ -65,7 +65,7 @@ function MyPageScreenSetting(): React.ReactElement {
     <View style={styles.contentContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>환경설정</Text>
-
+      {/* 
       <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
         <Text style={styles.menuText}>계정</Text>
         <Icon name="chevron-forward-outline" size={20} />
@@ -84,7 +84,7 @@ function MyPageScreenSetting(): React.ReactElement {
       <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
         <Text style={styles.menuText}>고객센터</Text>
         <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }

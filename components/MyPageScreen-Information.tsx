@@ -66,7 +66,7 @@ function MyPageScreenInformation(): React.ReactElement {
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>상세정보</Text>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
+      {/* <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
         <Text style={styles.menuText}>계정</Text>
         <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
@@ -84,7 +84,7 @@ function MyPageScreenInformation(): React.ReactElement {
       <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
         <Text style={styles.menuText}>고객센터</Text>
         <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
