@@ -29,6 +29,18 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const SearchStack = createStackNavigator();
 const LibraryStack = createStackNavigator();
+const MyPageStack = createStackNavigator();
+
+function MyPageStackScreen() {
+  return (
+    <MyPageStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <MyPageStack.Screen name="MyPage" component={MyPageScreen} />
+    </MyPageStack.Navigator>
+  );
+}
 
 function LibraryStackScreen() {
   return (
