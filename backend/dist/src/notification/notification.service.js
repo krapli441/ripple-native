@@ -24,17 +24,17 @@ let NotificationService = class NotificationService {
         const newNotification = new this.notificationModel(data);
         return newNotification.save();
     }
-    async getUserNotifications(userId) {
-        return this.notificationModel.find({ recipientId: userId }).exec();
+    async getUserNotifications(userObjectId) {
+        return this.notificationModel.find({ recipientId: userObjectId }).exec();
     }
-    async getUnreadNotificationCount(userId) {
+    async getUnreadNotificationCount(userObjectId) {
         return this.notificationModel.countDocuments({
-            recipientId: userId,
+            recipientId: userObjectId,
             read: false,
         });
     }
-    async markNotificationsAsRead(userId) {
-        await this.notificationModel.updateMany({ recipientId: userId, read: false }, { $set: { read: true } });
+    async markNotificationsAsRead(userObjectId) {
+        await this.notificationModel.updateMany({ recipientId: userObjectId, read: false }, { $set: { read: true } });
     }
 };
 exports.NotificationService = NotificationService;

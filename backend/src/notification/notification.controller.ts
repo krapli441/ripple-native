@@ -1,24 +1,26 @@
 import { Controller, Get, Param, Patch } from '@nestjs/common';
 import { NotificationService } from './notification.service';
+import { Types } from 'mongoose'; // Types import
 
 @Controller('notifications')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-  // 특정 사용자의 알림을 조회
   @Get(':userId')
   getUserNotifications(@Param('userId') userId: string) {
-    return this.notificationService.getUserNotifications(userId);
+    const objectId = new Types.ObjectId(userId); // string을 ObjectId로 변환
+    return this.notificationService.getUserNotifications(objectId);
   }
 
   @Get('unread/count/:userId')
   getUnreadNotificationCount(@Param('userId') userId: string) {
-    return this.notificationService.getUnreadNotificationCount(userId);
+    const objectId = new Types.ObjectId(userId); // string을 ObjectId로 변환
+    return this.notificationService.getUnreadNotificationCount(objectId);
   }
 
-  // 사용자의 모든 알림을 '읽음' 상태로 표시
   @Patch(':userId/mark-read')
   markNotificationsAsRead(@Param('userId') userId: string) {
-    return this.notificationService.markNotificationsAsRead(userId);
+    const objectId = new Types.ObjectId(userId); // string을 ObjectId로 변환
+    return this.notificationService.markNotificationsAsRead(objectId);
   }
 }

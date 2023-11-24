@@ -78,7 +78,7 @@ let RipplesService = class RipplesService {
         if (index === -1) {
             ripple.likedUsers.push(userId);
             await this.notificationService.createNotification({
-                recipientId: ripple._id,
+                recipientId: ripple.userObjectId,
                 senderId: userId,
                 type: 'like',
                 message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
