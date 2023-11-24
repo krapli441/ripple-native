@@ -25,18 +25,34 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    padding: 20,
+    padding: 5,
   },
   settingContainer: {
+    width: '85%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    alignSelf: 'center',
     marginBottom: 20,
   },
+
+  settingItemContainer: {
+    width:"85%",
+    marginBottom: 20,
+    alignSelf:"center",
+  },
+  settingTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
   settingDescription: {
-    fontSize: 16,
-    flex: 7, // 텍스트 영역을 더 크게 설정
-    flexWrap: 'wrap', // 텍스트가 길어질 경우 줄바꿈
+    fontSize: 14,
+    color: 'gray',
+  },
+  settingTitleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

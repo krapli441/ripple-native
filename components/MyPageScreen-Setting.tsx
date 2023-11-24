@@ -49,29 +49,35 @@ function MyPageScreenSetting(): React.ReactElement {
       <StatusBar barStyle="dark-content" />
       <Text style={styles.header}>환경설정</Text>
 
-      <View style={styles.settingContainer}>
+      <View style={styles.settingItemContainer}>
+        <View style={styles.settingTitleContainer}>
+          <Text style={styles.settingTitle}>백그라운드 기능</Text>
+          <Switch
+            trackColor={{false: '#191414', true: '#6ADE6C'}}
+            thumbColor={isBackgroundFeatureEnabled ? '#191414' : '#f4f3f4'}
+            onValueChange={toggleBackgroundFeature}
+            value={isBackgroundFeatureEnabled}
+          />
+        </View>
         <Text style={styles.settingDescription}>
-          앱을 사용하지 않을 때 백그라운드 상태에서 다른 사용자가 남긴 음악을
-          수집합니다.
+          앱을 사용하지 않을 때 백그라운드 상태에서 {'\n'}다른 사용자가 남긴
+          음악을 수집합니다.
         </Text>
-        <Switch
-          trackColor={{false: '#191414', true: '#6ADE6C'}} // true 상태일 때의 색상을 변경
-          thumbColor={isBackgroundFeatureEnabled ? '#191414' : '#f4f3f4'}
-          onValueChange={toggleBackgroundFeature}
-          value={isBackgroundFeatureEnabled}
-        />
       </View>
 
-      <View style={styles.settingContainer}>
+      <View style={styles.settingItemContainer}>
+        <View style={styles.settingTitleContainer}>
+          <Text style={styles.settingTitle}>알림</Text>
+          <Switch
+            trackColor={{false: '#191414', true: '#6ADE6C'}}
+            thumbColor={isNotificationEnabled ? '#191414' : '#f4f3f4'}
+            onValueChange={toggleNotification}
+            value={isNotificationEnabled}
+          />
+        </View>
         <Text style={styles.settingDescription}>
-          다른 사용자가 나에게 좋아요를 보낼 경우 알림을 보냅니다.
+          다른 사용자가 나에게 좋아요를 보낼 경우{'\n'}알림을 보냅니다.
         </Text>
-        <Switch
-          trackColor={{false: '#191414', true: '#6ADE6C'}} // true 상태일 때의 색상을 변경
-          thumbColor={isBackgroundFeatureEnabled ? '#191414' : '#f4f3f4'}
-          onValueChange={toggleNotification}
-          value={isNotificationEnabled}
-        />
       </View>
     </View>
   );
