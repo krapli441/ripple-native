@@ -96,6 +96,7 @@ function NotificationScreen(): React.ReactElement {
         data={notifications}
         renderItem={renderItem}
         keyExtractor={item => item._id}
+        inverted={true}
       />
     </View>
   );
