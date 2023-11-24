@@ -20,6 +20,10 @@ __decorate([
     __metadata("design:type", String)
 ], Ripple.prototype, "userId", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
+    __metadata("design:type", mongoose_2.default.Types.ObjectId)
+], Ripple.prototype, "userObjectId", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Ripple.prototype, "title", void 0);
