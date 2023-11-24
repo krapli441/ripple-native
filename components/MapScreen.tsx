@@ -220,6 +220,7 @@ function MapScreen(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       const fetchUnreadNotificationsCount = async () => {
+        console.log('useFocusEffect 시작, 알림 있는지 검색 시작');
         const userId = await AsyncStorage.getItem('userId');
         if (userId) {
           try {
