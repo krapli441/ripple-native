@@ -1,22 +1,26 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
   },
-  contentContainer: {
-    padding: 30,
-  },
   header: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 20,
+    textAlign: 'left',
+    marginTop: 70,
+    marginLeft: 30,
+    marginBottom: 30,
   },
   menuItem: {
-    padding: 15,
-    borderRadius: 5,
-    backgroundColor: '#EFEFEF',
-    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '95%',
+    height: 60,
+    padding: 20,
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginBottom: 10,
   },
   menuText: {
     fontSize: 18,
