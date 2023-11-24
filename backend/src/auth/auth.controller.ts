@@ -15,6 +15,7 @@ export class SpotifyAuthController {
 
   @Post('token')
   async getToken(@Body() body: { code: string; codeVerifier: string }) {
+    console.log('Received request body:', body);
     try {
       const { accessToken, expiresIn } = await this.getSpotifyAccessToken(body);
       const expiryDate = new Date(new Date().getTime() + expiresIn * 1000); // 토큰 만료시간

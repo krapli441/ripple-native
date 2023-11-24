@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Notification } from './notification.schema';
 
 @Injectable()
@@ -16,22 +16,28 @@ export class NotificationService {
   }
 
   // 특정 사용자의 알림 조회
-  async getUserNotifications(userId: string): Promise<Notification[]> {
-    return this.notificationModel.find({ recipientId: userId }).exec();
+  async getUserNotifications(
+    userObjectId: mongoose.Types.ObjectId,
+  ): Promise<Notification[]> {
+    return this.notificationModel.find({ recipientId: userObjectId }).exec();
   }
 
   // 특정 사용자의 '읽지 않은' 알림의 개수 조회
-  async getUnreadNotificationCount(userId: string): Promise<number> {
+  async getUnreadNotificationCount(
+    userObjectId: mongoose.Types.ObjectId,
+  ): Promise<number> {
     return this.notificationModel.countDocuments({
-      recipientId: userId,
+      recipientId: userObjectId,
       read: false,
     });
   }
 
   // 특정 사용자의 모든 알림을 '읽음' 상태로 업데이트
-  async markNotificationsAsRead(userId: string): Promise<void> {
+  async markNotificationsAsRead(
+    userObjectId: mongoose.Types.ObjectId,
+  ): Promise<void> {
     await this.notificationModel.updateMany(
-      { recipientId: userId, read: false },
+      { recipientId: userObjectId, read: false },
       { $set: { read: true } },
     );
   }

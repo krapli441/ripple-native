@@ -15,18 +15,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationController = void 0;
 const common_1 = require("@nestjs/common");
 const notification_service_1 = require("./notification.service");
+const mongoose_1 = require("mongoose");
 let NotificationController = class NotificationController {
     constructor(notificationService) {
         this.notificationService = notificationService;
     }
     getUserNotifications(userId) {
-        return this.notificationService.getUserNotifications(userId);
+        const objectId = new mongoose_1.Types.ObjectId(userId);
+        return this.notificationService.getUserNotifications(objectId);
     }
     getUnreadNotificationCount(userId) {
-        return this.notificationService.getUnreadNotificationCount(userId);
+        const objectId = new mongoose_1.Types.ObjectId(userId);
+        return this.notificationService.getUnreadNotificationCount(objectId);
     }
     markNotificationsAsRead(userId) {
-        return this.notificationService.markNotificationsAsRead(userId);
+        const objectId = new mongoose_1.Types.ObjectId(userId);
+        return this.notificationService.markNotificationsAsRead(objectId);
     }
 };
 exports.NotificationController = NotificationController;

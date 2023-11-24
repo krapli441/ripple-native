@@ -1,6 +1,6 @@
 // ripple.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 export interface Location {
   type: string;
@@ -25,6 +25,9 @@ export interface IRipple extends Document {
 export class Ripple extends Document {
   @Prop({ required: true })
   userId: string;
+
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  userObjectId: mongoose.Types.ObjectId;
 
   @Prop({ required: true })
   title: string;

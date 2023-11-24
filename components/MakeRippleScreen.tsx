@@ -218,6 +218,7 @@ function MakeRippleScreen(): React.ReactElement {
           onPress={() => {
             const rippleData = {
               userId: authToken.username,
+              userObjectId: authToken.userId,
               title: track?.title,
               artist: track?.artist,
               albumCoverUrl: track?.imageUrl,

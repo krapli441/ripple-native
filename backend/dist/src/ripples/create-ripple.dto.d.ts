@@ -4,6 +4,7 @@ export declare class LocationDto {
 }
 export declare class CreateRippleDto {
     readonly userId: string;
+    readonly userObjectId: string;
     readonly title: string;
     readonly artist: string;
     readonly albumCoverUrl: string;
