@@ -26,13 +26,29 @@ import {TrackDetails} from '../types/navigationTypes';
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
-import styles from '../styles/SearchScreenStyles';
+import styles from '../styles/MyPageScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function MyPageScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const authToken = useAuthToken();
+
+  const handleAccountPress = () => {
+    // 계정 정보 화면으로 이동
+  };
+
+  const handleSettingsPress = () => {
+    // 환경 설정 화면으로 이동
+  };
+
+  const handleDetailsPress = () => {
+    // 상세 정보 화면으로 이동
+  };
+
+  const handleSupportPress = () => {
+    // 고객센터 화면으로 이동
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -45,16 +61,26 @@ function MyPageScreen(): React.ReactElement {
   );
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.flexContainer}>
-      <TouchableWithoutFeedback>
-        <View style={styles.searchContainer}>
-          <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-          <Text style={styles.header}>내 정보</Text>
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <View style={styles.contentContainer}>
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <Text style={styles.header}>내 정보</Text>
+
+      <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
+        <Text style={styles.menuText}>계정</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.menuItem} onPress={handleSettingsPress}>
+        <Text style={styles.menuText}>환경 설정</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.menuItem} onPress={handleDetailsPress}>
+        <Text style={styles.menuText}>상세 정보</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
+        <Text style={styles.menuText}>고객센터</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
