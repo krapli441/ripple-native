@@ -17,6 +17,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons'; // Ionicons 아이콘 세트를 사용
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -67,18 +68,22 @@ function MyPageScreen(): React.ReactElement {
 
       <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
         <Text style={styles.menuText}>계정</Text>
+        <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.menuItem} onPress={handleSettingsPress}>
         <Text style={styles.menuText}>환경 설정</Text>
+        <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.menuItem} onPress={handleDetailsPress}>
         <Text style={styles.menuText}>상세 정보</Text>
+        <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
         <Text style={styles.menuText}>고객센터</Text>
+        <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
     </View>
   );
