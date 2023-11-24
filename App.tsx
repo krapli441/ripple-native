@@ -21,7 +21,7 @@ import LikedRippleScreen from './components/LikedRippleScreen';
 import NotificationScreen from './components/NotificationScreen';
 import MyPageScreen from './components/MyPageScreen';
 import MyPageScreenAccount from './components/MyPageScreen-Account';
-import MyPageScreenSetting from './components/MyPageScreen-Account';
+import MyPageScreenSetting from './components/MyPageScreen-Setting';
 import MyPageScreenCustomerService from './components/MyPageScreen-CustomerService';
 import MyPageScreenInformation from './components/MyPageScreen-Information';
 
