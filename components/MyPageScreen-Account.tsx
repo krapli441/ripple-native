@@ -54,15 +54,29 @@ function MyPageScreenAccount(): React.ReactElement {
     <View style={styles.contentContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>계정</Text>
-      <Text style={styles.infoText}>사용자 이름: {username}</Text>
-      {/* 사용자 이름 표시 */}
-      <Text style={styles.infoText}>이메일: {userEmail}</Text>
-      {/* 이메일 표시 */}
-      <TouchableOpacity onPress={handleDeleteAccountPress}>
+
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoHeader}>사용자 이름</Text>
+        <View style={styles.infoBox}>
+          <Text style={styles.infoText}>{username}</Text>
+        </View>
+      </View>
+
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoHeader}>이메일</Text>
+        <View style={styles.infoBox}>
+          <Text style={styles.infoText}>{userEmail}</Text>
+        </View>
+      </View>
+
+      <View style={styles.deleteAccountContainer}>
         <Text style={styles.deleteAccountText}>
-          계정을 탈퇴하고 계정을 영구 삭제하려면 여기를 클릭하세요
+          계정을 탈퇴하고 계정을 영구 삭제하려면
         </Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleDeleteAccountPress}>
+          <Text style={styles.deleteAccountLink}>여기를 클릭하세요.</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

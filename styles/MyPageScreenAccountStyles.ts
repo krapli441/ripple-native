@@ -37,6 +37,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
+  infoContainer: {
+    marginVertical: 10,
+    paddingHorizontal: 20,
+  },
+  infoHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  infoBox: {
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+  deleteAccountContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  deleteAccountLink: {
+    fontSize: 16,
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
 });
 
 export default styles;
