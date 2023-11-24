@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   infoText: {
+    color: 'white',
     fontSize: 16,
     marginVertical: 10,
     marginLeft: 20,
@@ -39,17 +40,16 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     marginVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 35,
   },
   infoHeader: {
     fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 12,
   },
   infoBox: {
     padding: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
+    backgroundColor: '#191414',
+    borderRadius: 20,
   },
   deleteAccountContainer: {
     marginTop: 20,
