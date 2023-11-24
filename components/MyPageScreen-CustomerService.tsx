@@ -30,7 +30,7 @@ import useAuthToken from '../utils/useAuthToken';
 import styles from '../styles/MyPageScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function MyPageScreen(): React.ReactElement {
+function MyPageScreenCustomerService(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const authToken = useAuthToken();
@@ -89,4 +89,4 @@ function MyPageScreen(): React.ReactElement {
   );
 }
 
-export default MyPageScreen;
+export default MyPageScreenCustomerService;
