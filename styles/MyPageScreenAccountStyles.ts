@@ -26,6 +26,17 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 18,
   },
+  infoText: {
+    fontSize: 16,
+    marginVertical: 10,
+    marginLeft: 20,
+  },
+  deleteAccountText: {
+    fontSize: 14,
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });
 
 export default styles;

@@ -47,8 +47,8 @@ const handleSpotifyLogin = async (navigation: any) => {
     if (data.jwtToken) {
       await AsyncStorage.setItem('userToken', data.jwtToken);
       await AsyncStorage.setItem('username', data.user.username);
-      console.log('userId 값 :', data.user._id);
       await AsyncStorage.setItem('userId', data.user._id);
+      await AsyncStorage.setItem('userEmail', data.user.email);
       navigation.navigate('Ripple');
     }
   } catch (error) {

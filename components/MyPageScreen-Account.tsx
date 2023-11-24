@@ -33,7 +33,12 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 function MyPageScreenAccount(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const authToken = useAuthToken();
+  const {username, userEmail} = useAuthToken(); // username과 email을 useAuthToken에서 가져옵니다.
+
+  const handleDeleteAccountPress = () => {
+    // 계정 삭제 로직을 여기에 추가합니다.
+    // 예: Alert.alert('계정 삭제', '정말 계정을 삭제하시겠습니까?', ...)
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -49,7 +54,15 @@ function MyPageScreenAccount(): React.ReactElement {
     <View style={styles.contentContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>계정</Text>
-
+      <Text style={styles.infoText}>사용자 이름: {username}</Text>
+      {/* 사용자 이름 표시 */}
+      <Text style={styles.infoText}>이메일: {userEmail}</Text>
+      {/* 이메일 표시 */}
+      <TouchableOpacity onPress={handleDeleteAccountPress}>
+        <Text style={styles.deleteAccountText}>
+          계정을 탈퇴하고 계정을 영구 삭제하려면 여기를 클릭하세요
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
