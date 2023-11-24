@@ -1,9 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-  },
   header: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -25,6 +22,37 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: 18,
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 5,
+  },
+  settingContainer: {
+    width: '85%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+
+  settingItemContainer: {
+    width:"85%",
+    marginBottom: 20,
+    alignSelf:"center",
+  },
+  settingTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  settingDescription: {
+    fontSize: 14,
+    color: 'gray',
+  },
+  settingTitleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
