@@ -26,6 +26,15 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 18,
   },
+  settingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  settingDescription: {
+    fontSize: 14,
+  },
 });
 
 export default styles;

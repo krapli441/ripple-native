@@ -4,52 +4,35 @@ import {
   View,
   StatusBar,
   Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
   useColorScheme,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Image,
   Alert,
+  Switch,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'; // Ionicons 아이콘 세트를 사용
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
-import {TrackDetails} from '../types/navigationTypes';
 
 // asyncStorage
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
 import styles from '../styles/MyPageScreenSettingStyles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function MyPageScreenSetting(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const authToken = useAuthToken();
+  const [isBackgroundFeatureEnabled, setIsBackgroundFeatureEnabled] =
+    useState(false);
+  const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
 
-  const handleAccountPress = () => {
-    // 계정 정보 화면으로 이동
-  };
-
-  const handleSettingsPress = () => {
-    // 환경 설정 화면으로 이동
-  };
-
-  const handleDetailsPress = () => {
-    // 상세 정보 화면으로 이동
-  };
-
-  const handleSupportPress = () => {
-    // 고객센터 화면으로 이동
-  };
+  const toggleBackgroundFeature = () =>
+    setIsBackgroundFeatureEnabled(previousState => !previousState);
+  const toggleNotification = () =>
+    setIsNotificationEnabled(previousState => !previousState);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -63,28 +46,33 @@ function MyPageScreenSetting(): React.ReactElement {
 
   return (
     <View style={styles.contentContainer}>
-      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <StatusBar barStyle="dark-content" />
       <Text style={styles.header}>환경설정</Text>
-      {/* 
-      <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
-        <Text style={styles.menuText}>계정</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleSettingsPress}>
-        <Text style={styles.menuText}>환경 설정</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
+      <View style={styles.settingContainer}>
+        <Text style={styles.settingDescription}>
+          앱을 사용하지 않을 때 백그라운드 상태에서 다른 사용자가 남긴 음악을
+          수집합니다.
+        </Text>
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={isBackgroundFeatureEnabled ? '#f5dd4b' : '#f4f3f4'}
+          onValueChange={toggleBackgroundFeature}
+          value={isBackgroundFeatureEnabled}
+        />
+      </View>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleDetailsPress}>
-        <Text style={styles.menuText}>상세 정보</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
-        <Text style={styles.menuText}>고객센터</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity> */}
+      <View style={styles.settingContainer}>
+        <Text style={styles.settingDescription}>
+          다른 사용자가 나에게 좋아요를 보낼 경우 알림을 보냅니다.
+        </Text>
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={isNotificationEnabled ? '#f5dd4b' : '#f4f3f4'}
+          onValueChange={toggleNotification}
+          value={isNotificationEnabled}
+        />
+      </View>
     </View>
   );
 }
