@@ -34,6 +34,11 @@ const handleSpotifyLogin = async (navigation: any) => {
       },
     );
 
+    console.log('Request sent:', {
+      code: result.authorizationCode,
+      codeVerifier: result.codeVerifier,
+    });
+
     const data = await response.json();
     console.log('응답 값 :', data);
     console.log('유저네임 :', data.user.username);
