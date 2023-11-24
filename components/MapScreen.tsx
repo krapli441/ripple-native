@@ -222,14 +222,15 @@ function MapScreen(): React.ReactElement {
       const fetchUnreadNotificationsCount = async () => {
         console.log('useFocusEffect 시작, 알림 있는지 검색 시작');
         const userId = await AsyncStorage.getItem('userId');
+        console.log(userId);
         if (userId) {
           try {
             const response = await fetch(
               `http://192.168.0.215:3000/notifications/unread/count/${userId}`,
             );
             if (!response.ok) throw new Error('Network response was not ok');
-
             const count = await response.json();
+            console.log(count);
             setUnreadCount(count);
             console.log('Unread notifications count:', count);
           } catch (error) {
