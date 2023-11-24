@@ -33,22 +33,11 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 function MyPageScreenAccount(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const authToken = useAuthToken();
+  const {username, userEmail} = useAuthToken(); // username과 email을 useAuthToken에서 가져옵니다.
 
-  const handleAccountPress = () => {
-    // 계정 정보 화면으로 이동
-  };
-
-  const handleSettingsPress = () => {
-    // 환경 설정 화면으로 이동
-  };
-
-  const handleDetailsPress = () => {
-    // 상세 정보 화면으로 이동
-  };
-
-  const handleSupportPress = () => {
-    // 고객센터 화면으로 이동
+  const handleDeleteAccountPress = () => {
+    // 계정 삭제 로직을 여기에 추가합니다.
+    // 예: Alert.alert('계정 삭제', '정말 계정을 삭제하시겠습니까?', ...)
   };
 
   useFocusEffect(
@@ -66,25 +55,30 @@ function MyPageScreenAccount(): React.ReactElement {
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Text style={styles.header}>계정</Text>
 
-      {/* <TouchableOpacity style={styles.menuItem} onPress={handleAccountPress}>
-        <Text style={styles.menuText}>계정</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoHeader}>사용자 이름</Text>
+        <View style={styles.infoBox}>
+          <Text style={styles.infoText}>{username}</Text>
+        </View>
+      </View>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleSettingsPress}>
-        <Text style={styles.menuText}>환경 설정</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoHeader}>이메일</Text>
+        <View style={styles.infoBox}>
+          <Text style={styles.infoText}>{userEmail}</Text>
+        </View>
+      </View>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleDetailsPress}>
-        <Text style={styles.menuText}>상세 정보</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuItem} onPress={handleSupportPress}>
-        <Text style={styles.menuText}>고객센터</Text>
-        <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity> */}
+      <View style={styles.deleteAccountContainer}>
+        <Text style={styles.deleteAccountText}>
+          계정을 탈퇴하고 데이터를 영구 삭제하려면{' '}
+          <Text
+            style={styles.deleteAccountLink}
+            onPress={handleDeleteAccountPress}>
+            여기를 클릭하세요.
+          </Text>
+        </Text>
+      </View>
     </View>
   );
 }
