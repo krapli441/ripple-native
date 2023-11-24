@@ -53,7 +53,7 @@ function MyRippleScreen(): React.ReactElement {
     const userId = authToken.username;
     try {
       const response = await fetch(
-        `http://3.34.138.35:3000/ripples/my-ripples/${userId}`,
+        `https://3.34.138.35:3000/ripples/my-ripples/${userId}`,
       );
       if (response.ok) {
         const data = await response.json();

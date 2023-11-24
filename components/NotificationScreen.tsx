@@ -32,7 +32,7 @@ function NotificationScreen(): React.ReactElement {
 
       try {
         const response = await fetch(
-          `http://3.34.138.35:3000/notifications/${userId}`,
+          `https://3.34.138.35:3000/notifications/${userId}`,
         );
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
@@ -52,7 +52,7 @@ function NotificationScreen(): React.ReactElement {
 
       try {
         await fetch(
-          `http://3.34.138.35:3000/notifications/${userId}/mark-read`,
+          `https://3.34.138.35:3000/notifications/${userId}/mark-read`,
           {
             method: 'PATCH',
           },
