@@ -65,14 +65,14 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             buttonStyle={styles.spotifyButton}
             onPress={() => handleSpotifyLogin(navigation)}
           />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[styles.button, styles.mapButton]}
             onPress={() => navigation.navigate('Ripple')}>
             <View style={styles.buttonContent}>
               <Icon name="map" size={20} color="black" />
               <Text style={styles.buttonText}>테스트 - 지도로 이동</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
     </SafeAreaView>
