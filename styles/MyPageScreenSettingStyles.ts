@@ -1,9 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-  },
   header: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -26,6 +23,10 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 18,
   },
+  contentContainer: {
+    flex: 1,
+    padding: 20,
+  },
   settingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -33,7 +34,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   settingDescription: {
-    fontSize: 14,
+    fontSize: 16,
+    flex: 7, // 텍스트 영역을 더 크게 설정
+    flexWrap: 'wrap', // 텍스트가 길어질 경우 줄바꿈
   },
 });
 

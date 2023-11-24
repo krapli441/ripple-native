@@ -55,8 +55,8 @@ function MyPageScreenSetting(): React.ReactElement {
           수집합니다.
         </Text>
         <Switch
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isBackgroundFeatureEnabled ? '#f5dd4b' : '#f4f3f4'}
+          trackColor={{false: '#191414', true: '#6ADE6C'}} // true 상태일 때의 색상을 변경
+          thumbColor={isBackgroundFeatureEnabled ? '#191414' : '#f4f3f4'}
           onValueChange={toggleBackgroundFeature}
           value={isBackgroundFeatureEnabled}
         />
@@ -67,8 +67,8 @@ function MyPageScreenSetting(): React.ReactElement {
           다른 사용자가 나에게 좋아요를 보낼 경우 알림을 보냅니다.
         </Text>
         <Switch
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isNotificationEnabled ? '#f5dd4b' : '#f4f3f4'}
+          trackColor={{false: '#191414', true: '#6ADE6C'}} // true 상태일 때의 색상을 변경
+          thumbColor={isBackgroundFeatureEnabled ? '#191414' : '#f4f3f4'}
           onValueChange={toggleNotification}
           value={isNotificationEnabled}
         />
