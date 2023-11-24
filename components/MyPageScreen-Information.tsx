@@ -27,7 +27,7 @@ import {TrackDetails} from '../types/navigationTypes';
 import useAuthToken from '../utils/useAuthToken';
 
 // Style
-import styles from '../styles/MyPageScreenStyles';
+import styles from '../styles/MyPageScreenInformationStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function MyPageScreenInformation(): React.ReactElement {
