@@ -33,6 +33,7 @@ import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
 import {useLocation} from '../utils/LocationContext';
 import useRippleActions from '../hooks/useRippleActions';
+import useMessaging from '../hooks/useMessaging';
 import RippleMarker from '../utils/RippleMarker';
 
 // Types
@@ -72,6 +73,7 @@ function MapScreen(): React.ReactElement {
       authToken.username ? authToken : {...authToken, username: ''},
     );
   const [unreadCount, setUnreadCount] = React.useState(0);
+  useMessaging();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -140,76 +142,76 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  async function initializeMessaging() {
-    const storedToken = await AsyncStorage.getItem('pushToken');
-    console.log(storedToken);
+  // async function initializeMessaging() {
+  //   const storedToken = await AsyncStorage.getItem('pushToken');
+  //   console.log(storedToken);
 
-    if (storedToken) {
-      console.log('Push token already obtained and stored.');
-      return;
-    }
+  //   if (storedToken) {
+  //     console.log('Push token already obtained and stored.');
+  //     return;
+  //   }
 
-    const authorizationStatus = await messaging().requestPermission();
+  //   const authorizationStatus = await messaging().requestPermission();
 
-    if (!authorizationStatus) {
-      console.log('Permission not granted');
-      return;
-    }
+  //   if (!authorizationStatus) {
+  //     console.log('Permission not granted');
+  //     return;
+  //   }
 
-    const newToken = await messaging().getToken();
-    console.log('New FCM Token:', newToken);
+  //   const newToken = await messaging().getToken();
+  //   console.log('New FCM Token:', newToken);
 
-    try {
-      await sendTokenToServer(newToken);
-      await AsyncStorage.setItem('pushToken', newToken);
-    } catch (error) {
-      console.error('Error in token handling:', error);
-    }
-  }
+  //   try {
+  //     await sendTokenToServer(newToken);
+  //     await AsyncStorage.setItem('pushToken', newToken);
+  //   } catch (error) {
+  //     console.error('Error in token handling:', error);
+  //   }
+  // }
 
-  async function sendTokenToServer(token: string) {
-    const userID = await AsyncStorage.getItem('userToken');
+  // async function sendTokenToServer(token: string) {
+  //   const userID = await AsyncStorage.getItem('userToken');
 
-    if (!userID) {
-      console.error('User ID is not available');
-      return;
-    }
+  //   if (!userID) {
+  //     console.error('User ID is not available');
+  //     return;
+  //   }
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userID}`,
-      },
-      body: JSON.stringify({pushToken: token}),
-    };
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${userID}`,
+  //     },
+  //     body: JSON.stringify({pushToken: token}),
+  //   };
 
-    try {
-      console.log('Sending request with:', requestOptions);
-      const response = await fetch(
-        'http://192.168.0.215:3000/auth/spotify/push-token',
-        requestOptions,
-      );
+  //   try {
+  //     console.log('Sending request with:', requestOptions);
+  //     const response = await fetch(
+  //       'http://192.168.0.215:3000/auth/spotify/push-token',
+  //       requestOptions,
+  //     );
 
-      if (!response.ok) {
-        console.error(
-          `Response Error: ${response.status} ${response.statusText}`,
-        );
-        const errorBody = await response.text();
-        console.error(`Error Body: ${errorBody}`);
-        throw new Error('Failed to send token to server');
-      }
+  //     if (!response.ok) {
+  //       console.error(
+  //         `Response Error: ${response.status} ${response.statusText}`,
+  //       );
+  //       const errorBody = await response.text();
+  //       console.error(`Error Body: ${errorBody}`);
+  //       throw new Error('Failed to send token to server');
+  //     }
 
-      const responseData = await response.json();
-      console.log('Response from server:', responseData);
-    } catch (error) {
-      console.error('Error sending token to server:', error);
-    }
-  }
+  //     const responseData = await response.json();
+  //     console.log('Response from server:', responseData);
+  //   } catch (error) {
+  //     console.error('Error sending token to server:', error);
+  //   }
+  // }
 
-  useEffect(() => {
-    initializeMessaging();
-  }, []);
+  // useEffect(() => {
+  //   initializeMessaging();
+  // }, []);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -266,7 +268,7 @@ function MapScreen(): React.ReactElement {
             />
           </Marker>
         )}
-        {ripples.map((ripple) => (
+        {ripples.map(ripple => (
           <RippleMarker
             key={ripple._id}
             ripple={ripple}
