@@ -12,7 +12,7 @@ const useRippleActions = (authToken: AuthToken) => {
   ): Promise<void> => {
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+        `http://192.168.104.251:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
         const newRipples: Ripple[] = await response.json();
