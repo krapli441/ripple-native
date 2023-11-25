@@ -266,81 +266,14 @@ function MapScreen(): React.ReactElement {
             />
           </Marker>
         )}
-        {ripples.map((ripple, index) => (
-          <Marker
-            style={{padding: 10}}
-            key={index}
-            coordinate={{
-              latitude: ripple.location.coordinates[1],
-              longitude: ripple.location.coordinates[0],
-            }}>
-            <Image
-              source={require('../assets/img/otherUserMarker.png')}
-              style={{width: 30, height: 30}}
-            />
-            <Callout tooltip={true} style={styles.calloutStyle}>
-              <Text style={styles.userInfo}>{ripple.userId}</Text>
-              <View style={styles.secondRow}>
-                <Image
-                  source={{uri: ripple.albumCoverUrl}}
-                  style={styles.albumCover}
-                />
-                <View style={styles.trackInfo}>
-                  <Text
-                    style={styles.titleText}
-                    numberOfLines={1}
-                    ellipsizeMode="tail">
-                    {ripple.title}
-                  </Text>
-                  <Text
-                    style={styles.artistText}
-                    numberOfLines={1}
-                    ellipsizeMode="tail">
-                    {ripple.artist}
-                  </Text>
-                  <View style={styles.tagContainer}>
-                    {ripple.tag.map((tag, idx) => (
-                      <Text style={styles.tagText} key={idx}>
-                        #{tag}
-                      </Text>
-                    ))}
-                  </View>
-                </View>
-              </View>
-              <View style={styles.thirdRow}>
-                <CalloutSubview
-                  onPress={() => handleSpotifyPlay(ripple.spotifyExternalUrl)}
-                  style={styles.calloutSpotifyButton}>
-                  <TouchableOpacity style={styles.buttonLayout}>
-                    <Icon name="spotify" size={20} color="black" />
-                    <Text style={styles.calloutButtonText}>
-                      Spotify에서 재생
-                    </Text>
-                  </TouchableOpacity>
-                </CalloutSubview>
-                <CalloutSubview
-                  onPress={() => {
-                    if (authToken.username) {
-                      handleLike(ripple._id, authToken.username);
-                    }
-                  }}
-                  style={styles.calloutLikeButton}>
-                  <TouchableOpacity style={styles.buttonLayout}>
-                    <Icon
-                      name={
-                        ripple.likedUsers.includes(authToken.username ?? '')
-                          ? 'check'
-                          : 'heart'
-                      }
-                      size={20}
-                      color="white"
-                    />
-                    <Text style={styles.calloutLikeButtonText}>좋아요</Text>
-                  </TouchableOpacity>
-                </CalloutSubview>
-              </View>
-            </Callout>
-          </Marker>
+        {ripples.map((ripple) => (
+          <RippleMarker
+            key={ripple._id}
+            ripple={ripple}
+            handleLike={handleLike}
+            handleSpotifyPlay={handleSpotifyPlay}
+            authToken={authToken}
+          />
         ))}
       </MapView>
       <TouchableOpacity

@@ -9,7 +9,7 @@ interface Ripple {
   _id: string;
   userId: string;
   location: {
-    coordinates: [number, number];
+    coordinates: number[]; // [number, number] 대신 number[] 사용
   };
   spotifyExternalUrl: string;
   albumCoverUrl: string;
@@ -23,7 +23,12 @@ interface RippleMarkerProps {
   ripple: Ripple;
   handleLike: (rippleId: string, userId: string) => void;
   handleSpotifyPlay: (spotifyUrl: string) => void;
-  authToken: {username?: string};
+  authToken: {
+    token?: string | null; // 추가된 필드
+    username?: string | null; // 수정된 필드
+    userId?: string | null; // 추가된 필드
+    userEmail?: string | null; // 추가된 필드
+  };
 }
 
 const RippleMarker: React.FC<RippleMarkerProps> = ({
