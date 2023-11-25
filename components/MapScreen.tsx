@@ -33,6 +33,7 @@ import {fetchInitialLocation, watchUserLocation} from '../utils/locationUtils';
 import useAuthToken from '../utils/useAuthToken';
 import {useLocation} from '../utils/LocationContext';
 import useRippleActions from '../hooks/useRippleActions';
+import RippleMarker from '../utils/RippleMarker';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
