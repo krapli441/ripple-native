@@ -6324,6 +6324,18 @@ react-native-app-auth@^7.1.0:
     invariant "2.2.4"
     react-native-base64 "0.0.2"
 
+react-native-background-fetch@~4.2.1:
+  version "4.2.1"
+  resolved "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-4.2.1.tgz"
+  integrity sha512-UePBlP2Az6PWrIDCoGDYl0IlimvV+TFl/5XUmL4KIo7xPK7TSZru1nYHH7uskW2an5AW39ko3mbV2w/+1LxsnQ==
+
+react-native-background-geolocation@^4.14.5:
+  version "4.14.5"
+  resolved "https://registry.npmjs.org/react-native-background-geolocation/-/react-native-background-geolocation-4.14.5.tgz"
+  integrity sha512-k1OI6JDfkR1VG3Lk20grifbA1aZBdafgH5n0sqEnGjg7Yl5IC7dfM2N+t4XW5Jo//rEHtQXTjTcox1t564N5rg==
+  dependencies:
+    react-native-background-fetch "~4.2.1"
+
 react-native-base64@0.0.2:
   version "0.0.2"
   resolved "https://registry.npmjs.org/react-native-base64/-/react-native-base64-0.0.2.tgz"
