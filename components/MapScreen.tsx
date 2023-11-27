@@ -35,6 +35,7 @@ import {useLocation} from '../utils/LocationContext';
 import useRippleActions from '../hooks/useRippleActions';
 import useMessaging from '../hooks/useMessaging';
 import RippleMarker from '../utils/RippleMarker';
+import usePermissions from '../hooks/usePermission';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
@@ -75,7 +76,9 @@ function MapScreen(): React.ReactElement {
     );
   const [unreadCount, setUnreadCount] = React.useState(0);
   useMessaging();
-  useBackgroundLocation();
+  // useBackgroundLocation();
+  usePermissions();
+
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
@@ -142,7 +145,6 @@ function MapScreen(): React.ReactElement {
   const handleSpotifyPlay = (spotifyUrl: string) => {
     Linking.openURL(spotifyUrl);
   };
-
 
   useFocusEffect(
     React.useCallback(() => {
