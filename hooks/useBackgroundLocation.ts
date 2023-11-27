@@ -11,7 +11,7 @@ const useBackgroundLocation = () => {
     // 위치 서비스 구성
     BackgroundGeolocation.ready(
       {
-        locationAuthorizationRequest: 'Always',
+        locationAuthorizationRequest: 'WhenInUse',
         locationAuthorizationAlert: {
           titleWhenNotEnabled: '위치 서비스가 필요합니다',
           titleWhenOff: '위치 서비스가 꺼져 있습니다',

@@ -17,6 +17,7 @@
 
   // [REQUIRED] Register BackgroundFetch
   [[TSBackgroundFetch sharedInstance] didFinishLaunching];
+
   
 
   self.moduleName = @"ripple";
