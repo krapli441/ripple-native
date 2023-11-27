@@ -35,6 +35,7 @@ import {useLocation} from '../utils/LocationContext';
 import useRippleActions from '../hooks/useRippleActions';
 import useMessaging from '../hooks/useMessaging';
 import RippleMarker from '../utils/RippleMarker';
+import useBackgroundLocation from '../hooks/useBackgroundLocation';
 
 // Types
 import {Coords, LocationState} from '../types/locationTypes';
@@ -74,6 +75,7 @@ function MapScreen(): React.ReactElement {
     );
   const [unreadCount, setUnreadCount] = React.useState(0);
   useMessaging();
+  useBackgroundLocation();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -141,7 +143,6 @@ function MapScreen(): React.ReactElement {
   const handleSpotifyPlay = (spotifyUrl: string) => {
     Linking.openURL(spotifyUrl);
   };
-
 
   useFocusEffect(
     React.useCallback(() => {
