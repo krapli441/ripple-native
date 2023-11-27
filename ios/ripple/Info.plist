@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.transistorsoft.fetch</string>
+	</array>
+	<key>NSMotionUsageDescription</key>
+	<string>장치가 움직일 때를 감지할 수 있게 함</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>kr</string>
 	<key>CFBundleDisplayName</key>
@@ -52,6 +58,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>앱을 사용하는 동안 위치 허용</string>
+	<key>Privacy - Location Always and When in Use Usage Description</key>
+	<string>백그라운드에서 위치 정보 수집 허용</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -76,6 +84,8 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
+		<string>fetch</string>
 		<string>location</string>
 		<string>processing</string>
 		<string>remote-notification</string>

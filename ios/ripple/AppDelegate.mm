@@ -3,6 +3,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "RNCConfig.h"
 #import <React/RCTBundleURLProvider.h>
+#import <TSBackgroundFetch/TSBackgroundFetch.h>
 
 @implementation AppDelegate
 
@@ -14,6 +15,8 @@
     [FIRApp configure];
   }
 
+  // [REQUIRED] Register BackgroundFetch
+  [[TSBackgroundFetch sharedInstance] didFinishLaunching];
   
 
   self.moduleName = @"ripple";
