@@ -6,8 +6,6 @@
 	<array>
 		<string>com.transistorsoft.fetch</string>
 	</array>
-	<key>NSMotionUsageDescription</key>
-	<string>장치가 움직일 때를 감지할 수 있게 함</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>kr</string>
 	<key>CFBundleDisplayName</key>
@@ -57,9 +55,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>앱을 사용하는 동안 위치 허용</string>
+	<string>백그라운드에서 위치 정보를 사용하여 주변의 리플 마커를 수집합니다.</string>
 	<key>Privacy - Location Always and When in Use Usage Description</key>
-	<string>백그라운드에서 위치 정보 수집 허용</string>
+	<string>앱을 사용하는 동안 위치 정보에 접근하여 주변 리플 마커를 보여줍니다.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>장치가 움직일 때를 감지할 수 있게 함</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
