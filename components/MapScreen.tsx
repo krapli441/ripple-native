@@ -44,6 +44,7 @@ import styles from '../styles/MapScreenStyles';
 
 // Notification
 import messaging from '@react-native-firebase/messaging';
+import useBackgroundLocation from '../hooks/useBackgroundLocation';
 
 const initialLocationState: LocationState = {
   coords: null,
@@ -74,7 +75,7 @@ function MapScreen(): React.ReactElement {
     );
   const [unreadCount, setUnreadCount] = React.useState(0);
   useMessaging();
-
+  useBackgroundLocation();
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
