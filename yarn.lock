@@ -6324,7 +6324,7 @@ react-native-app-auth@^7.1.0:
     invariant "2.2.4"
     react-native-base64 "0.0.2"
 
-react-native-background-fetch@~4.2.1:
+react-native-background-fetch@^4.2.1, react-native-background-fetch@~4.2.1:
   version "4.2.1"
   resolved "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-4.2.1.tgz"
   integrity sha512-UePBlP2Az6PWrIDCoGDYl0IlimvV+TFl/5XUmL4KIo7xPK7TSZru1nYHH7uskW2an5AW39ko3mbV2w/+1LxsnQ==
