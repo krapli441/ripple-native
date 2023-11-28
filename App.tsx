@@ -37,17 +37,29 @@ const SearchStack = createStackNavigator();
 const LibraryStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 
-function MyPageStackScreen() {
+type MainTabNavigatorProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type MyPageStackScreenProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function MyPageStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
   return (
     <MyPageStack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
       <MyPageStack.Screen name="MyPage" component={MyPageScreen} />
-      <MyPageStack.Screen
-        name="MyRippleScreenAccount"
-        component={MyPageScreenAccount}
-      />
+      <MyPageStack.Screen name="MyRippleScreenAccount">
+        {props => (
+          <MyPageScreenAccount
+            {...props}
+            setIsAuthenticated={setIsAuthenticated}
+          />
+        )}
+      </MyPageStack.Screen>
       <MyPageStack.Screen
         name="MyRippleScreenInformation"
         component={MyPageScreenInformation}
@@ -130,7 +142,7 @@ function SearchStackScreen() {
 }
 
 // 로그인 후 보여질 하단 탭 네비게이터
-function MainTabNavigator() {
+function MainTabNavigator({setIsAuthenticated}: MainTabNavigatorProps) {
   return (
     <Tab.Navigator
       tabBar={props => <NavigationTabBar {...props} />}
@@ -149,7 +161,9 @@ function MainTabNavigator() {
       />
       <Tab.Screen
         name="내 정보"
-        component={MyPageStackScreen}
+        children={() => (
+          <MyPageStackScreen setIsAuthenticated={setIsAuthenticated} />
+        )}
         options={{headerShown: false}}
       />
       <Tab.Screen
@@ -198,7 +212,9 @@ function App(): JSX.Element {
               // 인증된 사용자에게 메인 화면 표시
               <Stack.Screen
                 name="Ripple"
-                component={MainTabNavigator}
+                children={() => (
+                  <MainTabNavigator setIsAuthenticated={setIsAuthenticated} />
+                )}
                 options={{headerShown: false}}
               />
             ) : (

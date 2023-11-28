@@ -29,7 +29,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/MyPageScreenAccountStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function MyPageScreenAccount(): React.ReactElement {
+type MyPageScreenAccountProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function MyPageScreenAccount({
+  setIsAuthenticated,
+}: MyPageScreenAccountProps): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {username, userEmail} = useAuthToken(); // username과 email을 useAuthToken에서 가져옵니다.
@@ -49,7 +55,8 @@ function MyPageScreenAccount(): React.ReactElement {
         text: '로그아웃',
         onPress: async () => {
           await AsyncStorage.clear();
-          navigation.navigate('Home');
+          setIsAuthenticated(false); // 인증 상태를 false로 설정
+          // navigation.navigate('Home');
         },
       },
     ]);
