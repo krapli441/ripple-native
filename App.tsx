@@ -1,11 +1,12 @@
 // React & React Native
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 // Libraries
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {CardStyleInterpolators} from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
 import HomeScreen from './components/HomeScreen';
@@ -168,21 +169,46 @@ function MainTabNavigator() {
 }
 
 function App(): JSX.Element {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token) {
+        setIsAuthenticated(true);
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   return (
     <AuthProvider>
       <LocationProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Ripple"
-              component={MainTabNavigator}
-              options={{headerShown: false, gestureEnabled: false}}
-            />
+            {isAuthenticated ? (
+              // 인증된 사용자에게 메인 화면 표시
+              <Stack.Screen
+                name="Ripple"
+                component={MainTabNavigator}
+                options={{headerShown: false}}
+              />
+            ) : (
+              // 인증되지 않은 사용자에게 로그인 화면 표시
+              <Stack.Screen
+                name="Home"
+                options={{headerShown: false, gestureEnabled: false}}>
+                {props => (
+                  <HomeScreen
+                    {...props}
+                    setIsAuthenticated={setIsAuthenticated}
+                  />
+                )}
+              </Stack.Screen>
+            )}
             <Stack.Screen
               name="SearchModal"
               component={SearchStackScreen}

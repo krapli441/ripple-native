@@ -24,6 +24,7 @@ import styles from '../styles/HomeScreenStyles';
 
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const LoginButton: React.FC<{
@@ -40,7 +41,10 @@ const LoginButton: React.FC<{
   </TouchableOpacity>
 );
 
-function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
+function HomeScreen({
+  navigation,
+  setIsAuthenticated,
+}: HomeScreenProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const containerStyle = {
@@ -63,16 +67,8 @@ function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             iconName="spotify"
             text="Spotify를 이용하여 로그인"
             buttonStyle={styles.spotifyButton}
-            onPress={() => handleSpotifyLogin(navigation)}
+            onPress={() => handleSpotifyLogin(navigation, setIsAuthenticated)}
           />
-          {/* <TouchableOpacity
-            style={[styles.button, styles.mapButton]}
-            onPress={() => navigation.navigate('Ripple')}>
-            <View style={styles.buttonContent}>
-              <Icon name="map" size={20} color="black" />
-              <Text style={styles.buttonText}>테스트 - 지도로 이동</Text>
-            </View>
-          </TouchableOpacity> */}
         </View>
       </ScrollView>
     </SafeAreaView>

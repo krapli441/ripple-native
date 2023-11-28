@@ -13,7 +13,7 @@ const config: AuthConfiguration = {
   skipCodeExchange: true,
 };
 
-const handleSpotifyLogin = async (navigation: any) => {
+const handleSpotifyLogin = async (navigation: any, setIsAuthenticated: (value: boolean) => void) => {
   try {
     console.log('handleSpotifyLogin called');
     const result = await authorize(config);
@@ -49,6 +49,7 @@ const handleSpotifyLogin = async (navigation: any) => {
       await AsyncStorage.setItem('username', data.user.username);
       await AsyncStorage.setItem('userId', data.user._id);
       await AsyncStorage.setItem('userEmail', data.user.email);
+      setIsAuthenticated(true);
       navigation.navigate('Ripple');
     }
   } catch (error) {
