@@ -1,19 +1,6 @@
 // react & react-native
 import React, {useState} from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  useColorScheme,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Image,
-  Alert,
-} from 'react-native';
+import {View, StatusBar, Text, useColorScheme, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -29,7 +16,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/MyPageScreenAccountStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function MyPageScreenAccount(): React.ReactElement {
+type MyPageScreenAccountProps = {
+  setIsAuthenticated: (value: boolean) => void;
+};
+
+function MyPageScreenAccount({
+  setIsAuthenticated,
+}: MyPageScreenAccountProps): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {username, userEmail} = useAuthToken(); // username과 email을 useAuthToken에서 가져옵니다.
@@ -48,8 +41,8 @@ function MyPageScreenAccount(): React.ReactElement {
       {
         text: '로그아웃',
         onPress: async () => {
-          await AsyncStorage.clear();
-          navigation.navigate('Home');
+          await AsyncStorage.clear(); // 모든 사용자 정보 삭제
+          setIsAuthenticated(false); // 인증 상태 업데이트
         },
       },
     ]);
