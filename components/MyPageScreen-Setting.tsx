@@ -49,7 +49,7 @@ function MyPageScreenSetting(): React.ReactElement {
       <StatusBar barStyle="dark-content" />
       <Text style={styles.header}>환경설정</Text>
 
-      <View style={styles.settingItemContainer}>
+      {/* <View style={styles.settingItemContainer}>
         <View style={styles.settingTitleContainer}>
           <Text style={styles.settingTitle}>백그라운드 기능</Text>
           <Switch
@@ -63,7 +63,7 @@ function MyPageScreenSetting(): React.ReactElement {
           앱을 사용하지 않을 때 백그라운드 상태에서 {'\n'}다른 사용자가 남긴
           음악을 수집합니다.
         </Text>
-      </View>
+      </View> */}
 
       <View style={styles.settingItemContainer}>
         <View style={styles.settingTitleContainer}>
