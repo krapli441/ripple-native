@@ -4,20 +4,11 @@ import {
   View,
   StatusBar,
   Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
   useColorScheme,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Image,
-  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'; // Ionicons 아이콘 세트를 사용
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';

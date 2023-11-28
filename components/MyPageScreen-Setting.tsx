@@ -1,5 +1,5 @@
 // react & react-native
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StatusBar,
@@ -8,23 +8,16 @@ import {
   Alert,
   Switch,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 
-// types
-import {RootStackParamList} from '../types/navigationTypes';
-
 // asyncStorage
-import useAuthToken from '../utils/useAuthToken';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
 import styles from '../styles/MyPageScreenSettingStyles';
 
 function MyPageScreenSetting(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const authToken = useAuthToken();
   const [isBackgroundFeatureEnabled, setIsBackgroundFeatureEnabled] =
     useState(false);
   const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
@@ -37,10 +30,34 @@ function MyPageScreenSetting(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
-      return () => {
-        // 필요한 경우, 화면이 블러(blur) 될 때 다른 스타일로 되돌릴 수 있습니다
-        // 예: StatusBar.setBarStyle('light-content');
+      return () => {};
+    }, []),
+  );
+
+  useEffect(() => {
+    const getNotificationPermission = async () => {
+      const permissionStatus = await AsyncStorage.getItem(
+        'notificationPermission',
+      );
+      setIsNotificationEnabled(permissionStatus === '1');
+    };
+
+    getNotificationPermission();
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchAllAsyncStorageData = async () => {
+        try {
+          const keys = await AsyncStorage.getAllKeys();
+          const result = await AsyncStorage.multiGet(keys);
+          console.log(result);
+        } catch (error) {
+          console.error('Error fetching AsyncStorage data', error);
+        }
       };
+
+      fetchAllAsyncStorageData();
     }, []),
   );
 
