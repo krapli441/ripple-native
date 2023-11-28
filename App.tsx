@@ -25,6 +25,7 @@ import MyPageScreenAccount from './components/MyPageScreen-Account';
 import MyPageScreenSetting from './components/MyPageScreen-Setting';
 import MyPageScreenCustomerService from './components/MyPageScreen-CustomerService';
 import MyPageScreenInformation from './components/MyPageScreen-Information';
+import LoadingScreen from './components/LodingScreen';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -170,19 +171,23 @@ function MainTabNavigator() {
 
 function App(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(false); // 초기 로딩 상태를 false로 설정
 
   useEffect(() => {
     const checkAuth = async () => {
+      setIsLoading(true); // 인증 확인 시작 시 로딩 시작
       const token = await AsyncStorage.getItem('userToken');
-      if (token) {
-        setIsAuthenticated(true);
-        setIsLoading(false);
-      }
+      setIsAuthenticated(!!token);
+      setIsLoading(false); // 로딩 완료
     };
 
+    // 앱이 마운트될 때 한 번만 인증 상태 확인
     checkAuth();
   }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <AuthProvider>
