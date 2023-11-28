@@ -48,11 +48,7 @@ function MyPageScreenAccount(): React.ReactElement {
       {
         text: '로그아웃',
         onPress: async () => {
-          await AsyncStorage.removeItem('userToken');
-          await AsyncStorage.removeItem('username');
-          await AsyncStorage.removeItem('userId');
-          await AsyncStorage.removeItem('userEmail');
-          // 여기서 로그인 화면으로 이동
+          await AsyncStorage.clear();
           navigation.navigate('Home');
         },
       },
