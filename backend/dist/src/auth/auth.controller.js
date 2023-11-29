@@ -76,6 +76,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
+        console.log('Spotify Token Response:', tokenResponse.data);
         return {
             accessToken: tokenResponse.data.access_token,
             expiresIn: tokenResponse.data.expires_in,
@@ -102,6 +103,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
+        console.log('Refresh Token Response:', tokenResponse.data);
         return tokenResponse.data.access_token;
     }
     async updatePushToken(body, req) {

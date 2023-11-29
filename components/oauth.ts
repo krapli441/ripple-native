@@ -13,11 +13,20 @@ const config: AuthConfiguration = {
   skipCodeExchange: true,
 };
 
-const handleSpotifyLogin = async (navigation: any, setIsAuthenticated: (value: boolean) => void) => {
+const handleSpotifyLogin = async (
+  navigation: any,
+  setIsAuthenticated: (value: boolean) => void,
+) => {
   try {
     console.log('handleSpotifyLogin called');
     const result = await authorize(config);
     console.log('authorize result:', result);
+
+    // refreshToken이 있는지 확인
+    if (result.refreshToken) {
+      console.log('Refresh Token:', result.refreshToken);
+      await AsyncStorage.setItem('refreshToken', result.refreshToken);
+    }
 
     // 서버에 인증 코드와 codeVerifier를 전달
     const response = await fetch(
