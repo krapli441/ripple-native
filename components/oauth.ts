@@ -55,6 +55,7 @@ const handleSpotifyLogin = async (
     // JWT 토큰이 제대로 응답되었는지 확인
     if (data.jwtToken) {
       await AsyncStorage.setItem('userToken', data.jwtToken);
+      await AsyncStorage.setItem('userTokenExpiry', data.user.tokenExpiry);
       await AsyncStorage.setItem('username', data.user.username);
       await AsyncStorage.setItem('userId', data.user._id);
       await AsyncStorage.setItem('userEmail', data.user.email);
