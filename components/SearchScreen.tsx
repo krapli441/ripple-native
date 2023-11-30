@@ -28,6 +28,7 @@ import useAuthToken from '../utils/useAuthToken';
 // Style
 import styles from '../styles/SearchScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -42,7 +43,6 @@ function SearchScreen(): React.ReactElement {
       setSearchResults([]);
 
       StatusBar.setBarStyle('dark-content');
-
       // 화면이 blur 될 때 실행될 clean-up function
       return () => {};
     }, []),
@@ -51,6 +51,8 @@ function SearchScreen(): React.ReactElement {
   const searchForMusic = async (searchQuery: string) => {
     try {
       const jwtToken = authToken.token;
+      const allItems = await AsyncStorage.getAllKeys();
+      console.log(allItems);
 
       if (!jwtToken) {
         throw new Error('사용자 인증 토큰이 없습니다.');
