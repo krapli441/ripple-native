@@ -31,7 +31,6 @@ let SpotifyAuthController = class SpotifyAuthController {
             const { accessToken, expiresIn, refresh_token } = await this.getSpotifyAccessToken(body);
             const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
             const userProfile = await this.getSpotifyUserProfile(accessToken);
-            console.log('User profile with refreshToken:', userProfile);
             let user = await this.userService.findByEmail(userProfile.email);
             if (user) {
                 user = await this.userService.update(user._id, {
@@ -39,7 +38,6 @@ let SpotifyAuthController = class SpotifyAuthController {
                     refreshToken: refresh_token,
                     tokenExpiry: expiryDate,
                 });
-                console.log('Updated User with refreshToken:', user);
             }
             else {
                 user = await this.userService.create({
@@ -49,7 +47,6 @@ let SpotifyAuthController = class SpotifyAuthController {
                     refreshToken: refresh_token,
                     tokenExpiry: expiryDate,
                 });
-                console.log('Created new User with refreshToken:', user);
             }
             const jwtPayload = { email: user.email, userId: user._id };
             const jwtToken = this.jwtService.sign(jwtPayload);
@@ -79,7 +76,6 @@ let SpotifyAuthController = class SpotifyAuthController {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
-        console.log('Spotify Token Response:', tokenResponse.data);
         return {
             accessToken: tokenResponse.data.access_token,
             expiresIn: tokenResponse.data.expires_in,
@@ -107,7 +103,6 @@ let SpotifyAuthController = class SpotifyAuthController {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
-        console.log('Refresh Token Response:', tokenResponse.data);
         return tokenResponse.data.access_token;
     }
     async updatePushToken(body, req) {

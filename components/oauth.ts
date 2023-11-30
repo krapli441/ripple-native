@@ -18,13 +18,13 @@ const handleSpotifyLogin = async (
   setIsAuthenticated: (value: boolean) => void,
 ) => {
   try {
-    console.log('handleSpotifyLogin called');
+    // console.log('handleSpotifyLogin called');
     const result = await authorize(config);
     console.log('authorize result:', result);
 
     // refreshToken이 있는지 확인
     if (result.refreshToken) {
-      console.log('Refresh Token:', result.refreshToken);
+      // console.log('Refresh Token:', result.refreshToken);
       await AsyncStorage.setItem('refreshToken', result.refreshToken);
     }
 
@@ -43,14 +43,14 @@ const handleSpotifyLogin = async (
       },
     );
 
-    console.log('Request sent:', {
-      code: result.authorizationCode,
-      codeVerifier: result.codeVerifier,
-    });
+    // console.log('Request sent:', {
+    //   code: result.authorizationCode,
+    //   codeVerifier: result.codeVerifier,
+    // });
 
     const data = await response.json();
-    console.log('응답 값 :', data);
-    console.log('유저네임 :', data.user.username);
+    // console.log('응답 값 :', data);
+    // console.log('유저네임 :', data.user.username);
 
     // JWT 토큰이 제대로 응답되었는지 확인
     if (data.jwtToken) {
