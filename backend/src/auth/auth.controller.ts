@@ -26,7 +26,7 @@ export class SpotifyAuthController {
     try {
       const { accessToken, expiresIn, refresh_token } =
         await this.getSpotifyAccessToken(body);
-      const expiryDate = new Date(new Date().getTime() + 10 * 1000);
+      const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
       const userProfile = await this.getSpotifyUserProfile(accessToken);
       // console.log('User profile with refreshToken:', userProfile);
 
@@ -115,10 +115,11 @@ export class SpotifyAuthController {
   async refresh(@Body() body: { refreshToken: string; userId: string }) {
     try {
       const { refreshToken, userId } = body;
-      const { accessToken, jwtToken, refreshToken: newRefreshToken } = await this.refreshAccessToken(
-        refreshToken,
-        userId,
-      );
+      const {
+        accessToken,
+        jwtToken,
+        refreshToken: newRefreshToken,
+      } = await this.refreshAccessToken(refreshToken, userId);
       return { accessToken, jwtToken, refreshToken: newRefreshToken }; // 새로운 리프레시 토큰 포함하여 반환
     } catch (error) {
       throw new BadRequestException('Failed to refresh token');
