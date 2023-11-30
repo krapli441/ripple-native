@@ -26,7 +26,6 @@ let SpotifyAuthController = class SpotifyAuthController {
         this.jwtService = jwtService;
     }
     async getToken(body) {
-        console.log('Received request body:', body);
         try {
             const { accessToken, expiresIn, refresh_token } = await this.getSpotifyAccessToken(body);
             const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);

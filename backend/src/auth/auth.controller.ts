@@ -15,7 +15,7 @@ export class SpotifyAuthController {
 
   @Post('token')
   async getToken(@Body() body: { code: string; codeVerifier: string }) {
-    console.log('Received request body:', body);
+    // console.log('Received request body:', body);
     try {
       const { accessToken, expiresIn, refresh_token } =
         await this.getSpotifyAccessToken(body);
