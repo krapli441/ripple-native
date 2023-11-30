@@ -85,6 +85,10 @@ function SearchScreen(): React.ReactElement {
         jwtToken = refreshData.jwtToken;
         await AsyncStorage.setItem('userToken', jwtToken);
         await AsyncStorage.setItem('userTokenExpiry', new Date().toISOString()); // 새로운 만료 시간 설정
+        await AsyncStorage.setItem(
+          'userRefreshToken',
+          refreshData.refreshToken,
+        ); // 새로운 리프레시 토큰 저장
       }
 
       // 토큰을 사용하여 음악 검색을 진행합니다.

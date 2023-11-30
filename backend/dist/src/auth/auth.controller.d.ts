@@ -21,6 +21,7 @@ export declare class SpotifyAuthController {
     }): Promise<{
         accessToken: string;
         jwtToken: string;
+        refreshToken: string;
     }>;
     private refreshAccessToken;
     updatePushToken(body: {

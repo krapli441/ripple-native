@@ -48,7 +48,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 });
             }
             const jwtPayload = { email: user.email, userId: user._id };
-            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '10s' });
+            const jwtToken = this.jwtService.sign(jwtPayload);
             return {
                 user,
                 jwtToken,
@@ -92,8 +92,8 @@ let SpotifyAuthController = class SpotifyAuthController {
     async refresh(body) {
         try {
             const { refreshToken, userId } = body;
-            const { accessToken, jwtToken } = await this.refreshAccessToken(refreshToken, userId);
-            return { accessToken, jwtToken };
+            const { accessToken, jwtToken, refreshToken: newRefreshToken } = await this.refreshAccessToken(refreshToken, userId);
+            return { accessToken, jwtToken, refreshToken: newRefreshToken };
         }
         catch (error) {
             throw new common_1.BadRequestException('Failed to refresh token');
@@ -113,7 +113,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
-            console.log('응답 결과 : ', tokenResponse.data);
+            console.log('토큰 재발급 응답 결과 : ', tokenResponse.data);
             const newAccessToken = tokenResponse.data.access_token;
             const newRefreshToken = tokenResponse.data.refresh_token;
             const expiresIn = tokenResponse.data.expires_in;
