@@ -24,6 +24,7 @@ import {TrackDetails} from '../types/navigationTypes';
 
 // asyncStorage
 import useAuthToken from '../utils/useAuthToken';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
 import styles from '../styles/SearchScreenStyles';
@@ -51,7 +52,8 @@ function SearchScreen(): React.ReactElement {
   const searchForMusic = async (searchQuery: string) => {
     try {
       const jwtToken = authToken.token;
-
+      const expiryDate = await AsyncStorage.getItem('userTokenExpiry');
+      console.log('JWT 토큰 유효기간 : ', expiryDate);
       if (!jwtToken) {
         throw new Error('사용자 인증 토큰이 없습니다.');
       }

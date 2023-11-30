@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface AuthContextType {
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
-  tokenExpiry: string | null;
-  setTokenExpiry: React.Dispatch<React.SetStateAction<string | null>>;
+  tokenExpiry: Date | null;
+  setTokenExpiry: React.Dispatch<React.SetStateAction<Date | null>>;
   username: string | null;
   setUsername: React.Dispatch<React.SetStateAction<string | null>>;
   userId: string | null;
@@ -36,7 +36,7 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const [token, setToken] = useState<string | null>(null);
-  const [tokenExpiry, setTokenExpiry] = useState<string | null>(null);
+  const [tokenExpiry, setTokenExpiry] = useState<Date | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -56,6 +56,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       if (storedToken) {
         setToken(storedToken);
       }
+      if (storedTokenExpiry) {
+        const expiryDate = new Date(storedTokenExpiry);
+        setTokenExpiry(expiryDate); // 문자열에서 Date 객체로 변환
+      }
       if (storedUsername) {
         setUsername(storedUsername);
       }
@@ -67,9 +71,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       }
       if (storedUserRefreshToken) {
         setUserRefreshToken(storedUserRefreshToken);
-      }
-      if (storedTokenExpiry) {
-        setTokenExpiry(storedTokenExpiry);
       }
     };
 
