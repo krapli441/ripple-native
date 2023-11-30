@@ -58,7 +58,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       }
       if (storedTokenExpiry) {
         const expiryDate = new Date(storedTokenExpiry);
-        setTokenExpiry(expiryDate); // 문자열에서 Date 객체로 변환
+        setTokenExpiry(expiryDate);
       }
       if (storedUsername) {
         setUsername(storedUsername);

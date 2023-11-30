@@ -52,10 +52,12 @@ function SearchScreen(): React.ReactElement {
   const searchForMusic = async (searchQuery: string) => {
     try {
       const jwtToken = authToken.token;
-      const expiryDate = await AsyncStorage.getItem('userTokenExpiry');
+      const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
+      const expiryDate = storedExpiryDate ? new Date(storedExpiryDate) : null;
       console.log('JWT 토큰 유효기간 : ', expiryDate);
-      if (!jwtToken) {
-        throw new Error('사용자 인증 토큰이 없습니다.');
+
+      if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
+        throw new Error('사용자 인증 토큰이 만료되었거나 없습니다.');
       }
 
       const response = await fetch('http://192.168.0.215:3000/search', {
