@@ -58,6 +58,7 @@ function SearchScreen(): React.ReactElement {
 
       // JWT 토큰이 만료되었다면 새로운 토큰을 요청합니다.
       if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
+        console.log("토큰 만료 확인됨. 새로운 Access Token 및 JWT 토큰 발급 요청.")
         const refreshToken = await AsyncStorage.getItem('userRefreshToken');
         const userId = await AsyncStorage.getItem('userId');
 
