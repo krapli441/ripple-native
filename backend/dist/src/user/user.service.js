@@ -22,6 +22,7 @@ let UserService = class UserService {
         this.userModel = userModel;
     }
     async create(userData) {
+        console.log('Creating user with refreshToken:', userData.refreshToken);
         const user = new this.userModel(userData);
         return user.save();
     }
