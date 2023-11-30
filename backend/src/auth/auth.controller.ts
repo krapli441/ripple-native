@@ -26,7 +26,8 @@ export class SpotifyAuthController {
     try {
       const { accessToken, expiresIn, refresh_token } =
         await this.getSpotifyAccessToken(body);
-      const expiryDate = new Date(new Date().getTime() + expiresIn * 1000); // 토큰 만료시간
+      // const expiryDate = new Date(new Date().getTime() + expiresIn * 1000); // 토큰 만료시간
+      const expiryDate = new Date(new Date().getTime() + 10 * 1000);
       const userProfile = await this.getSpotifyUserProfile(accessToken);
       console.log('User profile with refreshToken:', userProfile);
 
@@ -50,7 +51,7 @@ export class SpotifyAuthController {
       }
 
       const jwtPayload = { email: user.email, userId: user._id };
-      const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
+      const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '10s' });
 
       return {
         user,
@@ -151,7 +152,8 @@ export class SpotifyAuthController {
 
       const newAccessToken = tokenResponse.data.access_token;
       const expiresIn = tokenResponse.data.expires_in;
-      const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+      // const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+      const expiryDate = new Date(new Date().getTime() + 10 * 1000);
 
       let user = await this.userService.findById(userId);
       if (!user) {
@@ -164,7 +166,7 @@ export class SpotifyAuthController {
       });
 
       const jwtPayload = { email: user.email, userId: user._id };
-      const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
+      const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '10s' });
 
       return { accessToken: newAccessToken, jwtToken };
     } catch (error) {

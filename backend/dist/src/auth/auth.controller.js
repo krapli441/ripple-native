@@ -29,7 +29,7 @@ let SpotifyAuthController = class SpotifyAuthController {
         console.log('Received request body:', body);
         try {
             const { accessToken, expiresIn, refresh_token } = await this.getSpotifyAccessToken(body);
-            const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+            const expiryDate = new Date(new Date().getTime() + 10 * 1000);
             const userProfile = await this.getSpotifyUserProfile(accessToken);
             console.log('User profile with refreshToken:', userProfile);
             let user = await this.userService.findByEmail(userProfile.email);
@@ -52,7 +52,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 console.log('Created new User with refreshToken:', user);
             }
             const jwtPayload = { email: user.email, userId: user._id };
-            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
+            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '10s' });
             return {
                 user,
                 jwtToken,
@@ -120,7 +120,7 @@ let SpotifyAuthController = class SpotifyAuthController {
             });
             const newAccessToken = tokenResponse.data.access_token;
             const expiresIn = tokenResponse.data.expires_in;
-            const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+            const expiryDate = new Date(new Date().getTime() + 10 * 1000);
             let user = await this.userService.findById(userId);
             if (!user) {
                 throw new Error('User not found');
@@ -130,7 +130,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 tokenExpiry: expiryDate,
             });
             const jwtPayload = { email: user.email, userId: user._id };
-            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
+            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '10s' });
             return { accessToken: newAccessToken, jwtToken };
         }
         catch (error) {

@@ -54,7 +54,17 @@ function SearchScreen(): React.ReactElement {
       let jwtToken = authToken.token ?? '';
       const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
       const expiryDate = storedExpiryDate ? new Date(storedExpiryDate) : null;
-      console.log('JWT 토큰 유효기간 : ', expiryDate);
+      const now = new Date();
+
+      console.log('현재 시간 : ', now.toISOString());
+      console.log(
+        'JWT 토큰 유효기간 : ',
+        expiryDate ? expiryDate.toISOString() : '없음',
+      );
+      console.log(
+        '토큰 만료 여부 : ',
+        expiryDate ? now >= expiryDate : '만료 시간 정보 없음',
+      );
 
       // JWT 토큰이 만료되었다면 새로운 토큰을 요청합니다.
       if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
