@@ -10,6 +10,8 @@ interface AuthContextType {
   setUserId: React.Dispatch<React.SetStateAction<string | null>>;
   userEmail: string | null;
   setUserEmail: React.Dispatch<React.SetStateAction<string | null>>;
+  userRefreshToken: string | null;
+  setUserRefreshToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 export const AuthContext = createContext<AuthContextType>({
   token: null,
@@ -20,6 +22,8 @@ export const AuthContext = createContext<AuthContextType>({
   setUserId: () => {},
   userEmail: null,
   setUserEmail: () => {},
+  userRefreshToken: null,
+  setUserRefreshToken: () => {},
 });
 
 interface AuthProviderProps {
@@ -31,6 +35,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const [username, setUsername] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userRefreshToken, setUserRefreshToken] = useState<string | null>(null);
 
   useEffect(() => {
     const loadAuthDetails = async () => {
@@ -38,6 +43,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       const storedUsername = await AsyncStorage.getItem('username');
       const storedUserId = await AsyncStorage.getItem('userId');
       const storedUserEmail = await AsyncStorage.getItem('userEmail');
+      const storedUserRefreshToken = await AsyncStorage.getItem(
+        'userRefreshToken',
+      );
 
       if (storedToken) {
         setToken(storedToken);
@@ -50,6 +58,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       }
       if (storedUserEmail) {
         setUserEmail(storedUserEmail);
+      }
+      if (storedUserRefreshToken) {
+        setUserRefreshToken(storedUserRefreshToken);
       }
     };
 
@@ -67,6 +78,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         setUserId,
         userEmail,
         setUserEmail,
+        userRefreshToken,
+        setUserRefreshToken,
       }}>
       {children}
     </AuthContext.Provider>

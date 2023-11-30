@@ -58,6 +58,7 @@ const handleSpotifyLogin = async (
       await AsyncStorage.setItem('username', data.user.username);
       await AsyncStorage.setItem('userId', data.user._id);
       await AsyncStorage.setItem('userEmail', data.user.email);
+      await AsyncStorage.setItem('userRefreshToken', data.user.refreshToken);
       setIsAuthenticated(true);
       navigation.navigate('Ripple');
     }
