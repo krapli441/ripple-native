@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Request,
+  UseGuards,
+  BadRequestException,
+} from '@nestjs/common';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user/user.service';
@@ -104,7 +111,24 @@ export class SpotifyAuthController {
     return userProfileResponse.data;
   }
 
-  private async refreshAccessToken(refreshToken: string): Promise<string> {
+  @Post('refresh-token')
+  async refresh(@Body() body: { refreshToken: string; userId: string }) {
+    try {
+      const { refreshToken, userId } = body;
+      const { accessToken, jwtToken } = await this.refreshAccessToken(
+        refreshToken,
+        userId,
+      );
+      return { accessToken, jwtToken };
+    } catch (error) {
+      throw new BadRequestException('Failed to refresh token');
+    }
+  }
+
+  private async refreshAccessToken(
+    refreshToken: string,
+    userId: string,
+  ): Promise<{ accessToken: string; jwtToken: string }> {
     const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
     const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
 
@@ -114,17 +138,39 @@ export class SpotifyAuthController {
     params.append('client_id', clientId);
     params.append('client_secret', clientSecret);
 
-    const tokenResponse = await axios.post(
-      'https://accounts.spotify.com/api/token',
-      params.toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+    try {
+      const tokenResponse = await axios.post(
+        'https://accounts.spotify.com/api/token',
+        params.toString(),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
         },
-      },
-    );
-    console.log('Refresh Token Response:', tokenResponse.data);
-    return tokenResponse.data.access_token;
+      );
+
+      const newAccessToken = tokenResponse.data.access_token;
+      const expiresIn = tokenResponse.data.expires_in;
+      const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+      let user = await this.userService.findById(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      user = await this.userService.update(user._id, {
+        accessToken: newAccessToken,
+        tokenExpiry: expiryDate,
+      });
+
+      const jwtPayload = { email: user.email, userId: user._id };
+      const jwtToken = this.jwtService.sign(jwtPayload);
+
+      return { accessToken: newAccessToken, jwtToken };
+    } catch (error) {
+      console.error('Error refreshing access token:', error);
+      throw new Error('Failed to refresh access token');
+    }
   }
 
   @UseGuards(JwtAuthGuard)
