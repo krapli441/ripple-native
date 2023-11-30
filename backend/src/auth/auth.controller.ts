@@ -50,7 +50,7 @@ export class SpotifyAuthController {
       }
 
       const jwtPayload = { email: user.email, userId: user._id };
-      const jwtToken = this.jwtService.sign(jwtPayload);
+      const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
 
       return {
         user,
@@ -164,7 +164,7 @@ export class SpotifyAuthController {
       });
 
       const jwtPayload = { email: user.email, userId: user._id };
-      const jwtToken = this.jwtService.sign(jwtPayload);
+      const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
 
       return { accessToken: newAccessToken, jwtToken };
     } catch (error) {

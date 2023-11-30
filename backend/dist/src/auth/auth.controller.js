@@ -52,7 +52,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 console.log('Created new User with refreshToken:', user);
             }
             const jwtPayload = { email: user.email, userId: user._id };
-            const jwtToken = this.jwtService.sign(jwtPayload);
+            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
             return {
                 user,
                 jwtToken,
@@ -130,7 +130,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 tokenExpiry: expiryDate,
             });
             const jwtPayload = { email: user.email, userId: user._id };
-            const jwtToken = this.jwtService.sign(jwtPayload);
+            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '60s' });
             return { accessToken: newAccessToken, jwtToken };
         }
         catch (error) {

@@ -58,10 +58,14 @@ function SearchScreen(): React.ReactElement {
 
       // JWT 토큰이 만료되었다면 새로운 토큰을 요청합니다.
       if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
-        console.log("토큰 만료 확인됨. 새로운 Access Token 및 JWT 토큰 발급 요청.")
+        console.log(
+          '토큰 만료 확인됨. 새로운 Access Token 및 JWT 토큰 발급 요청.',
+        );
         const refreshToken = await AsyncStorage.getItem('userRefreshToken');
         const userId = await AsyncStorage.getItem('userId');
 
+        console.log('refreshToken : ', refreshToken);
+        console.log('userId : ', userId);
         if (!refreshToken || !userId) {
           throw new Error('Refresh token 또는 User ID가 없습니다.');
         }
@@ -78,6 +82,7 @@ function SearchScreen(): React.ReactElement {
         );
 
         const refreshData = await refreshResponse.json();
+        console.log('refreshData : ', refreshData);
         if (!refreshResponse.ok) {
           throw new Error('토큰 갱신 실패');
         }
@@ -85,6 +90,7 @@ function SearchScreen(): React.ReactElement {
         jwtToken = refreshData.jwtToken;
         await AsyncStorage.setItem('userToken', jwtToken);
         await AsyncStorage.setItem('userTokenExpiry', new Date().toISOString()); // 새로운 만료 시간 설정
+        console.log(await AsyncStorage.getAllKeys());
       }
 
       // 토큰을 사용하여 음악 검색을 진행합니다.
