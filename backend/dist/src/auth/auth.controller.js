@@ -28,7 +28,7 @@ let SpotifyAuthController = class SpotifyAuthController {
     async getToken(body) {
         try {
             const { accessToken, expiresIn, refresh_token } = await this.getSpotifyAccessToken(body);
-            const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+            const expiryDate = new Date(new Date().getTime() + 10 * 1000);
             const userProfile = await this.getSpotifyUserProfile(accessToken);
             let user = await this.userService.findByEmail(userProfile.email);
             if (user) {
@@ -48,7 +48,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                 });
             }
             const jwtPayload = { email: user.email, userId: user._id };
-            const jwtToken = this.jwtService.sign(jwtPayload);
+            const jwtToken = this.jwtService.sign(jwtPayload, { expiresIn: '10s' });
             return {
                 user,
                 jwtToken,
