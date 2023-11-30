@@ -1,11 +1,6 @@
 // react & react-native
 import React, {useState} from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  useColorScheme,
-} from 'react-native';
+import {View, StatusBar, Text, useColorScheme, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
