@@ -57,6 +57,7 @@ function SearchScreen(): React.ReactElement {
 
       // JWT 토큰이 만료되었다면 새로운 토큰을 요청합니다.
       if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
+        console.log('토큰 만료 확인됨, 재발급 요청');
         const refreshToken = await AsyncStorage.getItem('userRefreshToken');
         const userId = await AsyncStorage.getItem('userId');
 
@@ -76,6 +77,7 @@ function SearchScreen(): React.ReactElement {
         );
 
         const refreshData = await refreshResponse.json();
+        console.log('리프레시 토큰을 이용해 응답받은 값 : ', refreshData);
         if (!refreshResponse.ok) {
           throw new Error('토큰 갱신 실패');
         }

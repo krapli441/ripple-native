@@ -113,7 +113,9 @@ let SpotifyAuthController = class SpotifyAuthController {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
+            console.log('응답 결과 : ', tokenResponse.data);
             const newAccessToken = tokenResponse.data.access_token;
+            const newRefreshToken = tokenResponse.data.refresh_token;
             const expiresIn = tokenResponse.data.expires_in;
             const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
             let user = await this.userService.findById(userId);
@@ -122,11 +124,16 @@ let SpotifyAuthController = class SpotifyAuthController {
             }
             user = await this.userService.update(user._id, {
                 accessToken: newAccessToken,
+                refreshToken: newRefreshToken,
                 tokenExpiry: expiryDate,
             });
             const jwtPayload = { email: user.email, userId: user._id };
             const jwtToken = this.jwtService.sign(jwtPayload);
-            return { accessToken: newAccessToken, jwtToken };
+            return {
+                accessToken: newAccessToken,
+                refreshToken: newRefreshToken,
+                jwtToken,
+            };
         }
         catch (error) {
             console.error('Error refreshing access token:', error);

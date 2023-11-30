@@ -128,7 +128,7 @@ export class SpotifyAuthController {
   private async refreshAccessToken(
     refreshToken: string,
     userId: string,
-  ): Promise<{ accessToken: string; jwtToken: string }> {
+  ): Promise<{ accessToken: string; jwtToken: string; refreshToken: string }> {
     const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
     const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
 
@@ -149,7 +149,9 @@ export class SpotifyAuthController {
         },
       );
 
+      console.log('응답 결과 : ', tokenResponse.data);
       const newAccessToken = tokenResponse.data.access_token;
+      const newRefreshToken = tokenResponse.data.refresh_token;
       const expiresIn = tokenResponse.data.expires_in;
       const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
 
@@ -158,15 +160,21 @@ export class SpotifyAuthController {
         throw new Error('User not found');
       }
 
+      // 사용자 정보 업데이트 (새로운 리프레시 토큰 포함)
       user = await this.userService.update(user._id, {
         accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
         tokenExpiry: expiryDate,
       });
 
       const jwtPayload = { email: user.email, userId: user._id };
       const jwtToken = this.jwtService.sign(jwtPayload);
 
-      return { accessToken: newAccessToken, jwtToken };
+      return {
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+        jwtToken,
+      };
     } catch (error) {
       console.error('Error refreshing access token:', error);
       throw new Error('Failed to refresh access token');
