@@ -10,6 +10,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(userData: CreateUserDto): Promise<User> {
+    console.log('Creating user with refreshToken:', userData.refreshToken);
     const user = new this.userModel(userData);
     return user.save();
   }

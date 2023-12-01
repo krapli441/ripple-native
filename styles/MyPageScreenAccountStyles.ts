@@ -57,6 +57,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textDecorationLine: 'underline',
   },
+  logoutButton: {
+    width: '80%', // 버튼의 너비를 조정
+    paddingVertical: 10, // 버튼의 상하 패딩을 추가
+    alignSelf: 'center', // 버튼을 가운데 정렬
+    backgroundColor: 'gray',
+    borderRadius: 20,
+    marginTop: 20, // 계정 정보와의 간격 조정
+  },
+  logoutButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16, // 글자 크기 조정
+  },
 });
 
 export default styles;

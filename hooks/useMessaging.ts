@@ -14,6 +14,10 @@ const useMessaging = (): void => {
     }
 
     const authorizationStatus = await messaging().requestPermission();
+    await AsyncStorage.setItem(
+      'notificationPermission',
+      authorizationStatus.toString(),
+    );
 
     if (!authorizationStatus) {
       console.log('Permission not granted');

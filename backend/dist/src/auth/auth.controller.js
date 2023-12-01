@@ -26,16 +26,15 @@ let SpotifyAuthController = class SpotifyAuthController {
         this.jwtService = jwtService;
     }
     async getToken(body) {
-        console.log('Received request body:', body);
         try {
-            const { accessToken, expiresIn } = await this.getSpotifyAccessToken(body);
+            const { accessToken, expiresIn, refresh_token } = await this.getSpotifyAccessToken(body);
             const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
             const userProfile = await this.getSpotifyUserProfile(accessToken);
             let user = await this.userService.findByEmail(userProfile.email);
             if (user) {
                 user = await this.userService.update(user._id, {
                     accessToken: accessToken,
-                    refreshToken: userProfile.refreshToken,
+                    refreshToken: refresh_token,
                     tokenExpiry: expiryDate,
                 });
             }
@@ -44,7 +43,7 @@ let SpotifyAuthController = class SpotifyAuthController {
                     username: userProfile.display_name,
                     email: userProfile.email,
                     accessToken: accessToken,
-                    refreshToken: userProfile.refreshToken,
+                    refreshToken: refresh_token,
                     tokenExpiry: expiryDate,
                 });
             }
@@ -79,6 +78,7 @@ let SpotifyAuthController = class SpotifyAuthController {
         return {
             accessToken: tokenResponse.data.access_token,
             expiresIn: tokenResponse.data.expires_in,
+            refresh_token: tokenResponse.data.refresh_token,
         };
     }
     async getSpotifyUserProfile(accessToken) {
@@ -89,7 +89,17 @@ let SpotifyAuthController = class SpotifyAuthController {
         });
         return userProfileResponse.data;
     }
-    async refreshAccessToken(refreshToken) {
+    async refresh(body) {
+        try {
+            const { refreshToken, userId } = body;
+            const { accessToken, jwtToken, refreshToken: newRefreshToken, } = await this.refreshAccessToken(refreshToken, userId);
+            return { accessToken, jwtToken, refreshToken: newRefreshToken };
+        }
+        catch (error) {
+            throw new common_1.BadRequestException('Failed to refresh token');
+        }
+    }
+    async refreshAccessToken(refreshToken, userId) {
         const clientId = this.configService.get('SPOTIFY_CLIENT_ID');
         const clientSecret = this.configService.get('SPOTIFY_CLIENT_SECRET');
         const params = new URLSearchParams();
@@ -97,12 +107,38 @@ let SpotifyAuthController = class SpotifyAuthController {
         params.append('refresh_token', refreshToken);
         params.append('client_id', clientId);
         params.append('client_secret', clientSecret);
-        const tokenResponse = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        });
-        return tokenResponse.data.access_token;
+        try {
+            const tokenResponse = await axios_1.default.post('https://accounts.spotify.com/api/token', params.toString(), {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+            console.log('토큰 재발급 응답 결과 : ', tokenResponse.data);
+            const newAccessToken = tokenResponse.data.access_token;
+            const newRefreshToken = tokenResponse.data.refresh_token;
+            const expiresIn = tokenResponse.data.expires_in;
+            const expiryDate = new Date(new Date().getTime() + expiresIn * 1000);
+            let user = await this.userService.findById(userId);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            user = await this.userService.update(user._id, {
+                accessToken: newAccessToken,
+                refreshToken: newRefreshToken,
+                tokenExpiry: expiryDate,
+            });
+            const jwtPayload = { email: user.email, userId: user._id };
+            const jwtToken = this.jwtService.sign(jwtPayload);
+            return {
+                accessToken: newAccessToken,
+                refreshToken: newRefreshToken,
+                jwtToken,
+            };
+        }
+        catch (error) {
+            console.error('Error refreshing access token:', error);
+            throw new Error('Failed to refresh access token');
+        }
     }
     async updatePushToken(body, req) {
         const userId = req.user.id;
@@ -118,6 +154,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SpotifyAuthController.prototype, "getToken", null);
+__decorate([
+    (0, common_1.Post)('refresh-token'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SpotifyAuthController.prototype, "refresh", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('push-token'),

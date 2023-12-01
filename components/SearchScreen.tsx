@@ -28,6 +28,7 @@ import useAuthToken from '../utils/useAuthToken';
 // Style
 import styles from '../styles/SearchScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
@@ -42,7 +43,6 @@ function SearchScreen(): React.ReactElement {
       setSearchResults([]);
 
       StatusBar.setBarStyle('dark-content');
-
       // 화면이 blur 될 때 실행될 clean-up function
       return () => {};
     }, []),
@@ -50,12 +50,48 @@ function SearchScreen(): React.ReactElement {
 
   const searchForMusic = async (searchQuery: string) => {
     try {
-      const jwtToken = authToken.token;
+      let jwtToken = authToken.token ?? '';
+      const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
+      const expiryDate = storedExpiryDate ? new Date(storedExpiryDate) : null;
+      console.log('JWT 토큰 유효기간 : ', expiryDate);
 
-      if (!jwtToken) {
-        throw new Error('사용자 인증 토큰이 없습니다.');
+      // JWT 토큰이 만료되었다면 새로운 토큰을 요청합니다.
+      if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
+        console.log('토큰 만료 확인됨, 재발급 요청');
+        const refreshToken = await AsyncStorage.getItem('userRefreshToken');
+        const userId = await AsyncStorage.getItem('userId');
+
+        if (!refreshToken || !userId) {
+          throw new Error('Refresh token 또는 User ID가 없습니다.');
+        }
+
+        const refreshResponse = await fetch(
+          'http://192.168.0.215:3000/auth/spotify/refresh-token',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({refreshToken, userId}),
+          },
+        );
+
+        const refreshData = await refreshResponse.json();
+        console.log('리프레시 토큰을 이용해 응답받은 값 : ', refreshData);
+        if (!refreshResponse.ok) {
+          throw new Error('토큰 갱신 실패');
+        }
+
+        jwtToken = refreshData.jwtToken;
+        await AsyncStorage.setItem('userToken', jwtToken);
+        await AsyncStorage.setItem('userTokenExpiry', new Date().toISOString()); // 새로운 만료 시간 설정
+        await AsyncStorage.setItem(
+          'userRefreshToken',
+          refreshData.refreshToken,
+        ); // 새로운 리프레시 토큰 저장
       }
 
+      // 토큰을 사용하여 음악 검색을 진행합니다.
       const response = await fetch('http://192.168.0.215:3000/search', {
         method: 'POST',
         headers: {
@@ -66,14 +102,13 @@ function SearchScreen(): React.ReactElement {
       });
 
       const data = await response.json();
-      // console.log(data);
 
       if (response.ok) {
         const tracks = data.map((item: any) => ({
           title: item.name,
           artist: item.artists.map((artist: any) => artist.name).join(', '),
           externalUrl: item.external_urls.spotify,
-          imageUrl: item.album.images[0].url, // 가장 큰 이미지를 선택합니다.
+          imageUrl: item.album.images[0].url,
         }));
         setSearchResults(tracks);
       } else {
