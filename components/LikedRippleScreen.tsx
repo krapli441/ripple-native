@@ -7,6 +7,7 @@ import {
   useColorScheme,
   Image,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 
 import {useFocusEffect} from '@react-navigation/native';
@@ -73,15 +74,17 @@ function LikedRippleScreen(): React.ReactElement {
   );
 
   return (
-    <View style={styles.searchContainer}>
-      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-      <Text style={styles.header}>좋아요 표시한 음악</Text>
-      <ScrollView style={{marginBottom: 130}}>
-        {likedRipples.map(ripple => (
-          <RippleItem key={ripple._id} ripple={ripple} />
-        ))}
-      </ScrollView>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.searchContainer}>
+        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+        <Text style={styles.header}>좋아요 표시한 음악</Text>
+        <ScrollView style={{marginBottom: 100}}>
+          {likedRipples.map(ripple => (
+            <RippleItem key={ripple._id} ripple={ripple} />
+          ))}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 

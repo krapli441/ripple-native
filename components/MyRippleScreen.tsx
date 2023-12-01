@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   Linking,
+  SafeAreaView,
 } from 'react-native';
 
 import {useFocusEffect} from '@react-navigation/native';
@@ -73,15 +74,17 @@ function MyRippleScreen(): React.ReactElement {
   );
 
   return (
-    <View style={styles.searchContainer}>
-      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-      <Text style={styles.header}>내가 남긴 음악</Text>
-      <ScrollView style={{marginBottom:130}}>
-        {myRipples.map(ripple => (
-          <RippleItem key={ripple._id} ripple={ripple} />
-        ))}
-      </ScrollView>
-    </View>
+    <SafeAreaView style={{flex: 1, backgroundColor:"#f8f9fa"}}>
+      <View style={styles.searchContainer}>
+        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+        <Text style={styles.header}>내가 남긴 음악</Text>
+        <ScrollView style={{marginBottom: 100}}>
+          {myRipples.map(ripple => (
+            <RippleItem key={ripple._id} ripple={ripple} />
+          ))}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
