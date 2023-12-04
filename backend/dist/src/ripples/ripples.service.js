@@ -50,8 +50,10 @@ let RipplesService = class RipplesService {
         return this.rippleModel.findByIdAndRemove(id).exec();
     }
     async findNearbyRipples(longitude, latitude, maxDistance) {
+        const twentyFourHoursAgo = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
         const ripples = await this.rippleModel
             .find({
+            createdAt: { $gte: twentyFourHoursAgo },
             location: {
                 $nearSphere: {
                     $geometry: {
@@ -61,10 +63,9 @@ let RipplesService = class RipplesService {
                     $maxDistance: maxDistance,
                 },
             },
-            isActive: true,
         })
             .exec();
-        return Promise.resolve(ripples.map((ripple) => ripple.toObject({ versionKey: false })));
+        return ripples.map((ripple) => ripple.toObject({ versionKey: false }));
     }
     async findMyRipples(userId) {
         return this.rippleModel.find({ userId: userId }).exec();

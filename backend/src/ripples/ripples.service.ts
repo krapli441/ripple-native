@@ -49,8 +49,13 @@ export class RipplesService {
     latitude: number,
     maxDistance: number,
   ): Promise<IRipple[]> {
+    const twentyFourHoursAgo = new Date(
+      new Date().getTime() - 24 * 60 * 60 * 1000,
+    );
+
     const ripples = await this.rippleModel
       .find({
+        createdAt: { $gte: twentyFourHoursAgo },
         location: {
           $nearSphere: {
             $geometry: {
@@ -60,14 +65,12 @@ export class RipplesService {
             $maxDistance: maxDistance,
           },
         },
-        isActive: true,
       })
       .exec();
-    return Promise.resolve(
-      ripples.map((ripple) =>
-        ripple.toObject({ versionKey: false }),
-      ) as IRipple[],
-    );
+
+    return ripples.map((ripple) =>
+      ripple.toObject({ versionKey: false }),
+    ) as IRipple[];
   }
 
   async findMyRipples(userId: string): Promise<Ripple[]> {
