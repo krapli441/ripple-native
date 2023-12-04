@@ -8,6 +8,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -86,18 +87,27 @@ function NotificationScreen(): React.ReactElement {
       // 성공적으로 삭제되면, UI에서도 알림 제거
     };
 
-    const DeleteAction = ({onPress}: any) => {
+    const DeleteAction = ({progress, onPress}: any) => {
+      const translateX = progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [600, 0], // Adjust these values as needed
+      });
+
       return (
-        <TouchableOpacity onPress={onPress} style={styles.deleteAction}>
-          <Icon name="trash" size={20} color="white" />
-          <Text style={styles.deleteActionText}>삭제</Text>
-        </TouchableOpacity>
+        <Animated.View style={{flex: 1, transform: [{translateX}]}}>
+          <TouchableOpacity onPress={onPress} style={styles.deleteAction}>
+            <Icon name="trash" size={20} color="white" />
+            <Text style={styles.deleteActionText}>삭제</Text>
+          </TouchableOpacity>
+        </Animated.View>
       );
     };
 
     return (
       <Swipeable
-        renderRightActions={() => <DeleteAction onPress={handleDelete} />}
+        renderRightActions={(progress, dragX) => (
+          <DeleteAction progress={progress} onPress={handleDelete} />
+        )}
         rightThreshold={60}>
         <View style={styles.notificationItem}>
           <View style={styles.notificationTextContainer}>
