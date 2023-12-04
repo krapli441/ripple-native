@@ -45,18 +45,22 @@ function DeleteAccountScreen(): React.ReactElement {
         <Text style={styles.infoText}>좋아요 표시한 음악</Text>
         <Text style={styles.infoText}>Spotify 계정 정보 (닉네임, 이메일)</Text>
       </View>
-      <CheckBox
-        boxType="square"
-        onCheckColor="#191414"
-        onTintColor="#191414"
-        disabled={false}
-        animationDuration={0.2}
-        onAnimationType="fade"
-        offAnimationType="fade"
-        value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}
-      />
-      <Text>해당 내용을 모두 확인했습니다.</Text>
+      <View style={styles.checkboxContainer}>
+        <View style={styles.checkboxSize}>
+          <CheckBox
+            boxType="square"
+            onCheckColor="#191414"
+            onTintColor="#191414"
+            disabled={false}
+            animationDuration={0.2}
+            onAnimationType="fade"
+            offAnimationType="fade"
+            value={toggleCheckBox}
+            onValueChange={newValue => setToggleCheckBox(newValue)}
+          />
+        </View>
+        <Text style={styles.checkboxLabel}>해당 내용을 모두 확인했습니다.</Text>
+      </View>
 
       <TouchableOpacity
         // onPress={handleDeleteAccount}

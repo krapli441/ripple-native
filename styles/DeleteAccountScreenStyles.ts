@@ -50,6 +50,18 @@ const styles = StyleSheet.create({
   buttonInactive: {
     backgroundColor: 'grey',
   },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  checkboxSize: {
+    transform: [{scaleX: 0.8}, {scaleY: 0.8}], // 크기를 1.5배로 조정
+  },
+  checkboxLabel: {
+    marginLeft: 8,
+    // 레이블 텍스트 스타일
+  },
 });
 
 export default styles;
