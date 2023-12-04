@@ -8,6 +8,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,7 +77,6 @@ function NotificationScreen(): React.ReactElement {
   );
 
   const renderItem = ({item}: {item: NotificationItem}) => {
-    // 메시지를 "님이" 기준으로 나누기
     const messageParts = item.message.split('님이');
     const firstPart = messageParts[0] + '님이';
     const secondPart = '회원님이 남긴 음악을 좋아합니다.';
@@ -97,8 +97,24 @@ function NotificationScreen(): React.ReactElement {
 
     return (
       <Swipeable
-        renderRightActions={() => <DeleteAction onPress={handleDelete} />}
-        rightThreshold={150}>
+        renderRightActions={(progress, dragX) => (
+          <Animated.View
+            style={{
+              flex: 1,
+              transform: [
+                {
+                  scale: dragX.interpolate({
+                    inputRange: [-150, 0],
+                    outputRange: [1, 0],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ],
+            }}>
+            <DeleteAction onPress={handleDelete} />
+          </Animated.View>
+        )}
+        rightThreshold={80}>
         <View style={styles.notificationItem}>
           <View style={styles.notificationTextContainer}>
             <Text style={styles.notificationText}>{firstPart}</Text>
@@ -109,6 +125,7 @@ function NotificationScreen(): React.ReactElement {
       </Swipeable>
     );
   };
+
   return (
     <View style={styles.notificationContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
