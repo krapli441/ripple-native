@@ -81,7 +81,7 @@ function MyPageScreenAccount({
           <Text
             style={styles.deleteAccountLink}
             onPress={handleDeleteAccountPress}>
-            여기를 클릭하세요.
+            여기를 터치하세요.
           </Text>
         </Text>
       </View>
