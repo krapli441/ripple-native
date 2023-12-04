@@ -58,6 +58,9 @@ export class Ripple extends Document {
   @Prop()
   tag: string[];
 
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
+
   @Prop({
     type: Date,
     expires: '24h', // 24시간 뒤 자동 삭제

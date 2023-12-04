@@ -59,6 +59,10 @@ __decorate([
     __metadata("design:type", Array)
 ], Ripple.prototype, "tag", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ type: Boolean, default: true }),
+    __metadata("design:type", Boolean)
+], Ripple.prototype, "isActive", void 0);
+__decorate([
     (0, mongoose_1.Prop)({
         type: Date,
         expires: '24h',
