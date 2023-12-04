@@ -45,7 +45,6 @@ function NotificationScreen(): React.ReactElement {
     }
   };
 
-  useEffect(() => {
     const markNotificationsAsRead = async () => {
       const userId = await AsyncStorage.getItem('userId');
       if (!userId) return;
@@ -62,13 +61,12 @@ function NotificationScreen(): React.ReactElement {
       }
     };
 
-    markNotificationsAsRead();
-  }, []);
 
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
       fetchNotifications();
+      markNotificationsAsRead();
       return () => {};
     }, []),
   );
