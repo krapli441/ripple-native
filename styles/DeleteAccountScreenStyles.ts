@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'left',
+    marginBottom: 10,
   },
   myRippleImage: {
     width: 100,
@@ -22,13 +23,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   infoBox: {
+    width: '80%',
     backgroundColor: '#191414',
     borderRadius: 10,
-    padding: 15,
+    padding: 30,
     marginBottom: 20,
   },
   infoText: {
     color: 'white',
+    fontSize: 16,
     marginBottom: 5,
   },
 });
