@@ -61,10 +61,14 @@ function MyPageStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
           />
         )}
       </MyPageStack.Screen>
-      <MyPageStack.Screen
-        name="DeleteAccountScreen"
-        component={DeleteAccountScreen}
-      />
+      <MyPageStack.Screen name="DeleteAccountScreen">
+        {props => (
+          <DeleteAccountScreen
+            {...props}
+            setIsAuthenticated={setIsAuthenticated}
+          />
+        )}
+      </MyPageStack.Screen>
       <MyPageStack.Screen
         name="MyRippleScreenInformation"
         component={MyPageScreenInformation}

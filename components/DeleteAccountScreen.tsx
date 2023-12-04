@@ -21,7 +21,13 @@ import {RootStackParamList} from '../types/navigationTypes';
 import styles from '../styles/DeleteAccountScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function DeleteAccountScreen(): React.ReactElement {
+type DeleteAccountScreenProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function DeleteAccountScreen({
+  setIsAuthenticated,
+}: DeleteAccountScreenProps): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
@@ -36,20 +42,21 @@ function DeleteAccountScreen(): React.ReactElement {
   const handleDeleteAccount = async () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
-      const userToken = await AsyncStorage.getItem('userToken');
+      const token = await AsyncStorage.getItem('userToken');
+
       const response = await fetch(
         `http://192.168.0.215:3000/auth/delete/${userId}`,
         {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken}`,
+            Authorization: `Bearer ${token}`, // JWT 토큰을 헤더에 포함
           },
         },
       );
 
       if (response.ok) {
         await AsyncStorage.clear();
+        setIsAuthenticated(false);
         // navigation.navigate('InitialScreen');
       } else {
         console.error('Failed to delete account');
@@ -92,7 +99,7 @@ function DeleteAccountScreen(): React.ReactElement {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          // onPress={handleDeleteAccount}
+          onPress={handleDeleteAccount}
           style={[
             styles.deleteButton,
             toggleCheckBox ? styles.buttonActive : styles.buttonInactive,
