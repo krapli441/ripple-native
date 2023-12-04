@@ -12,6 +12,7 @@ import {
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Swipeable} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Style
 import styles from '../styles/NotificationScreenStyles';
@@ -88,6 +89,7 @@ function NotificationScreen(): React.ReactElement {
     const DeleteAction = ({onPress}: any) => {
       return (
         <TouchableOpacity onPress={onPress} style={styles.deleteAction}>
+          <Icon name="trash" size={20} color="white" />
           <Text style={styles.deleteActionText}>삭제</Text>
         </TouchableOpacity>
       );

@@ -41,8 +41,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // 수직 중앙 정렬
   },
   deleteAction: {
+    width: 80,
     backgroundColor: '#e63946',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   deleteActionText: {
     color: 'white',
