@@ -25,6 +25,7 @@ import MyPageScreenAccount from './components/MyPageScreen-Account';
 import MyPageScreenSetting from './components/MyPageScreen-Setting';
 import MyPageScreenCustomerService from './components/MyPageScreen-CustomerService';
 import MyPageScreenInformation from './components/MyPageScreen-Information';
+import DeleteAccountScreen from './components/DeleteAccountScreen';
 import LoadingScreen from './components/LodingScreen';
 
 // AuthProvider
@@ -60,6 +61,10 @@ function MyPageStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
           />
         )}
       </MyPageStack.Screen>
+      <MyPageStack.Screen
+        name="DeleteAccountScreen"
+        component={DeleteAccountScreen}
+      />
       <MyPageStack.Screen
         name="MyRippleScreenInformation"
         component={MyPageScreenInformation}

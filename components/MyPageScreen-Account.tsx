@@ -28,7 +28,7 @@ function MyPageScreenAccount({
   const {username, userEmail} = useAuthToken(); // username과 email을 useAuthToken에서 가져옵니다.
 
   const handleDeleteAccountPress = () => {
-    // 계정 삭제 로직을 여기에 추가합니다.
+    navigation.navigate('DeleteAccountScreen');
     // 예: Alert.alert('계정 삭제', '정말 계정을 삭제하시겠습니까?', ...)
   };
 

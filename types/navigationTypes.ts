@@ -42,6 +42,7 @@ export type RootStackParamList = {
   MyRippleScreenSetting: undefined;
   LikedRippleScreen: undefined;
   NotificationScreen: undefined;
+  DeleteAccountScreen: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<
