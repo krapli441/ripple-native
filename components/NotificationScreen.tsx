@@ -14,6 +14,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Swipeable} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Toast from 'react-native-toast-message';
 
 // Style
 import styles from '../styles/NotificationScreenStyles';
@@ -45,22 +46,21 @@ function NotificationScreen(): React.ReactElement {
     }
   };
 
-    const markNotificationsAsRead = async () => {
-      const userId = await AsyncStorage.getItem('userId');
-      if (!userId) return;
+  const markNotificationsAsRead = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    if (!userId) return;
 
-      try {
-        await fetch(
-          `http://192.168.0.215:3000/notifications/${userId}/mark-read`,
-          {
-            method: 'PATCH',
-          },
-        );
-      } catch (error) {
-        console.error('Error updating notification read status:', error);
-      }
-    };
-
+    try {
+      await fetch(
+        `http://192.168.0.215:3000/notifications/${userId}/mark-read`,
+        {
+          method: 'PATCH',
+        },
+      );
+    } catch (error) {
+      console.error('Error updating notification read status:', error);
+    }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -89,6 +89,11 @@ function NotificationScreen(): React.ReactElement {
           setNotifications(
             notifications.filter(notif => notif._id !== notificationId),
           );
+          Toast.show({
+            type: 'success',
+            text1: '알림 삭제됨',
+            visibilityTime: 3000, // 토스트가 보이는 시간 (밀리초 단위)
+          });
         } else {
           console.error('Failed to delete notification');
         }

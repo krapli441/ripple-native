@@ -7,6 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {CardStyleInterpolators} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 // Components
 import HomeScreen from './components/HomeScreen';
@@ -205,6 +206,7 @@ function App(): JSX.Element {
 
   return (
     <AuthProvider>
+      <Toast />
       <LocationProvider>
         <NavigationContainer>
           <Stack.Navigator>
