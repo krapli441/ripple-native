@@ -27,7 +27,7 @@ interface NotificationItem {
 
 function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -82,9 +82,24 @@ function NotificationScreen(): React.ReactElement {
     const firstPart = messageParts[0] + '님이';
     const secondPart = '회원님이 남긴 음악을 좋아합니다.';
 
-    const handleDelete = async () => {
-      // 백엔드로 알림 삭제 요청 보내기
-      // 성공적으로 삭제되면, UI에서도 알림 제거
+    const handleDelete = async (notificationId: string) => {
+      try {
+        const response = await fetch(
+          `http://192.168.0.215:3000/notifications/${notificationId}`,
+          {method: 'DELETE'},
+        );
+
+        if (response.ok) {
+          // UI에서 알림 제거
+          setNotifications(
+            notifications.filter(notif => notif._id !== notificationId),
+          );
+        } else {
+          console.error('Failed to delete notification');
+        }
+      } catch (error) {
+        console.error('Error deleting notification:', error);
+      }
     };
 
     const DeleteAction = ({progress, onPress}: any) => {
@@ -95,7 +110,9 @@ function NotificationScreen(): React.ReactElement {
 
       return (
         <Animated.View style={{flex: 1, transform: [{translateX}]}}>
-          <TouchableOpacity onPress={onPress} style={styles.deleteAction}>
+          <TouchableOpacity
+            onPress={() => onPress(item._id)}
+            style={styles.deleteAction}>
             <Icon name="trash" size={20} color="white" />
             <Text style={styles.deleteActionText}>삭제</Text>
           </TouchableOpacity>
