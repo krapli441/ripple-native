@@ -7,9 +7,11 @@ import {
   useColorScheme,
   FlatList,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Swipeable} from 'react-native-gesture-handler';
 
 // Style
 import styles from '../styles/NotificationScreenStyles';
@@ -78,14 +80,30 @@ function NotificationScreen(): React.ReactElement {
     const firstPart = messageParts[0] + '님이';
     const secondPart = '회원님이 남긴 음악을 좋아합니다.';
 
+    const handleDelete = async () => {
+      // 백엔드로 알림 삭제 요청 보내기
+      // 성공적으로 삭제되면, UI에서도 알림 제거
+    };
+
+    const DeleteAction = ({onPress}: any) => {
+      return (
+        <TouchableOpacity onPress={onPress} style={styles.deleteAction}>
+          <Text style={styles.deleteActionText}>삭제</Text>
+        </TouchableOpacity>
+      );
+    };
+
     return (
-      <View style={styles.notificationItem}>
-        <View style={styles.notificationTextContainer}>
-          <Text style={styles.notificationText}>{firstPart}</Text>
-          <Text style={styles.notificationText}>{secondPart}</Text>
+      <Swipeable
+        renderRightActions={() => <DeleteAction onPress={handleDelete} />}>
+        <View style={styles.notificationItem}>
+          <View style={styles.notificationTextContainer}>
+            <Text style={styles.notificationText}>{firstPart}</Text>
+            <Text style={styles.notificationText}>{secondPart}</Text>
+          </View>
+          <Image source={{uri: item.albumCoverUrl}} style={styles.albumCover} />
         </View>
-        <Image source={{uri: item.albumCoverUrl}} style={styles.albumCover} />
-      </View>
+      </Swipeable>
     );
   };
   return (

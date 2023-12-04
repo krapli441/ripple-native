@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
     flex: 1, // 텍스트 컨테이너가 가능한 모든 공간을 차지하도록 설정
     justifyContent: 'center', // 수직 중앙 정렬
   },
+  deleteAction: {
+    backgroundColor: '#e63946',
+    justifyContent: 'center',
+  },
+  deleteActionText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
