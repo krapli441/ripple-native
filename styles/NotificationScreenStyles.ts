@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 70,
     marginLeft: 30,
+    marginBottom: 30,
   },
   albumCover: {
     width: 60,
@@ -39,6 +40,29 @@ const styles = StyleSheet.create({
   notificationTextContainer: {
     flex: 1, // 텍스트 컨테이너가 가능한 모든 공간을 차지하도록 설정
     justifyContent: 'center', // 수직 중앙 정렬
+  },
+  deleteAction: {
+    flex: 1,
+    backgroundColor: '#e63946',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteActionText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  toastContainer: {
+    position: 'absolute',
+    width: '30%',
+    bottom: 50,
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black', // 여기에 배경색 지정
+    borderRadius: 10, // 여기에 borderRadius 적용
+    padding: 10, // 패딩 적용
+  },
+  toastText: {
+    color: 'white',
   },
 });
 

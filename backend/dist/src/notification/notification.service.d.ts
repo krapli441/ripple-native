@@ -7,4 +7,5 @@ export declare class NotificationService {
     getUserNotifications(userObjectId: mongoose.Types.ObjectId): Promise<Notification[]>;
     getUnreadNotificationCount(userObjectId: mongoose.Types.ObjectId): Promise<number>;
     markNotificationsAsRead(userObjectId: mongoose.Types.ObjectId): Promise<void>;
+    deleteNotification(notificationId: mongoose.Types.ObjectId): Promise<any>;
 }

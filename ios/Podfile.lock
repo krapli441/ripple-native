@@ -614,7 +614,7 @@ PODS:
     - FirebaseCoreExtension (= 10.17.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.13.3):
+  - RNGestureHandler (2.14.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNReanimated (3.5.4):
@@ -954,7 +954,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBApp: 5a16a735bad57ca29ee44757bde7e654c5bc8f60
   RNFBMessaging: d1727030c98a9dcc7cd44e2fd29398acb6531cba
-  RNGestureHandler: fa40ab6b6cafaa7609294d31f8e8fbbd0cce8ea6
+  RNGestureHandler: 32a01c29ecc9bb0b5bf7bc0a33547f61b4dc2741
   RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
   RNScreens: 2a28f2973f4d0d4623e18629ebfc2c4adaceb39a
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
