@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 70,
     marginLeft: 30,
+    marginBottom: 30,
   },
   albumCover: {
     width: 60,
