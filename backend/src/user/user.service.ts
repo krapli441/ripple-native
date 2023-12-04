@@ -35,5 +35,10 @@ export class UserService {
     return this.userModel.findOne({ username: username }).exec();
   }
 
+  async delete(userId: string): Promise<void> {
+    await this.userModel.findByIdAndDelete(userId).exec();
+    // 여기서 연관된 다른 데이터도 삭제하는 로직을 추가할 수 있습니다.
+  }
+
   // 다른 CRUD 메서드
 }

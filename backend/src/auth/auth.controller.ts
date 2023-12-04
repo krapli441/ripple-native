@@ -4,7 +4,7 @@ import {
   Body,
   Request,
   UseGuards,
-  BadRequestException,
+  BadRequestException,Delete,Param,NotFoundException
 } from '@nestjs/common';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
@@ -189,4 +189,16 @@ export class SpotifyAuthController {
     await this.userService.update(userId, { pushToken: body.pushToken });
     return { message: 'Push token updated' };
   }
+
+  @Delete('delete/:userId')
+  async deleteAccount(@Param('userId') userId: string) {
+    const user = await this.userService.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    await this.userService.delete(user._id);
+    return { message: 'Account deleted successfully' };
+  }
+
 }

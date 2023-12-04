@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
@@ -31,6 +32,32 @@ function DeleteAccountScreen(): React.ReactElement {
       return () => {};
     }, []),
   );
+
+  const handleDeleteAccount = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      const userToken = await AsyncStorage.getItem('userToken');
+      const response = await fetch(
+        `http://192.168.0.215:3000/auth/delete/${userId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+        },
+      );
+
+      if (response.ok) {
+        await AsyncStorage.clear();
+        // navigation.navigate('InitialScreen');
+      } else {
+        console.error('Failed to delete account');
+      }
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    }
+  };
 
   return (
     <View style={styles.contentContainer}>

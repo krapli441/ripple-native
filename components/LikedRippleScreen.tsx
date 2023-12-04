@@ -12,7 +12,6 @@ import {
 
 import {useFocusEffect} from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import useAuthToken from '../utils/useAuthToken';
 

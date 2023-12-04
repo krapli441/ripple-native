@@ -145,6 +145,14 @@ let SpotifyAuthController = class SpotifyAuthController {
         await this.userService.update(userId, { pushToken: body.pushToken });
         return { message: 'Push token updated' };
     }
+    async deleteAccount(userId) {
+        const user = await this.userService.findById(userId);
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        await this.userService.delete(user._id);
+        return { message: 'Account deleted successfully' };
+    }
 };
 exports.SpotifyAuthController = SpotifyAuthController;
 __decorate([
@@ -170,6 +178,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], SpotifyAuthController.prototype, "updatePushToken", null);
+__decorate([
+    (0, common_1.Delete)('delete/:userId'),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SpotifyAuthController.prototype, "deleteAccount", null);
 exports.SpotifyAuthController = SpotifyAuthController = __decorate([
     (0, common_1.Controller)('auth/spotify'),
     __metadata("design:paramtypes", [config_1.ConfigService,
