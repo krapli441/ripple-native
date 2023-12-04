@@ -34,11 +34,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
+  buttonContainer: {
+    width: '80%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   deleteButton: {
     padding: 10,
     borderRadius: 5,
-    marginTop: 20,
-    width: '80%',
   },
   buttonText: {
     textAlign: 'center',
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   checkboxSize: {
-    transform: [{scaleX: 0.8}, {scaleY: 0.8}], // 크기를 1.5배로 조정
+    transform: [{scaleX: 0.7}, {scaleY: 0.7}], // 크기를 1.5배로 조정
   },
   checkboxLabel: {
     marginLeft: 8,

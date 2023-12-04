@@ -62,15 +62,17 @@ function DeleteAccountScreen(): React.ReactElement {
         <Text style={styles.checkboxLabel}>해당 내용을 모두 확인했습니다.</Text>
       </View>
 
-      <TouchableOpacity
-        // onPress={handleDeleteAccount}
-        style={[
-          styles.deleteButton,
-          toggleCheckBox ? styles.buttonActive : styles.buttonInactive,
-        ]}
-        disabled={!toggleCheckBox}>
-        <Text style={styles.buttonText}>계정 삭제</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          // onPress={handleDeleteAccount}
+          style={[
+            styles.deleteButton,
+            toggleCheckBox ? styles.buttonActive : styles.buttonInactive,
+          ]}
+          disabled={!toggleCheckBox}>
+          <Text style={styles.buttonText}>계정 삭제</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
