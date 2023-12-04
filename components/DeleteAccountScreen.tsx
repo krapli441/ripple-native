@@ -1,6 +1,13 @@
 // react & react-native
 import React, {useState} from 'react';
-import {View, StatusBar, Text, useColorScheme, Alert} from 'react-native';
+import {
+  View,
+  StatusBar,
+  Text,
+  useColorScheme,
+  Alert,
+  Image,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -26,7 +33,17 @@ function DeleteAccountScreen(): React.ReactElement {
   return (
     <View style={styles.contentContainer}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      <Image
+        source={require('../assets/img/myRipple.png')}
+        style={styles.myRippleImage}
+      />
       <Text style={styles.header}>계정 삭제</Text>
+      <Text style={styles.subHeader}>다음과 같은 정보들이 삭제됩니다.</Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.infoText}>내가 남긴 음악</Text>
+        <Text style={styles.infoText}>좋아요 표시한 음악</Text>
+        <Text style={styles.infoText}>Spotify 계정 정보 (닉네임, 이메일)</Text>
+      </View>
     </View>
   );
 }
