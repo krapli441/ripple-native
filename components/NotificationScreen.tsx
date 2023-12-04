@@ -40,13 +40,13 @@ function NotificationScreen(): React.ReactElement {
     }).start();
 
     // 3초 후 토스트 숨기기
-    setTimeout(() => hideToast(), 3000);
+    setTimeout(() => hideToast(), 2500);
   };
 
   const hideToast = () => {
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 500,
+      duration: 350,
       useNativeDriver: true,
     }).start(() => setToastVisible(false));
   };
@@ -163,14 +163,14 @@ function NotificationScreen(): React.ReactElement {
         keyExtractor={item => item._id}
       />
       {toastVisible && (
-      <Animated.View
-        style={[
-          styles.toastContainer,
-          { opacity: fadeAnim }  // 투명도 애니메이션 적용
-        ]}>
-        <Text style={styles.toastText}>알림 삭제됨</Text>
-      </Animated.View>
-    )}
+        <Animated.View
+          style={[
+            styles.toastContainer,
+            {opacity: fadeAnim}, // 투명도 애니메이션 적용
+          ]}>
+          <Text style={styles.toastText}>알림 삭제됨</Text>
+        </Animated.View>
+      )}
     </View>
   );
 }

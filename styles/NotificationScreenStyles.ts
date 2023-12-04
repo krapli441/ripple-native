@@ -53,18 +53,16 @@ const styles = StyleSheet.create({
   },
   toastContainer: {
     position: 'absolute',
+    width: '30%',
     bottom: 50,
-    left: 0,
-    right: 0,
+    alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
+    backgroundColor: 'black', // 여기에 배경색 지정
+    borderRadius: 10, // 여기에 borderRadius 적용
+    padding: 10, // 패딩 적용
   },
   toastText: {
-    backgroundColor: 'black',
     color: 'white',
-    padding: 10,
-    borderRadius: 15,
   },
 });
 
