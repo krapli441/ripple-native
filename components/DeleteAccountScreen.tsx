@@ -46,7 +46,13 @@ function DeleteAccountScreen(): React.ReactElement {
         <Text style={styles.infoText}>Spotify 계정 정보 (닉네임, 이메일)</Text>
       </View>
       <CheckBox
+        boxType="square"
+        onCheckColor="#191414"
+        onTintColor="#191414"
         disabled={false}
+        animationDuration={0.2}
+        onAnimationType="fade"
+        offAnimationType="fade"
         value={toggleCheckBox}
         onValueChange={newValue => setToggleCheckBox(newValue)}
       />
