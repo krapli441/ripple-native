@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     // 레이블 텍스트 스타일
   },
+  
 });
 
 export default styles;
