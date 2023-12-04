@@ -24,7 +24,6 @@ function DeleteAccountScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [selectedReason, setSelectedReason] = useState('');
 
   useFocusEffect(
     React.useCallback(() => {
