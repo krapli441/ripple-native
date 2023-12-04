@@ -98,7 +98,7 @@ function NotificationScreen(): React.ReactElement {
     return (
       <Swipeable
         renderRightActions={() => <DeleteAction onPress={handleDelete} />}
-        rightThreshold={150}>
+        rightThreshold={60}>
         <View style={styles.notificationItem}>
           <View style={styles.notificationTextContainer}>
             <Text style={styles.notificationText}>{firstPart}</Text>
