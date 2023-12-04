@@ -65,8 +65,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({
         type: Date,
-        expires: '24h',
-        default: () => new Date(),
+        default: () => new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     }),
     __metadata("design:type", Date)
 ], Ripple.prototype, "expiresAt", void 0);

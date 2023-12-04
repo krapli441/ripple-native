@@ -28,7 +28,11 @@ let RipplesService = class RipplesService {
         this.notificationService = notificationService;
     }
     async create(createRippleDto) {
-        const newRipple = new this.rippleModel(createRippleDto);
+        const newRipple = new this.rippleModel({
+            ...createRippleDto,
+            isActive: true,
+            expiresAt: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        });
         return newRipple.save();
     }
     async findAll() {
@@ -57,6 +61,7 @@ let RipplesService = class RipplesService {
                     $maxDistance: maxDistance,
                 },
             },
+            isActive: true,
         })
             .exec();
         return Promise.resolve(ripples.map((ripple) => ripple.toObject({ versionKey: false })));

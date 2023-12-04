@@ -18,7 +18,11 @@ export class RipplesService {
   ) {}
 
   async create(createRippleDto: CreateRippleDto): Promise<Ripple> {
-    const newRipple = new this.rippleModel(createRippleDto);
+    const newRipple = new this.rippleModel({
+      ...createRippleDto,
+      isActive: true, // 활성화 상태로 시작
+      expiresAt: new Date(new Date().getTime() + 24 * 60 * 60 * 1000), // 24시간 후 만료 시간 설정
+    });
     return newRipple.save();
   }
 
@@ -56,6 +60,7 @@ export class RipplesService {
             $maxDistance: maxDistance,
           },
         },
+        isActive: true,
       })
       .exec();
     return Promise.resolve(

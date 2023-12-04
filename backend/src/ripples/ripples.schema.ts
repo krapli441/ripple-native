@@ -63,8 +63,7 @@ export class Ripple extends Document {
 
   @Prop({
     type: Date,
-    expires: '24h', // 24시간 뒤 자동 삭제
-    default: () => new Date(), // 문서 생성 시 현재 시간으로 설정
+    default: () => new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   })
   expiresAt: Date;
 
