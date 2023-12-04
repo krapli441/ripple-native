@@ -35,13 +35,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   buttonContainer: {
-    width: '80%',
+    width: '100%',
     alignItems: 'center',
     marginBottom: 20,
   },
   deleteButton: {
-    padding: 10,
-    borderRadius: 5,
+    width:300,
+    padding: 15,
+    borderRadius: 10,
   },
   buttonText: {
     textAlign: 'center',
