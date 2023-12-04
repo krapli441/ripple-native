@@ -34,6 +34,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
+  deleteButton: {
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+    width: '80%',
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: 'white',
+  },
+  buttonActive: {
+    backgroundColor: '#191414',
+  },
+  buttonInactive: {
+    backgroundColor: 'grey',
+  },
 });
 
 export default styles;

@@ -11,7 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
-
+import CheckBox from '@react-native-community/checkbox';
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 
@@ -22,6 +22,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 function DeleteAccountScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -44,6 +45,22 @@ function DeleteAccountScreen(): React.ReactElement {
         <Text style={styles.infoText}>좋아요 표시한 음악</Text>
         <Text style={styles.infoText}>Spotify 계정 정보 (닉네임, 이메일)</Text>
       </View>
+      <CheckBox
+        disabled={false}
+        value={toggleCheckBox}
+        onValueChange={newValue => setToggleCheckBox(newValue)}
+      />
+      <Text>해당 내용을 모두 확인했습니다.</Text>
+
+      <TouchableOpacity
+        // onPress={handleDeleteAccount}
+        style={[
+          styles.deleteButton,
+          toggleCheckBox ? styles.buttonActive : styles.buttonInactive,
+        ]}
+        disabled={!toggleCheckBox}>
+        <Text style={styles.buttonText}>계정 삭제</Text>
+      </TouchableOpacity>
     </View>
   );
 }
