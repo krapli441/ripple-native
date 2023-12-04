@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deleteButton: {
-    width:300,
+    width: 300,
     padding: 15,
     borderRadius: 10,
   },
@@ -66,7 +66,11 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     // 레이블 텍스트 스타일
   },
-  
+  surveyHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
 });
 
 export default styles;

@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
+
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 
@@ -23,6 +24,7 @@ function DeleteAccountScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [selectedReason, setSelectedReason] = useState('');
 
   useFocusEffect(
     React.useCallback(() => {
