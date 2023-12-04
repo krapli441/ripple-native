@@ -26,7 +26,6 @@ export declare class Ripple extends Document {
     location: Location;
     tag: string[];
     isActive: boolean;
-    expiresAt: Date;
     likedUsers: string[];
 }
 export declare const RippleSchema: mongoose.Schema<Ripple, mongoose.Model<Ripple, any, any, any, mongoose.Document<unknown, any, Ripple> & Ripple & {

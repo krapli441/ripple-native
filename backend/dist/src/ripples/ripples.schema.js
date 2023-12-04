@@ -63,13 +63,6 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Ripple.prototype, "isActive", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({
-        type: Date,
-        default: () => new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-    }),
-    __metadata("design:type", Date)
-], Ripple.prototype, "expiresAt", void 0);
-__decorate([
     (0, mongoose_1.Prop)({ default: [] }),
     __metadata("design:type", Array)
 ], Ripple.prototype, "likedUsers", void 0);

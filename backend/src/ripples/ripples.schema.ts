@@ -61,11 +61,11 @@ export class Ripple extends Document {
   @Prop({ type: Boolean, default: true })
   isActive: boolean;
 
-  @Prop({
-    type: Date,
-    default: () => new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-  })
-  expiresAt: Date;
+  // @Prop({
+  //   type: Date,
+  //   default: () => new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+  // })
+  // expiresAt: Date;
 
   @Prop({ default: [] })
   likedUsers: string[]; // '좋아요'를 누른 사용자들의 ID 목록
