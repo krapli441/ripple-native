@@ -29,25 +29,21 @@ function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      const userId = await AsyncStorage.getItem('userId');
-      if (!userId) return;
+  const fetchNotifications = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    if (!userId) return;
 
-      try {
-        const response = await fetch(
-          `http://192.168.0.215:3000/notifications/${userId}`,
-        );
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        setNotifications(data);
-      } catch (error) {
-        console.error('Error fetching notifications:', error);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
+    try {
+      const response = await fetch(
+        `http://192.168.0.215:3000/notifications/${userId}`,
+      );
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      setNotifications(data);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
 
   useEffect(() => {
     const markNotificationsAsRead = async () => {
@@ -72,6 +68,7 @@ function NotificationScreen(): React.ReactElement {
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('dark-content');
+      fetchNotifications();
       return () => {};
     }, []),
   );
