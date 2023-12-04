@@ -32,6 +32,10 @@ let NotificationController = class NotificationController {
         const objectId = new mongoose_1.Types.ObjectId(userId);
         return this.notificationService.markNotificationsAsRead(objectId);
     }
+    deleteNotification(notificationId) {
+        const objectId = new mongoose_1.Types.ObjectId(notificationId);
+        return this.notificationService.deleteNotification(objectId);
+    }
 };
 exports.NotificationController = NotificationController;
 __decorate([
@@ -55,6 +59,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], NotificationController.prototype, "markNotificationsAsRead", null);
+__decorate([
+    (0, common_1.Delete)(':notificationId'),
+    __param(0, (0, common_1.Param)('notificationId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], NotificationController.prototype, "deleteNotification", null);
 exports.NotificationController = NotificationController = __decorate([
     (0, common_1.Controller)('notifications'),
     __metadata("design:paramtypes", [notification_service_1.NotificationService])

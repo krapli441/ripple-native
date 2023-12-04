@@ -41,4 +41,10 @@ export class NotificationService {
       { $set: { read: true } },
     );
   }
+
+  // 알림 제거
+  async deleteNotification(notificationId: mongoose.Types.ObjectId): Promise<any> {
+    return this.notificationModel.deleteOne({ _id: notificationId }).exec();
+  }
+
 }

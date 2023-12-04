@@ -36,6 +36,9 @@ let NotificationService = class NotificationService {
     async markNotificationsAsRead(userObjectId) {
         await this.notificationModel.updateMany({ recipientId: userObjectId, read: false }, { $set: { read: true } });
     }
+    async deleteNotification(notificationId) {
+        return this.notificationModel.deleteOne({ _id: notificationId }).exec();
+    }
 };
 exports.NotificationService = NotificationService;
 exports.NotificationService = NotificationService = __decorate([
