@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // 수직 중앙 정렬
   },
   deleteAction: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#e63946',
     justifyContent: 'center',
     alignItems: 'center',
@@ -50,6 +50,21 @@ const styles = StyleSheet.create({
   deleteActionText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  toastContainer: {
+    position: 'absolute',
+    bottom: 50,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+  },
+  toastText: {
+    backgroundColor: 'black',
+    color: 'white',
+    padding: 10,
+    borderRadius: 15,
   },
 });
 

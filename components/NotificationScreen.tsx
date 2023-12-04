@@ -1,5 +1,5 @@
 // react & react-native
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   StatusBar,
@@ -28,6 +28,28 @@ interface NotificationItem {
 function NotificationScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [toastVisible, setToastVisible] = useState(false);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const showToast = () => {
+    setToastVisible(true);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+
+    // 3초 후 토스트 숨기기
+    setTimeout(() => hideToast(), 3000);
+  };
+
+  const hideToast = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(() => setToastVisible(false));
+  };
 
   const fetchNotifications = async () => {
     const userId = await AsyncStorage.getItem('userId');
@@ -45,22 +67,21 @@ function NotificationScreen(): React.ReactElement {
     }
   };
 
-    const markNotificationsAsRead = async () => {
-      const userId = await AsyncStorage.getItem('userId');
-      if (!userId) return;
+  const markNotificationsAsRead = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    if (!userId) return;
 
-      try {
-        await fetch(
-          `http://192.168.0.215:3000/notifications/${userId}/mark-read`,
-          {
-            method: 'PATCH',
-          },
-        );
-      } catch (error) {
-        console.error('Error updating notification read status:', error);
-      }
-    };
-
+    try {
+      await fetch(
+        `http://192.168.0.215:3000/notifications/${userId}/mark-read`,
+        {
+          method: 'PATCH',
+        },
+      );
+    } catch (error) {
+      console.error('Error updating notification read status:', error);
+    }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -85,6 +106,7 @@ function NotificationScreen(): React.ReactElement {
         );
 
         if (response.ok) {
+          showToast();
           // UI에서 알림 제거
           setNotifications(
             notifications.filter(notif => notif._id !== notificationId),
@@ -140,6 +162,15 @@ function NotificationScreen(): React.ReactElement {
         renderItem={renderItem}
         keyExtractor={item => item._id}
       />
+      {toastVisible && (
+      <Animated.View
+        style={[
+          styles.toastContainer,
+          { opacity: fadeAnim }  // 투명도 애니메이션 적용
+        ]}>
+        <Text style={styles.toastText}>알림 삭제됨</Text>
+      </Animated.View>
+    )}
     </View>
   );
 }
