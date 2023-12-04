@@ -8,17 +8,9 @@ import {useFocusEffect} from '@react-navigation/native';
 // types
 import {RootStackParamList} from '../types/navigationTypes';
 
-// asyncStorage
-import useAuthToken from '../utils/useAuthToken';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 // Style
-import styles from '../styles/MyPageScreenAccountStyles';
+import styles from '../styles/DeleteAccountScreenStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-type MyPageScreenAccountProps = {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
 function DeleteAccountScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
