@@ -42,8 +42,7 @@ import {Coords, LocationState} from '../types/locationTypes';
 // Style
 import styles from '../styles/MapScreenStyles';
 
-// Notification
-import messaging from '@react-native-firebase/messaging';
+
 
 const initialLocationState: LocationState = {
   coords: null,
@@ -74,13 +73,6 @@ function MapScreen(): React.ReactElement {
     );
   const [unreadCount, setUnreadCount] = React.useState(0);
   useMessaging();
-
-  useFocusEffect(
-    React.useCallback(() => {
-      StatusBar.setBarStyle(isDarkMode ? 'light-content' : 'light-content');
-      return () => {};
-    }, [isDarkMode]),
-  );
 
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
