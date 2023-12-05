@@ -42,8 +42,6 @@ import {Coords, LocationState} from '../types/locationTypes';
 // Style
 import styles from '../styles/MapScreenStyles';
 
-
-
 const initialLocationState: LocationState = {
   coords: null,
   region: null,
