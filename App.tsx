@@ -27,6 +27,7 @@ import MyPageScreenCustomerService from './components/MyPageScreen-CustomerServi
 import MyPageScreenInformation from './components/MyPageScreen-Information';
 import DeleteAccountScreen from './components/DeleteAccountScreen';
 import LoadingScreen from './components/LodingScreen';
+import TutorialScreenOne from './components/TutorialScreen-1';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -37,6 +38,7 @@ const Tab = createBottomTabNavigator();
 const SearchStack = createStackNavigator();
 const LibraryStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
+const TutorialStack = createStackNavigator();
 
 type MainTabNavigatorProps = {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,6 +47,17 @@ type MainTabNavigatorProps = {
 type MyPageStackScreenProps = {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+function TutorialStackScreen() {
+  return (
+    <TutorialStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <TutorialStack.Screen name="Tutorial" component={TutorialScreenOne} />
+    </TutorialStack.Navigator>
+  );
+}
 
 function MyPageStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
   return (
@@ -252,6 +265,11 @@ function App(): JSX.Element {
             <Stack.Screen
               name="LikedRippleScreen"
               component={LikedRippleScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Tutorial"
+              component={TutorialScreenOne}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
