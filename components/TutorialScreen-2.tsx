@@ -14,7 +14,7 @@ import {
 import {useFocusEffect} from '@react-navigation/native';
 
 // Style
-import styles from '../styles/TutorialScreenStyles';
+import styles from '../styles/TutorialScreenTwoStyles';
 
 function TutorialScreenTwo(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
