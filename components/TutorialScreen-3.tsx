@@ -15,6 +15,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 import type {NavigationProp} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Style
 import styles from '../styles/TutorialScreenThreeStyles';
@@ -35,9 +36,30 @@ function TutorialScreenThree({
     }, []),
   );
 
-  // const handleNextPress = () => {
-  //   navigation.navigate('Ripple');
-  // };
+  const completeTutorial = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const response = await fetch(
+        'http://192.168.0.215:3000/auth/spotify/complete-tutorial',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (response.ok) {
+        setIsAuthenticated(true);
+      } else {
+        // 에러 처리
+        console.error('Failed to complete tutorial');
+      }
+    } catch (error) {
+      console.error('Error completing tutorial:', error);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -57,9 +79,7 @@ function TutorialScreenThree({
         <Text style={styles.descriptionText}>스펙트럼을 넓혀보세요!</Text>
       </View>
 
-      <TouchableOpacity
-        style={styles.nextButton}
-        onPress={() => setIsAuthenticated(true)}>
+      <TouchableOpacity style={styles.nextButton} onPress={completeTutorial}>
         <Text style={styles.nextButtonText}>시작하기</Text>
       </TouchableOpacity>
     </SafeAreaView>
