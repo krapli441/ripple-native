@@ -40,8 +40,10 @@ let UserService = class UserService {
     async findByUsername(username) {
         return this.userModel.findOne({ username: username }).exec();
     }
-    async delete(userId) {
-        await this.userModel.findByIdAndDelete(userId).exec();
+    async deleteUser(userId) {
+        await this.userModel.findByIdAndRemove(userId).exec();
+        await this.ripplesService.deleteRipplesByUser(userId);
+        await this.ripplesService.removeLikesByUser(userId);
     }
 };
 exports.UserService = UserService;
