@@ -46,9 +46,14 @@ export class UserService {
   }
 
   async completeTutorial(userId: string): Promise<User> {
-    return this.userModel
+    console.log(`Updating tutorialReaded to true for user: ${userId}`);
+
+    const updatedUser = await this.userModel
       .findByIdAndUpdate(userId, { tutorialReaded: true }, { new: true })
       .exec();
+
+    console.log('User updated with tutorialReaded:', updatedUser);
+    return updatedUser;
   }
 
   async deleteUser(userId: string): Promise<void> {

@@ -39,6 +39,8 @@ function TutorialScreenThree({
   const completeTutorial = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
+      console.log('Sending request to complete tutorial, token:', token);
+
       const response = await fetch(
         'http://192.168.0.215:3000/auth/spotify/complete-tutorial',
         {
@@ -50,11 +52,15 @@ function TutorialScreenThree({
         },
       );
 
+      console.log('Response status:', response.status);
+      const data = await response.json();
+      console.log('Response data:', data);
+
       if (response.ok) {
-        setIsAuthenticated(true);
+        navigation.navigate('Ripple');
       } else {
         // 에러 처리
-        console.error('Failed to complete tutorial');
+        console.error('Failed to complete tutorial, response:', data);
       }
     } catch (error) {
       console.error('Error completing tutorial:', error);

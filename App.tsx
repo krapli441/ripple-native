@@ -256,6 +256,15 @@ function App(): JSX.Element {
                   )}
                   options={{headerShown: false}}
                 />
+                <Stack.Screen
+                  name="TutorialScreen"
+                  options={{headerShown: false}}>
+                  {() => (
+                    <TutorialStackScreen
+                      setIsAuthenticated={setIsAuthenticated}
+                    />
+                  )}
+                </Stack.Screen>
               </>
             ) : (
               // 인증되지 않은 사용자에게 로그인 화면 표시
@@ -266,15 +275,6 @@ function App(): JSX.Element {
                   {props => (
                     <HomeScreen
                       {...props}
-                      setIsAuthenticated={setIsAuthenticated}
-                    />
-                  )}
-                </Stack.Screen>
-                <Stack.Screen
-                  name="TutorialScreen"
-                  options={{headerShown: false}}>
-                  {() => (
-                    <TutorialStackScreen
                       setIsAuthenticated={setIsAuthenticated}
                     />
                   )}

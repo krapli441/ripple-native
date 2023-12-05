@@ -18,13 +18,11 @@ const handleSpotifyLogin = async (
   setIsAuthenticated: (value: boolean) => void,
 ) => {
   try {
-    // console.log('handleSpotifyLogin called');
     const result = await authorize(config);
     console.log('authorize result:', result);
 
     // refreshToken이 있는지 확인
     if (result.refreshToken) {
-      // console.log('Refresh Token:', result.refreshToken);
       await AsyncStorage.setItem('refreshToken', result.refreshToken);
     }
 
@@ -43,14 +41,7 @@ const handleSpotifyLogin = async (
       },
     );
 
-    // console.log('Request sent:', {
-    //   code: result.authorizationCode,
-    //   codeVerifier: result.codeVerifier,
-    // });
-
     const data = await response.json();
-    // console.log('응답 값 :', data);
-    // console.log('유저네임 :', data.user.username);
 
     // JWT 토큰이 제대로 응답되었는지 확인
     if (data.jwtToken) {
@@ -61,7 +52,14 @@ const handleSpotifyLogin = async (
       await AsyncStorage.setItem('userEmail', data.user.email);
       await AsyncStorage.setItem('userRefreshToken', data.user.refreshToken);
       setIsAuthenticated(true);
-      navigation.navigate('Ripple');
+      // 튜토리얼을 이미 완료했는지 확인
+      if (data.user.tutorialReaded) {
+        // 튜토리얼을 이미 완료했다면 바로 메인 화면으로 이동
+        navigation.navigate('Ripple');
+      } else {
+        // 튜토리얼을 아직 완료하지 않았다면 튜토리얼 화면으로 이동
+        navigation.navigate('TutorialScreen');
+      }
     }
   } catch (error) {
     console.error('Error during login:', error);

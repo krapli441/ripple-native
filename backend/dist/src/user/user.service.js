@@ -43,9 +43,12 @@ let UserService = class UserService {
         return this.userModel.findOne({ username: username }).exec();
     }
     async completeTutorial(userId) {
-        return this.userModel
+        console.log(`Updating tutorialReaded to true for user: ${userId}`);
+        const updatedUser = await this.userModel
             .findByIdAndUpdate(userId, { tutorialReaded: true }, { new: true })
             .exec();
+        console.log('User updated with tutorialReaded:', updatedUser);
+        return updatedUser;
     }
     async deleteUser(userId) {
         await this.userModel.findByIdAndRemove(userId).exec();

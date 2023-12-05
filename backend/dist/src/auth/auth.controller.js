@@ -147,8 +147,10 @@ let SpotifyAuthController = class SpotifyAuthController {
     }
     async completeTutorial(req) {
         const userId = req.user.userId;
-        await this.userService.completeTutorial(userId);
-        return { message: 'Tutorial completed successfully' };
+        console.log(`Completing tutorial for user: ${userId}`);
+        const updatedUser = await this.userService.completeTutorial(userId);
+        console.log('Updated user:', updatedUser);
+        return { message: 'Tutorial completed successfully', updatedUser };
     }
     async deleteAccount(userId) {
         const user = await this.userService.findById(userId);
