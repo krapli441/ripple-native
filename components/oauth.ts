@@ -52,6 +52,8 @@ const handleSpotifyLogin = async (
       await AsyncStorage.setItem('userEmail', data.user.email);
       await AsyncStorage.setItem('userRefreshToken', data.user.refreshToken);
       setIsAuthenticated(true);
+
+      console.log('튜토리얼 확인 여부 : ', data.user.tutorialReaded);
       // 튜토리얼을 이미 완료했는지 확인
       if (data.user.tutorialReaded) {
         // 튜토리얼을 이미 완료했다면 바로 메인 화면으로 이동
