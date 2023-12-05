@@ -193,10 +193,8 @@ export class SpotifyAuthController {
     return { message: 'Push token updated' };
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('complete-tutorial')
-  async completeTutorial(@Request() req) {
-    const userId = req.user.userId;
+  @Post('complete-tutorial/:userId')
+  async completeTutorial(@Param('userId') userId: string) {
     console.log(`Completing tutorial for user: ${userId}`);
 
     const updatedUser = await this.userService.completeTutorial(userId);

@@ -38,16 +38,17 @@ function TutorialScreenThree({
 
   const completeTutorial = async () => {
     try {
+      const userId = await AsyncStorage.getItem('userId');
       const token = await AsyncStorage.getItem('userToken');
+
       console.log('Sending request to complete tutorial, token:', token);
 
       const response = await fetch(
-        'http://192.168.0.215:3000/auth/spotify/complete-tutorial',
+        `http://192.168.0.215:3000/auth/spotify/complete-tutorial/${userId}`,
         {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
           },
         },
       );
@@ -59,7 +60,6 @@ function TutorialScreenThree({
       if (response.ok) {
         navigation.navigate('Ripple');
       } else {
-        // 에러 처리
         console.error('Failed to complete tutorial, response:', data);
       }
     } catch (error) {

@@ -29,7 +29,7 @@ export declare class SpotifyAuthController {
     }, req: any): Promise<{
         message: string;
     }>;
-    completeTutorial(req: any): Promise<{
+    completeTutorial(userId: string): Promise<{
         message: string;
         updatedUser: import("../user/user.schema").User;
     }>;
