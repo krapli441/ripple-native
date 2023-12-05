@@ -63,10 +63,14 @@ function TutorialStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
       />
       <TutorialStack.Screen
         name="TutorialScreenThree"
-        component={() => (
-          <TutorialScreenThree setIsAuthenticated={setIsAuthenticated} />
+        options={{headerShown: false}}>
+        {props => (
+          <TutorialScreenThree
+            {...props}
+            setIsAuthenticated={setIsAuthenticated}
+          />
         )}
-      />
+      </TutorialStack.Screen>
     </TutorialStack.Navigator>
   );
 }
@@ -268,13 +272,13 @@ function App(): JSX.Element {
                 </Stack.Screen>
                 <Stack.Screen
                   name="TutorialScreen"
-                  component={() => (
+                  options={{headerShown: false}}>
+                  {() => (
                     <TutorialStackScreen
                       setIsAuthenticated={setIsAuthenticated}
                     />
                   )}
-                  options={{headerShown: false}}
-                />
+                </Stack.Screen>
               </>
             )}
             <Stack.Screen
