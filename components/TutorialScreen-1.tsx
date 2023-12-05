@@ -7,6 +7,7 @@ import {
   useColorScheme,
   Image,
   ScrollView,
+  TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
 
@@ -20,15 +21,29 @@ function TutorialScreenOne(): React.ReactElement {
 
   useFocusEffect(
     React.useCallback(() => {
-      StatusBar.setBarStyle('dark-content');
+      StatusBar.setBarStyle('light-content');
     }, []),
   );
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#191414'}}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Text>Ripple은</Text>
-      <Text>음악 공유 애플리케이션이에요</Text>
+
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Ripple은</Text>
+        <Text style={styles.headerText}>음악 공유 애플리케이션이에요</Text>
+      </View>
+
+      <View style={styles.imageContainer}>
+        <Image
+          source={require('../assets/img/ripple_logo_incircle.png')}
+          style={styles.logo}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.nextButton}>
+        <Text style={styles.nextButtonText}>다음</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
