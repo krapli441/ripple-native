@@ -50,7 +50,15 @@ type MyPageStackScreenProps = {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function TutorialStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
+type TutorialStackScreenProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  setTutorialCompleted: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function TutorialStackScreen({
+  setIsAuthenticated,
+  setTutorialCompleted,
+}: TutorialStackScreenProps) {
   return (
     <TutorialStack.Navigator
       screenOptions={{
@@ -223,7 +231,19 @@ function MainTabNavigator({setIsAuthenticated}: MainTabNavigatorProps) {
 
 function App(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [tutorialCompleted, setTutorialCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // 초기 로딩 상태를 false로 설정
+
+  useEffect(() => {
+    const checkTutorialCompletion = async () => {
+      const tutorialDone = await AsyncStorage.getItem('tutorialCompleted');
+      setTutorialCompleted(tutorialDone === 'true');
+    };
+
+    if (isAuthenticated) {
+      checkTutorialCompletion();
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -247,8 +267,7 @@ function App(): JSX.Element {
         <NavigationContainer>
           <Stack.Navigator>
             {isAuthenticated ? (
-              // 인증된 사용자에게 메인 화면 표시
-              <>
+              tutorialCompleted ? (
                 <Stack.Screen
                   name="Ripple"
                   children={() => (
@@ -256,30 +275,29 @@ function App(): JSX.Element {
                   )}
                   options={{headerShown: false}}
                 />
+              ) : (
                 <Stack.Screen
                   name="TutorialScreen"
                   options={{headerShown: false}}>
                   {() => (
                     <TutorialStackScreen
                       setIsAuthenticated={setIsAuthenticated}
+                      setTutorialCompleted={setTutorialCompleted}
                     />
                   )}
                 </Stack.Screen>
-              </>
+              )
             ) : (
-              // 인증되지 않은 사용자에게 로그인 화면 표시
-              <>
-                <Stack.Screen
-                  name="Home"
-                  options={{headerShown: false, gestureEnabled: false}}>
-                  {props => (
-                    <HomeScreen
-                      {...props}
-                      setIsAuthenticated={setIsAuthenticated}
-                    />
-                  )}
-                </Stack.Screen>
-              </>
+              <Stack.Screen
+                name="Home"
+                options={{headerShown: false, gestureEnabled: false}}>
+                {props => (
+                  <HomeScreen
+                    {...props}
+                    setIsAuthenticated={setIsAuthenticated}
+                  />
+                )}
+              </Stack.Screen>
             )}
             <Stack.Screen
               name="SearchModal"
