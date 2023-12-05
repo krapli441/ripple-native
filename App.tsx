@@ -33,6 +33,7 @@ import TutorialScreenTwo from './components/TutorialScreen-2';
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
 import {LocationProvider} from './utils/LocationContext';
+import TutorialScreenThree from './components/TutorialScreen-3';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,6 +60,10 @@ function TutorialStackScreen() {
       <TutorialStack.Screen
         name="TutorialScreenTwo"
         component={TutorialScreenTwo}
+      />
+      <TutorialStack.Screen
+        name="TutorialScreenThree"
+        component={TutorialScreenThree}
       />
     </TutorialStack.Navigator>
   );

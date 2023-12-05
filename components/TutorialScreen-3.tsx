@@ -12,16 +12,12 @@ import {
 } from 'react-native';
 
 import {useFocusEffect} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../types/navigationTypes';
-import type {NavigationProp} from '@react-navigation/native';
 
 // Style
-import styles from '../styles/TutorialScreenTwoStyles';
+import styles from '../styles/TutorialScreenThreeStyles';
 
-function TutorialScreenTwo(): React.ReactElement {
+function TutorialScreenThree(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -29,32 +25,27 @@ function TutorialScreenTwo(): React.ReactElement {
     }, []),
   );
 
-  const handleNextPress = () => {
-    navigation.navigate('TutorialScreenThree');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
 
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>현재 위치에</Text>
-        <Text style={styles.headerText}>여러분이 좋아하는 음악을</Text>
-        <Text style={styles.headerText}>남길 수 있어요</Text>
+        <Text style={styles.headerText}>다른 사람이 남긴 음악도</Text>
+        <Text style={styles.headerText}>확인할 수 있어요</Text>
       </View>
 
       <View style={styles.imageContainer}>
         <Image
-          source={require('../assets/img/tutorial_image_1.png')}
+          source={require('../assets/img/tutorial_image_2.png')}
           style={styles.logo}
         />
       </View>
 
-      <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
+      <TouchableOpacity style={styles.nextButton}>
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
-export default TutorialScreenTwo;
+export default TutorialScreenThree;

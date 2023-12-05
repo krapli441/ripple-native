@@ -45,6 +45,8 @@ export type RootStackParamList = {
   DeleteAccountScreen: undefined;
   TutorialScreen: undefined;
   TutorialScreenTwo: undefined;
+  TutorialScreenThree: undefined;
+  TutorialScreenFour: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<
