@@ -268,8 +268,8 @@ function App(): JSX.Element {
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="Tutorial"
-              component={TutorialScreenOne}
+              name="TutorialScreen"
+              component={TutorialStackScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

@@ -43,7 +43,7 @@ export type RootStackParamList = {
   LikedRippleScreen: undefined;
   NotificationScreen: undefined;
   DeleteAccountScreen: undefined;
-  Tutorial: undefined;
+  TutorialScreen: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<

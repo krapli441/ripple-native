@@ -87,7 +87,7 @@ function HomeScreen({
             iconName="spotify"
             text="테스트 - 튜토리얼 페이지 이동"
             buttonStyle={styles.googleButton}
-            onPress={() => navigation.navigate('Tutorial')}
+            onPress={() => navigation.navigate('TutorialScreen')}
           />
         </View>
       </ScrollView>
