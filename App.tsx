@@ -76,6 +76,7 @@ function TutorialStackScreen({
           <TutorialScreenThree
             {...props}
             setIsAuthenticated={setIsAuthenticated}
+            setTutorialCompleted={setTutorialCompleted}
           />
         )}
       </TutorialStack.Screen>

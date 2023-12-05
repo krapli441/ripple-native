@@ -22,10 +22,12 @@ import styles from '../styles/TutorialScreenThreeStyles';
 
 type TutorialScreenProps = {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  setTutorialCompleted: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function TutorialScreenThree({
   setIsAuthenticated,
+  setTutorialCompleted,
 }: TutorialScreenProps): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -58,6 +60,8 @@ function TutorialScreenThree({
       console.log('Response data:', data);
 
       if (response.ok) {
+        setIsAuthenticated(true);
+        setTutorialCompleted(true);
         navigation.navigate('Ripple');
       } else {
         console.error('Failed to complete tutorial, response:', data);
