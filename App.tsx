@@ -250,7 +250,9 @@ function App(): JSX.Element {
     const checkAuth = async () => {
       setIsLoading(true); // 인증 확인 시작 시 로딩 시작
       const token = await AsyncStorage.getItem('userToken');
+      const tutorialDone = await AsyncStorage.getItem('tutorialCompleted');
       setIsAuthenticated(!!token);
+      setTutorialCompleted(tutorialDone === 'true');
       setIsLoading(false); // 로딩 완료
     };
 

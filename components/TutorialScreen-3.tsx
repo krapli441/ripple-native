@@ -60,6 +60,7 @@ function TutorialScreenThree({
       console.log('Response data:', data);
 
       if (response.ok) {
+        await AsyncStorage.setItem('tutorialCompleted', 'true');
         setIsAuthenticated(true);
         setTutorialCompleted(true);
         navigation.navigate('Ripple');
