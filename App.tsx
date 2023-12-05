@@ -50,7 +50,7 @@ type MyPageStackScreenProps = {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function TutorialStackScreen() {
+function TutorialStackScreen({setIsAuthenticated}: MyPageStackScreenProps) {
   return (
     <TutorialStack.Navigator
       screenOptions={{
@@ -63,7 +63,9 @@ function TutorialStackScreen() {
       />
       <TutorialStack.Screen
         name="TutorialScreenThree"
-        component={TutorialScreenThree}
+        component={() => (
+          <TutorialScreenThree setIsAuthenticated={setIsAuthenticated} />
+        )}
       />
     </TutorialStack.Navigator>
   );
@@ -242,25 +244,38 @@ function App(): JSX.Element {
           <Stack.Navigator>
             {isAuthenticated ? (
               // 인증된 사용자에게 메인 화면 표시
-              <Stack.Screen
-                name="Ripple"
-                children={() => (
-                  <MainTabNavigator setIsAuthenticated={setIsAuthenticated} />
-                )}
-                options={{headerShown: false}}
-              />
+              <>
+                <Stack.Screen
+                  name="Ripple"
+                  children={() => (
+                    <MainTabNavigator setIsAuthenticated={setIsAuthenticated} />
+                  )}
+                  options={{headerShown: false}}
+                />
+              </>
             ) : (
               // 인증되지 않은 사용자에게 로그인 화면 표시
-              <Stack.Screen
-                name="Home"
-                options={{headerShown: false, gestureEnabled: false}}>
-                {props => (
-                  <HomeScreen
-                    {...props}
-                    setIsAuthenticated={setIsAuthenticated}
-                  />
-                )}
-              </Stack.Screen>
+              <>
+                <Stack.Screen
+                  name="Home"
+                  options={{headerShown: false, gestureEnabled: false}}>
+                  {props => (
+                    <HomeScreen
+                      {...props}
+                      setIsAuthenticated={setIsAuthenticated}
+                    />
+                  )}
+                </Stack.Screen>
+                <Stack.Screen
+                  name="TutorialScreen"
+                  component={() => (
+                    <TutorialStackScreen
+                      setIsAuthenticated={setIsAuthenticated}
+                    />
+                  )}
+                  options={{headerShown: false}}
+                />
+              </>
             )}
             <Stack.Screen
               name="SearchModal"
@@ -275,11 +290,6 @@ function App(): JSX.Element {
             <Stack.Screen
               name="LikedRippleScreen"
               component={LikedRippleScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="TutorialScreen"
-              component={TutorialStackScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

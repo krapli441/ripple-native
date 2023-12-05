@@ -19,7 +19,13 @@ import type {NavigationProp} from '@react-navigation/native';
 // Style
 import styles from '../styles/TutorialScreenThreeStyles';
 
-function TutorialScreenThree(): React.ReactElement {
+type TutorialScreenProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function TutorialScreenThree({
+  setIsAuthenticated,
+}: TutorialScreenProps): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -53,12 +59,7 @@ function TutorialScreenThree(): React.ReactElement {
 
       <TouchableOpacity
         style={styles.nextButton}
-        onPress={() => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Ripple'}],
-          });
-        }}>
+        onPress={() => setIsAuthenticated(true)}>
         <Text style={styles.nextButtonText}>시작하기</Text>
       </TouchableOpacity>
     </SafeAreaView>
