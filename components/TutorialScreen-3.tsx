@@ -12,18 +12,26 @@ import {
 } from 'react-native';
 
 import {useFocusEffect} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../types/navigationTypes';
+import type {NavigationProp} from '@react-navigation/native';
 
 // Style
 import styles from '../styles/TutorialScreenThreeStyles';
 
 function TutorialScreenThree(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('light-content');
     }, []),
   );
+
+  const handleNextPress = () => {
+    navigation.navigate('Ripple');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,7 +51,7 @@ function TutorialScreenThree(): React.ReactElement {
         <Text style={styles.descriptionText}>스펙트럼을 넓혀보세요!</Text>
       </View>
 
-      <TouchableOpacity style={styles.nextButton}>
+      <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
         <Text style={styles.nextButtonText}>시작하기</Text>
       </TouchableOpacity>
     </SafeAreaView>
