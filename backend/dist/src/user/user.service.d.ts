@@ -11,5 +11,6 @@ export declare class UserService {
     update(id: string, updateData: Partial<CreateUserDto>): Promise<User>;
     findById(userId: string): Promise<User | null>;
     findByUsername(username: string): Promise<User | null>;
+    completeTutorial(userId: string): Promise<User>;
     deleteUser(userId: string): Promise<void>;
 }

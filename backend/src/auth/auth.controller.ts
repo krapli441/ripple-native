@@ -193,6 +193,14 @@ export class SpotifyAuthController {
     return { message: 'Push token updated' };
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('complete-tutorial')
+  async completeTutorial(@Request() req) {
+    const userId = req.user.userId;
+    await this.userService.completeTutorial(userId);
+    return { message: 'Tutorial completed successfully' };
+  }
+
   @Delete('delete/:userId')
   async deleteAccount(@Param('userId') userId: string) {
     const user = await this.userService.findById(userId);

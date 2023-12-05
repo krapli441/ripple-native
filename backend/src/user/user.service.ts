@@ -45,6 +45,12 @@ export class UserService {
     return this.userModel.findOne({ username: username }).exec();
   }
 
+  async completeTutorial(userId: string): Promise<User> {
+    return this.userModel
+      .findByIdAndUpdate(userId, { tutorialReaded: true }, { new: true })
+      .exec();
+  }
+
   async deleteUser(userId: string): Promise<void> {
     // 사용자 정보 삭제
     await this.userModel.findByIdAndRemove(userId).exec();

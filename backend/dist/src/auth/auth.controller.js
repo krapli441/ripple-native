@@ -145,6 +145,11 @@ let SpotifyAuthController = class SpotifyAuthController {
         await this.userService.update(userId, { pushToken: body.pushToken });
         return { message: 'Push token updated' };
     }
+    async completeTutorial(req) {
+        const userId = req.user.userId;
+        await this.userService.completeTutorial(userId);
+        return { message: 'Tutorial completed successfully' };
+    }
     async deleteAccount(userId) {
         const user = await this.userService.findById(userId);
         if (!user) {
@@ -178,6 +183,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], SpotifyAuthController.prototype, "updatePushToken", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)('complete-tutorial'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SpotifyAuthController.prototype, "completeTutorial", null);
 __decorate([
     (0, common_1.Delete)('delete/:userId'),
     __param(0, (0, common_1.Param)('userId')),

@@ -39,6 +39,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "pushToken", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "tutorialReaded", void 0);
 exports.User = User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

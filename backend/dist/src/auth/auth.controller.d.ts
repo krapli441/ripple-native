@@ -29,6 +29,9 @@ export declare class SpotifyAuthController {
     }, req: any): Promise<{
         message: string;
     }>;
+    completeTutorial(req: any): Promise<{
+        message: string;
+    }>;
     deleteAccount(userId: string): Promise<{
         message: string;
     }>;

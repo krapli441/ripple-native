@@ -20,6 +20,9 @@ export class User extends Document {
 
   @Prop()
   pushToken: string;
+
+  @Prop({ default: false })
+  tutorialReaded: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

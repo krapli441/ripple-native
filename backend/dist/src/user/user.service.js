@@ -42,6 +42,11 @@ let UserService = class UserService {
     async findByUsername(username) {
         return this.userModel.findOne({ username: username }).exec();
     }
+    async completeTutorial(userId) {
+        return this.userModel
+            .findByIdAndUpdate(userId, { tutorialReaded: true }, { new: true })
+            .exec();
+    }
     async deleteUser(userId) {
         await this.userModel.findByIdAndRemove(userId).exec();
         await this.rippleService.deleteRipplesByUser(userId);

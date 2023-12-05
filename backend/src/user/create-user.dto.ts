@@ -5,4 +5,5 @@ export class CreateUserDto {
   refreshToken: string;
   tokenExpiry: Date;
   pushToken?: string;
+  tutorialReaded?: boolean;
 }
