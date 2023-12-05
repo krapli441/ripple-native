@@ -44,8 +44,11 @@ function DeleteAccountScreen({
       const userId = await AsyncStorage.getItem('userId');
       const token = await AsyncStorage.getItem('userToken');
 
+      console.log('Deleting account for user:', userId);
+      console.log('users token : ', token);
+
       const response = await fetch(
-        `http://192.168.0.215:3000/auth/delete/${userId}`,
+        `http://192.168.0.215:3000/auth/spotify/delete/${userId}`,
         {
           method: 'DELETE',
           headers: {
@@ -54,12 +57,14 @@ function DeleteAccountScreen({
         },
       );
 
+      const responseData = await response.json(); // 서버의 응답을 JSON으로 변환
+      console.log('Response from server:', responseData);
+
       if (response.ok) {
         await AsyncStorage.clear();
         setIsAuthenticated(false);
-        // navigation.navigate('InitialScreen');
       } else {
-        console.error('Failed to delete account');
+        console.error('Failed to delete account:', responseData.message);
       }
     } catch (error) {
       console.error('Error deleting account:', error);

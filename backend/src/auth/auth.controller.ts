@@ -4,7 +4,10 @@ import {
   Body,
   Request,
   UseGuards,
-  BadRequestException,Delete,Param,NotFoundException
+  BadRequestException,
+  Delete,
+  Param,
+  NotFoundException,
 } from '@nestjs/common';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
@@ -200,5 +203,4 @@ export class SpotifyAuthController {
     await this.userService.delete(user._id);
     return { message: 'Account deleted successfully' };
   }
-
 }
