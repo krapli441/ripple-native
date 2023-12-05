@@ -150,7 +150,7 @@ let SpotifyAuthController = class SpotifyAuthController {
         if (!user) {
             throw new common_1.NotFoundException('User not found');
         }
-        await this.userService.delete(user._id);
+        await this.userService.deleteUser(user._id);
         return { message: 'Account deleted successfully' };
     }
 };

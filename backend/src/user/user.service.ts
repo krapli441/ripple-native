@@ -1,13 +1,23 @@
 // user.service.ts
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  forwardRef,
+  Inject,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
 import { CreateUserDto } from './create-user.dto';
+import { RipplesService } from 'src/ripples/ripples.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @Inject(forwardRef(() => RipplesService))
+    private rippleService: RipplesService,
+  ) {}
 
   async create(userData: CreateUserDto): Promise<User> {
     console.log('Creating user with refreshToken:', userData.refreshToken);
@@ -40,10 +50,10 @@ export class UserService {
     await this.userModel.findByIdAndRemove(userId).exec();
 
     // 사용자가 생성한 음악 마커 삭제
-    await this.ripplesService.deleteRipplesByUser(userId);
+    await this.rippleService.deleteRipplesByUser(userId);
 
     // 사용자가 좋아요한 음악 마커에서 사용자 제거
-    await this.ripplesService.removeLikesByUser(userId);
+    await this.rippleService.removeLikesByUser(userId);
   }
 
   // 다른 CRUD 메서드

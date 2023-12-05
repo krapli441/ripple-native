@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateRippleDto } from './create-ripple.dto';
@@ -12,7 +13,7 @@ import { NotificationService } from 'src/notification/notification.service';
 export class RipplesService {
   constructor(
     @InjectModel(Ripple.name) private rippleModel: Model<Ripple>,
-    private userService: UserService,
+    @Inject(forwardRef(() => UserService)) private userService: UserService,
     private fcmService: FcmService,
     private notificationService: NotificationService,
   ) {}
@@ -79,6 +80,17 @@ export class RipplesService {
 
   async findLikedRipplesByUser(userId: string): Promise<Ripple[]> {
     return this.rippleModel.find({ likedUsers: userId }).exec();
+  }
+
+  async deleteRipplesByUser(userId: string): Promise<void> {
+    await this.rippleModel.deleteMany({ userObjectId: userId }).exec();
+  }
+
+  // 사용자가 좋아요한 음악 마커에서 사용자 제거
+  async removeLikesByUser(userId: string): Promise<void> {
+    await this.rippleModel
+      .updateMany({ likedUsers: userId }, { $pull: { likedUsers: userId } })
+      .exec();
   }
 
   async updateLike(id: string, userId: string): Promise<Ripple> {

@@ -27,11 +27,12 @@ exports.RipplesModule = RipplesModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: notification_schema_1.Notification.name, schema: notification_schema_1.NotificationSchema },
             ]),
-            user_module_1.UserModule,
+            (0, common_1.forwardRef)(() => user_module_1.UserModule),
             notification_module_1.NotificationModule,
         ],
         controllers: [ripples_controller_1.RipplesController],
         providers: [ripples_service_1.RipplesService, fcm_service_1.FcmService, notification_service_1.NotificationService],
+        exports: [ripples_service_1.RipplesService],
     })
 ], RipplesModule);
 //# sourceMappingURL=ripples.module.js.map

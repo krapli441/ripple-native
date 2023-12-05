@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("./user.schema");
+const ripples_service_1 = require("../ripples/ripples.service");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, rippleService) {
         this.userModel = userModel;
+        this.rippleService = rippleService;
     }
     async create(userData) {
         console.log('Creating user with refreshToken:', userData.refreshToken);
@@ -42,14 +44,16 @@ let UserService = class UserService {
     }
     async deleteUser(userId) {
         await this.userModel.findByIdAndRemove(userId).exec();
-        await this.ripplesService.deleteRipplesByUser(userId);
-        await this.ripplesService.removeLikesByUser(userId);
+        await this.rippleService.deleteRipplesByUser(userId);
+        await this.rippleService.removeLikesByUser(userId);
     }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => ripples_service_1.RipplesService))),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        ripples_service_1.RipplesService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

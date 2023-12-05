@@ -200,7 +200,7 @@ export class SpotifyAuthController {
       throw new NotFoundException('User not found');
     }
 
-    await this.userService.delete(user._id);
+    await this.userService.deleteUser(user._id);
     return { message: 'Account deleted successfully' };
   }
 }
