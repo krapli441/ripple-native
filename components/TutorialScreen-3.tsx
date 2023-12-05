@@ -39,10 +39,12 @@ function TutorialScreenThree(): React.ReactElement {
           source={require('../assets/img/tutorial_image_2.png')}
           style={styles.logo}
         />
+        <Text style={styles.descriptionText}>음악을 공유하고 소통하며</Text>
+        <Text style={styles.descriptionText}>스펙트럼을 넓혀보세요!</Text>
       </View>
 
       <TouchableOpacity style={styles.nextButton}>
-        <Text style={styles.nextButtonText}>다음</Text>
+        <Text style={styles.nextButtonText}>시작하기</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

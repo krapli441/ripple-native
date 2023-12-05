@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 55, // 이미지와 버튼 사이의 간격 조정
+    marginBottom: 40, // 이미지와 버튼 사이의 간격 조정
   },
   logo: {
     width: 350,
@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center', // 텍스트를 버튼 중앙에 정렬
+  },
+  descriptionText: {
+    color: 'white', // 텍스트 색상
+    fontSize: 14, // 텍스트 크기
+    fontWeight: 'normal', // 글씨 굵기
+    textAlign: 'center', // 텍스트 중앙 정렬
   },
 });
 

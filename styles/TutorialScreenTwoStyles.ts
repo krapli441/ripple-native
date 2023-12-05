@@ -41,6 +41,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center', // 텍스트를 버튼 중앙에 정렬
   },
+  descriptionContainer: {
+    alignItems: 'center', // 중앙 정렬
+  },
+  descriptionText: {
+    color: 'white', // 텍스트 색상
+    fontSize: 14, // 텍스트 크기
+    fontWeight: 'normal', // 글씨 굵기
+    textAlign: 'center', // 텍스트 중앙 정렬
+  },
 });
 
 export default styles;
