@@ -200,7 +200,7 @@ export class SpotifyAuthController {
     console.log(`Completing tutorial for user: ${userId}`);
 
     const updatedUser = await this.userService.completeTutorial(userId);
-    console.log('Updated user:', updatedUser);
+    console.log(`Updated user: ${JSON.stringify(updatedUser)}`);
 
     return { message: 'Tutorial completed successfully', updatedUser };
   }

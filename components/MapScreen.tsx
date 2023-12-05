@@ -142,7 +142,6 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('light-content');
@@ -154,7 +153,7 @@ function MapScreen(): React.ReactElement {
     React.useCallback(() => {
       const fetchUnreadNotificationsCount = async () => {
         const userId = await AsyncStorage.getItem('userId');
-        console.log(userId);
+        console.log('userId : ', userId);
         if (userId) {
           try {
             const response = await fetch(
@@ -162,7 +161,6 @@ function MapScreen(): React.ReactElement {
             );
             if (!response.ok) throw new Error('Network response was not ok');
             const count = await response.json();
-            console.log(count);
             setUnreadCount(count);
             console.log('Unread notifications count:', count);
           } catch (error) {

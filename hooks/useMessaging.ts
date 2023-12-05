@@ -6,7 +6,7 @@ import messaging from '@react-native-firebase/messaging';
 const useMessaging = (): void => {
   const initializeMessaging = async (): Promise<void> => {
     const storedToken = await AsyncStorage.getItem('pushToken');
-    console.log(storedToken);
+    console.log('storedToken :', storedToken);
 
     if (storedToken) {
       console.log('Push token already obtained and stored.');
