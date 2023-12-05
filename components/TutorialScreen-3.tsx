@@ -58,6 +58,7 @@ function TutorialScreenThree({
       console.log('Response data:', data);
 
       if (response.ok) {
+        await AsyncStorage.setItem('tutorialCompleted', 'true');
         navigation.navigate('Ripple');
       } else {
         console.error('Failed to complete tutorial, response:', data);

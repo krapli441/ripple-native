@@ -58,6 +58,7 @@ const handleSpotifyLogin = async (
       if (data.user.tutorialReaded) {
         // 튜토리얼을 이미 완료했다면 바로 메인 화면으로 이동
         navigation.navigate('Ripple');
+        await AsyncStorage.setItem('tutorialCompleted', 'true');
       } else {
         // 튜토리얼을 아직 완료하지 않았다면 튜토리얼 화면으로 이동
         navigation.navigate('TutorialScreen');

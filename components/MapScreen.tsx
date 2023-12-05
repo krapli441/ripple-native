@@ -70,7 +70,7 @@ function MapScreen(): React.ReactElement {
       authToken.username ? authToken : {...authToken, username: ''},
     );
   const [unreadCount, setUnreadCount] = React.useState(0);
-  useMessaging();
+  // useMessaging();
 
   // 에러 창 메세지 애니메이션
   const animateError = (show: boolean) => {
@@ -107,8 +107,22 @@ function MapScreen(): React.ReactElement {
     }
   };
   useEffect(() => {
-    setLocation;
-    fetchInitialLocation(setLocationState, GEOLOCATION_OPTIONS, animateError);
+    console.log('튜토리얼 확인했는지 검사 시작');
+    const checkTutorialAndFetchLocation = async () => {
+      const tutorialCompleted = await AsyncStorage.getItem('tutorialCompleted');
+      if (tutorialCompleted === 'true') {
+        // 위치 정보 수집 요청
+        fetchInitialLocation(
+          setLocationState,
+          GEOLOCATION_OPTIONS,
+          animateError,
+        );
+        // 푸시 알림 설정
+        useMessaging();
+      }
+    };
+
+    checkTutorialAndFetchLocation();
   }, []);
 
   useEffect(() => {
