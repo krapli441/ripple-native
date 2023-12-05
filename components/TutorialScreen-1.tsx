@@ -10,6 +10,9 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../types/navigationTypes';
+import type {NavigationProp} from '@react-navigation/native';
 
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -18,12 +21,17 @@ import styles from '../styles/TutorialScreenStyles';
 
 function TutorialScreenOne(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle('light-content');
     }, []),
   );
+
+  const handleNextPress = () => {
+    navigation.navigate('TutorialScreenTwo');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,7 +49,7 @@ function TutorialScreenOne(): React.ReactElement {
         />
       </View>
 
-      <TouchableOpacity style={styles.nextButton}>
+      <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
     </SafeAreaView>

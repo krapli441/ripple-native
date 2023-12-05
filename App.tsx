@@ -28,6 +28,7 @@ import MyPageScreenInformation from './components/MyPageScreen-Information';
 import DeleteAccountScreen from './components/DeleteAccountScreen';
 import LoadingScreen from './components/LodingScreen';
 import TutorialScreenOne from './components/TutorialScreen-1';
+import TutorialScreenTwo from './components/TutorialScreen-2';
 
 // AuthProvider
 import AuthProvider from './utils/AuthContext';
@@ -55,6 +56,10 @@ function TutorialStackScreen() {
         headerShown: false,
       }}>
       <TutorialStack.Screen name="Tutorial" component={TutorialScreenOne} />
+      <TutorialStack.Screen
+        name="TutorialScreenTwo"
+        component={TutorialScreenTwo}
+      />
     </TutorialStack.Navigator>
   );
 }
