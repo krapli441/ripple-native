@@ -29,9 +29,9 @@ function TutorialScreenThree(): React.ReactElement {
     }, []),
   );
 
-  const handleNextPress = () => {
-    navigation.navigate('Ripple');
-  };
+  // const handleNextPress = () => {
+  //   navigation.navigate('Ripple');
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,7 +51,14 @@ function TutorialScreenThree(): React.ReactElement {
         <Text style={styles.descriptionText}>스펙트럼을 넓혀보세요!</Text>
       </View>
 
-      <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
+      <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Ripple'}],
+          });
+        }}>
         <Text style={styles.nextButtonText}>시작하기</Text>
       </TouchableOpacity>
     </SafeAreaView>
