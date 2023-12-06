@@ -147,7 +147,7 @@ function MapScreen(): React.ReactElement {
         if (userId) {
           try {
             const response = await fetch(
-              `http://192.168.0.215:3000/notifications/unread/count/${userId}`,
+              `http://13.124.29.118:3000/notifications/unread/count/${userId}`,
             );
             if (!response.ok) throw new Error('Network response was not ok');
             const count = await response.json();

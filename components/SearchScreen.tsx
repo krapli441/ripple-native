@@ -66,7 +66,7 @@ function SearchScreen(): React.ReactElement {
         }
 
         const refreshResponse = await fetch(
-          'http://192.168.0.215:3000/auth/spotify/refresh-token',
+          'http://13.124.29.118:3000/auth/spotify/refresh-token',
           {
             method: 'POST',
             headers: {
@@ -92,7 +92,7 @@ function SearchScreen(): React.ReactElement {
       }
 
       // 토큰을 사용하여 음악 검색을 진행합니다.
-      const response = await fetch('http://192.168.0.215:3000/search', {
+      const response = await fetch('http://13.124.29.118:3000/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

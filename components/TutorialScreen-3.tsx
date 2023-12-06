@@ -46,7 +46,7 @@ function TutorialScreenThree({
       console.log('Sending request to complete tutorial, token:', token);
 
       const response = await fetch(
-        `http://192.168.0.215:3000/auth/spotify/complete-tutorial/${userId}`,
+        `http://13.124.29.118:3000/auth/spotify/complete-tutorial/${userId}`,
         {
           method: 'POST',
           headers: {

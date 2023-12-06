@@ -54,7 +54,7 @@ const useMessaging = (): void => {
 
     try {
       const response = await fetch(
-        'http://192.168.0.215:3000/auth/spotify/push-token',
+        'http://13.124.29.118:3000/auth/spotify/push-token',
         requestOptions,
       );
 

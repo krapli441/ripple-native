@@ -53,7 +53,7 @@ function LikedRippleScreen(): React.ReactElement {
 
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/liked-ripples/${userId}`,
+        `http://13.124.29.118:3000/ripples/liked-ripples/${userId}`,
       );
       if (response.ok) {
         const data = await response.json();

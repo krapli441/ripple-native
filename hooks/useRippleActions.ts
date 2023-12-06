@@ -12,7 +12,7 @@ const useRippleActions = (authToken: AuthToken) => {
   ): Promise<void> => {
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+        `http://13.124.29.118:3000/ripples/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
       );
       if (response.ok) {
         const newRipples: Ripple[] = await response.json();
@@ -32,7 +32,7 @@ const useRippleActions = (authToken: AuthToken) => {
     console.log(`Sending like for rippleId: ${rippleId}, userId: ${userId}`); 
     try {
       const response = await fetch(
-        `http://192.168.0.215:3000/ripples/${rippleId}/like`,
+        `http://13.124.29.118:3000/ripples/${rippleId}/like`,
         {
           method: 'PATCH',
           headers: {
