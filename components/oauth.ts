@@ -56,8 +56,9 @@ const handleSpotifyLogin = async (
       console.log('튜토리얼 확인 여부 : ', data.user.tutorialReaded);
       // 튜토리얼을 이미 완료했는지 확인
       if (data.user.tutorialReaded) {
+        setIsAuthenticated(true);
         // 튜토리얼을 이미 완료했다면 바로 메인 화면으로 이동
-        navigation.navigate('Ripple');
+        // navigation.navigate('Ripple');
       } else {
         // 튜토리얼을 아직 완료하지 않았다면 튜토리얼 화면으로 이동
         navigation.navigate('TutorialScreen');
