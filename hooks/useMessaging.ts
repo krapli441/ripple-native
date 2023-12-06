@@ -14,11 +14,13 @@ const useMessaging = (): void => {
     }
 
     const authorizationStatus = await messaging().requestPermission();
+    // 권한 상태를 저장 (허용됐든 거부됐든)
     await AsyncStorage.setItem(
       'notificationPermission',
       authorizationStatus.toString(),
     );
 
+    // 권한이 허용되지 않은 경우 종료
     if (!authorizationStatus) {
       console.log('Permission not granted');
       return;
