@@ -44,12 +44,12 @@ function MyPageScreenSetting(): React.ReactElement {
           '알림을 받으려면 시스템 설정에서 알림을 활성화해야 합니다.',
           [
             {
-              text: '설정으로 이동',
-              onPress: () => Linking.openSettings(),
-            },
-            {
               text: '취소',
               style: 'cancel',
+            },
+            {
+              text: '설정으로 이동',
+              onPress: () => Linking.openSettings(),
             },
           ],
         );

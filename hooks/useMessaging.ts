@@ -76,6 +76,8 @@ const useMessaging = (): void => {
     }
   };
 
+  
+
   useEffect(() => {
     initializeMessaging();
   }, []);
