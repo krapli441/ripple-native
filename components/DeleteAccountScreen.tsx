@@ -48,7 +48,7 @@ function DeleteAccountScreen({
       console.log('users token : ', token);
 
       const response = await fetch(
-        `http://13.124.29.118:3000/auth/spotify/delete/${userId}`,
+        `https://ripple.testpilotapp.com/auth/spotify/delete/${userId}`,
         {
           method: 'DELETE',
           headers: {

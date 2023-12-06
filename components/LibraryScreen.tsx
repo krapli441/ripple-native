@@ -60,7 +60,7 @@ function LibraryScreen(): React.ReactElement {
     const userId = authToken.username;
     try {
       const response = await fetch(
-        `http://13.124.29.118:3000/ripples/my-ripples/${userId}`,
+        `https://ripple.testpilotapp.com/ripples/my-ripples/${userId}`,
       );
       if (response.ok) {
         const data = await response.json();
@@ -77,7 +77,7 @@ function LibraryScreen(): React.ReactElement {
     const userId = authToken.username;
     try {
       const response = await fetch(
-        `http://13.124.29.118:3000/ripples/liked-ripples/${userId}`,
+        `https://ripple.testpilotapp.com/ripples/liked-ripples/${userId}`,
       );
       if (response.ok) {
         const data = await response.json();

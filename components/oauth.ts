@@ -8,7 +8,7 @@ const config: AuthConfiguration = {
   scopes: ['user-read-email', 'playlist-modify-public', 'user-read-private'],
   serviceConfiguration: {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    tokenEndpoint: 'http://13.124.29.118:3000/auth/spotify/token',
+    tokenEndpoint: 'https://ripple.testpilotapp.com/auth/spotify/token',
   },
   skipCodeExchange: true,
 };
@@ -28,7 +28,7 @@ const handleSpotifyLogin = async (
 
     // 서버에 인증 코드와 codeVerifier를 전달
     const response = await fetch(
-      'http://13.124.29.118:3000/auth/spotify/token',
+      'https://ripple.testpilotapp.com/auth/spotify/token',
       {
         method: 'POST',
         headers: {

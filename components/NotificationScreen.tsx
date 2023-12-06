@@ -57,7 +57,7 @@ function NotificationScreen(): React.ReactElement {
 
     try {
       const response = await fetch(
-        `http://13.124.29.118:3000/notifications/${userId}`,
+        `https://ripple.testpilotapp.com/notifications/${userId}`,
       );
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
@@ -73,7 +73,7 @@ function NotificationScreen(): React.ReactElement {
 
     try {
       await fetch(
-        `http://13.124.29.118:3000/notifications/${userId}/mark-read`,
+        `https://ripple.testpilotapp.com/notifications/${userId}/mark-read`,
         {
           method: 'PATCH',
         },
@@ -101,7 +101,7 @@ function NotificationScreen(): React.ReactElement {
     const handleDelete = async (notificationId: string) => {
       try {
         const response = await fetch(
-          `http://13.124.29.118:3000/notifications/${notificationId}`,
+          `https://ripple.testpilotapp.com/notifications/${notificationId}`,
           {method: 'DELETE'},
         );
 
