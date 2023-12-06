@@ -7,8 +7,10 @@ import {
   useColorScheme,
   Alert,
   Switch,
+  Linking,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
+import messaging from '@react-native-firebase/messaging';
 
 // asyncStorage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,10 +24,40 @@ function MyPageScreenSetting(): React.ReactElement {
     useState(false);
   const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
 
-  const toggleBackgroundFeature = () =>
-    setIsBackgroundFeatureEnabled(previousState => !previousState);
-  const toggleNotification = () =>
-    setIsNotificationEnabled(previousState => !previousState);
+  // const toggleBackgroundFeature = () =>
+  //   setIsBackgroundFeatureEnabled(previousState => !previousState);
+
+  const toggleNotification = async () => {
+    // 사용자가 알림을 활성화하려고 시도할 때
+    if (!isNotificationEnabled) {
+      const settings = await messaging().requestPermission();
+      if (
+        settings === messaging.AuthorizationStatus.AUTHORIZED ||
+        settings === messaging.AuthorizationStatus.PROVISIONAL
+      ) {
+        // 알림이 이미 활성화된 경우
+        setIsNotificationEnabled(true);
+      } else {
+        // 시스템 설정에서 알림이 비활성화된 경우
+        Alert.alert(
+          '알림 활성화 필요',
+          '알림을 받으려면 시스템 설정에서 알림을 활성화해야 합니다.',
+          [
+            {
+              text: '설정으로 이동',
+              onPress: () => Linking.openSettings(),
+            },
+            {
+              text: '취소',
+              style: 'cancel',
+            },
+          ],
+        );
+        // 알림이 이미 활성화된 경우
+        setIsNotificationEnabled(true);
+      }
+    }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
