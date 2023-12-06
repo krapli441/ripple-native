@@ -11,8 +11,8 @@ export declare class Notification extends Document {
     read: boolean;
 }
 export declare const NotificationSchema: mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    albumCoverUrl: string;
     type: string;
+    albumCoverUrl: string;
     recipientId: mongoose.Types.ObjectId;
     senderId: string;
     message: string;
@@ -20,8 +20,8 @@ export declare const NotificationSchema: mongoose.Schema<any, mongoose.Model<any
     createdAt: Date;
     read: boolean;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
-    albumCoverUrl: string;
     type: string;
+    albumCoverUrl: string;
     recipientId: mongoose.Types.ObjectId;
     senderId: string;
     message: string;
@@ -29,8 +29,8 @@ export declare const NotificationSchema: mongoose.Schema<any, mongoose.Model<any
     createdAt: Date;
     read: boolean;
 }>> & mongoose.FlatRecord<{
-    albumCoverUrl: string;
     type: string;
+    albumCoverUrl: string;
     recipientId: mongoose.Types.ObjectId;
     senderId: string;
     message: string;
