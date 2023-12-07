@@ -34,6 +34,7 @@ function SearchScreen(): React.ReactElement {
   const isDarkMode = useColorScheme() === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<TrackDetails[]>([]);
+  const [isSearchStarted, setIsSearchStarted] = useState(false);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const authToken = useAuthToken();
 
@@ -49,6 +50,7 @@ function SearchScreen(): React.ReactElement {
   );
 
   const searchForMusic = async (searchQuery: string) => {
+    setIsSearchStarted(true);
     try {
       let jwtToken = authToken.token ?? '';
       const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
@@ -155,6 +157,30 @@ function SearchScreen(): React.ReactElement {
     </TouchableOpacity>
   );
 
+  const renderEmptyComponent = () => {
+    if (!isSearchStarted) {
+      return (
+        <View style={styles.emptyResultContainer}>
+          <Text style={styles.emptyResultText}>
+            아티스트, 제목명 등을 입력해보세요
+          </Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.emptyResultContainer}>
+          <Image
+            source={require('../assets/img/ripple_offline.png')}
+            style={{width: 150, height: 150}}
+          />
+          <Text style={styles.emptyResultText}>
+            검색어에 해당되는 음악이 없습니다.
+          </Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -180,17 +206,7 @@ function SearchScreen(): React.ReactElement {
         data={searchResults}
         renderItem={renderItem}
         keyExtractor={(item, index) => `result-${index}`}
-        ListEmptyComponent={() => (
-          <View style={styles.emptyResultContainer}>
-            <Image
-              source={require('../assets/img/ripple_offline.png')}
-              style={{width: 150, height: 150}}
-            />
-            <Text style={styles.emptyResultText}>
-              검색어에 해당되는 음악이 없습니다.
-            </Text>
-          </View>
-        )}
+        ListEmptyComponent={renderEmptyComponent}
       />
     </KeyboardAvoidingView>
   );
