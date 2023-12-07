@@ -94,20 +94,18 @@ export class RipplesService {
   }
 
   async updateLike(id: string, userId: string): Promise<Ripple> {
-    console.log(`Received like for rippleId: ${id}, userId: ${userId}`);
     const ripple = await this.rippleModel.findById(id).exec();
-    console.log('찾아낸 ripple 아이디 : ', ripple);
     if (!ripple) {
       throw new NotFoundException('Ripple not found');
     }
 
     const index = ripple.likedUsers.indexOf(userId);
-    console.log('찾아낸 ripple 인덱스 : ', index);
+    if (index === -1) {
+      // 좋아요 추가
+      ripple.likedUsers.push(userId);
 
-    // 자신이 만든 마커에 좋아요를 누른 경우 알림 및 푸시 알림을 보내지 않음
-    if (userId !== ripple.userId.toString()) {
-      if (index === -1) {
-        ripple.likedUsers.push(userId);
+      // 자신의 마커에 좋아요를 누른 경우 알림 및 푸시 알림을 보내지 않음
+      if (userId !== ripple.userId.toString()) {
         await this.notificationService.createNotification({
           recipientId: ripple.userObjectId,
           senderId: userId,
@@ -126,11 +124,9 @@ export class RipplesService {
             `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
           );
         }
-      } else {
-        ripple.likedUsers.splice(index, 1); // 이미 '좋아요'한 경우 제거
       }
-    } else if (index !== -1) {
-      // 사용자가 자신의 마커에서 '좋아요'를 취소하는 경우
+    } else {
+      // 이미 좋아요한 경우 제거
       ripple.likedUsers.splice(index, 1);
     }
 
