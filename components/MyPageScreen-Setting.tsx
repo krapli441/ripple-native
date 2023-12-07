@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {View, StatusBar, Text, Switch} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
@@ -31,6 +31,14 @@ function MyPageScreenSetting() {
     };
 
     getNotificationSetting();
+  }, []);
+
+  useLayoutEffect(() => {
+    AsyncStorage.getItem('notificationEnabled').then(enabled => {
+      if (!JSON.parse(enabled ?? 'true')) {
+        setIsNotificationEnabled(false);
+      }
+    });
   }, []);
 
   return (
