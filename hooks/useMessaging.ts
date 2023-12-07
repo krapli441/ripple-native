@@ -1,40 +1,25 @@
-// useMessaging.ts
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 
 const useMessaging = (): void => {
-  const initializeMessaging = async (): Promise<void> => {
-    const storedToken = await AsyncStorage.getItem('pushToken');
-    console.log('storedToken :', storedToken);
+  const requestUserPermission = async (): Promise<void> => {
+    const authStatus = await messaging().requestPermission();
+    const enabled = 
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED || 
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-    if (storedToken) {
-      console.log('Push token already obtained and stored.');
-      return;
-    }
+    const notificationEnabled = await AsyncStorage.getItem('notificationEnabled');
 
-
-    const authorizationStatus = await messaging().requestPermission();
-    // 권한 상태를 저장 (허용됐든 거부됐든)
-    await AsyncStorage.setItem(
-      'notificationPermission',
-      authorizationStatus.toString(),
-    );
-
-    // 권한이 허용되지 않은 경우 종료
-    if (!authorizationStatus) {
-      console.log('Permission not granted');
-      return;
-    }
-
-    const newToken = await messaging().getToken();
-    console.log('New FCM Token:', newToken);
-
-    try {
-      await sendTokenToServer(newToken);
-      await AsyncStorage.setItem('pushToken', newToken);
-    } catch (error) {
-      console.error('Error in token handling:', error);
+    if (enabled && JSON.parse(notificationEnabled ?? 'true')) {
+      try {
+        const fcmToken = await messaging().getToken();
+        console.log('FCM Token:', fcmToken);
+        await sendTokenToServer(fcmToken);
+        await AsyncStorage.setItem('pushToken', fcmToken);
+      } catch (error) {
+        console.error('Error in token handling:', error);
+      }
     }
   };
 
@@ -52,7 +37,7 @@ const useMessaging = (): void => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userID}`,
       },
-      body: JSON.stringify({pushToken: token}),
+      body: JSON.stringify({ pushToken: token }),
     };
 
     try {
@@ -62,9 +47,7 @@ const useMessaging = (): void => {
       );
 
       if (!response.ok) {
-        console.error(
-          `Response Error: ${response.status} ${response.statusText}`,
-        );
+        console.error(`Response Error: ${response.status} ${response.statusText}`);
         const errorBody = await response.text();
         console.error(`Error Body: ${errorBody}`);
         throw new Error('Failed to send token to server');
@@ -77,10 +60,8 @@ const useMessaging = (): void => {
     }
   };
 
-  
-
   useEffect(() => {
-    initializeMessaging();
+    requestUserPermission();
   }, []);
 };
 
