@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  Switch,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StatusBar, Text, Switch} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
+import {requestUserPermission} from '../hooks/useMessaging';
 
 // Style
 import styles from '../styles/MyPageScreenSettingStyles';
@@ -17,6 +14,14 @@ function MyPageScreenSetting() {
     setIsNotificationEnabled(value);
     await AsyncStorage.setItem('notificationEnabled', value ? 'true' : 'false');
     console.log(`Notification Enabled: ${value}`);
+
+    if (value) {
+      // 사용자가 알림을 활성화한 경우 FCM 토큰 요청
+      requestUserPermission();
+    } else {
+      // 사용자가 알림을 비활성화한 경우 FCM 토큰 삭제
+      messaging().deleteToken();
+    }
   };
 
   useEffect(() => {
@@ -36,7 +41,7 @@ function MyPageScreenSetting() {
         <View style={styles.settingTitleContainer}>
           <Text style={styles.settingTitle}>알림</Text>
           <Switch
-            trackColor={{ false: '#191414', true: '#6ADE6C' }}
+            trackColor={{false: '#191414', true: '#6ADE6C'}}
             thumbColor={isNotificationEnabled ? '#191414' : '#f4f3f4'}
             onValueChange={toggleNotification}
             value={isNotificationEnabled}
