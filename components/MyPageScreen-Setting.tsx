@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {View, StatusBar, Text, Switch} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import {requestUserPermission} from '../hooks/useMessaging';
@@ -40,6 +42,13 @@ function MyPageScreenSetting() {
       }
     });
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+      return () => {};
+    }, []),
+  );
 
   return (
     <View style={styles.contentContainer}>
