@@ -180,6 +180,17 @@ function SearchScreen(): React.ReactElement {
         data={searchResults}
         renderItem={renderItem}
         keyExtractor={(item, index) => `result-${index}`}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyResultContainer}>
+            <Image
+              source={require('../assets/img/ripple_offline.png')}
+              style={{width: 150, height: 150}}
+            />
+            <Text style={styles.emptyResultText}>
+              검색어에 해당되는 음악이 없습니다.
+            </Text>
+          </View>
+        )}
       />
     </KeyboardAvoidingView>
   );
