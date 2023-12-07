@@ -41,19 +41,19 @@ const LoginButton: React.FC<{
   </TouchableOpacity>
 );
 
-const TestButton: React.FC<{
-  iconName: string;
-  text: string;
-  buttonStyle: any;
-  onPress: () => void;
-}> = ({iconName, text, buttonStyle, onPress}) => (
-  <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
-    <View style={styles.buttonContent}>
-      <Icon name={iconName} size={20} color="black" />
-      <Text style={styles.buttonText}>{text}</Text>
-    </View>
-  </TouchableOpacity>
-);
+// const TestButton: React.FC<{
+//   iconName: string;
+//   text: string;
+//   buttonStyle: any;
+//   onPress: () => void;
+// }> = ({iconName, text, buttonStyle, onPress}) => (
+//   <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
+//     <View style={styles.buttonContent}>
+//       <Icon name={iconName} size={20} color="black" />
+//       <Text style={styles.buttonText}>{text}</Text>
+//     </View>
+//   </TouchableOpacity>
+// );
 
 function HomeScreen({
   navigation,
@@ -63,7 +63,7 @@ function HomeScreen({
 
   const containerStyle = {
     ...styles.container,
-    backgroundColor: isDarkMode ? '#191414' : 'white',
+    backgroundColor: isDarkMode ? '#191414' : '#191414',
   };
 
   return (
