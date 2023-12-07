@@ -207,6 +207,10 @@ function MapScreen(): React.ReactElement {
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: 10,
+          shadowColor: '#000', // 그림자 색상
+          shadowOffset: {width: 0, height: 2}, // 그림자 위치
+          shadowOpacity: 0.25, // 그림자 투명도
+          shadowRadius: 3.84, // 그림자 블러 반경
         }}>
         <Icon name="bell" size={24} color="black" />
         {unreadCount > 0 && (
