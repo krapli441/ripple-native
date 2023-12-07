@@ -92,6 +92,12 @@ function NotificationScreen(): React.ReactElement {
     }, []),
   );
 
+  const renderEmptyComponent = () => (
+    <View style={styles.emptyNotificationsContainer}>
+      <Text style={styles.emptyNotificationsText}>도착한 알림이 없습니다.</Text>
+    </View>
+  );
+
   const renderItem = ({item}: {item: NotificationItem}) => {
     // 메시지를 "님이" 기준으로 나누기
     const messageParts = item.message.split('님이');
@@ -161,6 +167,7 @@ function NotificationScreen(): React.ReactElement {
         data={notifications}
         renderItem={renderItem}
         keyExtractor={item => item._id}
+        ListEmptyComponent={renderEmptyComponent}
       />
       {toastVisible && (
         <Animated.View

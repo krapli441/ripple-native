@@ -64,6 +64,18 @@ const styles = StyleSheet.create({
   toastText: {
     color: 'white',
   },
+  emptyNotificationsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+
+  emptyNotificationsText: {
+    fontSize: 16,
+    color: 'grey',
+    textAlign: 'center',
+  },
 });
 
 export default styles;
