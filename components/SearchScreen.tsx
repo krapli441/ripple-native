@@ -142,7 +142,11 @@ function SearchScreen(): React.ReactElement {
   const renderItem = ({item}: {item: TrackDetails}) => (
     <TouchableOpacity onPress={() => handleSelectTrack(item)}>
       <View style={styles.resultItem}>
-        <Image source={{uri: item.imageUrl}} style={styles.albumCover} />
+        <Image
+          source={{uri: item.imageUrl}}
+          defaultSource={require('../assets/img/albumCoverLoading.png')}
+          style={styles.albumCover}
+        />
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.artist}>{item.artist}</Text>
