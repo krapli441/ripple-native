@@ -77,6 +77,21 @@ function MyPageScreenSetting(): React.ReactElement {
     getNotificationPermission();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchAllAsyncStorageData = async () => {
+        try {
+          const keys = await AsyncStorage.getAllKeys();
+          const result = await AsyncStorage.multiGet(keys);
+          console.log(result);
+        } catch (error) {
+          console.error('Error fetching AsyncStorage data', error);
+        }
+      };
+
+      fetchAllAsyncStorageData();
+    }, []),
+  );
 
   return (
     <View style={styles.contentContainer}>

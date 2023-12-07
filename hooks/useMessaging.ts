@@ -13,6 +13,7 @@ const useMessaging = (): void => {
       return;
     }
 
+
     const authorizationStatus = await messaging().requestPermission();
     // 권한 상태를 저장 (허용됐든 거부됐든)
     await AsyncStorage.setItem(
