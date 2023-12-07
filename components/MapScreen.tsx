@@ -16,12 +16,7 @@ import type {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigationTypes';
 
 // Libraries
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  Callout,
-  CalloutSubview,
-} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {mapViewProps} from '../maps/MapScreen-mapViewProps';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';

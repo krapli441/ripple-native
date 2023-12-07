@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   calloutStyle: {
+    position: 'relative',
+    top: -10, // 콜아웃을 위로 이동시키기
+    left: 0, // 필요에 따라 콜아웃을 왼쪽 또는 오른쪽으로 이동
     width: 300, // 콜아웃의 너비
     minHeight: 120, // 최소 높이
     backgroundColor: 'white',
