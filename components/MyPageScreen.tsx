@@ -4,15 +4,8 @@ import {
   View,
   StatusBar,
   Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
   useColorScheme,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Image,
-  Alert,
+
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -21,7 +14,6 @@ import Icon from 'react-native-vector-icons/Ionicons'; // Ionicons 아이콘 세
 
 // types
 import {RootStackParamList} from '../types/navigationTypes';
-import {TrackDetails} from '../types/navigationTypes';
 
 // asyncStorage
 import useAuthToken from '../utils/useAuthToken';
@@ -45,15 +37,15 @@ function MyPageScreen(): React.ReactElement {
     // 환경 설정 화면으로 이동
   };
 
-  const handleInformationPress = () => {
-    navigation.navigate('MyRippleScreenInformation');
-    // 상세 정보 화면으로 이동
-  };
+  // const handleInformationPress = () => {
+  //   navigation.navigate('MyRippleScreenInformation');
+  //   // 상세 정보 화면으로 이동
+  // };
 
-  const handleCustomerServicePress = () => {
-    navigation.navigate('MyRippleScreenCustomerService');
-    // 고객센터 화면으로 이동
-  };
+  // const handleCustomerServicePress = () => {
+  //   navigation.navigate('MyRippleScreenCustomerService');
+  //   // 고객센터 화면으로 이동
+  // };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -80,7 +72,7 @@ function MyPageScreen(): React.ReactElement {
         <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuItem} onPress={handleInformationPress}>
+      {/* <TouchableOpacity style={styles.menuItem} onPress={handleInformationPress}>
         <Text style={styles.menuText}>상세 정보</Text>
         <Icon name="chevron-forward-outline" size={20} />
       </TouchableOpacity>
@@ -88,7 +80,7 @@ function MyPageScreen(): React.ReactElement {
       <TouchableOpacity style={styles.menuItem} onPress={handleCustomerServicePress}>
         <Text style={styles.menuText}>고객센터</Text>
         <Icon name="chevron-forward-outline" size={20} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
