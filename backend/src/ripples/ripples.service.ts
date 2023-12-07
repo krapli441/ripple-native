@@ -102,6 +102,7 @@ export class RipplesService {
     }
 
     const index = ripple.likedUsers.indexOf(userId);
+    console.log('찾아낸 ripple 인덱스 : ', index);
 
     // 자신이 만든 마커에 좋아요를 누른 경우 알림 및 푸시 알림을 보내지 않음
     if (userId !== ripple.userObjectId.toString()) {
