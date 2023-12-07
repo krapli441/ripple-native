@@ -13,6 +13,7 @@ import {
   Platform,
   Image,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NavigationProp} from '@react-navigation/native';
@@ -161,28 +162,29 @@ function SearchScreen(): React.ReactElement {
   );
   const renderEmptyComponent = () => {
     if (isSearching) {
-      return null; // 검색 중일 때는 빈 컴포넌트를 반환
-    } else if (!isSearchStarted) {
+      // 검색 중 로딩 인디케이터와 텍스트 표시
       return (
         <View style={styles.emptyResultContainer}>
-          <Text style={styles.emptyResultText}>
-            아티스트, 제목명 등을 입력해보세요
-          </Text>
+          <ActivityIndicator size="large" color="#1DB954" />
+          <Text style={styles.emptyResultText}>검색 중...</Text>
         </View>
       );
-    } else {
+    } else if (!isSearchStarted) {
+      // 검색을 시작하지 않은 경우 안내 문구 표시
       return (
         <View style={styles.emptyResultContainer}>
-          <Image
-            source={require('../assets/img/ripple_offline.png')}
-            style={{width: 150, height: 150}}
-          />
-          <Text style={styles.emptyResultText}>
-            검색어에 해당되는 음악이 없습니다.
-          </Text>
+          <Text style={styles.emptyResultText}>아티스트, 제목명 등을 입력해보세요</Text>
+        </View>
+      );
+    } else if (!isSearching && searchResults.length === 0) {
+      // 검색 결과가 비어있고 검색이 완료된 경우
+      return (
+        <View style={styles.emptyResultContainer}>
+          <Text style={styles.emptyResultText}>검색어에 해당되는 음악이 없습니다.</Text>
         </View>
       );
     }
+    return null;
   };
 
   return (
