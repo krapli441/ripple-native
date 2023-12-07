@@ -149,9 +149,7 @@ function MakeRippleScreen(): React.ReactElement {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={[styles.keyboardAvoidingView, {flex: 1}]}>
+
       <ScrollView
         style={styles.searchContainer}
         contentContainerStyle={{flexGrow: 1}}>
@@ -237,7 +235,7 @@ function MakeRippleScreen(): React.ReactElement {
           <Text style={styles.completeButtonText}>음악 남기기</Text>
         </TouchableOpacity>
       </ScrollView>
-    </KeyboardAvoidingView>
+
   );
 }
 
