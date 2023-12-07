@@ -35,6 +35,7 @@ function SearchScreen(): React.ReactElement {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<TrackDetails[]>([]);
   const [isSearchStarted, setIsSearchStarted] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const authToken = useAuthToken();
 
@@ -51,6 +52,7 @@ function SearchScreen(): React.ReactElement {
 
   const searchForMusic = async (searchQuery: string) => {
     setIsSearchStarted(true);
+    setIsSearching(true);
     try {
       let jwtToken = authToken.token ?? '';
       const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
@@ -113,6 +115,7 @@ function SearchScreen(): React.ReactElement {
           imageUrl: item.album.images[0].url,
         }));
         setSearchResults(tracks);
+        setIsSearching(false);
       } else {
         throw new Error(data.message || '검색을 완료할 수 없습니다.');
       }
@@ -156,9 +159,10 @@ function SearchScreen(): React.ReactElement {
       </View>
     </TouchableOpacity>
   );
-
   const renderEmptyComponent = () => {
-    if (!isSearchStarted) {
+    if (isSearching) {
+      return null; // 검색 중일 때는 빈 컴포넌트를 반환
+    } else if (!isSearchStarted) {
       return (
         <View style={styles.emptyResultContainer}>
           <Text style={styles.emptyResultText}>
