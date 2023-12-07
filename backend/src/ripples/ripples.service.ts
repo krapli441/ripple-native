@@ -102,28 +102,35 @@ export class RipplesService {
     }
 
     const index = ripple.likedUsers.indexOf(userId);
-    if (index === -1) {
-      ripple.likedUsers.push(userId);
-      await this.notificationService.createNotification({
-        recipientId: ripple.userObjectId,
-        senderId: userId,
-        type: 'like',
-        message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
-        referenceId: id,
-        albumCoverUrl: ripple.albumCoverUrl,
-      });
 
-      // 푸시 알림 전송
-      const creator = await this.userService.findByUsername(ripple.userId);
-      if (creator && creator.pushToken) {
-        this.fcmService.sendNotification(
-          creator.pushToken,
-          'Ripple',
-          `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
-        );
+    // 자신이 만든 마커에 좋아요를 누른 경우 알림 및 푸시 알림을 보내지 않음
+    if (userId !== ripple.userObjectId.toString()) {
+      if (index === -1) {
+        ripple.likedUsers.push(userId);
+        await this.notificationService.createNotification({
+          recipientId: ripple.userObjectId,
+          senderId: userId,
+          type: 'like',
+          message: `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
+          referenceId: id,
+          albumCoverUrl: ripple.albumCoverUrl,
+        });
+
+        // 푸시 알림 전송
+        const creator = await this.userService.findByUsername(ripple.userId);
+        if (creator && creator.pushToken) {
+          this.fcmService.sendNotification(
+            creator.pushToken,
+            'Ripple',
+            `${userId}님이 회원님이 남긴 음악을 좋아합니다.`,
+          );
+        }
+      } else {
+        ripple.likedUsers.splice(index, 1); // 이미 '좋아요'한 경우 제거
       }
-    } else {
-      ripple.likedUsers.splice(index, 1); // 이미 '좋아요'한 경우 제거
+    } else if (index !== -1) {
+      // 사용자가 자신의 마커에서 '좋아요'를 취소하는 경우
+      ripple.likedUsers.splice(index, 1);
     }
 
     return ripple.save();
