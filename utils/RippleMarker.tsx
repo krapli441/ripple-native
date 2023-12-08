@@ -46,7 +46,7 @@ const RippleMarker: React.FC<RippleMarkerProps> = ({
       }}>
       <Image
         source={require('../assets/img/otheruser.png')}
-        // defaultSource={require('../assets/img/albumCoverLoading.png')}
+        defaultSource={require('../assets/img/albumCoverLoading.png')}
         style={{width: 30, height: 45}}
       />
       <Callout tooltip={true} style={styles.calloutStyle}>
