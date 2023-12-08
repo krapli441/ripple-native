@@ -28,7 +28,7 @@ import { NotificationModule } from './notification/notification.module';
       envFilePath: '.env',
     }),
     PassportModule.register({ defaultStrategy: 'spotify' }),
-    MongooseModule.forRoot('mongodb://0.0.0.0:27017/ripple'),
+    MongooseModule.forRoot('mongodb://localhost:27017/ripple'),
     MongooseModule.forFeature([
       { name: 'Notification', schema: NotificationSchema },
     ]),
