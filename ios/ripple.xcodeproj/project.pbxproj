@@ -32,6 +32,7 @@
 		632DB8A72AE2148400D96DCA /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8942AE2148400D96DCA /* FontAwesome6_Brands.ttf */; };
 		632DB8A82AE2148400D96DCA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8952AE2148400D96DCA /* MaterialCommunityIcons.ttf */; };
 		632DB8A92AE2148400D96DCA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632DB8962AE2148400D96DCA /* Feather.ttf */; };
+		6388654C2B22A5D0007BDF48 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 6388654B2B22A5D0007BDF48 /* main.jsbundle */; };
 		63C630F22AE2794800CFD143 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C630EF2AE2794800CFD143 /* Assets.xcassets */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		DF9DC8D2DD9DDB662773FF68 /* libPods-ripple-rippleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F07F9B6CE382D365A0C6D67D /* libPods-ripple-rippleTests.a */; };
@@ -81,6 +82,7 @@
 		632DB8942AE2148400D96DCA /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome6_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome6_Brands.ttf"; sourceTree = "<group>"; };
 		632DB8952AE2148400D96DCA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		632DB8962AE2148400D96DCA /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		6388654B2B22A5D0007BDF48 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		63C630EF2AE2794800CFD143 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../Downloads/AppIcons/Assets.xcassets; sourceTree = "<group>"; };
 		63C630F02AE2794800CFD143 /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appstore.png; path = ../../../Downloads/AppIcons/appstore.png; sourceTree = "<group>"; };
 		63C630F12AE2794800CFD143 /* playstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playstore.png; path = ../../../Downloads/AppIcons/playstore.png; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6388654B2B22A5D0007BDF48 /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* ripple */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* rippleTests */,
@@ -320,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6388654C2B22A5D0007BDF48 /* main.jsbundle in Resources */,
 				632DB8982AE2148400D96DCA /* MaterialIcons.ttf in Resources */,
 				632DB89F2AE2148400D96DCA /* FontAwesome6_Regular.ttf in Resources */,
 				63051BEA2B04922300D864D3 /* GoogleService-Info.plist in Resources */,
