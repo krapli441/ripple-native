@@ -66,7 +66,7 @@ const handleSpotifyLogin = async (
       }
     }
   } catch (error) {
-    console.error('Error during login:', error);
+    // console.error('Error during login:', error);
 
     Alert.alert(
       '로그인 에러',
