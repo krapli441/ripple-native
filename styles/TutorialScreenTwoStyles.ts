@@ -8,13 +8,14 @@ const styles = StyleSheet.create({
     padding: 20, // 내부 여백 추가
   },
   headerContainer: {
-    alignSelf: 'flex-start', // 좌측 정렬로 변경
-    marginBottom: 40, // 헤더와 이미지 사이의 간격 조정
-    marginLeft: 50,
+    width: '80%',
+    alignSelf: 'center', // 좌측 정렬로 변경
+    marginBottom: 30, // 헤더와 이미지 사이의 간격 조정
+    // marginLeft: 50,
   },
   headerText: {
     color: 'white',
-    fontSize: 26,
+    fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'left', // 좌측 정렬로 변경
   },
@@ -24,8 +25,8 @@ const styles = StyleSheet.create({
     marginBottom: 40, // 이미지와 버튼 사이의 간격 조정
   },
   logo: {
-    width: 350,
-    height: 350,
+    width: 330,
+    height: 330,
     resizeMode: 'contain',
   },
   nextButton: {
