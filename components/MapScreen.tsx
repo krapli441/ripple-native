@@ -160,8 +160,13 @@ function MapScreen(): React.ReactElement {
       }
 
       jwtToken = refreshData.jwtToken;
+      const expiresIn = 3600; // 1시간(3600초)으로 가정
+      const expiryDate = new Date(
+        new Date().getTime() + expiresIn * 1000,
+      ).toISOString();
+
       await AsyncStorage.setItem('userToken', jwtToken!);
-      await AsyncStorage.setItem('userTokenExpiry', new Date().toISOString()); // 새로운 만료 시간 설정
+      await AsyncStorage.setItem('userTokenExpiry', expiryDate);
       await AsyncStorage.setItem('userRefreshToken', refreshData.refreshToken); // 새로운 리프레시 토큰 저장
     }
   };
