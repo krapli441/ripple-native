@@ -1,6 +1,7 @@
 import {authorize, AuthConfiguration} from 'react-native-app-auth';
 import Config from 'react-native-config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from 'react-native';
 
 const config: AuthConfiguration = {
   clientId: Config.SPOTIFY_CLIENT_ID!,
@@ -66,6 +67,12 @@ const handleSpotifyLogin = async (
     }
   } catch (error) {
     console.error('Error during login:', error);
+
+    Alert.alert(
+      '로그인 에러',
+      '로그인 과정 중 에러가 발생했습니다. 다시 시도해주세요.',
+      [{text: '확인', onPress: () => console.log('OK Pressed')}],
+    );
   }
 };
 
