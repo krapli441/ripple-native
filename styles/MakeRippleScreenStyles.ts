@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginTop: '15%',
+    marginTop: '6%',
     marginLeft: 30,
   },
   tagHeader: {
