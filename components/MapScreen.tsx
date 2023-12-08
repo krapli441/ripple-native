@@ -127,15 +127,54 @@ function MapScreen(): React.ReactElement {
     Linking.openURL(spotifyUrl);
   };
 
-  useFocusEffect(
-    React.useCallback(() => {
-      StatusBar.setBarStyle('light-content');
-      return () => {};
-    }, []),
-  );
+  const refreshTokenIfNeeded = async () => {
+    let jwtToken = await AsyncStorage.getItem('userToken');
+    const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
+    console.log('토큰 만료 기간 : ', storedExpiryDate);
+    const expiryDate = storedExpiryDate ? new Date(storedExpiryDate) : null;
+
+    if (!jwtToken || !expiryDate || new Date() >= expiryDate) {
+      console.log('토큰 만료 확인됨, 재발급 요청');
+      const refreshToken = await AsyncStorage.getItem('userRefreshToken');
+      const userId = await AsyncStorage.getItem('userId');
+
+      if (!refreshToken || !userId) {
+        throw new Error('Refresh token 또는 User ID가 없습니다.');
+      }
+
+      const refreshResponse = await fetch(
+        'https://ripple.testpilotapp.com/auth/spotify/refresh-token',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({refreshToken, userId}),
+        },
+      );
+
+      const refreshData = await refreshResponse.json();
+      console.log('리프레시 토큰을 이용해 응답받은 값 : ', refreshData);
+      if (!refreshResponse.ok) {
+        throw new Error('토큰 갱신 실패');
+      }
+
+      jwtToken = refreshData.jwtToken;
+      const expiresIn = 3600; // 1시간(3600초)으로 가정
+      const expiryDate = new Date(
+        new Date().getTime() + expiresIn * 1000,
+      ).toISOString();
+
+      await AsyncStorage.setItem('userToken', jwtToken!);
+      await AsyncStorage.setItem('userTokenExpiry', expiryDate);
+      await AsyncStorage.setItem('userRefreshToken', refreshData.refreshToken); // 새로운 리프레시 토큰 저장
+    }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
+      StatusBar.setBarStyle('light-content');
+      refreshTokenIfNeeded();
       const fetchUnreadNotificationsCount = async () => {
         const userId = await AsyncStorage.getItem('userId');
         console.log('userId : ', userId);
