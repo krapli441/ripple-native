@@ -1,4 +1,19 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get('window');
+
+// 동적 스타일을 반환하는 함수
+export const getDynamicStyles = () => {
+  return StyleSheet.create({
+    button: {
+      width: width < 350 ? 150 : 200,
+    },
+    container: {
+      padding: height < 667 ? 10 : 20,
+    },
+    // 기타 스타일 정의...
+  });
+};
 
 const styles = StyleSheet.create({
   searchContainer: {
