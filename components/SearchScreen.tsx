@@ -55,7 +55,7 @@ function SearchScreen(): React.ReactElement {
     setIsSearchStarted(true);
     setIsSearching(true);
     try {
-      let jwtToken = authToken.token ?? '';
+      let jwtToken = await AsyncStorage.getItem('userToken');
       const storedExpiryDate = await AsyncStorage.getItem('userTokenExpiry');
       const expiryDate = storedExpiryDate ? new Date(storedExpiryDate) : null;
       console.log('JWT 토큰 유효기간 : ', expiryDate);
@@ -88,7 +88,7 @@ function SearchScreen(): React.ReactElement {
         }
 
         jwtToken = refreshData.jwtToken;
-        await AsyncStorage.setItem('userToken', jwtToken);
+        await AsyncStorage.setItem('userToken', jwtToken!);
         await AsyncStorage.setItem('userTokenExpiry', new Date().toISOString()); // 새로운 만료 시간 설정
         await AsyncStorage.setItem(
           'userRefreshToken',
