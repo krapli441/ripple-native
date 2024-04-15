@@ -15,8 +15,8 @@ React-Native, NestJS, MongoDB, Amazon EC2
 2023.10.23 ~ 2023.12.07  
 
 ### 와이어프레임 및 목업
-####Figma  
+#### Figma  
 https://www.figma.com/file/GlXnhHraRsXvxKsm0HrkAL/Ripple---Remake?type=design&node-id=0%3A1&mode=design&t=2R81e4lkBE0pUltz-1
 
-####로그인 로직  
+#### 로그인 로직  
 https://www.figma.com/file/bEQn3Ea1L0dsr4YWqoSxu8/Ripple---Login-Logic?type=whiteboard&node-id=0%3A1&t=Ih4oxgfR7zNdBiWE-1  
