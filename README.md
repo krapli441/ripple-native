@@ -1,4 +1,4 @@
-https://github.com/krapli441/ripple-native/assets/108733795/1cbe32c7-b51c-4782-ac04-369e4c661da4
+![프리뷰 이미지](https://github.com/krapli441/ripple-native/assets/108733795/1cbe32c7-b51c-4782-ac04-369e4c661da4)
 # 음악 공유 애플리케이션 리플 Ripple  
 
 ## 주요기능  
